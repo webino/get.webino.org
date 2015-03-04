@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # This is the Webino Seed install script!
 # Version: @@version@@
