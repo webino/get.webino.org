@@ -9,11 +9,14 @@
 #
 # Webino currently supports:
 #   - Linux: Ubuntu 14.04
+#
+# What this script does?
+#   - Workstation setup [TODO]
+#   - Webino-devkit installation
 
 setup () {
-# TODO HTTPS
-# TODO curl https://get.webino.org/seed | sudo sh
-curl http://get.webino.org/devkit | sudo sh
+    # TODO curl https://get.webino.org/seed | sudo sh
+    curl https://get.webino.org/devkit | sudo sh
 }
 
 setup
