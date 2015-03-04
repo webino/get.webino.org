@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# This is the Webino Seed install script!
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to run Webino Seed?
+# Just open up your terminal and type:
+#
+#    curl https://get.webino.org/seed/php -sL | sh
+#
+# Webino currently supports:
+#   - Linux: Ubuntu 14.04
+#
+# What this script does?
+#   - It builds PHP from source
+
+curl https://get.webino.org/seed/php/setup -sL | bash
