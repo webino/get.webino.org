@@ -1,5 +1,5 @@
 #!/bin/bash
-func () {
+main() {
     cd /tmp
 
     # IMAP
@@ -21,4 +21,4 @@ func () {
     fi
 }
 
-func
+main
