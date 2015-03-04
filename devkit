@@ -53,14 +53,14 @@ fi
 if [ "$(php -v 2> /dev/null)" = "" ]
 then
     # Building PHP from source
-    curl https://get.webino.org/seed/php -sL | sudo sh
+    wget https://get.webino.org/seed/php -qO - | sh
 fi
 
 # Check npm
 if [ "$(sudo npm -v 2> /dev/null)" = "" ]
 then
     echo "Installing: Node.js"
-    curl -sL https://deb.nodesource.com/setup | sudo bash
+    wget https://deb.nodesource.com/setup -qO - | bash
     sudo apt-get install nodejs
 fi
 
