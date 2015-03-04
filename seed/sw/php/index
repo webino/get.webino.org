@@ -37,8 +37,10 @@ main() {
     # TODO phing is deprecated, remove
     #source $1/php.d/phing
 
-    echo 'Restarting web server...'
-    sudo apachectl restart
+    if [ "$PHP_APACHE" = on ]; then
+        echo 'Restarting web server...'
+        sudo apachectl restart
+    fi
 }
 
 main
