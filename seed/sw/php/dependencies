@@ -3,13 +3,12 @@ main() {
     echo "Installing dependencies for PHP build..."
     sudo apt-get install -y \
         re2c \
-        libgvc6 \
+        #libgvc6 \
         libcurl4-openssl-dev \
         pkg-config \
         libpspell-dev \
         libicu-dev \
         libmagickwand-dev \
-        libmcrypt \
         libmcrypt-dev \
         libxslt1-dev
         #libxslt-dev # || true
