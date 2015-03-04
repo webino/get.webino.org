@@ -2,7 +2,7 @@
 
 # Loads remote bash source
 load() {
-    wget -qO /tmp/seed.tmp http://get.webino.org/seed/$1
+    wget -qO /tmp/seed.tmp https://get.webino.org/seed/$1
     source /tmp/seed.tmp
 }
 
