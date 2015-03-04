@@ -1,0 +1,26 @@
+#!/bin/bash
+func() {
+    # TODO resolve latest versions
+    APACHE_VERSION=${APACHE_VERSION-'2.4.10'}
+    APACHE_APR_VERSION=${APACHE_APR_VERSION-'1.5.1'}
+    APACHE_APRUTIL_VERSION=${APACHE_APRUTIL_VERSION-'1.5.4'}
+    APACHE_SERVER_NAME='webino.'$([[ $USER == 'webino' ]] && echo 'local' || echo $USER)
+
+    # cleaning Apache build
+    #[[ -n $CLEAN ]] && load sw/apache/clean && return # TODO
+
+    # remove pre-installed
+    sudo apt-get purge -y apache*
+    sudo apt-get autoremove -y
+
+    echo 'Seeding Apache '$APACHE_VERSION
+    load sw/apache/download
+    load sw/apache/build
+    #[[ -z $UPDATE ]] && load sw/apache.d/daemon # TODO
+    #[[ -z $UPDATE ]] && source $1/apache.d/configure # TODO configure
+
+    echo 'Starting web server'
+    sudo apachectl restart
+}
+
+func

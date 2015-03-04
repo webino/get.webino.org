@@ -1,0 +1,33 @@
+#!/bin/bash
+func () {
+    # Build Apache
+    cd /tmp/httpd
+    if [ ! -f builded.lock ]; then
+        echo 'Building Apache ...'
+
+        # optional arguments
+        local OPT=''
+        #[[ $ENVIRONMENT == 'local' ]] && local OPT='--disable-autoindex'; # TODO
+
+        sudo sh ./configure \
+            --bindir=/usr/bin \
+            --sbindir=/usr/sbin \
+            --sysconfdir=/etc/apache2 \
+            --with-perl \
+            --with-ssl \
+            --enable-ssl \
+            --enable-rewrite \
+            --enable-suexec \
+            --enable-info \
+            --enable-socache-shmbc \
+            $OPT
+
+        make
+        sudo make install
+        touch builded.lock
+    else
+        echo 'Apache already builded...'
+    fi
+}
+
+func

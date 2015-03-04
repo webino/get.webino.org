@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Loads remote bash source
+load() {
+    wget -qO /tmp/seed.tmp http://get.webino.org/seed/$1
+    source /tmp/seed.tmp
+}
+
+func() {
+    echo -e "\nMachine seed for Webino™...\n"
+
+    load lib/trap.lib
+    load lib/spinner.lib
+
+    # Install
+    load os/general
+    load sw/apache
+    load sw/php
+}
+
+func

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# This is the Webino install script!
+#
+# Are you looking at this in your web browser, and would like to install Webino?
+# Just open up your terminal and type:
+#
+#    curl https://get.webino.org/ | sh
+#
+# Webino currently supports:
+#   - Linux: Ubuntu 14.04
+
+setup () {
+# TODO HTTPS
+# TODO curl https://get.webino.org/seed | sudo sh
+curl http://get.webino.org/devkit | sudo sh
+}
+
+setup
+

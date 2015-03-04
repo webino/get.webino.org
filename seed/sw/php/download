@@ -1,0 +1,24 @@
+#!/bin/bash
+func () {
+    cd /tmp
+
+    # IMAP
+    if [ ! -d imap-2007f ]; then
+        echo 'Downloading IMAP...'
+        wget ftp://ftp.cac.washington.edu/imap/imap-2007f.tar.gz \
+            -O imap-2007f.tar.gz && tar xvf imap-2007f.tar.gz & spinner $! && rm imap-2007f.tar.gz 2>&1
+    else
+        echo 'IMAP already downloaded...'
+    fi
+
+    # PHP
+    if [ ! -d php ]; then
+        echo 'Downloading PHP ...'
+        wget 'http://cz1.php.net/get/php-'$PHP_VERSION'.tar.gz/from/this/mirror' \
+            -O php.tar.gz && tar xvf php.tar.gz & spinner $! && rm php.tar.gz && mv 'php-'$PHP_VERSION php 2>&1
+    else
+        echo 'PHP already downloaded...'
+    fi
+}
+
+func

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# This is the Webino Seed install script!
+#
+# Are you looking at this in your web browser, and would like to run Webino Seed?
+# Just open up your terminal and type:
+#
+#    curl https://get.webino.org/seed | sh
+#
+# Webino currently supports:
+#   - Linux: Ubuntu 14.04
+
+curl http://get.webino.org/seed/setup -sL | bash

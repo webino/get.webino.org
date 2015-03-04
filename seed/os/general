@@ -1,0 +1,22 @@
+#!/bin/bash
+func() {
+    local lock=/tmp/seed.os.general.lock
+
+    if [[ ! -f $lock ]]; then
+        echo 'Installing general tools...'
+        sudo apt-get install -y \
+            build-essential \
+            libpcre3-dev \
+            libwww-perl \
+            libssl-dev \
+            debconf-utils \
+            autoconf \
+            curl
+
+        touch $lock
+    else
+        echo 'General tools already installed...'
+    fi
+}
+
+func

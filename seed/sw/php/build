@@ -1,0 +1,70 @@
+#!/bin/bash
+func () {
+
+    # Build IMAP
+    cd /tmp/imap-2007f
+    if [ ! -f builded.lock ]; then
+        echo 'Building IMAP...'
+        make slx SSLINCLUDE=/usr/include/openssl EXTRACFLAGS=-fPIC
+        mkdir lib && mkdir include
+        cp c-client/*.c lib
+        cp c-client/*.h include
+        cp c-client/c-client.a lib/libc-client.a
+        sudo cp . /usr/local/imap-2007f -R
+        touch builded.lock
+    else
+        echo 'IMAP already builded...'
+    fi
+
+    # Build PHP
+    cd /tmp/php
+    if [ ! -f builded.lock ]; then
+        echo 'Building PHP...'
+        sh ./configure \
+            --with-config-file-path=/etc/php5 \
+            --with-config-file-scan-dir=/etc/php5/conf.d \
+            --with-apxs2=/usr/bin/apxs \
+            --enable-cli \
+            --with-mysql \
+            --with-pdo-mysql \
+            --with-mysqli \
+            --with-pear \
+            --with-openssl \
+            --with-iconv \
+            --with-xsl=usr \
+            --with-curl \
+            --enable-mbstring \
+            --enable-exif \
+            --with-zlib \
+            --with-zlib-dir \
+            --with-gd \
+            --with-jpeg-dir=/usr/lib \
+            --with-gettext \
+            --enable-gd-native-ttf \
+            --with-freetype-dir \
+            --with-mhash \
+            --enable-ftp \
+            --with-pspell \
+            --with-mcrypt \
+            --enable-calendar \
+            --enable-pcntl \
+            --enable-soap \
+            --enable-sockets \
+            --enable-wddx \
+            --enable-zip \
+            --with-imap=/usr/local/imap-2007f \
+            --with-kerberos \
+            --with-imap-ssl \
+            --enable-bcmath \
+            --enable-intl
+            #--enable-fpm # TODO with nginx?
+
+        make
+        sudo make install
+        touch builded.lock
+    else
+        echo 'PHP already builded...'
+    fi
+}
+
+func

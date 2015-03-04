@@ -1,0 +1,43 @@
+#!/bin/bash
+func () {
+    PHP_VERSION=${PHP_VERSION-'5.5.22'} # TODO resolve latest version
+
+    # cleaning PHP build
+    #[[ -n $CLEAN ]] && load sw/php/clean && return # TODO
+
+    echo 'Seeding PHP '$PHP_VERSION
+    load sw/php/dependencies
+    load sw/php/download
+    load sw/php/build
+
+    #[[ -z $UPDATE ]] && source sw/php/configure # TODO
+
+    #source $1/php.d/imagick # TODO
+    #source $1/php.d/memcache # TODO
+
+    # configuring local development environment
+    #[[ -z $UPDATE ]] && [[ $ENVIRONMENT == 'local' ]] && source $1/php.d/configure-local-dev # TODO
+    #[[ $ENVIRONMENT == 'local' ]] && source $1/php.d/php-qa # TODO
+
+    # TODO
+    # only local & dev / not update
+    #if [[ $ENVIRONMENT == 'local' || $ENVIRONMENT == 'dev' ]]; then
+    #    source $1/php.d/xdebug
+    #    source $1/php.d/mailparse
+    #    #source $1/php.d/profiler # TODO profiler
+    #fi
+
+    # TODO
+    # only local
+    #if [[ $ENVIRONMENT == 'local' ]]; then
+    #    source $1/php.d/phpunit-skelgen
+    #fi
+
+    # TODO phing is deprecated, remove
+    #source $1/php.d/phing
+
+    echo 'Restarting web server...'
+    sudo apachectl restart
+}
+
+func

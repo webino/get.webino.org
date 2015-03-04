@@ -1,0 +1,10 @@
+#!/bin/bash
+func () {
+    echo 'Cleaning Apache build...'
+    cd /tmp
+    rm -rf httpd
+    rm -rf apr
+    rm -rf apr-util
+}
+
+func

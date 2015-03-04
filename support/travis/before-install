@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# general
+curl -sL https://deb.nodesource.com/setup | sudo bash -
+sudo apt-get install -y nodejs graphviz
+sudo npm install webino-devkit -g --unsafe-perm
+sudo chmod o+w /home/travis -R
+
+if [ "$BROWSER" = 'chrome' ]
+then
+    # google chrome
+    sudo apt-get install -y libxss1 libappindicator1 libindicator7
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    sudo dpkg -i google-chrome*.deb
+    #wget -qO - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    #sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+    #sudo apt-get update
+    #sudo apt-get install google-chrome-stable
+
+    # chromedriver
+    #sudo apt-get install unzip
+    wget -N http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip -P /tmp
+    unzip /tmp/chromedriver_linux64.zip -d /tmp
+    chmod +x /tmp/chromedriver &&
+    sudo mv -f /tmp/chromedriver /usr/bin/chromedriver
+fi

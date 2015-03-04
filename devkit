@@ -1,0 +1,68 @@
+#!/bin/sh
+
+# This is the Webino Devkit install script!
+#
+# Are you looking at this in your web browser, and would like to install Webino Devkit?
+# Just open up your terminal and type
+#
+#    curl https://get.webino.org/devkit | sh
+#
+# Webino Devkit currently supports:
+#   - Linux: Ubuntu 14.04
+#
+# Requires
+#   - Node.js
+
+# Check npm
+if [ "$(npm -v 2> /dev/null)" = "" ]
+then
+    echo "\nInstalling Node.js\n"
+    curl -sL https://deb.nodesource.com/setup | sudo bash
+    sudo apt-get install -y nodejs
+fi
+
+# Check grunt
+if [ "$(grunt --version 2> /dev/null)" = "" ]
+then
+    echo "\nInstalling Grunt.js\n"
+    sudo npm install grunt-cli -g
+fi
+
+# Check PHP
+if [ "$(php -v 2> /dev/null)" = "" ]
+then
+    echo "\nInstalling Node.js\n"
+    sudo apt-get install -y php5
+fi
+
+# Check Git
+if [ "$(git --version 2> /dev/null)" = "" ]
+then
+    echo "\nInstalling Git\n"
+    sudo apt-get install -y git
+fi
+
+# Check Graphviz
+#if [ "$(graphml2gv -? 2> /dev/null)" = "" ]
+#then
+    # Installing Graphviz
+#fi
+
+# Installing devkit
+echo "\nInstalling Webino Development Kit\n"
+sudo npm install webino-devkit -g --unsafe-perm
+# Initializing user workspace
+webino workspace
+
+# Success
+cat <<"EOF"
+
+To get started:
+
+  $ webino
+
+Or see the docs at:
+
+  http://open.webino.org/docs
+
+EOF

@@ -1,0 +1,40 @@
+#!/bin/bash
+func() {
+    cd /tmp
+
+    # Apache APR
+    if [ ! -d apr ]; then
+        echo 'Downloading Apache APR...'
+        wget 'http://tux.rainside.sk/apache/apr/apr-'$APACHE_APR_VERSION'.tar.gz' \
+            -O apr.tar.gz && tar xvf apr.tar.gz & spinner $! && rm apr.tar.gz 2>&1
+
+        mv 'apr-'$APACHE_APR_VERSION apr
+    else
+        echo 'Apache APR already downloaded...'
+    fi
+
+    # Apache APR Util
+    if [ ! -d apr-util ]; then
+        echo 'Downloading Apache APR Util...'
+        wget 'http://tux.rainside.sk/apache/apr/apr-util-'$APACHE_APRUTIL_VERSION'.tar.gz' \
+            -O apr-util.tar.gz && tar xvf apr-util.tar.gz & spinner $! && rm apr-util.tar.gz 2>&1
+
+        mv 'apr-util-'$APACHE_APRUTIL_VERSION apr-util
+    else
+        echo 'Apache APR Util already downloaded...'
+    fi
+
+    # Apache
+    if [ ! -d httpd ]; then
+        echo 'Downloading Apache...'
+        wget 'http://tux.rainside.sk/apache/httpd/httpd-'$APACHE_VERSION'.tar.gz' \
+            -O httpd.tar.gz && tar xvf httpd.tar.gz & spinner $! && rm httpd.tar.gz 2>&1
+
+        mv httpd-* httpd
+        mv apr httpd/srclib && mv apr-util httpd/srclib
+    else
+        echo 'Apache already downloaded...'
+    fi
+}
+
+func

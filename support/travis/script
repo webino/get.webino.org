@@ -1,0 +1,6 @@
+#!/bin/bash
+
+webino test
+webino analyze
+[ "$URI" != ''  ] && webino uat
+
