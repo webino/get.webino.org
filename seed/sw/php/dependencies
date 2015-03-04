@@ -9,6 +9,7 @@ main() {
         libpspell-dev \
         libicu-dev \
         libmagickwand-dev \
+        libmcrypt \
         libmcrypt-dev \
         libxslt-dev || true
 }
