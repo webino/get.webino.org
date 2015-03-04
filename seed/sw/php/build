@@ -16,14 +16,9 @@ main() {
         echo 'IMAP already builded...'
     fi
 
-    # Build PHP
-    cd /tmp/php
-    if [ ! -f builded.lock ]; then
-        echo 'Building PHP...'
-        sh ./configure \
-            --with-config-file-path=/etc/php5 \
+    # PHP build config
+    local php_cfg="--with-config-file-path=/etc/php5 \
             --with-config-file-scan-dir=/etc/php5/conf.d \
-            --with-apxs2=/usr/bin/apxs \
             --enable-cli \
             --with-mysql \
             --with-pdo-mysql \
@@ -56,9 +51,18 @@ main() {
             --with-kerberos \
             --with-imap-ssl \
             --enable-bcmath \
-            --enable-intl
-            #--enable-fpm # TODO with nginx?
+            --enable-intl"
 
+    # Check apache
+    [[ "$(whereis apachectl)" == *"/apachectl"* ]] && php_cfg+=" --with-apxs2=/usr/bin/apxs"
+
+    #--enable-fpm # TODO with nginx?
+
+    # Build PHP
+    cd /tmp/php
+    if [ ! -f builded.lock ]; then
+        echo 'Building PHP...'
+        sh ./configure $php_cfg
         make
         sudo make install
         touch builded.lock
