@@ -5,8 +5,8 @@ load() {
     echo "Debug: "$1
     curl https://get.webino.org/seed/$1
     echo "debug -----------------------------"
-    #wget -qO /tmp/seed.tmp https://get.webino.org/seed/$1
-    curl -sLo /tmp/seed.tmp https://get.webino.org/seed/$1
+    wget -qO /tmp/seed.tmp https://get.webino.org/seed/$1 --max-redirect=1
+    #curl -sLo /tmp/seed.tmp https://get.webino.org/seed/$1
     source /tmp/seed.tmp
     cat /tmp/seed.tmp
 }
