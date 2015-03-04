@@ -1,2 +1,4 @@
+before_install:
+  - sudo apt-get install ca-certificates
 script:
   - curl https://get.webino.org/devkit -sL | sh
