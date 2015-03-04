@@ -1,5 +1,5 @@
 #!/bin/bash
-func() {
+main() {
     cd /tmp
 
     # Apache APR
@@ -37,4 +37,4 @@ func() {
     fi
 }
 
-func
+main
