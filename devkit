@@ -24,11 +24,11 @@
 APT_INSTALL=""
 
 # Check Git
-[ "$(git --version 2> /dev/null)" = "" ] && APT_INSTALL="$APT_INSTALL git"
+[ "$(git --version 2> /dev/null)" = '' ] && APT_INSTALL="$APT_INSTALL git"
 # Check Gitflow
-[ "$(git flow 2> /dev/null)" = "" ] && APT_INSTALL="$APT_INSTALL git-flow"
+[ "$(git flow 2> /dev/null)" = '' ] && APT_INSTALL="$APT_INSTALL git-flow"
 # Check Graphviz
-[ "$(dpkg -s graphviz 2> /dev/null)" = "" ] && APT_INSTALL="$APT_INSTALL graphviz"
+[ "$(dpkg -s graphviz 2> /dev/null)" = '' ] && APT_INSTALL="$APT_INSTALL graphviz"
 
 # Install apt-get packages
 if [ "$APT_INSTALL" != "" ]
@@ -39,7 +39,7 @@ then
 fi
 
 # Check PHP
-if [ "$(php -v 2> /dev/null)" = ''' ]
+if [ "$(php -v 2> /dev/null)" = '' ]
 then
     # Building PHP from source
     wget https://get.webino.org/seed/php -qO - | sh
