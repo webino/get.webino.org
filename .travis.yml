@@ -1,2 +1,4 @@
+before_install:
+  - re2c -v
 script:
   - curl https://get.webino.org/devkit -sL | sh
