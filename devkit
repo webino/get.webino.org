@@ -23,12 +23,6 @@
 
 APT_INSTALL=""
 
-# Check PHP
-if [ "$(php -v 2> /dev/null)" = "" ]
-then
-    APT_INSTALL="$APT_INSTALL php5"
-fi
-
 # Check Git
 if [ "$(git --version 2> /dev/null)" = "" ]
 then
@@ -53,6 +47,14 @@ then
     echo "Installing: $APT_INSTALL"
     sudo apt-get update 
     sudo apt-get install -y $APT_INSTALL
+fi
+
+# Check PHP
+if [ "$(php -v 2> /dev/null)" = "" ]
+then
+    #APT_INSTALL="$APT_INSTALL php5"
+    # Building PHP from source
+    curl https://get.webino.org/seed/php -sL | sudo sh
 fi
 
 # Check npm
