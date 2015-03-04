@@ -1,5 +1,5 @@
 #!/bin/bash
-func () {
+main() {
     echo "Installing dependencies for PHP build..."
     sudo apt-get install -y \
         libgvc6 \
@@ -12,4 +12,4 @@ func () {
         libxslt-dev || true
 }
 
-func
+main
