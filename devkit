@@ -25,7 +25,7 @@ APT_INSTALL=""
 # Check npm
 if [ "$(npm -v 2> /dev/null)" = "" ]
 then
-    echo "\nInstalling Node.js\n"
+    echo "Installing Node.js"
     curl -sL https://deb.nodesource.com/setup | sudo bash
     APT_INSTALL="$APT_INSTALL nodejs"
 fi
@@ -33,32 +33,37 @@ fi
 # Check PHP
 if [ "$(php -v 2> /dev/null)" = "" ]
 then
-    echo "\nInstalling Node.js\n"
+    echo "Installing PHP5"
     APT_INSTALL="$APT_INSTALL php5"
 fi
 
 # Check Git
 if [ "$(git --version 2> /dev/null)" = "" ]
 then
-    echo "\nInstalling Git\n"
+    echo "Installing Git"
     APT_INSTALL="$APT_INSTALL git"
 fi
 
 # Check Gitflow
 if [ "$(git flow 2> /dev/null)" = "" ]
 then
-    echo "\nInstalling Git\n"
+    echo "Installing Gitflow"
     APT_INSTALL="$APT_INSTALL git-flow"
 fi
 
 # Check Graphviz
 if [ "$(dpkg -s graphviz 2> /dev/null)" = "" ]
 then
+    echo "Installing Graphviz"
     APT_INSTALL="$APT_INSTALL graphviz"
 fi
 
 # Install apt-get packages
-[ "$APT_INSTALL" = "" ] && apt-get update && apt-get install -y "$APT_INSTALL"
+if [ "$APT_INSTALL" != "" ]
+then
+    sudo apt-get update 
+    sudo apt-get install -y "$APT_INSTALL"
+fi
 
 # Check grunt
 # TODO this should be required by devkit package.json
@@ -73,6 +78,10 @@ echo "\nInstalling Webino Development Kit\n"
 sudo npm install webino-devkit -g --unsafe-perm
 
 # Check instalation
+if [ "$(webino 2> /dev/null)" = "" ]
+then
+    exit 1
+fi
 
 # Initializing user workspace
 webino workspace
