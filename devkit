@@ -24,11 +24,11 @@
 APT_INSTALL=""
 
 # Check Git
-if [ "$(git --version 2> /dev/null)" = "" ] && APT_INSTALL="$APT_INSTALL git"
+[ "$(git --version 2> /dev/null)" = "" ] && APT_INSTALL="$APT_INSTALL git"
 # Check Gitflow
-if [ "$(git flow 2> /dev/null)" = "" ] && APT_INSTALL="$APT_INSTALL git-flow"
+[ "$(git flow 2> /dev/null)" = "" ] && APT_INSTALL="$APT_INSTALL git-flow"
 # Check Graphviz
-if [ "$(dpkg -s graphviz 2> /dev/null)" = "" ] && APT_INSTALL="$APT_INSTALL graphviz"
+[ "$(dpkg -s graphviz 2> /dev/null)" = "" ] && APT_INSTALL="$APT_INSTALL graphviz"
 
 # Install apt-get packages
 if [ "$APT_INSTALL" != "" ]
