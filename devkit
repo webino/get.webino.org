@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # This is the Webino Devkit install script!
+# Version: @@version@@
 #
 # Are you looking at this in your web browser, and would like to install Webino Devkit?
 # Just open up your terminal and type
@@ -9,8 +10,6 @@
 #
 # Webino Devkit currently supports:
 #   - Linux: Ubuntu 14.04
-#
-# Version: @@version@@
 #
 # Requires
 #   - Node.js
@@ -63,7 +62,7 @@ fi
 # Install apt-get packages
 if [ "$APT_INSTALL" != "" ]
 then
-    #sudo apt-get update 
+    sudo apt-get update 
     #sudo apt-get install -y "$APT_INSTALL"
 fi
 
