@@ -23,14 +23,6 @@
 
 APT_INSTALL=""
 
-# Check npm
-if [ "$(sudo npm -v 2> /dev/null)" = "" ]
-then
-    echo "Installing Node.js"
-    curl -sL https://deb.nodesource.com/setup | sudo bash
-    APT_INSTALL="$APT_INSTALL nodejs"
-fi
-
 # Check PHP
 if [ "$(sudo php -v 2> /dev/null)" = "" ]
 then
@@ -42,7 +34,7 @@ fi
 if [ "$(sudo git --version 2> /dev/null)" = "" ]
 then
     echo "Installing Git"
-    #APT_INSTALL="$APT_INSTALL git"
+    APT_INSTALL="$APT_INSTALL git"
 fi
 
 # Check Gitflow
@@ -62,9 +54,20 @@ fi
 # Install apt-get packages
 if [ "$APT_INSTALL" != "" ]
 then
-    echo "Installing $APT_INSTALL"
+    echo "Installing: $APT_INSTALL"
     sudo apt-get update 
-    sudo apt-get install -y nodejs
+    sudo apt-get install -y "$APT_INSTALL"
+fi
+
+# Check npm
+if [ "$(sudo npm -v 2> /dev/null)" = "" ]
+then
+    echo "Installing Node.js"
+    #curl -sL https://deb.nodesource.com/setup | sudo bash
+    curl https://raw.githubusercontent.com/creationix/nvm/v0.11.1/install.sh | sudo bash
+    sudo source ~/.profile
+    sudo nvm install 0.10.13
+    #APT_INSTALL="$APT_INSTALL nodejs"
 fi
 
 # Check grunt
