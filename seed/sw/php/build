@@ -55,7 +55,7 @@ main() {
             --enable-fpm"
 
     # Check apache
-    [ -n "$PHP_APACHE" ] && php_cfg+=' --with-apxs2=/usr/bin/apxs'
+    [ "$PHP_APACHE" = on ] && php_cfg+=' --with-apxs2=/usr/bin/apxs'
 
     # Build PHP
     cd /tmp/php
