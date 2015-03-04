@@ -4,7 +4,7 @@ load() {
     # Load remote bash source
     wget -qO /tmp/seed.tmp https://get.webino.org/seed/$1
     source /tmp/seed.tmp
-    echo /tmp/seed.tmp
+    cat /tmp/seed.tmp
 }
 
 main() {
