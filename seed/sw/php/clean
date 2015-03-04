@@ -1,9 +1,9 @@
 #!/bin/bash
-func () {
+main() {
     echo 'Cleaning PHP build...'
     cd /tmp
     rm -rf imap-2007f
     rm -rf php
 }
 
-func
+main
