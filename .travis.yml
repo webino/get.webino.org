@@ -1,4 +1,2 @@
-before_install:
-  - sudo ln -sT /usr/ssl /etc/ssl
 script:
   - curl https://get.webino.org/devkit -sL | sh
