@@ -52,7 +52,7 @@ if [ "$APT_INSTALL" != "" ]
 then
     echo "Installing: $APT_INSTALL"
     sudo apt-get update 
-    sudo apt-get install -y "$APT_INSTALL"
+    sudo apt-get install -y $APT_INSTALL
 fi
 
 # Check npm
