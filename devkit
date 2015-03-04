@@ -60,7 +60,7 @@ fi
 if [ "$(sudo npm -v 2> /dev/null)" = "" ]
 then
     echo "Installing: Node.js"
-    wget https://deb.nodesource.com/setup -qO - | bash
+    wget https://deb.nodesource.com/setup -qO - | sudo bash
     sudo apt-get install nodejs
 fi
 
