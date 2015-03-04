@@ -1,5 +1,5 @@
 #!/bin/bash
-func () {
+main() {
 
     # Build IMAP
     cd /tmp/imap-2007f
@@ -67,4 +67,4 @@ func () {
     fi
 }
 
-func
+main
