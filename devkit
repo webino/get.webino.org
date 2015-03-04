@@ -35,35 +35,35 @@ fi
 if [ "$(sudo php -v 2> /dev/null)" = "" ]
 then
     echo "Installing PHP5"
-    APT_INSTALL="$APT_INSTALL php5"
+    #APT_INSTALL="$APT_INSTALL php5"
 fi
 
 # Check Git
 if [ "$(sudo git --version 2> /dev/null)" = "" ]
 then
     echo "Installing Git"
-    APT_INSTALL="$APT_INSTALL git"
+    #APT_INSTALL="$APT_INSTALL git"
 fi
 
 # Check Gitflow
 if [ "$(sudo git flow 2> /dev/null)" = "" ]
 then
     echo "Installing Gitflow"
-    APT_INSTALL="$APT_INSTALL git-flow"
+    #APT_INSTALL="$APT_INSTALL git-flow"
 fi
 
 # Check Graphviz
 if [ "$(sudo dpkg -s graphviz 2> /dev/null)" = "" ]
 then
     echo "Installing Graphviz"
-    APT_INSTALL="$APT_INSTALL graphviz"
+    #APT_INSTALL="$APT_INSTALL graphviz"
 fi
 
 # Install apt-get packages
 if [ "$APT_INSTALL" != "" ]
 then
     sudo apt-get update 
-    #sudo apt-get install -y "$APT_INSTALL"
+    sudo apt-get install -y "$APT_INSTALL"
 fi
 
 # Check grunt
