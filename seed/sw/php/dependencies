@@ -11,7 +11,8 @@ main() {
         libmagickwand-dev \
         libmcrypt \
         libmcrypt-dev \
-        libxslt-dev || true
+        libxslt1-dev
+        #libxslt-dev # || true
 }
 
 main
