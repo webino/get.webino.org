@@ -21,6 +21,8 @@
 #   - It installs webino-devkit via npm globally
 #   - It setups user Webino workspace
 
+lsb_release -a
+
 APT_INSTALL=""
 
 # Check PHP
