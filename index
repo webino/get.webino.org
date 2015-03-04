@@ -6,18 +6,18 @@
 # Are you looking at this in your web browser, and would like to install Webino?
 # Just open up your terminal and type:
 #
-#    curl https://get.webino.org/ -sL | sh
+#    wget https://get.webino.org -qO - | sh
 #
 # Webino currently supports:
-#   - Linux: Ubuntu 14.04
+#   - Linux: Ubuntu 12.04, 14.04
 #
 # What this script does?
 #   - Workstation setup [TODO]
 #   - Webino-devkit installation
 
 main () {
-    # TODO curl https://get.webino.org/seed | sudo sh
-    curl https://get.webino.org/devkit | sudo sh
+    # TODO wget https://get.webino.org/seed -qO - | sh
+    wget https://get.webino.org/devkit -qO - | sh
 }
 
 main
