@@ -12,41 +12,61 @@
 #
 # Requires
 #   - Node.js
+#   - PHP5
+#   - Git, Gitflow
+#   - Graphviz
+#
+# What this script does?
+#   - It installs webino-devkit via npm globally
+#   - It setups user Webino workspace
+
+APT_INSTALL=""
 
 # Check npm
 if [ "$(npm -v 2> /dev/null)" = "" ]
 then
     echo "\nInstalling Node.js\n"
     curl -sL https://deb.nodesource.com/setup | sudo bash
-    sudo apt-get install -y nodejs
-fi
-
-# Check grunt
-if [ "$(grunt --version 2> /dev/null)" = "" ]
-then
-    echo "\nInstalling Grunt.js\n"
-    sudo npm install grunt-cli -g
+    APT_INSTALL+="nodejs "
 fi
 
 # Check PHP
 if [ "$(php -v 2> /dev/null)" = "" ]
 then
     echo "\nInstalling Node.js\n"
-    sudo apt-get install -y php5
+    APT_INSTALL+="php5 "
 fi
 
 # Check Git
 if [ "$(git --version 2> /dev/null)" = "" ]
 then
     echo "\nInstalling Git\n"
-    sudo apt-get install -y git
+    APT_INSTALL+="git "
+fi
+
+# Check Gitflow
+if [ "$(git flow 2> /dev/null)" = "" ]
+then
+    echo "\nInstalling Git\n"
+    APT_INSTALL+="git-flow "
 fi
 
 # Check Graphviz
-#if [ "$(graphml2gv -? 2> /dev/null)" = "" ]
-#then
-    # Installing Graphviz
-#fi
+if [ -n "$(dpkg -s graphviz 2> /dev/null)" ]
+then
+    APT_INSTALL+="graphviz "
+fi
+
+# Install apt-get packages
+[ -n "$APT_INSTALL" ] && apt-get update && apt-get install -y "$APT_INSTALL"
+
+# Check grunt
+# TODO this should be required by devkit package.json
+if [ "$(grunt --version 2> /dev/null)" = "" ]
+then
+    echo "\nInstalling Grunt.js\n"
+    sudo npm install grunt-cli -g
+fi
 
 # Installing devkit
 echo "\nInstalling Webino Development Kit\n"
