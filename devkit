@@ -64,9 +64,10 @@ if [ "$(sudo npm -v 2> /dev/null)" = "" ]
 then
     echo "Installing Node.js"
     #curl -sL https://deb.nodesource.com/setup | sudo bash
-    curl https://raw.githubusercontent.com/creationix/nvm/v0.11.1/install.sh | sudo bash
-    sudo source ~/.profile
-    sudo nvm install 0.10.13
+    #curl https://raw.githubusercontent.com/creationix/nvm/v0.11.1/install.sh | sudo bash
+    #sudo source ~/.profile
+    #sudo nvm install 0.10.13
+    sudo $(which npm) install 0.10.13
     #APT_INSTALL="$APT_INSTALL nodejs"
 fi
 
