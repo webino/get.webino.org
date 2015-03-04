@@ -2,10 +2,10 @@
 main() {
     echo "Installing dependencies for PHP build..."
     sudo apt-get install -y \
-        re2c \
         libgvc6 \
         libcurl4-openssl-dev \
         pkg-config \
+        libpcre3-dev \
         libpspell-dev \
         libicu-dev \
         libmagickwand-dev \
