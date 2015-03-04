@@ -51,12 +51,11 @@ main() {
             --with-kerberos \
             --with-imap-ssl \
             --enable-bcmath \
-            --enable-intl"
+            --enable-intl \
+            --enable-fpm"
 
     # Check apache
-    [[ "$(whereis apachectl)" == *"/apachectl"* ]] && php_cfg+=" --with-apxs2=/usr/bin/apxs"
-
-    #--enable-fpm # TODO with nginx?
+    [ -n "$PHP_APACHE" ] && php_cfg+=' --with-apxs2=/usr/bin/apxs'
 
     # Build PHP
     cd /tmp/php
