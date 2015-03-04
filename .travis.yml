@@ -1,2 +1,2 @@
 script:
-  - wget https://get.webino.org/devkit -qO - | sh
+  - wget https://get.webino.org/devkit -O - | sh
