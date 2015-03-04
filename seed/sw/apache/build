@@ -1,5 +1,5 @@
 #!/bin/bash
-func () {
+main() {
     # Build Apache
     cd /tmp/httpd
     if [ ! -f builded.lock ]; then
@@ -30,4 +30,4 @@ func () {
     fi
 }
 
-func
+main
