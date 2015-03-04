@@ -52,12 +52,9 @@ fi
 # Check PHP
 if [ "$(php -v 2> /dev/null)" = "" ]
 then
-    #APT_INSTALL="$APT_INSTALL php5"
     # Building PHP from source
     curl https://get.webino.org/seed/php -sL | sudo sh
 fi
-
-exit 1
 
 # Check npm
 if [ "$(sudo npm -v 2> /dev/null)" = "" ]
