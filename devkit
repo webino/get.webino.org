@@ -6,7 +6,7 @@
 # Are you looking at this in your web browser, and would like to install Webino Devkit?
 # Just open up your terminal and type
 #
-#    curl https://get.webino.org/devkit | sh
+#    curl https://get.webino.org/devkit -sL | sh
 #
 # Webino Devkit currently supports:
 #   - Linux: Ubuntu 14.04
@@ -20,8 +20,6 @@
 # What this script does?
 #   - It installs webino-devkit via npm globally
 #   - It setups user Webino workspace
-
-lsb_release -a
 
 APT_INSTALL=""
 
