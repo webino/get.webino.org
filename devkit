@@ -62,6 +62,7 @@ fi
 # Install apt-get packages
 if [ "$APT_INSTALL" != "" ]
 then
+    echo "Installing $APT_INSTALL"
     sudo apt-get update 
     sudo apt-get install -y nodejs
 fi
