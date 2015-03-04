@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Loads remote bash source
 load() {
+    # Load remote bash source
     wget -qO /tmp/seed.tmp https://get.webino.org/seed/$1
     source /tmp/seed.tmp
 }
 
-func() {
+main() {
     echo -e "\nMachine seed for Webino™...\n"
 
     load lib/trap.lib
@@ -18,4 +18,4 @@ func() {
     load sw/php
 }
 
-func
+main
