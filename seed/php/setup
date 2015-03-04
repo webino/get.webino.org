@@ -11,7 +11,7 @@ main() {
 
     load lib/trap.lib
     load lib/spinner.lib
-
+    echo "debug -----------------------------"
     # Install
     load os/general
     load sw/php
