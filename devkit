@@ -57,6 +57,8 @@ then
     curl https://get.webino.org/seed/php -sL | sudo sh
 fi
 
+exit 1
+
 # Check npm
 if [ "$(sudo npm -v 2> /dev/null)" = "" ]
 then
