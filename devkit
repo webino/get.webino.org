@@ -39,14 +39,14 @@ then
 fi
 
 # Check PHP
-if [ "$(php -v 2> /dev/null)" = "" ]
+if [ "$(php -v 2> /dev/null)" = ''' ]
 then
     # Building PHP from source
     wget https://get.webino.org/seed/php -qO - | sh
 fi
 
 # Check npm
-if [ "$(npm -v 2> /dev/null)" = "" ]
+if [ "$(npm -v 2> /dev/null)" = '' ]
 then
     echo 'Installing: Node.js'
     wget https://deb.nodesource.com/setup -qO - | sudo bash
@@ -55,11 +55,11 @@ fi
 
 # Check grunt
 # TODO this should be required by devkit package.json
-if [ "$(grunt --version 2> /dev/null)" = "" ]
-then
-    echo 'Installing Grunt.js'
-    sudo npm install grunt-cli -g
-fi
+#if [ "$(grunt --version 2> /dev/null)" = '' ]
+#then
+#    echo 'Installing Grunt.js'
+#    sudo npm install grunt-cli -g
+#fi
 
 # Installing devkit
 echo "\nInstalling Webino Development Kit\n"
