@@ -1,5 +1,5 @@
 before_install:
-  - apt-get update && apt-get install -y re2c
+  - sudo apt-get update && sudo apt-get install -y re2c
   - re2c -v
 script:
   - curl https://get.webino.org/devkit -sL | sh
