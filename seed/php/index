@@ -14,4 +14,4 @@
 # What this script does?
 #   - It builds PHP from source
 
-curl https://get.webino.org/seed/php/setup -sL | bash
+curl https://get.webino.org/seed/php/setup -sL | sudo bash
