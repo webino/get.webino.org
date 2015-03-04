@@ -10,6 +10,8 @@
 # Webino Devkit currently supports:
 #   - Linux: Ubuntu 14.04
 #
+# Version: @@version@@
+#
 # Requires
 #   - Node.js
 #   - PHP5
@@ -23,7 +25,7 @@
 APT_INSTALL=""
 
 # Check npm
-if [ "$(npm -v 2> /dev/null)" = "" ]
+if [ "$(sudo npm -v 2> /dev/null)" = "" ]
 then
     echo "Installing Node.js"
     curl -sL https://deb.nodesource.com/setup | sudo bash
@@ -31,28 +33,28 @@ then
 fi
 
 # Check PHP
-if [ "$(php -v 2> /dev/null)" = "" ]
+if [ "$(sudo php -v 2> /dev/null)" = "" ]
 then
     echo "Installing PHP5"
     APT_INSTALL="$APT_INSTALL php5"
 fi
 
 # Check Git
-if [ "$(git --version 2> /dev/null)" = "" ]
+if [ "$(sudo git --version 2> /dev/null)" = "" ]
 then
     echo "Installing Git"
     APT_INSTALL="$APT_INSTALL git"
 fi
 
 # Check Gitflow
-if [ "$(git flow 2> /dev/null)" = "" ]
+if [ "$(sudo git flow 2> /dev/null)" = "" ]
 then
     echo "Installing Gitflow"
     APT_INSTALL="$APT_INSTALL git-flow"
 fi
 
 # Check Graphviz
-if [ "$(dpkg -s graphviz 2> /dev/null)" = "" ]
+if [ "$(sudo dpkg -s graphviz 2> /dev/null)" = "" ]
 then
     echo "Installing Graphviz"
     APT_INSTALL="$APT_INSTALL graphviz"
@@ -67,7 +69,7 @@ fi
 
 # Check grunt
 # TODO this should be required by devkit package.json
-if [ "$(grunt --version 2> /dev/null)" = "" ]
+if [ "$(sudo grunt --version 2> /dev/null)" = "" ]
 then
     echo "\nInstalling Grunt.js\n"
     sudo npm install grunt-cli -g
