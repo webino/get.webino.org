@@ -1,5 +1,5 @@
 #!/bin/bash
-func() {
+main() {
     # TODO resolve latest versions
     APACHE_VERSION=${APACHE_VERSION-'2.4.10'}
     APACHE_APR_VERSION=${APACHE_APR_VERSION-'1.5.1'}
@@ -23,4 +23,4 @@ func() {
     sudo apachectl restart
 }
 
-func
+main
