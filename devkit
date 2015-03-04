@@ -24,28 +24,28 @@
 APT_INSTALL=""
 
 # Check PHP
-if [ "$(sudo php -v 2> /dev/null)" = "" ]
+if [ "$(php -v 2> /dev/null)" = "" ]
 then
     echo "Installing PHP5"
     #APT_INSTALL="$APT_INSTALL php5"
 fi
 
 # Check Git
-if [ "$(sudo git --version 2> /dev/null)" = "" ]
+if [ "$(git --version 2> /dev/null)" = "" ]
 then
     echo "Installing Git"
     APT_INSTALL="$APT_INSTALL git"
 fi
 
 # Check Gitflow
-if [ "$(sudo git flow 2> /dev/null)" = "" ]
+if [ "$(git flow 2> /dev/null)" = "" ]
 then
     echo "Installing Gitflow"
     #APT_INSTALL="$APT_INSTALL git-flow"
 fi
 
 # Check Graphviz
-if [ "$(sudo dpkg -s graphviz 2> /dev/null)" = "" ]
+if [ "$(dpkg -s graphviz 2> /dev/null)" = "" ]
 then
     echo "Installing Graphviz"
     #APT_INSTALL="$APT_INSTALL graphviz"
@@ -63,11 +63,12 @@ fi
 if [ "$(sudo npm -v 2> /dev/null)" = "" ]
 then
     echo "Installing Node.js"
-    #curl -sL https://deb.nodesource.com/setup | sudo bash
+    curl -sL https://deb.nodesource.com/setup | sudo bash
+    sudo apt-get install nodejs
     #curl https://raw.githubusercontent.com/creationix/nvm/v0.11.1/install.sh | sudo bash
     #sudo source ~/.profile
     #sudo nvm install 0.10.13
-    sudo $(which npm) install 0.10.13
+    #sudo $(which npm) install 0.10.13
     #APT_INSTALL="$APT_INSTALL nodejs"
 fi
 
