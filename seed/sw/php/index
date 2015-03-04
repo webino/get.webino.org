@@ -1,5 +1,5 @@
 #!/bin/bash
-func () {
+main() {
     PHP_VERSION=${PHP_VERSION-'5.5.22'} # TODO resolve latest version
 
     # cleaning PHP build
@@ -40,4 +40,4 @@ func () {
     sudo apachectl restart
 }
 
-func
+main
