@@ -28,6 +28,7 @@ main() {
             --with-iconv \
             --with-xsl=usr \
             --with-curl \
+            --enable-mailparse \
             --enable-mbstring \
             --enable-exif \
             --with-zlib \
