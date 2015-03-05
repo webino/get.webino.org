@@ -2,6 +2,13 @@
 
 [![Build Status](https://travis-ci.org/webino/get.webino.org.svg?branch=develop)](https://travis-ci.org/webino/get.webino.org) 
 
+## Requirements
+
+- Ubuntu 12.04 (wget 1.14)
+- Ubuntu 14.04
+
+## How To
+
 **Easy Setup** [TODO]
 
 - `wget https://get.webino.org -qO - | sh`
