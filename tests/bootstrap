@@ -13,8 +13,9 @@ set -e
 if [ "$TEST" = 'dev-module' ]; then
   wget https://get.webino.org/devkit -qO - | sh
   # TODO use WebinoSkeletonModule instead
-  git clone https://github.com/webino/WebinoDev.git
-  cd WebinoDraw && webino init && webino test && webino analyze && webino api
+  module=WebinoDev
+  git clone https://github.com/webino/${module}.git
+  cd $module && webino init && webino test && webino analyze && webino api
   exit 0
 fi
 
