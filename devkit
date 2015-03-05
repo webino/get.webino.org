@@ -9,11 +9,12 @@
 #    wget https://get.webino.org/devkit -qO - | sh
 #
 # Webino Devkit currently supports:
-#   - Linux: Ubuntu 14.04
+#   - Ubuntu 12.04 (wget 1.14)
+#   - Ubuntu 14.04
 #
 # Requires
 #   - Node.js
-#   - PHP5
+#   - PHP >= 5.5
 #   - Git, Gitflow
 #   - Graphviz
 #
@@ -34,11 +35,11 @@ APT_INSTALL=""
 if [ "$APT_INSTALL" != "" ]
 then
     echo "Installing: $APT_INSTALL"
-    sudo apt-get update 
-    sudo apt-get install -y $APT_INSTALL
+    sudo apt-get update && sudo apt-get install -y $APT_INSTALL
 fi
 
 # Check PHP
+# TODO check PHP version
 if [ "$(php -v 2> /dev/null)" = '' ]
 then
     # Building PHP from source
