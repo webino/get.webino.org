@@ -2,7 +2,7 @@ env:
   - TEST=php
   - TEST=devkit
 before_install:
-  - "echo 'Fixing wget SNI for Ubuntu 12.04' && wget http://ppa.launchpad.net/nathan-renniewaldock/ppa/ubuntu/pool/main/w/wget/wget_1.14-1~ppa1~precise_amd64.deb && sudo dpkg -i wget_1.14-1~ppa1~precise_amd64.deb
+  - "echo 'Updating Ubuntu 12.04 wget to 1.14 with SNI' && wget http://ppa.launchpad.net/nathan-renniewaldock/ppa/ubuntu/pool/main/w/wget/wget_1.14-1~ppa1~precise_amd64.deb && sudo dpkg -i wget_1.14-1~ppa1~precise_amd64.deb
   && sudo apt-get install -f"
 script:
   - tests/bootstrap
