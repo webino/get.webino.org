@@ -9,7 +9,7 @@
 # TODO easy
 #[ "$TEST" = 'easy' ] && wget https://get.webino.org -qO - | sh && exit 0
 
-if ["$TEST" = 'dev-module']; then
+if [ "$TEST" = 'dev-module' ]; then
   wget https://get.webino.org/devkit -qO - | sh
   cd /tmp
   # TODO use WebinoSkeletonModule instead
