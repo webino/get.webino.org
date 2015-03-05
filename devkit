@@ -58,7 +58,7 @@ if [ "$(grunt --version 2> /dev/null)" = '' ]
 then
     echo 'Installing Grunt.js'
     sudo npm install grunt-cli -g
-#fi
+fi
 
 # Installing devkit
 echo "\nInstalling Webino Development Kit\n"
