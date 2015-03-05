@@ -1,2 +1,4 @@
+before_install:
+  - wget --version
 script:
   - wget https://get.webino.org/devkit -O - | sh
