@@ -65,7 +65,14 @@ main() {
         sh ./configure $php_cfg
         make
         sudo make install
+        
+        # setup etc
+        sudo mkdir -p /etc/php5/conf.d
+        
+        # add mailparse ext
         sudo pecl install mailparse
+        echo "extension=mailparse.so" | sudo tee /etc/php5/cli/conf.d/mailparse.ini
+        
         touch builded.lock
     else
         echo 'PHP already builded...'
