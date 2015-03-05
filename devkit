@@ -46,7 +46,7 @@ then
 fi
 
 # Check npm
-if [ "$(npm -v 2> /dev/null)" = '' ]
+if [ "$(sudo npm -v 2> /dev/null)" = '' ]
 then
     echo 'Installing: Node.js'
     wget https://deb.nodesource.com/setup -qO - | sudo bash
@@ -54,11 +54,10 @@ then
 fi
 
 # Check grunt
-# TODO this should be required by devkit package.json
-#if [ "$(grunt --version 2> /dev/null)" = '' ]
-#then
-#    echo 'Installing Grunt.js'
-#    sudo npm install grunt-cli -g
+if [ "$(grunt --version 2> /dev/null)" = '' ]
+then
+    echo 'Installing Grunt.js'
+    sudo npm install grunt-cli -g
 #fi
 
 # Installing devkit
