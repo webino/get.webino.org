@@ -8,14 +8,15 @@
 #
 #    wget https://get.webino.org -qO - | sh
 #
-# Webino currently supports:
-#   - Linux: Ubuntu 12.04, 14.04
+# Webino Devkit currently supports:
+#   - Ubuntu 12.04 (wget 1.14)
+#   - Ubuntu 14.04
 #
 # What this script does?
 #   - Workstation setup [TODO]
 #   - Webino-devkit installation
 
-main () {
+main() {
     # TODO wget https://get.webino.org/seed -qO - | sh
     wget https://get.webino.org/devkit -qO - | sh
 }
