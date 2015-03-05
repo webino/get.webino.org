@@ -65,7 +65,7 @@ fi
 echo "\nInstalling Webino Development Kit\n"
 sudo npm install webino-devkit -g --unsafe-perm
 # Clear composer cache
-sudo /var/lib/webino/php/composer.phar clear-cache
+sudo rm -rf ~/.composer/cache
 
 # Check instalation
 if [ "$(webino 2> /dev/null)" = '' ]
