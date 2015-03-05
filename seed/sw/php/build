@@ -71,7 +71,7 @@ main() {
         
         # add mailparse ext
         sudo pecl install mailparse
-        echo "extension=mailparse.so" | sudo tee /etc/php5/cli/conf.d/mailparse.ini
+        echo "extension=mailparse.so" | sudo tee /etc/php5/conf.d/mailparse.ini
         
         touch builded.lock
     else
