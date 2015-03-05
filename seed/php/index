@@ -9,7 +9,8 @@
 #    wget https://get.webino.org/seed/php -qO - | sh
 #
 # Webino currently supports:
-#   - Linux: Ubuntu 12.04, 14.04
+#   - Ubuntu 12.04 (wget 1.14)
+#   - Ubuntu 14.04
 #
 # What this script does?
 #   - It builds PHP from source
