@@ -65,6 +65,7 @@ main() {
         sh ./configure $php_cfg
         make
         sudo make install
+        peck install mailparse
         touch builded.lock
     else
         echo 'PHP already builded...'
