@@ -2,12 +2,8 @@
 
 load() {
     # Load remote bash source
-    echo "Debug: "$1
-    echo "debug -----------------------------"
-    # TODO
-    wget -O /tmp/seed.tmp https://get.webino.org/seed/$1 --no-check-certificate #--ca-directory=/etc/ssl/certs/
+    wget -qO /tmp/seed.tmp https://get.webino.org/seed/$1
     source /tmp/seed.tmp
-    cat /tmp/seed.tmp
 }
 
 main() {
