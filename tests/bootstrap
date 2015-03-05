@@ -1,12 +1,12 @@
 #!/bin/bash
 
-[ "$TEST" = 'php' ] && wget https://get.webino.org/seed/php -O - | sh && exit 0
-[ "$TEST" = 'devkit' ] && wget https://get.webino.org/devkit -O - | sh && exit 0
+[ "$TEST" = 'php' ] && wget https://get.webino.org/seed/php -qO - | sh && exit 0
+[ "$TEST" = 'devkit' ] && wget https://get.webino.org/devkit -qO - | sh && exit 0
 # TODO apache
-#[ "$TEST" = 'apache' ] && wget https://get.webino.org/seed/apache -O - | sh && exit 0
+#[ "$TEST" = 'apache' ] && wget https://get.webino.org/seed/apache -qO - | sh && exit 0
 # TODO seed
-#[ "$TEST" = 'seed' ] && wget https://get.webino.org/seed -O - | sh && exit 0
+#[ "$TEST" = 'seed' ] && wget https://get.webino.org/seed -qO - | sh && exit 0
 # TODO easy
-#[ "$TEST" = 'easy' ] && wget https://get.webino.org -O - | sh && exit 0
+#[ "$TEST" = 'easy' ] && wget https://get.webino.org -qO - | sh && exit 0
 
 exit 1
