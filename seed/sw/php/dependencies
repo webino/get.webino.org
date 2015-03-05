@@ -9,9 +9,7 @@ main() {
         libicu-dev \
         libmagickwand-dev \
         libmcrypt-dev \
-        libxslt1-dev # \
-        #libgvc6 \
-        #libxslt-dev # || true
+        libxslt1-dev
 }
 
 main
