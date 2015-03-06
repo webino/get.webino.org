@@ -10,4 +10,13 @@ set -e
 # TODO easy
 #[ "$TEST" = 'easy' ] && wget https://get.webino.org -qO - | sh && exit 0
 
+if [ "$TEST" = 'dev-module' ]; then
+  wget https://get.webino.org/devkit -qO - | sh
+  # TODO use WebinoSkeletonModule instead
+  module=WebinoDev
+  git clone https://github.com/webino/${module}.git
+  cd $module && webino init && webino test && webino analyze && webino api
+  exit 0
+fi
+
 exit 1
