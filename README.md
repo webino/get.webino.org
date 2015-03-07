@@ -4,8 +4,7 @@
 
 ## Requirements
 
-- Ubuntu 12.04 (wget 1.14)
-- Ubuntu 14.04
+- Ubuntu 14.04 / 12.04 (wget 1.14)
 
 ## How To
 
