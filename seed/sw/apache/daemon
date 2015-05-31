@@ -16,11 +16,19 @@
 #   - It builds Apache from source
 
 main() {
-    echo 'Cleaning Apache build...'
-    cd /tmp
-    rm -rf httpd
-    rm -rf apr
-    rm -rf apr-util
+    cd /tmp/httpd
+
+    if [ ! -f daemon.lock ]; then
+        echo 'Installing upstart daemon...'
+        if [ ! -f /etc/init/apache2.conf ]; then
+            sudo wget -qO /etc/init/apache2.conf https://get.webino.org/seed/data/etc/init/apache2.conf
+        fi
+
+        sudo initctl reload-configuration
+        touch daemon.lock
+    else
+        echo 'Upstart daemon already installed...'
+    fi
 }
 
 main
