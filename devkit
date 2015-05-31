@@ -6,7 +6,7 @@
 # Are you looking at this in your web browser, and would like to install Webino Devkit?
 # Just open up your terminal and type
 #
-#    wget https://get.webino.org/devkit -qO - | sh
+#    wget https://get.webino.org/devkit -qO- | sh
 #
 # Webino Devkit currently supports:
 #   - Ubuntu 12.04 (wget 1.14)
@@ -22,20 +22,20 @@
 #   - It installs webino-devkit via npm globally
 #   - It setups user Webino workspace
 
-APT_INSTALL=""
+apt_install=""
 
 # Check Git
-[ "$(git --version 2> /dev/null)" = '' ] && APT_INSTALL="$APT_INSTALL git"
+[ "$(git --version 2> /dev/null)" = '' ] && apt_install="$apt_install git"
 # Check Gitflow
-[ "$(git flow 2> /dev/null)" = '' ] && APT_INSTALL="$APT_INSTALL git-flow"
+[ "$(git flow 2> /dev/null)" = '' ] && apt_install="$apt_install git-flow"
 # Check Graphviz
-[ "$(dpkg -s graphviz 2> /dev/null)" = '' ] && APT_INSTALL="$APT_INSTALL graphviz"
+[ "$(dpkg -s graphviz 2> /dev/null)" = '' ] && apt_install="$apt_install graphviz"
 
 # Install apt-get packages
-if [ "$APT_INSTALL" != "" ]
+if [ "$apt_install" != "" ]
 then
-    echo "Installing: $APT_INSTALL"
-    sudo apt-get update && sudo apt-get install -y $APT_INSTALL
+    echo "Installing: $apt_install"
+    sudo apt-get update && sudo apt-get install -y $apt_install
 fi
 
 # Check PHP
@@ -43,14 +43,14 @@ fi
 if [ "$(php -v 2> /dev/null)" = '' ]
 then
     # Building PHP from source
-    wget https://get.webino.org/seed/php -qO - | sh
+    wget https://get.webino.org/seed/php -qO- | sh
 fi
 
 # Check npm
 if [ "$(sudo npm -v 2> /dev/null)" = '' ]
 then
     echo 'Installing: Node.js'
-    wget https://deb.nodesource.com/setup -qO - | sudo bash
+    wget https://deb.nodesource.com/setup -qO- | sudo bash
     sudo apt-get install -y nodejs
 fi
 
@@ -76,6 +76,7 @@ fi
 # Initializing user workspace
 webino workspace
 
+# TODO https docs
 # Success
 cat <<"EOF"
 
