@@ -6,7 +6,7 @@
 # Are you looking at this in your web browser, and would like to install Webino?
 # Just open up your terminal and type:
 #
-#    wget https://get.webino.org -qO - | sh
+#    wget https://get.webino.org -qO- | sh
 #
 # Webino Devkit currently supports:
 #   - Ubuntu 12.04 (wget 1.14)
@@ -17,9 +17,8 @@
 #   - Webino-devkit installation
 
 main() {
-    # TODO wget https://get.webino.org/seed -qO - | sh
-    wget https://get.webino.org/devkit -qO - | sh
+    # TODO wget https://get.webino.org/seed -qO- | sh
+    wget https://get.webino.org/devkit -qO- | sh
 }
 
 main
-
