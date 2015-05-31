@@ -1,4 +1,5 @@
 env:
+  - TEST=apache
   - TEST=php
   - TEST=devkit
   - TEST=dev-module
