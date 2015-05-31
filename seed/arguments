@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# This is the Webino Seed install support script!
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to run Webino Seed?
+# Just open up your terminal and type:
+#
+#    wget https://get.webino.org/seed -qO- | sh
+#
+# Webino currently supports:
+#   - Ubuntu 12.04 (wget 1.14)
+#   - Ubuntu 14.04
+
+main() {
+    # defaults
+    env_local=1
+    env_dev=
+    env_pub=
+    clean=
+
+    for i in "$@"
+    do
+    case $i in
+        --local) # local development
+            env_local=1
+            env_dev=
+            env_pub=
+            shift
+        ;;
+        --dev) # development server
+            env_dev=1
+            env_local=
+            env_pub=
+            shift
+        ;;
+        --pub) # public server
+            env_pub=1
+            env_dev=
+            env_local=
+            shift
+        ;;
+        --clean) # purge files
+            clean=1
+            shift
+        ;;
+        *)
+            # unknown option
+        ;;
+    esac
+    done
+}
+
+main "$@"
