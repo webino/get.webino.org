@@ -10,20 +10,30 @@
 
 **Easy Setup** [TODO]
 
-- `wget https://get.webino.org -qO - | sh`
+- `wget https://get.webino.org -qO- | sh`
 
 **Workstation setup** [TODO]
 
-- `wget https://get.webino.org/seed -qO - | sh`
+- `wget https://get.webino.org/seed -qO- | sh`
 
-**Building Apache from source** [TODO]
+**Building Apache 2.4 from source**
 
-- `wget https://get.webino.org/seed/apache -qO - | sh`
+*Local development* [TODO]
 
-**Installing Webino Devkit**
+- `wget https://get.webino.org/seed/apache -qO- | sh -s -- --local`
 
-- `wget https://get.webino.org/devkit -qO - | sh`
+*Development server* [TODO]
+
+- `wget https://get.webino.org/seed/apache -qO- | sh -s -- --dev`
+
+*Public server*
+
+- `wget https://get.webino.org/seed/apache -qO- | sh -s -- --pub`
 
 **Building PHP from source**
 
-- `wget https://get.webino.org/seed/php -qO - | sh`
+- `wget https://get.webino.org/seed/php -qO- | sh`
+
+**Installing Webino Devkit**
+
+- `wget https://get.webino.org/devkit -qO- | sh`
