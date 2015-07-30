@@ -1,16 +1,16 @@
 #!/bin/bash
 set -e
 
-[ "$TEST" = 'apache' ] && wget https://get.webino.org/seed/apache -qO - | sh && exit 0
-[ "$TEST" = 'php' ] && wget https://get.webino.org/seed/php -qO - | sh && exit 0
-[ "$TEST" = 'devkit' ] && wget https://get.webino.org/devkit -qO - | sh && exit 0
+[ "$TEST" = 'apache' ] && wget https://get.webino.org/seed/apache -qO- | sh && exit 0
+[ "$TEST" = 'php' ] && wget https://get.webino.org/seed/php -qO- | sh && exit 0
+[ "$TEST" = 'devkit' ] && wget https://get.webino.org/devkit -qO- | sh && exit 0
 # TODO seed
-#[ "$TEST" = 'seed' ] && wget https://get.webino.org/seed -qO - | sh && exit 0
+#[ "$TEST" = 'seed' ] && wget https://get.webino.org/seed -qO- | sh && exit 0
 # TODO easy
-#[ "$TEST" = 'easy' ] && wget https://get.webino.org -qO - | sh && exit 0
+#[ "$TEST" = 'easy' ] && wget https://get.webino.org -qO- | sh && exit 0
 
 if [ "$TEST" = 'dev-module' ]; then
-  wget https://get.webino.org/devkit -qO - | sh
+  wget https://get.webino.org/devkit -qO- | sh
   # TODO use WebinoSkeletonModule instead
   module=WebinoDev
   git clone https://github.com/webino/${module}.git
