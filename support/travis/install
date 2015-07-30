@@ -4,4 +4,3 @@ pecl install mailparse
 (cd .. && webino init-user-cfg) &
 webino init
 composer require satooshi/php-coveralls:0.*
-

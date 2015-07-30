@@ -1,4 +1,3 @@
 #!/bin/bash
 
 webino exec:server --force > /dev/null &
-

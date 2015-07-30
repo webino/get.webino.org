@@ -3,4 +3,3 @@
 webino test
 webino analyze
 [ "$URI" != ''  ] && webino uat
-
