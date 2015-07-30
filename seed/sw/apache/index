@@ -17,14 +17,14 @@
 
 main() {
     # resolve latest versions
-    apache_version_latest=$(wget -qO- http://www.apache.org/dist/httpd/Announcement2.4.txt \
-        | grep -Eom 1 'Server 2\.4\.[0-9]+ Released' | grep -Eom 1 '[0-9\.]+')
+    apache_version_latest=$(echo $(wget -qO- http://www.apache.org/dist/httpd/Announcement2.4.txt \
+        | grep -Eom 1 'Server 2\.4\.[0-9]+ Released' | grep -Eom 1 '[0-9\.]+'))
 
-    apache_apr_version_latest=$(wget -qO- http://apr.apache.org/download.cgi \
-        | grep -Eom 1 'APR 1\.5\.[0-9]+ is the best' | grep -Eom 1 '[0-9\.]+')
+    apache_apr_version_latest=$(echo $(wget -qO- http://apr.apache.org/download.cgi \
+        | grep -Eom 1 'APR 1\.5\.[0-9]+ is the best' | grep -Eom 1 '[0-9\.]+'))
 
-    apache_apr_util_version_latest=$(wget -qO- http://apr.apache.org/download.cgi \
-        | grep -Eom 1 'APR-util 1\.5\.[0-9]+ is the best' | grep -Eom 1 '[0-9\.]+')
+    apache_apr_util_version_latest=$(echo $(wget -qO- http://apr.apache.org/download.cgi \
+        | grep -Eom 1 'APR-util 1\.5\.[0-9]+ is the best' | grep -Eom 1 '[0-9\.]+'))
 
     apache_version=${apache_version-$apache_version_latest}
     apache_apr_version=${apache_apr_version-$apache_apr_version_latest}
