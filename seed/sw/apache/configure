@@ -84,6 +84,8 @@ main() {
     # logrotate vhosts (dev|pub only)
     [[ -n $env_dev || -n $env_pub ]] && \
         sudo wget -qO /etc/logrotate.d/apache2-vhosts $data/logrotate.d/apache2-vhosts
+
+    return 0
 }
 
 main
