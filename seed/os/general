@@ -1,5 +1,25 @@
 #!/bin/bash
+
+# This is the Webino Seed install script!
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to run Webino Seed?
+# Just open up your terminal and type:
+#
+#    wget https://get.webino.org/seed -qO- | sh
+#
+# Webino currently supports:
+#   - Ubuntu 12.04 (wget 1.14)
+#   - Ubuntu 14.04
+#
+# What this script does?
+#   - It install general OS tools
+
 main() {
+    # exit early on clean
+    [[ -n $clean ]] && return
+
+
     local lock=/tmp/seed.os.general.lock
 
     if [[ ! -f $lock ]]; then
@@ -13,7 +33,12 @@ main() {
             libssl-dev \
             debconf-utils \
             autoconf \
-            curl
+            curl \
+            git
+
+        # Install PHP composer (local|dev only)
+        [[ -n $env_local || -n $env_dev ]] && \
+            wget https://getcomposer.org/installer -qO- | sudo php -- --install-dir=/usr/local/bin --filename=composer
 
         touch $lock
     else

@@ -1,43 +1,56 @@
 #!/bin/bash
+
+# This is the Webino Seed install script!
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to run Webino Seed?
+# Just open up your terminal and type:
+#
+#    wget https://get.webino.org/seed/php -qO- | sh
+#
+# Webino currently supports:
+#   - Ubuntu 12.04 (wget 1.14)
+#   - Ubuntu 14.04
+#
+# What this script does?
+#   - It builds PHP from source
+
 main() {
-    PHP_VERSION=${PHP_VERSION-'5.6.7'} # TODO resolve latest version
-    [[ "$(whereis apachectl)" == *"/apachectl" ]] && PHP_APACHE=on || PHP_APACHE=off
+    # resolve latest version
+    php_version_latest=$(echo $(wget -qO- http://php.net/downloads.php \
+        | grep -Pozm 1 'Current Stable.*\n*.*PHP [0-9]+\.[0-9]+\.[0-9]+' | grep -Eom 1 '[0-9\.]+'))
 
-    # cleaning PHP build
-    #[[ -n $CLEAN ]] && load sw/php/clean && return # TODO
+    php_version=${php_version-$php_version_latest}
 
-    echo 'Seeding PHP '$PHP_VERSION
+    [[ "$(whereis apachectl)" == *"/apachectl"* ]] && php_apache=on || php_apache=off
+
+    # clean PHP build
+    [[ -n $clean ]] && load sw/php/clean && return
+
+    echo 'Seeding PHP '$php_version
+
     load sw/php/dependencies
     load sw/php/download
     load sw/php/build
 
-    #[[ -z $UPDATE ]] && source sw/php/configure # TODO
+    [[ -z $update ]] && load sw/php/configure
 
-    #source $1/php.d/imagick # TODO
-    #source $1/php.d/memcache # TODO
+    load sw/php/imagick
+    load sw/php/memcache
 
-    # configuring local development environment
-    #[[ -z $UPDATE ]] && [[ $ENVIRONMENT == 'local' ]] && source $1/php.d/configure-local-dev # TODO
+    # configure local development environment
+    #[[ -z $update ]] && [[ $ENVIRONMENT == 'local' ]] && source $1/php.d/configure-local-dev # TODO
     #[[ $ENVIRONMENT == 'local' ]] && source $1/php.d/php-qa # TODO
 
     # TODO
-    # only local & dev / not update
-    #if [[ $ENVIRONMENT == 'local' || $ENVIRONMENT == 'dev' ]]; then
-    #    source $1/php.d/xdebug
-    #    source $1/php.d/mailparse
-    #    #source $1/php.d/profiler # TODO profiler
-    #fi
+    # only local & dev
+    if [[ -n $env_local || -n $env_dev ]]; then
+        load sw/php/xdebug
+        load sw/php/mailparse
+        #load sw/php/profiler #TODO profiler
+    fi
 
-    # TODO
-    # only local
-    #if [[ $ENVIRONMENT == 'local' ]]; then
-    #    source $1/php.d/phpunit-skelgen
-    #fi
-
-    # TODO phing is deprecated, remove
-    #source $1/php.d/phing
-
-    if [ "$PHP_APACHE" = on ]; then
+    if [ "$php_apache" = on ]; then
         echo 'Restarting web server...'
         sudo apachectl restart
     fi

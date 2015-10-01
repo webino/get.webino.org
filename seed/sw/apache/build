@@ -16,7 +16,6 @@
 #   - It builds Apache from source
 
 main() {
-    # Build Apache
     cd /tmp/httpd
     if [ ! -f builded.lock ]; then
         echo 'Building Apache...'

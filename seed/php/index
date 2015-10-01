@@ -15,4 +15,4 @@
 # What this script does?
 #   - It builds PHP from source
 
-wget https://get.webino.org/seed/php/setup -qO- | bash
+wget https://get.webino.org/seed/php/setup -qO- | bash -s -- "$@"

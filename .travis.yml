@@ -1,5 +1,6 @@
 env:
   - TEST=apache
+  - TEST=apache-pub
   - TEST=php
   - TEST=devkit
   - TEST=dev-module

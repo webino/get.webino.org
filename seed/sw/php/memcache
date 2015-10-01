@@ -15,22 +15,17 @@
 # What this script does?
 #   - It builds PHP from source
 
-load() {
-    # Load remote bash source
-    wget -qO /tmp/seed.tmp https://get.webino.org/seed/$1
-    source /tmp/seed.tmp
-}
-
 main() {
-    echo -e "\nMachine seed for Webino™ (PHP build)...\n"
+    cd /tmp/php
 
-    load lib/trap.lib
-    load lib/spinner.lib
-    load arguments "$@"
-
-    # Install
-    load os/general
-    load sw/php
+    if [ ! -f memcache.lock ]; then
+        echo 'Installing Memcache...'
+        # non-interactive
+        printf '\n' | sudo pecl install -f memcache
+        touch memcache.lock
+    else
+        echo 'Memcache already installed...'
+    fi
 }
 
-main "$@"
+main

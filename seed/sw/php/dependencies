@@ -1,15 +1,41 @@
 #!/bin/bash
+
+# This is the Webino Seed install script!
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to run Webino Seed?
+# Just open up your terminal and type:
+#
+#    wget https://get.webino.org/seed/php -qO- | sh
+#
+# Webino currently supports:
+#   - Ubuntu 12.04 (wget 1.14)
+#   - Ubuntu 14.04
+#
+# What this script does?
+#   - It builds PHP from source
+
 main() {
-    echo "Installing dependencies for PHP build..."
-    sudo apt-get install -y \
-        re2c \
-        libcurl4-openssl-dev \
-        pkg-config \
-        libpspell-dev \
-        libicu-dev \
-        libmagickwand-dev \
-        libmcrypt-dev \
-        libxslt1-dev
+    cd /tmp
+
+    if [[ ! -f php.dependencies.lock ]]; then
+        echo "Installing dependencies for PHP build..."
+
+        sudo apt-get install -y \
+            re2c \
+            libcurl4-openssl-dev \
+            pkg-config \
+            libpspell-dev \
+            libicu-dev \
+            libedit-dev \
+            libmagickwand-dev \
+            libmcrypt-dev \
+            libxslt1-dev
+
+        touch php.dependencies.lock
+    else
+        echo 'Dependencies for PHP build already installed...'
+    fi
 }
 
 main

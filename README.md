@@ -2,9 +2,11 @@
 
 [![Build Status](https://travis-ci.org/webino/get.webino.org.svg?branch=develop)](https://travis-ci.org/webino/get.webino.org) 
 
+
 ## Requirements
 
 - Ubuntu 14.04 / 12.04 (wget 1.14)
+
 
 ## How To
 
@@ -12,9 +14,21 @@
 
 - `wget https://get.webino.org -qO- | sh`
 
-**Workstation setup** [TODO]
 
-- `wget https://get.webino.org/seed -qO- | sh`
+**Machine setup** [TODO]
+
+*Local development* [TODO]
+
+- `wget https://get.webino.org/seed -qO- | sh -s -- --local`
+
+*Development server* [TODO]
+
+- `wget https://get.webino.org/seed -qO- | sh -s -- --dev`
+
+*Public server* [TODO]
+
+- `wget https://get.webino.org/seed -qO- | sh -s -- --pub`
+
 
 **Building Apache 2.4 from source**
 
@@ -30,9 +44,21 @@
 
 - `wget https://get.webino.org/seed/apache -qO- | sh -s -- --pub`
 
+
 **Building PHP from source**
 
-- `wget https://get.webino.org/seed/php -qO- | sh`
+*Local development* [TODO]
+
+- `wget https://get.webino.org/seed/php -qO- | sh -s -- --local`
+
+*Development server* [TODO]
+
+- `wget https://get.webino.org/seed/php  -qO- | sh -s -- --dev`
+
+*Public server* [TODO]
+
+- `wget https://get.webino.org/seed/php  -qO- | sh -s -- --pub`
+
 
 **Installing Webino Devkit**
 

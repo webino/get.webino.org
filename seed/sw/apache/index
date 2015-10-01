@@ -33,7 +33,7 @@ main() {
     # TODO server name (local only)
     #apache_server_name='webino.'$([[ $USER == 'webino' ]] && echo 'local' || echo $USER)
 
-    # cleaning the Apache build
+    # clean the Apache build
     [[ -n $clean ]] && load sw/apache/clean && return
 
     # remove pre-installed

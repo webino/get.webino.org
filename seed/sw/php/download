@@ -1,4 +1,20 @@
 #!/bin/bash
+
+# This is the Webino Seed install script!
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to run Webino Seed?
+# Just open up your terminal and type:
+#
+#    wget https://get.webino.org/seed/php -qO- | sh
+#
+# Webino currently supports:
+#   - Ubuntu 12.04 (wget 1.14)
+#   - Ubuntu 14.04
+#
+# What this script does?
+#   - It builds PHP from source
+
 main() {
     cd /tmp
 
@@ -13,9 +29,9 @@ main() {
 
     # PHP
     if [ ! -d php ]; then
-        echo 'Downloading PHP ...'
-        wget 'http://cz1.php.net/get/php-'$PHP_VERSION'.tar.gz/from/this/mirror' \
-            -O php.tar.gz && tar xvf php.tar.gz & spinner $! && rm php.tar.gz && mv 'php-'$PHP_VERSION php 2>&1
+        echo 'Downloading PHP...'
+        wget 'http://cz1.php.net/get/php-'$php_version'.tar.gz/from/this/mirror' \
+            -O php.tar.gz && tar xvf php.tar.gz & spinner $! && rm php.tar.gz && mv 'php-'$php_version php 2>&1
     else
         echo 'PHP already downloaded...'
     fi

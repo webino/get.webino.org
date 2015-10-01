@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# This is the Webino Seed install script!
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to run Webino Seed?
+# Just open up your terminal and type:
+#
+#    wget https://get.webino.org/seed/php -qO- | sh
+#
+# Webino currently supports:
+#   - Ubuntu 12.04 (wget 1.14)
+#   - Ubuntu 14.04
+#
+# What this script does?
+#   - It builds PHP from source
+
+main() {
+    cd /tmp/php
+    local etc='/etc/php5'
+    local data='https://get.webino.org/seed/data/etc'
+
+    if [ ! -f configured.lock ]; then
+        echo 'Configuring PHP...'
+
+        sudo mkdir -p /etc/php5/conf.d
+
+        # php config
+        [[ -f /etc/php5/php.ini ]] || \
+            sudo cp ./php.ini-production /etc/php5/php.ini
+
+        sudo pear config-set php_ini /etc/php5/php.ini
+        sudo pecl config-set php_ini /etc/php5/php.ini
+
+        # cli config
+        [[ -f /etc/php5/php-cli.ini ]] || \
+            sudo wget -qO $etc/php-cli.ini $data/php5/php-cli.ini
+
+        # custom config
+        [[ -f /etc/php5/conf.d/custom.ini ]] || \
+            sudo wget -qO $etc/conf.d/custom.ini $data/php5/conf.d/custom.ini
+
+        # apache config
+        [[ -f /etc/apache2/conf.d/php5.conf ]] || \
+            sudo wget -qO /etc/apache2/conf.d/php5.conf $data/apache2/conf.d/php5.conf
+
+        touch configured.lock
+    else
+        echo 'PHP already configured...'
+    fi
+
+    return 0
+}
+
+main

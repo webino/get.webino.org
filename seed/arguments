@@ -17,6 +17,7 @@ main() {
     env_local=1
     env_dev=
     env_pub=
+    update=
     clean=
 
     for i in "$@"
@@ -38,6 +39,10 @@ main() {
             env_pub=1
             env_dev=
             env_local=
+            shift
+        ;;
+        --update) # update files
+            update=1
             shift
         ;;
         --clean) # purge files
