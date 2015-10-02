@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# This is the Webino Seed install script!
+# Version: 6ce8d0083dff6c1065d1921891d10db6dcc29234
+#
+# Are you looking at this in your web browser, and would like to run Webino Seed?
+# Just open up your terminal and type:
+#
+#    wget https://get.webino.org/seed/php -qO- | sh
+#
+# Webino currently supports:
+#   - Ubuntu 12.04 (wget 1.14)
+#   - Ubuntu 14.04
+#
+# What this script does?
+#   - It builds PHP from source
+
+main() {
+    cd /tmp/php
+
+    if [ ! -f opcache.lock ]; then
+        echo 'Installing Zend OPCache...'
+        cd ext/opcache
+        phpize
+        ./configure
+        make
+        sudo make install
+        touch /tmp/php/opcache.lock
+    else
+        echo 'Zend OPCache already installed...'
+    fi
+
+    # configuring
+    local etc='/etc/php5'
+    local is_configured=$(grep opcache.so $etc/php.ini)
+    if [ "$is_configured" == "" ]; then
+        echo 'Enabling PHP Zend OPCache module" ...'
+        echo "zend_extension=opcache.so" | cat - $etc/php.ini | sudo tee $etc/php.ini > /dev/null
+    fi
+}
+
+main

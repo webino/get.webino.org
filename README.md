@@ -55,9 +55,11 @@
 
 - `wget https://get.webino.org/seed/php  -qO- | sh -s -- --dev`
 
-*Public server* [TODO]
+*Public server*
 
 - `wget https://get.webino.org/seed/php  -qO- | sh -s -- --pub`
+
+- `wget https://get.webino.org/seed/php  -qO- | sh -s -- --pub --update`
 
 
 **Installing Webino Devkit**

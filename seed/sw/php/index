@@ -32,11 +32,7 @@ main() {
     load sw/php/dependencies
     load sw/php/download
     load sw/php/build
-
-    [[ -z $update ]] && load sw/php/configure
-
-    load sw/php/imagick
-    load sw/php/memcache
+    load sw/php/configure
 
     # configure local development environment
     #[[ -z $update ]] && [[ $ENVIRONMENT == 'local' ]] && source $1/php.d/configure-local-dev # TODO
@@ -49,6 +45,10 @@ main() {
         load sw/php/mailparse
         #load sw/php/profiler #TODO profiler
     fi
+
+    load sw/php/imagick
+    load sw/php/memcache
+    load sw/php/opcache
 
     if [ "$php_apache" = on ]; then
         echo 'Restarting web server...'

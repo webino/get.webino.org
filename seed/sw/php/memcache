@@ -26,6 +26,14 @@ main() {
     else
         echo 'Memcache already installed...'
     fi
+
+    # configuring
+    local etc='/etc/php5'
+    local is_configured=$(grep memcache.so $etc/php.ini)
+    if [ "$is_configured" == "" ]; then
+        echo 'Enabling PHP Memcache module" ...'
+        echo "extension=memcache.so" | cat - $etc/php.ini | sudo tee $etc/php.ini > /dev/null
+    fi
 }
 
 main

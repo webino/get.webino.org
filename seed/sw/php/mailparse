@@ -26,6 +26,19 @@ main() {
     else
         echo 'Mailparse already installed...'
     fi
+    
+    # configuring
+    local etc='/etc/php5'
+    local is_configured=$(grep mailparse.so $etc/php.ini)
+    if [ "$is_configured" == "" ]; then
+        echo 'Enabling PHP Imagick module" ...'
+        echo "extension=mailparse.so" | cat - $etc/php.ini | sudo tee $etc/php.ini > /dev/null
+    fi
+    local is_configured_cli=$(grep mailparse.so $etc/php-cli.ini)
+    if [ "$is_configured_cli" == "" ]; then
+        echo 'Enabling PHP-CLI Imagick module" ...'
+        echo "extension=mailparse.so" | cat - $etc/php-cli.ini | sudo tee $etc/php-cli.ini > /dev/null
+    fi
 }
 
 main

@@ -20,34 +20,33 @@ main() {
     local etc='/etc/php5'
     local data='https://get.webino.org/seed/data/etc'
 
-    if [ ! -f configured.lock ]; then
-        echo 'Configuring PHP...'
+    echo 'Configuring PHP...'
 
-        sudo mkdir -p /etc/php5/conf.d
+    sudo mkdir -p /etc/php5/conf.d
 
-        # php config
-        [[ -f /etc/php5/php.ini ]] || \
-            sudo cp ./php.ini-production /etc/php5/php.ini
+    [[ -n $update ]] &&
+        rm /etc/php5/php.ini \
+        && rm /etc/php5/conf.d/custom.ini \
+        && rm /etc/php5/php-cli.ini
 
-        sudo pear config-set php_ini /etc/php5/php.ini
-        sudo pecl config-set php_ini /etc/php5/php.ini
+    # php config
+    [[ -f /etc/php5/php.ini ]] || \
+        sudo cp ./php.ini-production /etc/php5/php.ini
 
-        # cli config
-        [[ -f /etc/php5/php-cli.ini ]] || \
-            sudo wget -qO $etc/php-cli.ini $data/php5/php-cli.ini
+    sudo pear config-set php_ini /etc/php5/php.ini
+    sudo pecl config-set php_ini /etc/php5/php.ini
 
-        # custom config
-        [[ -f /etc/php5/conf.d/custom.ini ]] || \
-            sudo wget -qO $etc/conf.d/custom.ini $data/php5/conf.d/custom.ini
+    # cli config
+    [[ -f /etc/php5/php-cli.ini ]] || \
+        sudo wget -qO $etc/php-cli.ini $data/php5/php-cli.ini
 
-        # apache config
-        [[ -f /etc/apache2/conf.d/php5.conf ]] || \
-            sudo wget -qO /etc/apache2/conf.d/php5.conf $data/apache2/conf.d/php5.conf
+    # custom config
+    [[ -f /etc/php5/conf.d/custom.ini ]] || \
+        sudo wget -qO $etc/conf.d/custom.ini $data/php5/conf.d/custom.ini
 
-        touch configured.lock
-    else
-        echo 'PHP already configured...'
-    fi
+    # apache config
+    [[ -f /etc/apache2/conf.d/php5.conf ]] || \
+        sudo wget -qO /etc/apache2/conf.d/php5.conf $data/apache2/conf.d/php5.conf
 
     return 0
 }

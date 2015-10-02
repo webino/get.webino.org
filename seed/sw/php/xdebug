@@ -26,6 +26,19 @@ main() {
     else
         echo 'Xdebug already installed...'
     fi
+    
+    # configuring
+    local etc='/etc/php5'
+    local is_configured=$(grep xdebug.so $etc/php.ini)
+    if [ "$is_configured" == "" ]; then
+        echo 'Enabling PHP Imagick module" ...'
+        echo "zend_extension=xdebug.so" | cat - $etc/php.ini | sudo tee $etc/php.ini > /dev/null
+    fi
+    local is_configured_cli=$(grep xdebug.so $etc/php-cli.ini)
+    if [ "$is_configured_cli" == "" ]; then
+        echo 'Enabling PHP-CLI Imagick module" ...'
+        echo "zend_extension=xdebug.so" | cat - $etc/php-cli.ini | sudo tee $etc/php-cli.ini > /dev/null
+    fi
 }
 
 main
