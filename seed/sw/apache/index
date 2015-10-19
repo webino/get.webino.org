@@ -47,7 +47,7 @@ main() {
     load sw/apache/daemon
     load sw/apache/configure
 
-    # chown /srv
+    # chown /srv (pub only)
     [[ -n $env_pub ]] && sudo chown www-data:www-data /srv -R
 
     # create www dir
