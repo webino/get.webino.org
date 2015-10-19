@@ -2,6 +2,7 @@ env:
   - TEST=apache
   - TEST=apache-pub
   - TEST=php
+  - TEST=php7
   - TEST=devkit
   - TEST=dev-module
 before_install:

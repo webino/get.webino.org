@@ -13,6 +13,8 @@
 #   - Ubuntu 14.04
 
 main() {
+    argv=('')
+
     # defaults
     env_local=1
     env_dev=
@@ -20,8 +22,11 @@ main() {
     update=
     clean=
 
+    n=0
     for i in "$@"
     do
+    n=$((n + 1))
+    argv[$n]=$i
     case $i in
         --local) # local development
             env_local=1

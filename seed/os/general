@@ -25,6 +25,7 @@ main() {
     if [[ ! -f $lock ]]; then
         echo 'Installing general tools...'
 
+        sudo apt-get clean
         sudo apt-get update
         sudo apt-get install -y \
             build-essential \
@@ -35,10 +36,6 @@ main() {
             autoconf \
             curl \
             git
-
-        # Install PHP composer (local|dev only)
-        [[ -n $env_local || -n $env_dev ]] && \
-            wget https://getcomposer.org/installer -qO- | sudo php -- --install-dir=/usr/local/bin --filename=composer
 
         touch $lock
     else

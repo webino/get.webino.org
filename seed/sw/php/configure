@@ -17,36 +17,36 @@
 
 main() {
     cd /tmp/php
-    local etc='/etc/php5'
+    local etc='/etc/php'
     local data='https://get.webino.org/seed/data/etc'
 
     echo 'Configuring PHP...'
 
-    sudo mkdir -p /etc/php5/conf.d
+    sudo mkdir -p /etc/php/conf.d
 
     [[ -n $update ]] &&
-        rm /etc/php5/php.ini \
-        && rm /etc/php5/conf.d/custom.ini \
-        && rm /etc/php5/php-cli.ini
+        rm /etc/php/php.ini \
+        && rm /etc/php/conf.d/custom.ini \
+        && rm /etc/php/php-cli.ini
 
     # php config
-    [[ -f /etc/php5/php.ini ]] || \
-        sudo cp ./php.ini-production /etc/php5/php.ini
+    [[ -f /etc/php/php.ini ]] || \
+        sudo cp ./php.ini-production /etc/php/php.ini
 
-    sudo pear config-set php_ini /etc/php5/php.ini
-    sudo pecl config-set php_ini /etc/php5/php.ini
+    sudo pear config-set php_ini /etc/php/php.ini
+    sudo pecl config-set php_ini /etc/php/php.ini
 
     # cli config
-    [[ -f /etc/php5/php-cli.ini ]] || \
-        sudo wget -qO $etc/php-cli.ini $data/php5/php-cli.ini
+    [[ -f /etc/php/php-cli.ini ]] || \
+        sudo wget -qO $etc/php-cli.ini $data/php/php-cli.ini
 
     # custom config
-    [[ -f /etc/php5/conf.d/custom.ini ]] || \
-        sudo wget -qO $etc/conf.d/custom.ini $data/php5/conf.d/custom.ini
+    [[ -f /etc/php/conf.d/custom.ini ]] || \
+        sudo wget -qO $etc/conf.d/custom.ini $data/php/conf.d/custom.ini
 
     # apache config
-    [[ -f /etc/apache2/conf.d/php5.conf ]] || \
-        sudo wget -qO /etc/apache2/conf.d/php5.conf $data/apache2/conf.d/php5.conf
+    [[ -f /etc/apache2/conf.d/php.conf ]] || \
+        sudo wget -qO /etc/apache2/conf.d/php.conf $data/apache2/conf.d/php.conf
 
     return 0
 }

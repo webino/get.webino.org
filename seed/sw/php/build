@@ -33,8 +33,8 @@ main() {
     fi
 
     # PHP build config
-    local php_cfg="--with-config-file-path=/etc/php5 \
-            --with-config-file-scan-dir=/etc/php5/conf.d \
+    local php_cfg="--with-config-file-path=/etc/php \
+            --with-config-file-scan-dir=/etc/php/conf.d \
             --enable-cli \
             --with-mysql \
             --with-pdo-mysql \
@@ -79,6 +79,7 @@ main() {
     cd /tmp/php
     if [ ! -f builded.lock ]; then
         echo 'Building PHP...'
+        sh ./buildconf --force
         sh ./configure $php_cfg
         make
         sudo make install

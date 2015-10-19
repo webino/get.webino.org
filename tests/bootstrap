@@ -4,6 +4,7 @@ set -e
 [ "$TEST" = 'apache' ] && wget https://get.webino.org/seed/apache -qO- | sh && exit 0
 [ "$TEST" = 'apache-pub' ] && wget https://get.webino.org/seed/apache -qO- | sh -s -- --pub && exit 0
 [ "$TEST" = 'php' ] && wget https://get.webino.org/seed/php -qO- | sh && exit 0
+[ "$TEST" = 'php7' ] && wget https://get.webino.org/seed/php -qO- | sh -s -- --pub --php 7.0.0RC5 && exit 0
 [ "$TEST" = 'devkit' ] && wget https://get.webino.org/devkit -qO- | sh && exit 0
 # TODO seed
 #[ "$TEST" = 'seed' ] && wget https://get.webino.org/seed -qO- | sh && exit 0

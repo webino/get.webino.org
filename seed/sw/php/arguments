@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# This is the Webino Seed install support script!
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to run Webino Seed?
+# Just open up your terminal and type:
+#
+#    wget https://get.webino.org/seed -qO- | sh
+#
+# Webino currently supports:
+#   - Ubuntu 12.04 (wget 1.14)
+#   - Ubuntu 14.04
+
+main() {
+    n=0
+    for i in "$@"
+    do
+    n=$((n + 1))
+    case $i in
+        --php) # set PHP version
+            php_version=${argv[$n]}
+            shift
+            shift
+        ;;
+        *)
+            # unknown option
+        ;;
+    esac
+    done
+}
+
+main "${argv[@]}"

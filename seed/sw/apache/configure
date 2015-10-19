@@ -63,7 +63,7 @@ main() {
 
     sudo wget -qO $etc/conf.d/general.conf $data/apache2/conf.d/general.conf
 
-    sudo wget -qO $etc/conf.d/php5.conf $data/apache2/conf.d/php5.conf
+    sudo wget -qO $etc/conf.d/php.conf $data/apache2/conf.d/php.conf
 
     # bad-bots
     echo 'Installing Bad-bot-blocker config...'

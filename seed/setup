@@ -31,4 +31,4 @@ main() {
     load sw/php
 }
 
-main
+main "$@"

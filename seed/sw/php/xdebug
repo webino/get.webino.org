@@ -28,7 +28,7 @@ main() {
     fi
     
     # configuring
-    local etc='/etc/php5'
+    local etc='/etc/php'
     local is_configured=$(grep xdebug.so $etc/php.ini)
     if [ "$is_configured" == "" ]; then
         echo 'Enabling PHP Imagick module" ...'

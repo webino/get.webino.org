@@ -16,6 +16,8 @@
 #   - It builds PHP from source
 
 main() {
+    load sw/php/arguments
+
     # resolve latest version
     php_version_latest=$(echo $(wget -qO- http://php.net/downloads.php \
         | grep -Pozm 1 'Current Stable.*\n*.*PHP [0-9]+\.[0-9]+\.[0-9]+' | grep -Eom 1 '[0-9\.]+'))
@@ -23,6 +25,9 @@ main() {
     php_version=${php_version-$php_version_latest}
 
     [[ "$(whereis apachectl)" == *"/apachectl"* ]] && php_apache=on || php_apache=off
+
+    # update PHP build
+    [[ -n $update ]] && load sw/php/clean
 
     # clean PHP build
     [[ -n $clean ]] && load sw/php/clean && return
@@ -44,6 +49,7 @@ main() {
         load sw/php/xdebug
         load sw/php/mailparse
         #load sw/php/profiler #TODO profiler
+        load sw/php/composer
     fi
 
     load sw/php/imagick
