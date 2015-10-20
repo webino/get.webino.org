@@ -58,7 +58,8 @@ main() {
 
     if [ "$php_apache" = on ]; then
         echo 'Restarting web server...'
-        sudo apachectl restart
+        sudo apachectl stop
+        sudo apachectl start
     fi
 }
 

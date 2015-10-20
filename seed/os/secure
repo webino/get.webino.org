@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# This is the Webino Seed install script!
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to run Webino Seed?
+# Just open up your terminal and type:
+#
+#    wget https://get.webino.org/seed -qO- | sh
+#
+# Webino currently supports:
+#   - Ubuntu 12.04 (wget 1.14)
+#   - Ubuntu 14.04
+#
+# What this script does?
+#   - It secures the operating system
+
+main() {
+    # exit early on clean
+    [[ -n $clean ]] && return
+
+
+    local lock=/tmp/seed.os.secure.lock
+
+    if [[ ! -f $lock ]]; then
+        echo 'Securing operating system...'
+
+        echo 'Securing SSH...' && \
+        sed -i 's/Port 22/Port 2222/' /etc/ssh/sshd_config && \
+        # TODO
+        #sed -i 's/PermitRootLogin yes/PermitRootLogin without-password/' /etc/ssh/sshd_config && \
+        #sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config && \
+        #sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config && \
+
+        touch $lock
+    else
+        echo 'Operating system already secured...'
+    fi
+}
+
+main

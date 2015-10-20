@@ -18,14 +18,15 @@
 main() {
     cd /tmp
     local data='https://get.webino.org/seed/data'
+    local lock=seed.sw.mysql.server.lock
 
-    if [[ ! -f mysql.server.lock ]]; then
+    if [[ ! -f $lock ]]; then
         echo "Installing MySQL server..."
 
         # resolve mysql root credentials
         if [ -z "${mysql_root_password-}" ]; then
             echo "Generating MySQL password for user \`root\`..."
-            mysql_root_password=$(echo $(< /dev/urandom tr -dc a-z-0-9 | head -c12))
+            mysql_root_password=$(echo $(< /dev/urandom tr -dc a-z0-9 | head -c12))
         fi
 
         # non-interactive
@@ -35,11 +36,14 @@ main() {
 
         # create root config
         if [[ ! -f /root/.my.cnf ]]; then
-            echo "$(wget -qO- https://get.webino.org/seed/data/home/example/.my.cnf | sed s/'%USER%'/root/ | sed s/'%PASSWORD%'/$mysql_root_password/)" > /root/.my.cnf
+
+            sudo echo "$(wget -qO- https://get.webino.org/seed/data/home/example/.my.cnf | \
+                sed s/'%USER%'/root/ | sed s/'%PASSWORD%'/$mysql_root_password/)" > /root/.my.cnf
+
             sudo chmod 600 /root/.my.cnf
         fi
 
-        touch mysql.server.lock
+        touch $lock
     else
         echo 'MySQL server already installed...'
     fi

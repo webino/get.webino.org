@@ -21,7 +21,7 @@ main() {
     do
     n=$((n + 1))
     case $i in
-        --mysql-password) # set MySQL password
+        --mysql-password) # set MySQL root password
             mysql_root_password=${argv[$n]}
             shift
             shift
