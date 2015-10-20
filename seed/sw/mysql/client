@@ -36,7 +36,7 @@ main() {
         # resolve client home
         local client_home=$(echo ~www-data)
 
-        if [[ "$client_home" != '~www-data' ]]; then
+        if [[ "$client_home" != '~www-data' && -d "$client_home" ]]; then
             # create client config
             if [[ ! -f $client_home'/.my.cnf' ]]; then
 

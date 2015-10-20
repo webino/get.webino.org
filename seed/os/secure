@@ -26,11 +26,14 @@ main() {
         echo 'Securing operating system...'
 
         echo 'Securing SSH...' && \
-        sed -i 's/Port 22/Port 2222/' /etc/ssh/sshd_config && \
+        local ssh_port='22'$(echo $(< /dev/urandom tr -dc 0-9 | head -c2))
+        sed -i 's/Port 22/Port '$ssh_port'/' /etc/ssh/sshd_config && \
+        echo 'New SSH port: '$ssh_port
+        sleep 3
         # TODO
-        #sed -i 's/PermitRootLogin yes/PermitRootLogin without-password/' /etc/ssh/sshd_config && \
-        #sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config && \
-        #sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config && \
+        sed -i 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config && \
+        sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config && \
+        sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config && \
 
         touch $lock
     else
