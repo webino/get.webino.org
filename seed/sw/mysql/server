@@ -37,8 +37,9 @@ main() {
         # create root config
         if [[ ! -f /root/.my.cnf ]]; then
 
-            sudo echo "$(wget -qO- https://get.webino.org/seed/data/home/example/.my.cnf | \
-                sed s/'%USER%'/root/ | sed s/'%PASSWORD%'/$mysql_root_password/)" > /root/.my.cnf
+            echo "$(wget -qO- https://get.webino.org/seed/data/home/example/.my.cnf | \
+                sed s/'%USER%'/root/ | sed s/'%PASSWORD%'/$mysql_root_password/)" | \
+                sudo tee /root/.my.cnf > /dev/null
 
             sudo chmod 600 /root/.my.cnf
         fi

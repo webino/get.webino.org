@@ -40,9 +40,10 @@ main() {
             # create client config
             if [[ ! -f $client_home'/.my.cnf' ]]; then
 
-                sudo echo "$(wget -qO- https://get.webino.org/seed/data/home/example/.my.cnf | \
+                echo "$(wget -qO- https://get.webino.org/seed/data/home/example/.my.cnf | \
                     sed s/'%USER%'/$mysql_client_user/ | \
-                    sed s/'%PASSWORD%'/$mysql_client_password/)" > $client_home'/.my.cnf'
+                    sed s/'%PASSWORD%'/$mysql_client_password/)" | \
+                    sudo tee $client_home'/.my.cnf' > /dev/null
 
                 sudo chown www-data:root $client_home'/.my.cnf'
                 sudo chmod 660 $client_home'/.my.cnf'
