@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# This is the Webino Seed install script!
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to run Webino Seed?
+# Just open up your terminal and type:
+#
+#    wget https://get.webino.org/seed/apache -qO- | sh
+#
+# Webino currently supports:
+#   - Ubuntu 12.04 (wget 1.14)
+#   - Ubuntu 14.04
+#
+# What this script does?
+#   - It builds Apache from source
+
+main() {
+    local lock=/tmp/seed.sw.apache.purge.lock
+
+    if [ ! -f $lock ]; then
+        echo 'Removing pre-installed Apache...'
+
+        sudo apt-get purge -y apache*
+        sudo apt-get autoremove -y
+
+        touch $lock
+    else
+        echo 'Pre-installed Apache already removed...'
+    fi
+}
+
+main

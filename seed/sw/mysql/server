@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# This is the Webino Seed install script!
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to run Webino Seed?
+# Just open up your terminal and type:
+#
+#    wget https://get.webino.org/seed/mysql -qO- | sh
+#
+# Webino currently supports:
+#   - Ubuntu 12.04 (wget 1.14)
+#   - Ubuntu 14.04
+#
+# What this script does?
+#   - It installs MySQL database
+
+main() {
+    cd /tmp
+    local data='https://get.webino.org/seed/data'
+
+    if [[ ! -f mysql.server.lock ]]; then
+        echo "Installing MySQL server..."
+
+        # resolve mysql root credentials
+        if [ -z "${mysql_root_password-}" ]; then
+            echo "Generating MySQL password for user \`root\`..."
+            mysql_root_password=$(echo $(< /dev/urandom tr -dc a-z-0-9 | head -c12))
+        fi
+
+        # non-interactive
+        sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password '$mysql_root_password
+        sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password '$mysql_root_password
+        sudo apt-get install -y mysql-server
+
+        # create root config
+        if [[ ! -f /root/.my.cnf ]]; then
+            echo "$(wget -qO- https://get.webino.org/seed/data/home/example/.my.cnf | sed s/'%USER%'/root/ | sed s/'%PASSWORD%'/$mysql_root_password/)" > /root/.my.cnf
+            sudo chmod 600 /root/.my.cnf
+        fi
+
+        touch mysql.server.lock
+    else
+        echo 'MySQL server already installed...'
+    fi
+}
+
+main

@@ -37,9 +37,7 @@ main() {
     [[ -n $clean ]] && load sw/apache/clean && return
 
     # remove pre-installed
-    echo 'Removing pre-installed Apache...'
-    sudo apt-get purge -y apache*
-    sudo apt-get autoremove -y
+    load sw/apache/purge
 
     echo 'Seeding Apache '$apache_version
     load sw/apache/download
@@ -47,11 +45,11 @@ main() {
     load sw/apache/daemon
     load sw/apache/configure
 
-    # chown /srv (pub only)
+    # chown /srv
     [[ -n $env_pub ]] && sudo chown www-data:www-data /srv -R
 
     # create www dir
-    sudo mkdir /var/www
+    sudo mkdir -p /var/www/public
     sudo chown www-data:www-data /var/www -R
 
     echo 'Starting web server...'

@@ -13,36 +13,27 @@
 #   - Ubuntu 14.04
 #
 # What this script does?
-#   - It install general OS tools
+#   - It fixes locale
 
 main() {
     # exit early on clean
     [[ -n $clean ]] && return
 
 
-    local lock=/tmp/seed.os.general.lock
+    local lock=/tmp/seed.os.locale.lock
 
     if [[ ! -f $lock ]]; then
-        echo 'Installing general tools...'
+        echo 'Setting locale...'
 
-        sudo apt-get clean
-        sudo apt-get update
-        sudo apt-get install -y \
-            build-essential \
-            libpcre3-dev \
-            libwww-perl \
-            libssl-dev \
-            debconf-utils \
-            autoconf \
-            curl \
-            git
+        sudo locale-gen en_US.UTF-8
+        sudo locale-gen sk_SK.UTF-8
+        sudo dpkg-reconfigure locales
+        sudo update-locale
 
         touch $lock
     else
-        echo 'General tools already installed...'
+        echo 'Locale already set...'
     fi
-
-    load os/locale
 }
 
 main

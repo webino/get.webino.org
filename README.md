@@ -45,6 +45,11 @@
 - `wget https://get.webino.org/seed/apache -qO- | sh -s -- --pub`
 
 
+**Installing MySQL database**
+
+- `wget https://get.webino.org/seed/mysql  -qO- | sh`
+
+
 **Building PHP from source**
 
 *Local development* [TODO]

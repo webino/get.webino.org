@@ -6,11 +6,14 @@
 # Are you looking at this in your web browser, and would like to run Webino Seed?
 # Just open up your terminal and type:
 #
-#    wget https://get.webino.org/seed -qO- | sh
+#    wget https://get.webino.org/seed/mysql -qO- | sh
 #
 # Webino currently supports:
 #   - Ubuntu 12.04 (wget 1.14)
 #   - Ubuntu 14.04
+#
+# What this script does?
+#   - It installs MySQL database
 
 load() {
     # Load remote bash source
@@ -19,7 +22,7 @@ load() {
 }
 
 main() {
-    echo -e "\nMachine seed for Webino™...\n"
+    echo -e "\nMachine seed for Webino™ (MySQL install)...\n"
 
     load lib/trap.lib
     load lib/spinner.lib
@@ -27,9 +30,7 @@ main() {
 
     # Install
     load os/general
-    load sw/apache
     load sw/mysql
-    load sw/php
 }
 
 main "$@"

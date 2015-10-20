@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# This is the Webino Seed install script!
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to run Webino Seed?
+# Just open up your terminal and type:
+#
+#    wget https://get.webino.org/seed/mysql -qO- | sh
+#
+# Webino currently supports:
+#   - Ubuntu 12.04 (wget 1.14)
+#   - Ubuntu 14.04
+#
+# What this script does?
+#   - It installs MySQL database
+
+main() {
+    cd /tmp
+    local data='https://get.webino.org/seed/data'
+
+    if [[ ! -f mysql.client.lock ]]; then
+        echo "Installing MySQL client..."
+
+        # resolve client credentials
+        if [ -z "${mysql_client_user-}" ]; then
+            echo "Generating MySQL client user..."
+            mysql_client_user=$(echo $(< /dev/urandom tr -dc a-z-0-9 | head -c6))
+        fi
+        if [ -z "${mysql_client_password-}" ]; then
+            echo "Generating MySQL password for user \`$mysql_client_user\`..."
+            mysql_client_password=$(echo $(< /dev/urandom tr -dc a-z-0-9 | head -c12))
+        fi
+
+        # resolve client home
+        local client_home=$(echo ~www-data)
+
+        # create client config
+        if [[ ! -f $client_home'/.my.cnf' ]]; then
+            echo "$(wget -qO- https://get.webino.org/seed/data/home/example/.my.cnf | sed s/'%USER%'/$mysql_client_user/ | sed s/'%PASSWORD%'/$mysql_client_password/)" > $client_home'/.my.cnf'
+            sudo chown www-data:root $client_home'/.my.cnf'
+            sudo chmod 660 $client_home'/.my.cnf'
+        fi
+
+        # create user
+        sudo -i mysql -e "CREATE USER '$mysql_client_user'@'localhost' IDENTIFIED BY '$mysql_client_password';"
+        sudo -i mysql -e "$(wget $data/extra/mysql-grant-client.sql -qO- | sed s/'%USER%'/$mysql_client_user/g)"
+
+        #touch mysql.client.lock
+    else
+        echo 'MySQL client already installed...'
+    fi
+}
+
+main
