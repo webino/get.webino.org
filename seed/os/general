@@ -19,6 +19,12 @@ main() {
     # exit early on clean
     [[ -n $clean ]] && return
 
+    # resolve server info
+    host_ip=$(ifconfig venet0:0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}')
+    host_name=$(cat /etc/hosts | grep $host_ip | awk -F' ' '{print $2}' | awk '{print $1}' | tr . -)
+    admin_mail=${admin_mail-'admin@'$host_name}
+
+    load os/arguments
 
     local lock=/tmp/seed.os.general.lock
 
@@ -37,12 +43,21 @@ main() {
             curl \
             git
 
+        # auto-updates (dev|pub only)
+        [[ -n $env_dev || -n $env_pub ]] && sudo apt-get install -y cron-apt
+
         touch $lock
     else
         echo 'General tools already installed...'
     fi
 
     load os/locale
+
+    # (dev|pub only)
+    if [[ -n $env_dev || -n $env_pub ]]; then
+        load os/mailer
+        load os/secure
+    fi
 }
 
 main

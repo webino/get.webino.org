@@ -34,7 +34,7 @@ main() {
     local etc='/etc/php'
     local is_configured=$(grep opcache.so $etc/php.ini)
     if [ "$is_configured" == "" ]; then
-        echo 'Enabling PHP Zend OPCache module" ...'
+        echo 'Enabling PHP Zend OPCache module...'
         echo "zend_extension=opcache.so" | cat - $etc/php.ini | sudo tee $etc/php.ini > /dev/null
     fi
 }

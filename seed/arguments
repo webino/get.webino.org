@@ -16,6 +16,7 @@ main() {
     argv=('')
 
     # defaults
+    no_interaction=
     env_local=1
     env_dev=
     env_pub=
@@ -28,6 +29,10 @@ main() {
     n=$((n + 1))
     argv[$n]=$i
     case $i in
+        --no-interaction|-n) # non interactive
+            no_interaction=1
+            shift
+        ;;
         --local) # local development
             env_local=1
             env_dev=

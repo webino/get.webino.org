@@ -44,7 +44,7 @@ main() {
     #[[ $ENVIRONMENT == 'local' ]] && source $1/php.d/php-qa # TODO
 
     # TODO
-    # only local & dev
+    # local & dev only
     if [[ -n $env_local || -n $env_dev ]]; then
         load sw/php/xdebug
         load sw/php/mailparse
@@ -60,6 +60,12 @@ main() {
         echo 'Restarting web server...'
         sudo apachectl stop
         sudo apachectl start
+    fi
+
+    # dev & pub only
+    if [[ -n $env_dev || -n $env_pub ]]; then
+        load sw/php/logwatch
+        load sw/php/fail2ban
     fi
 }
 

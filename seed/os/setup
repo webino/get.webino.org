@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# This is the Webino Seed install script!
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to run Webino Seed?
+# Just open up your terminal and type:
+#
+#    wget https://get.webino.org/seed/os -qO- | sh
+#
+# Webino currently supports:
+#   - Ubuntu 12.04 (wget 1.14)
+#   - Ubuntu 14.04
+
+load() {
+    # Load remote bash source
+    wget -qO /tmp/seed.tmp https://get.webino.org/seed/$1
+    source /tmp/seed.tmp
+}
+
+main() {
+    echo -e "\nMachine seed for Webino™...\n"
+
+    load lib/trap.lib
+    load lib/spinner.lib
+    load arguments "$@"
+    load os/general
+}
+
+main "$@"

@@ -45,7 +45,7 @@ main() {
     load sw/apache/daemon
     load sw/apache/configure
 
-    # chown /srv
+    # chown /srv (pub only)
     [[ -n $env_pub ]] && sudo chown www-data:www-data /srv -R
 
     # create www dir
@@ -55,6 +55,12 @@ main() {
     echo 'Starting web server...'
     sudo apachectl restart
     sudo apachectl
+
+    # dev & pub only
+    if [[ -n $env_dev || -n $env_pub ]]; then
+        load sw/apache/logwatch
+        load sw/apache/fail2ban
+    fi
 }
 
 main

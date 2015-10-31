@@ -1,0 +1,19 @@
+[apache]
+enabled=true
+logpath=/var/log/apache*/error.log
+        /srv/*/log*/error.log
+
+[apache-multiport]
+enabled=true
+logpath=/var/log/apache*/error.log
+        /srv/*/log*/error.log
+
+[apache-noscript]
+enabled=true
+logpath=/var/log/apache*/error.log
+        /srv/*/log*/error.log
+
+[apache-overflows]
+enabled=true
+logpath=/var/log/apache*/error.log
+        /srv/*/log*/error.log

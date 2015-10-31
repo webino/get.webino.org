@@ -1,0 +1,8 @@
+[DEFAULT]
+destemail=%ADMIN_MAIL%
+sendername=%ADMIN_MAIL%
+bantime=3600
+findtime=3600
+maxretry=3
+[ssh-ddos]
+enabled=true

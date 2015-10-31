@@ -31,12 +31,12 @@ main() {
     local etc='/etc/php'
     local is_configured=$(grep imagick.so $etc/php.ini)
     if [ "$is_configured" == "" ]; then
-        echo 'Enabling PHP Imagick module" ...'
+        echo 'Enabling PHP Imagick module...'
         echo "extension=imagick.so" | cat - $etc/php.ini | sudo tee $etc/php.ini > /dev/null
     fi
     local is_configured_cli=$(grep imagick.so $etc/php-cli.ini)
     if [ "$is_configured_cli" == "" ]; then
-        echo 'Enabling PHP-CLI Imagick module" ...'
+        echo 'Enabling PHP-CLI Imagick module...'
         echo "extension=imagick.so" | cat - $etc/php-cli.ini | sudo tee $etc/php-cli.ini > /dev/null
     fi
 }

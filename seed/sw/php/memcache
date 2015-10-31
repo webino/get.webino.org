@@ -31,7 +31,7 @@ main() {
     local etc='/etc/php'
     local is_configured=$(grep memcache.so $etc/php.ini)
     if [ "$is_configured" == "" ]; then
-        echo 'Enabling PHP Memcache module" ...'
+        echo 'Enabling PHP Memcache module...'
         echo "extension=memcache.so" | cat - $etc/php.ini | sudo tee $etc/php.ini > /dev/null
     fi
 }

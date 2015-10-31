@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# This is the Webino Seed install script!
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to run Webino Seed?
+# Just open up your terminal and type:
+#
+#    wget https://get.webino.org/seed/php -qO- | sh
+#
+# Webino currently supports:
+#   - Ubuntu 12.04 (wget 1.14)
+#   - Ubuntu 14.04
+#
+# What this script does?
+#   - It builds PHP from source
+
+main() {
+    # return early when File2ban not installed
+    [[ ! -f /etc/fail2ban/jail.local ]] && return 0
+
+    local data='https://get.webino.org/seed/data'
+    local is_configured=$(grep php /etc/fail2ban/jail.local)
+
+    if [[ -z "$is_configured" ]]; then
+        echo 'Installing Fail2ban for PHP...'
+
+        echo "$(wget $data/etc/fail2ban/jail.local-php -qO-)" | \
+            sudo tee --append /etc/fail2ban/jail.local > /dev/null
+
+        sudo service fail2ban restart
+    else
+        echo 'Fail2ban for PHP already installed...'
+    fi
+}
+
+main
