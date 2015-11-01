@@ -20,6 +20,7 @@ main() {
     [[ -n $clean ]] && return
 
 
+    local data='https://get.webino.org/seed/data'
     local lock=/tmp/seed.os.secure.lock
 
     if [[ ! -f $lock ]]; then
@@ -67,48 +68,18 @@ main() {
         echo 'Installing logwatch...'
         sudo apt-get install -y logwatch
 
-        echo "
-        TmpDir=/tmp
-        HostName=$host_name
-        Format=html
-        Output=mail
-        Detail=High
-        MailFrom=$admin_mail
-        MailTo=$admin_mail
-        " | sudo tee /usr/share/logwatch/dist.conf/logwatch.conf > /dev/null
+        echo "$(wget $data/usr/share/logwatch/dist.conf/logwatch.conf -qO- | \
+                sed s/'%HOST_NAME%'/$host_name/g | \
+                sed s/'%ADMIN_MAIL%'/$admin_mail/g)" | \
+            sudo tee /usr/share/logwatch/dist.conf/logwatch.conf > /dev/null
 
         # fail2ban
         echo 'Installing fail2ban...'
         sudo apt-get install -y fail2ban
-        echo "
-        [DEFAULT]
-        destemail=$admin_mail
-        sendername=$admin_mail
-        bantime=3600
-        findtime=3600
-        maxretry=3
-        [ssh-ddos]
-        enabled=true
-        [ssh-route]
-        enabled=true
-        [apache]
-        enabled=true
-        logpath=/var/log/apache*/error.log,/srv/*/log*/error.log
-        [apache-multiport]
-        enabled=true
-        logpath=/var/log/apache*/error.log,/srv/*/log*/error.log
-        [apache-noscript]
-        enabled=true
-        logpath=/var/log/apache*/error.log,/srv/*/log*/error.log
-        [apache-overflows]
-        enabled=true
-        logpath=/var/log/apache*/error.log,/srv/*/log*/error.log
-        [mysqld-auth]
-        enabled=true
-        [php-url-fopen]
-        enabled=true
-        logpath=/var/log/apache*/access.log,/srv/*/log*/access.log
-        " | sudo tee /etc/fail2ban/jail.local > /dev/null
+
+        echo "$(wget $data/etc/fail2ban/jail.local -qO- | \
+                sed s/'%ADMIN_MAIL%'/$admin_mail/g)" | \
+            sudo tee /etc/fail2ban/jail.local > /dev/null
 
         sudo service fail2ban stop
         sudo service fail2ban start
