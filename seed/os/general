@@ -20,8 +20,16 @@ main() {
     [[ -n $clean ]] && return
 
     # resolve server info
-    host_ip=$(ifconfig venet0:0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}')
-    host_name=$(cat /etc/hosts | grep $host_ip | awk -F' ' '{print $2}' | awk '{print $1}' | tr . -)
+    # (dev|pub only)
+    if [[ -n $env_dev || -n $env_pub ]]; then
+        // TODO make IP resolve universal (currently for vpsfree.cz)
+        host_ip=$(ifconfig venet0:0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}')
+        host_name=$(cat /etc/hosts | grep $host_ip | awk -F' ' '{print $2}' | awk '{print $1}' | tr . -)
+    else
+        host_ip=127.0.0.1
+        host_name=webino.local
+    fi
+
     admin_mail=${admin_mail-'admin@'$host_name}
 
     load os/arguments
