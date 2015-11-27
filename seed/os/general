@@ -20,9 +20,9 @@ main() {
     [[ -n $clean ]] && return
 
     # resolve server info
-    # (dev|pub only)
     if [[ -n $env_dev || -n $env_pub ]]; then
-        // TODO make IP resolve universal (currently for vpsfree.cz)
+        # (dev|pub only)
+        # TODO make IP resolve universal (currently for vpsfree.cz)
         host_ip=$(ifconfig venet0:0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}')
         host_name=$(cat /etc/hosts | grep $host_ip | awk -F' ' '{print $2}' | awk '{print $1}' | tr . -)
     else
