@@ -20,7 +20,7 @@ main() {
     [[ -n $clean ]] && return
 
     # return early on no settings
-    [[ -z "${smtp_host-}" || -z "${smtp_user-}" ]] && return 0
+    [[ -z "${smtp_host-}" || -z "${smtp_user-}" ]] && return
 
     local lock=/tmp/seed.os.mailer.lock
 

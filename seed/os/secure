@@ -19,6 +19,9 @@ main() {
     # exit early on clean
     [[ -n $clean ]] && return
 
+    # return early when disabled
+    [[ -n $no_ssh ]] && return
+
 
     local data='https://get.webino.org/seed/data'
     local lock=/tmp/seed.os.secure.lock

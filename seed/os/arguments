@@ -13,11 +13,18 @@
 #   - Ubuntu 14.04
 
 main() {
+    # defaults
+    no_ssh=
+
     n=0
     for i in "$@"
     do
     n=$((n + 1))
     case $i in
+        --no-ssh) # set server admin mail
+            no_ssh=1
+            shift
+        ;;
         --admin-mail) # set server admin mail
             admin_mail=${argv[$n]}
             shift
