@@ -25,6 +25,8 @@ main() {
     else
         echo 'Profiler already installed...'
     fi
+
+    # TODO add profiler extension to php.ini
 }
 
 main
