@@ -21,7 +21,7 @@ main() {
     do
     n=$((n + 1))
     case $i in
-        --no-ssh) # set server admin mail
+        --no-ssh) # skip ssh
             no_ssh=1
             shift
         ;;

@@ -13,6 +13,9 @@
 #   - Ubuntu 14.04
 
 main() {
+    # defaults
+    php_prefix=
+
     n=0
     for i in "$@"
     do
@@ -20,6 +23,11 @@ main() {
     case $i in
         --php) # set PHP version
             php_version=${argv[$n]}
+            shift
+            shift
+        ;;
+        --php-prefix) # set PHP prefix
+            php_prefix=${argv[$n]}
             shift
             shift
         ;;

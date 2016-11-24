@@ -22,6 +22,8 @@ main() {
     # return early when disabled
     [[ -n $no_ssh ]] && return
 
+    # return early when already secured
+    # TODO check for 2222 port in /etc/ssh/sshd_config
 
     local data='https://get.webino.org/seed/data'
     local lock=/tmp/seed.os.secure.lock
