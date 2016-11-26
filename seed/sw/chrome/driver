@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# This is the Webino Seed install script!
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to install Webino Devkit?
+# Just open up your terminal and type
+#
+#    wget https://get.webino.org/devkit -qO- | sh
+#
+# Webino currently supports:
+#   - Ubuntu 12.04 (wget 1.14)
+#   - Ubuntu 14.04
+#
+# What this script does?
+#   - It installs ChromeDriver for Selenium
+
+main() {
+    load sw/php/arguments
+
+    cd /tmp
+    local lock=seed.sw.chrome.driver.lock
+
+    if [[ ! -f $lock ]]; then
+        echo "Installing ChromeDriver for Selenium..."
+
+        # resolve latest chrome driver version
+        chrome_driver_version_latest=$(echo $(wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE))
+
+        # chrome driver
+        wget -N 'http://chromedriver.storage.googleapis.com/'$chrome_driver_version_latest'/chromedriver_linux64.zip' -P /tmp \
+             && unzip /tmp/chromedriver_linux64.zip -d /tmp && rm -f /tmp/chromedriver_linux64.zip & spinner $! 2>&1
+
+        chmod +x /tmp/chromedriver
+        sudo mv -f /tmp/chromedriver /usr/bin/chromedriver
+
+        touch $lock
+    else
+        echo 'ChromeDriver for Selenium already installed...'
+    fi
+}
+
+main

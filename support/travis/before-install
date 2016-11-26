@@ -11,15 +11,5 @@ sudo apt-get install -y nodejs graphviz
 sudo npm install webino-devkit -g --unsafe-perm
 sudo chmod o+w /home/travis -R
 
-if [ "$BROWSER" = 'chrome' ]
-then
-    # google chrome
-    sudo apt-get install -y libxss1 libappindicator1 libindicator7
-    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-    sudo dpkg -i google-chrome*.deb
-    # chromedriver
-    wget -N http://chromedriver.storage.googleapis.com/2.25/chromedriver_linux64.zip -P /tmp
-    unzip /tmp/chromedriver_linux64.zip -d /tmp
-    chmod +x /tmp/chromedriver &&
-    sudo mv -f /tmp/chromedriver /usr/bin/chromedriver
-fi
+[[ "$BROWSER" = 'firefox' ]] && wget https://get.webino.org/seed/devkit/firefox -qO- | sh
+[[ "$BROWSER" = 'chrome' ]] && wget https://get.webino.org/seed/devkit/chrome -qO- | sh

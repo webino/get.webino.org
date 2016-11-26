@@ -34,11 +34,13 @@ main() {
         fi
 
         # resolve client home
+        echo "Resolving MySQL client home..."
         local client_home=$(echo ~www-data)
 
         if [[ "$client_home" != '~www-data' && -d "$client_home" ]]; then
             # create client config
             if [[ ! -f $client_home'/.my.cnf' ]]; then
+                echo "Creating MySQL client config..."
 
                 echo "$(wget -qO- https://get.webino.org/seed/data/home/example/.my.cnf | \
                     sed s/'%USER%'/$mysql_client_user/ | \
@@ -50,6 +52,7 @@ main() {
             fi
 
             # create mysql client user
+            echo "Creating MySQL client user..."
             sudo -i mysql -e "CREATE USER '$mysql_client_user'@'localhost' IDENTIFIED BY '$mysql_client_password';"
             sudo -i mysql -e "$(wget $data/extra/mysql-grant-client.sql -qO- | sed s/'%USER%'/$mysql_client_user/g)"
         fi

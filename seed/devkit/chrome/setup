@@ -13,7 +13,7 @@
 #   - Ubuntu 14.04
 #
 # What this script does?
-#   - It installs Firefox for Selenium
+#   - It installs Google Chrome with ChromeDriver for Selenium
 
 load() {
     # Load remote bash source
@@ -22,14 +22,14 @@ load() {
 }
 
 main() {
-    echo -e "\nMachine seed for Webino™ (Firefox download)...\n"
+    echo -e "\nMachine seed for Webino™ (Chrome install)...\n"
 
     load lib/trap.lib
     load lib/spinner.lib
     load arguments "$@"
 
     # Install
-    load sw/firefox
+    load sw/chrome
 }
 
 main "$@"

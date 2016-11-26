@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# This is the Webino Seed install script!
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to install Webino Devkit?
+# Just open up your terminal and type
+#
+#    wget https://get.webino.org/devkit -qO- | sh
+#
+# Webino currently supports:
+#   - Ubuntu 12.04 (wget 1.14)
+#   - Ubuntu 14.04
+#
+# What this script does?
+#   - It installs Google Chrome for Selenium
+
+main() {
+    load sw/php/arguments
+
+    cd /tmp
+    local lock=seed.sw.chrome.lock
+
+    if [[ ! -f $lock ]]; then
+        echo "Installing Google Chrome for Selenium..."
+
+        # google chrome
+        sudo apt-get install -y libxss1 libappindicator1 libindicator7
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        sudo dpkg -i google-chrome*.deb
+
+        touch $lock
+    else
+        echo 'Google Chrome for Selenium already installed...'
+    fi
+}
+
+main

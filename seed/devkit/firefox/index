@@ -13,6 +13,6 @@
 #   - Ubuntu 14.04
 #
 # What this script does?
-#   - It downloads Firefox 46.0.1 for Selenium 2.53.1
+#   - It installs Firefox for Selenium
 
 wget https://get.webino.org/seed/devkit/firefox/setup -qO- | bash -s -- "$@"

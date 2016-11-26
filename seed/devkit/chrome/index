@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # This is the Webino Seed install script!
 # Version: @@version@@
@@ -13,11 +13,6 @@
 #   - Ubuntu 14.04
 #
 # What this script does?
-#   - It installs Firefox for Selenium
+#   - It installs Google Chrome with ChromeDriver for Selenium
 
-main() {
-    load sw/php/arguments
-    load sw/firefox/browser
-}
-
-main
+wget https://get.webino.org/seed/devkit/chrome/setup -qO- | bash -s -- "$@"
