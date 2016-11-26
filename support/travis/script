@@ -2,4 +2,4 @@
 
 webino test
 webino analyze
-R=0 [ "$URI" != ''  ] && webino uat
+[ "$URI" != ''  ] && R=0 webino uat
