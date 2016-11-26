@@ -25,6 +25,7 @@ main() {
          && bzip2 -d firefox-46.0.1.tar.bz2 & spinner $! 2>&1
 
     sudo tar -xf firefox-46.0.1.tar -C /var/lib/webino && rm firefox-46.0.1.tar & spinner $! 2>&1
+    sudo chmod +x /var/lib/webino/firefox/firefox
 }
 
 main
