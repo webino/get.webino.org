@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# This is the Webino Seed install script!
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to install Webino Devkit?
+# Just open up your terminal and type
+#
+#    wget https://get.webino.org/devkit -qO- | sh
+#
+# Webino currently supports:
+#   - Ubuntu 12.04 (wget 1.14)
+#   - Ubuntu 14.04
+#
+# What this script does?
+#   - It downloads Firefox 46.0.1 for Selenium 2.53.1
+
+load() {
+    # Load remote bash source
+    wget -qO /tmp/seed.tmp https://get.webino.org/seed/$1
+    source /tmp/seed.tmp
+}
+
+main() {
+    echo -e "\nMachine seed for Webino™ (Firefox download)...\n"
+
+    load lib/trap.lib
+    load lib/spinner.lib
+    load arguments "$@"
+
+    # Install
+    load sw/firefox
+}
+
+main "$@"

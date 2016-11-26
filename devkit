@@ -17,8 +17,10 @@
 #   - PHP >= 5.5
 #   - Git, Gitflow
 #   - Graphviz
+#   - Firefox 46.0.1
 #
 # What this script does?
+#   - It installs webino-devkit requirements
 #   - It installs webino-devkit via npm globally
 #   - It setups user Webino workspace
 
@@ -59,6 +61,13 @@ if [ "$(grunt --version 2> /dev/null)" = '' ]
 then
     echo 'Installing Grunt.js'
     sudo npm install grunt-cli -g
+fi
+
+# Check firefox
+if [ "$(/opt/webino-devkit/firefox/firefox --version 2> /dev/null)" = '' ]
+then
+    echo 'Downloading firefox'
+    wget https://get.webino.org/seed/devkit/firefox -qO- | sh
 fi
 
 # Installing devkit
