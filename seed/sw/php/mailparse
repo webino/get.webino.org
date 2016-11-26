@@ -21,7 +21,7 @@ main() {
     if [ ! -f mailparse.lock ]; then
         echo 'Installing Mailparse...'
         # non-interactive
-        printf '\n' | sudo pecl install -f mailparse
+        printf '\n' | sudo pecl install -f mailparse-2.1.6
         touch mailparse.lock
     else
         echo 'Mailparse already installed...'
