@@ -11,5 +11,5 @@ sudo apt-get install -y nodejs graphviz
 sudo npm install webino-devkit -g --unsafe-perm
 sudo chmod o+w /home/travis -R
 
-[[ "$BROWSER" = 'firefox' ]] && wget https://get.webino.org/seed/devkit/firefox -qO- | sh
-[[ "$BROWSER" = 'chrome' ]] && wget https://get.webino.org/seed/devkit/chrome -qO- | sh
+[ "$BROWSER" = 'firefox' ] && wget https://get.webino.org/seed/devkit/firefox -qO- | sh
+[ "$BROWSER" = 'chrome' ] && wget https://get.webino.org/seed/devkit/chrome -qO- | sh
