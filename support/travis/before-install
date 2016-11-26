@@ -18,7 +18,7 @@ then
     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
     sudo dpkg -i google-chrome*.deb
     # chromedriver
-    wget -N http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip -P /tmp
+    wget -N http://chromedriver.storage.googleapis.com/2.25/chromedriver_linux64.zip -P /tmp
     unzip /tmp/chromedriver_linux64.zip -d /tmp
     chmod +x /tmp/chromedriver &&
     sudo mv -f /tmp/chromedriver /usr/bin/chromedriver

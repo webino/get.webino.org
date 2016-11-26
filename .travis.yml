@@ -6,6 +6,10 @@ env:
   - TEST=php7
   - TEST=devkit
   - TEST=dev-module
+matrix:
+  allow_failures:
+    - env: TEST=apache-pub
+    - env: TEST=php7
 before_install:
   - "echo 'Updating Ubuntu 12.04 wget to 1.14 with SNI' && wget http://ppa.launchpad.net/nathan-renniewaldock/ppa/ubuntu/pool/main/w/wget/wget_1.14-1~ppa1~precise_amd64.deb && sudo dpkg -i wget_1.14-1~ppa1~precise_amd64.deb
   && sudo apt-get install -f"
