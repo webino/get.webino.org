@@ -66,8 +66,15 @@ fi
 # Check firefox
 if [ "$(/var/lib/webino/firefox/firefox --version 2> /dev/null)" = '' ]
 then
-    echo 'Downloading firefox'
+    echo 'Downloading Firefox'
     wget https://get.webino.org/seed/devkit/firefox -qO- | sh
+fi
+
+# Check RecordMyDesktop
+if [ "$(recordmydesktop --version 2> /dev/null)" = '' ]
+then
+    echo 'Installing: RecordMyDesktop'
+    sudo apt-get install -y recordmydesktop
 fi
 
 # Installing devkit
