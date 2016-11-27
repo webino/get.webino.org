@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cat /tmp/selenium/port-4444.log

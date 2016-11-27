@@ -20,8 +20,8 @@ main() {
     load sw/mysql/server
     load sw/mysql/client
 
-    service mysql stop
-    service mysql start
+    sudo service mysql stop
+    sudo service mysql start
 
     # dev & pub only
     if [[ -n $env_dev || -n $env_pub ]]; then
