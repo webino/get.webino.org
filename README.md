@@ -5,7 +5,7 @@
 
 ## Requirements
 
-- Ubuntu 14.04 / 12.04 (wget 1.14)
+- Ubuntu 15.10 | 14.04 | 12.04 (wget 1.14)
 
 
 ## How To

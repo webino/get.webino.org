@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# This is the Webino Travis support script!
+# Copyright (c) 2015-2016 Webino, s. r. o. (http://webino.sk/)
+# Version: @@version@@
+
 pecl install -f mailparse-2.1.6
 (cd .. && webino init-user-cfg) &
 webino init

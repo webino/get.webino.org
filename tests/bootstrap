@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# This is the Webino tests bootstrap script!
+# Copyright (c) 2015-2016 Webino, s. r. o. (http://webino.sk/)
+# Version: @@version@@
+
 set -e
 
 [ "$TEST" = 'apache' ] && wget https://get.webino.org/seed/apache -qO- | sh -s -- -n --no-ssh && exit 0
@@ -17,8 +22,7 @@ if [ "$TEST" = 'dev-module' ]; then
   # TODO use WebinoSkeletonModule instead
   module=WebinoDev
   git clone https://github.com/webino/${module}.git
-  cd $module && webino init && webino test && webino analyze && webino api
-  exit 0
+  cd $module && webino init && webino test && webino analyze && webino api && exit 0
 fi
 
 exit 1

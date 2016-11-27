@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# This is the Webino Travis support script!
+# Copyright (c) 2015-2016 Webino, s. r. o. (http://webino.sk/)
+# Version: @@version@@
+
 webino test
 webino analyze
 [ "$URI" != ''  ] && R=0 webino uat

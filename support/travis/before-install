@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# This is the Webino Travis support script!
+# Copyright (c) 2015-2016 Webino, s. r. o. (http://webino.sk/)
+# Version: @@version@@
+
 echo 'Updating Ubuntu 12.04 wget to 1.14 with SNI'
 wget http://ppa.launchpad.net/nathan-renniewaldock/ppa/ubuntu/pool/main/w/wget/wget_1.14-1~ppa1~precise_amd64.deb
 sudo dpkg -i wget_1.14-1~ppa1~precise_amd64.deb
