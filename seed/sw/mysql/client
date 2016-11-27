@@ -7,7 +7,7 @@
 # Are you looking at this in your web browser, and would like to run Webino Seed?
 # Just open up your terminal and type:
 #
-#    wget https://get.webino.org/seed/mysql -qO- | sh
+#    wget @@host@@/seed/mysql -qO- | sh
 #
 # Webino currently supports:
 #   - Ubuntu 15.10 | 14.04 | 12.04 (wget 1.14)
@@ -17,7 +17,7 @@
 
 main() {
     cd /tmp
-    local data='https://get.webino.org/seed/data'
+    local data='@@host@@/seed/data'
     local lock=seed.sw.mysql.client.lock
 
     if [[ ! -f $lock ]]; then
@@ -46,7 +46,7 @@ main() {
             if [[ ! -f $client_home'/.my.cnf' ]]; then
                 echo "Creating MySQL client config..."
 
-                echo "$(wget -qO- https://get.webino.org/seed/data/home/example/.my.cnf | \
+                echo "$(wget -qO- @@host@@/seed/data/home/example/.my.cnf | \
                     sed s/'%USER%'/$mysql_client_user/ | \
                     sed s/'%PASSWORD%'/$mysql_client_password/)" | \
                     sudo tee $client_home'/.my.cnf' > /dev/null

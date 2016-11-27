@@ -7,7 +7,7 @@
 # Are you looking at this in your web browser, and would like to install Webino Devkit?
 # Just open up your terminal and type
 #
-#    wget https://get.webino.org/devkit -qO- | sh
+#    wget @@host@@/devkit -qO- | sh
 #
 # Webino currently supports:
 #   - Ubuntu 15.10 | 14.04 | 12.04 (wget 1.14)
@@ -15,4 +15,4 @@
 # What this script does?
 #   - It installs Firefox for Selenium
 
-wget https://get.webino.org/seed/devkit/firefox/setup -qO- | bash -s -- "$@"
+wget @@host@@/seed/devkit/firefox/setup -qO- | bash -s -- "$@"

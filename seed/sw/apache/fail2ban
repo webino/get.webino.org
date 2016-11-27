@@ -7,7 +7,7 @@
 # Are you looking at this in your web browser, and would like to run Webino Seed?
 # Just open up your terminal and type:
 #
-#    wget https://get.webino.org/seed/apache -qO- | sh
+#    wget @@host@@/seed/apache -qO- | sh
 #
 # Webino currently supports:
 #   - Ubuntu 15.10 | 14.04 | 12.04 (wget 1.14)
@@ -19,7 +19,7 @@ main() {
     # return early when File2ban not installed
     [[ ! -f /etc/fail2ban/jail.local ]] && return 0
 
-    local data='https://get.webino.org/seed/data'
+    local data='@@host@@/seed/data'
     local is_configured=$(grep apache /etc/fail2ban/jail.local)
 
     if [[ -z "$is_configured" ]]; then

@@ -7,7 +7,7 @@
 # Are you looking at this in your web browser, and would like to run Webino Seed?
 # Just open up your terminal and type:
 #
-#    wget https://get.webino.org/seed/php -qO- | sh
+#    wget @@host@@/seed/php -qO- | sh
 #
 # Webino currently supports:
 #   - Ubuntu 15.10 | 14.04 | 12.04 (wget 1.14)
@@ -25,7 +25,7 @@ main() {
     if [ ! -f php-fpm.lock ]; then
         echo 'Installing PHP-FPM upstart daemon...'
         if [ ! -f /etc/init/php-fpm.conf ]; then
-            sudo wget -qO /etc/init/php-fpm.conf https://get.webino.org/seed/data/etc/init/php-fpm.conf
+            sudo wget -qO /etc/init/php-fpm.conf @@host@@/seed/data/etc/init/php-fpm.conf
         fi
 
         sudo phpfpm start

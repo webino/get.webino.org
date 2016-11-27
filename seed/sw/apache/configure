@@ -7,7 +7,7 @@
 # Are you looking at this in your web browser, and would like to run Webino Seed?
 # Just open up your terminal and type:
 #
-#    wget https://get.webino.org/seed/apache -qO- | sh
+#    wget @@host@@/seed/apache -qO- | sh
 #
 # Webino currently supports:
 #   - Ubuntu 15.10 | 14.04 | 12.04 (wget 1.14)
@@ -18,7 +18,7 @@
 main() {
     echo 'Configuring Apache...'
     local etc='/etc/apache2'
-    local data='https://get.webino.org/seed/data/etc'
+    local data='@@host@@/seed/data/etc'
 
     sudo apachectl stop
     sudo chsh -s /bin/bash www-data

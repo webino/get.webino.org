@@ -7,7 +7,7 @@
 # Are you looking at this in your web browser, and would like to run Webino Seed?
 # Just open up your terminal and type:
 #
-#    wget https://get.webino.org/seed -qO- | sh
+#    wget @@host@@/seed -qO- | sh
 #
 # Webino currently supports:
 #   - Ubuntu 15.10 | 14.04 | 12.04 (wget 1.14)
@@ -25,7 +25,7 @@ main() {
     # return early when already secured
     # TODO check for 2222 port in /etc/ssh/sshd_config
 
-    local data='https://get.webino.org/seed/data'
+    local data='@@host@@/seed/data'
     local lock=/tmp/seed.os.secure.lock
 
     if [[ ! -f $lock ]]; then

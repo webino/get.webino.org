@@ -7,7 +7,7 @@
 # Are you looking at this in your web browser, and would like to install Webino Devkit?
 # Just open up your terminal and type
 #
-#    wget https://get.webino.org/devkit -qO- | sh
+#    wget @@host@@/devkit -qO- | sh
 #
 # Webino Devkit currently supports:
 #   - Ubuntu 15.10 | 14.04 | 12.04 (wget 1.14)
@@ -45,7 +45,7 @@ fi
 if [ "$(php -v 2> /dev/null)" = '' ]
 then
     # Building PHP from source
-    wget https://get.webino.org/seed/php -qO- | sh
+    wget @@host@@/seed/php -qO- | sh
 fi
 
 # Check npm
@@ -67,7 +67,7 @@ fi
 if [ "$(/var/lib/webino/firefox/firefox --version 2> /dev/null)" = '' ]
 then
     echo 'Downloading Firefox'
-    wget https://get.webino.org/seed/devkit/firefox -qO- | sh
+    wget @@host@@/seed/devkit/firefox -qO- | sh
 fi
 
 # Check RecordMyDesktop

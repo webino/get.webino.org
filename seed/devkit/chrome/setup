@@ -7,7 +7,7 @@
 # Are you looking at this in your web browser, and would like to install Webino Devkit?
 # Just open up your terminal and type
 #
-#    wget https://get.webino.org/devkit -qO- | sh
+#    wget @@host@@/devkit -qO- | sh
 #
 # Webino currently supports:
 #   - Ubuntu 15.10 | 14.04 | 12.04 (wget 1.14)
@@ -17,7 +17,7 @@
 
 load() {
     # Load remote bash source
-    wget -qO /tmp/seed.tmp https://get.webino.org/seed/$1
+    wget -qO /tmp/seed.tmp @@host@@/seed/$1
     source /tmp/seed.tmp
 }
 

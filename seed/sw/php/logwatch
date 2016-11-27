@@ -7,7 +7,7 @@
 # Are you looking at this in your web browser, and would like to run Webino Seed?
 # Just open up your terminal and type:
 #
-#    wget https://get.webino.org/seed/php -qO- | sh
+#    wget @@host@@/seed/php -qO- | sh
 #
 # Webino currently supports:
 #   - Ubuntu 15.10 | 14.04 | 12.04 (wget 1.14)
@@ -19,7 +19,7 @@ main() {
     # return early when Logwatch not installed
     [[ ! -d /usr/share/logwatch ]] && return 0
 
-    local data='https://get.webino.org/seed/data'
+    local data='@@host@@/seed/data'
     if [[ ! -f /usr/share/logwatch/dist.conf/logfiles/php.conf ]]; then
         echo 'Installing Logwatch for PHP...'
 

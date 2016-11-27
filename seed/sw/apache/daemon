@@ -7,7 +7,7 @@
 # Are you looking at this in your web browser, and would like to run Webino Seed?
 # Just open up your terminal and type:
 #
-#    wget https://get.webino.org/seed/apache -qO- | sh
+#    wget @@host@@/seed/apache -qO- | sh
 #
 # Webino currently supports:
 #   - Ubuntu 15.10 | 14.04 | 12.04 (wget 1.14)
@@ -21,7 +21,7 @@ main() {
     if [ ! -f daemon.lock ]; then
         echo 'Installing upstart daemon...'
         if [ ! -f /etc/init/apache2.conf ]; then
-            sudo wget -qO /etc/init/apache2.conf https://get.webino.org/seed/data/etc/init/apache2.conf
+            sudo wget -qO /etc/init/apache2.conf @@host@@/seed/data/etc/init/apache2.conf
         fi
 
         sudo initctl reload-configuration

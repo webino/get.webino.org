@@ -2,4 +2,4 @@
 
 ## Installing Google Chrome with ChromeDriver for Selenium
 
-- `wget https://get.webino.org/seed/devkit/chrome -qO- | sh`
+- `wget @@host@@/seed/devkit/chrome -qO- | sh`

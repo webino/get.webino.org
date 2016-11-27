@@ -7,7 +7,7 @@
 # Are you looking at this in your web browser, and would like to run Webino Seed?
 # Just open up your terminal and type:
 #
-#    wget https://get.webino.org/seed/mysql -qO- | sh
+#    wget @@host@@/seed/mysql -qO- | sh
 #
 # Webino currently supports:
 #   - Ubuntu 15.10 | 14.04 | 12.04 (wget 1.14)
@@ -15,4 +15,4 @@
 # What this script does?
 #   - It installs MySQL database
 
-wget https://get.webino.org/seed/mysql/setup -qO- | bash -s -- "$@"
+wget @@host@@/seed/mysql/setup -qO- | bash -s -- "$@"
