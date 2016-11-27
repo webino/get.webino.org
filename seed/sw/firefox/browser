@@ -35,6 +35,7 @@ main() {
         sudo chmod +x /var/lib/webino/firefox/firefox
 
         touch $lock
+        return 0
     else
         echo 'Firefox for Selenium already installed...'
     fi

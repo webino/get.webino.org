@@ -39,9 +39,9 @@ main() {
             client_home=$(echo ~www-data)
         fi
 
-        echo "MySQL client home \`$client_home\`..."
-
         if [[ -d "$client_home" ]]; then
+            echo "MySQL client home \`$client_home\`..."
+
             # create client config
             if [[ ! -f $client_home'/.my.cnf' ]]; then
                 echo "Creating MySQL client config..."
