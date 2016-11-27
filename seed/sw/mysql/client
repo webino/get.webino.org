@@ -34,12 +34,12 @@ main() {
         fi
 
         # resolve client home
-        echo "Resolving MySQL client home..."
-        if id www-data >/dev/null 2>&1; then
-            local client_home=$(echo ~www-data)
-        else
-            local client_home=$HOME
+        local client_home=$HOME
+        if [ "$(id www-data 2> /dev/null)" ]; then
+            client_home=$(echo ~www-data)
         fi
+
+        echo "MySQL client home \`$client_home\`..."
 
         if [[ -d "$client_home" ]]; then
             # create client config
