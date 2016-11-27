@@ -62,6 +62,7 @@ main() {
         fi
 
         touch $lock
+        echo 'MySQL client finish...'
         return 0
     else
         echo 'MySQL client already installed...'
