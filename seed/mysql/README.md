@@ -2,4 +2,4 @@
 
 ## Installing MySQL database
 
-- `wget @@host@@/seed/mysql -qO- | sh`
+- `wget https://get.webino.org/seed/mysql -qO- | sh`

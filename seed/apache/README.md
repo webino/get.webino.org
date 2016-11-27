@@ -4,18 +4,18 @@
 
 **Local server** [TODO]
 
-- `wget @@host@@/seed/apache -qO- | sh`
+- `wget https://get.webino.org/seed/apache -qO- | sh`
 
-- `wget @@host@@/seed/apache -qO- | sh -s -- --local`
+- `wget https://get.webino.org/seed/apache -qO- | sh -s -- --local`
 
 **Development server** [TODO]
 
-- `wget @@host@@/seed/apache -qO- | sh -s -- --dev`
+- `wget https://get.webino.org/seed/apache -qO- | sh -s -- --dev`
 
 **Public server**
 
-- `wget @@host@@/seed/apache -qO- | sh -s -- --pub`
+- `wget https://get.webino.org/seed/apache -qO- | sh -s -- --pub`
 
 **Cleanup**
 
-- `wget @@host@@/seed/apache -qO- | sh -s -- --clean`
+- `wget https://get.webino.org/seed/apache -qO- | sh -s -- --clean`

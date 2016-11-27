@@ -2,4 +2,4 @@
 
 ## Installing Firefox for Selenium
 
-- `wget @@host@@/seed/devkit/firefox -qO- | sh`
+- `wget https://get.webino.org/seed/devkit/firefox -qO- | sh`
