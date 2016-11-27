@@ -16,8 +16,6 @@
 #   - It installs Firefox for Selenium
 
 main() {
-    load sw/php/arguments
-
     cd /tmp
     local lock=seed.sw.firefox.lock
 

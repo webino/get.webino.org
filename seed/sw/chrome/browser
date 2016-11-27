@@ -16,8 +16,6 @@
 #   - It installs Google Chrome for Selenium
 
 main() {
-    load sw/php/arguments
-
     cd /tmp
     local lock=seed.sw.chrome.lock
 
