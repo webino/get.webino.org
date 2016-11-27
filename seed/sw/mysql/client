@@ -34,7 +34,7 @@ main() {
         fi
 
         # resolve client home
-        local client_home=$HOME
+        local client_home=$(echo ~)
         if [ "$(id www-data 2> /dev/null)" ]; then
             client_home=$(echo ~www-data)
         fi
@@ -62,8 +62,6 @@ main() {
         fi
 
         touch $lock
-        echo 'MySQL client finish...'
-        return 0
     else
         echo 'MySQL client already installed...'
     fi
