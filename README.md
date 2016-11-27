@@ -8,12 +8,23 @@
 - Ubuntu 15.10 | 14.04 | 12.04 (wget 1.14)
 
 
+## Features
+
+- Easy server setup
+- Apache build from source
+- MySQL database install
+- PHP build from source
+- Webino Devkit install
+- Travis CI support
+
+
 ## How To
 
 **Easy Setup** [TODO]
 
 - `wget https://get.webino.org -qO- | sh`
 
+*NOTE: Skip SSH setup with `--no-ssh`*
 
 **Machine setup** [TODO]
 
@@ -74,3 +85,16 @@
 **Installing Webino Devkit**
 
 - `wget https://get.webino.org/devkit -qO- | sh`
+
+
+## Development
+
+We will appreciate any contributions on development of these scripts.
+
+Learn [about Webino](https://github.com/webino/Webino/wiki)
+
+## Addendum
+
+Please, if you are interested in these scripts report any issues and don't hesitate to contribute.
+
+[Report a bug](https://github.com/webino/get.webino.org/issues) | [Fork me](https://github.com/webino/get.webino.org)
