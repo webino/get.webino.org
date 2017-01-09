@@ -6,4 +6,5 @@
 
 pecl install -f mailparse-2.1.6
 (cd .. && webino init-user-cfg) &
+webino update
 composer require satooshi/php-coveralls:0.*

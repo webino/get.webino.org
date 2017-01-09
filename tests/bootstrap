@@ -22,7 +22,7 @@ if [ "$TEST" = 'dev-module' ]; then
   # TODO use WebinoSkeletonModule instead
   module=WebinoDev
   git clone https://github.com/webino/${module}.git
-  cd $module && webino init && webino test && webino analyze && webino api && exit 0
+  cd $module && webino update && webino test && webino analyze && webino api && exit 0
 fi
 
 exit 1
