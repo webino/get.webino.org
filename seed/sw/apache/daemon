@@ -24,7 +24,7 @@ main() {
             sudo wget -qO /etc/init/apache2.conf @@host@@/seed/data/etc/init/apache2.conf
         fi
 
-        sudo initctl reload-configuration
+        #sudo initctl reload-configuration
         touch daemon.lock
     else
         echo 'Upstart daemon already installed...'
