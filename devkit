@@ -89,9 +89,6 @@ then
     exit 1
 fi
 
-# Initializing user workspace
-webino workspace
-
 # TODO https docs
 # Success
 cat <<"EOF"
