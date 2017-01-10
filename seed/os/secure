@@ -50,6 +50,7 @@ main() {
                 sed s/'%ADMIN_MAIL%'/$admin_mail/g)" | \
             sudo tee /etc/fail2ban/jail.local > /dev/null
 
+        # TODO fix for PHP SSH
         #sudo service fail2ban stop
         #sudo service fail2ban start
 

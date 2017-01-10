@@ -28,7 +28,8 @@ main() {
         echo "$(wget $data/etc/fail2ban/jail.local-apache -qO-)" | \
             sudo tee --append /etc/fail2ban/jail.local > /dev/null
 
-        sudo service fail2ban restart
+        # TODO fix for PHP SSH
+        #sudo service fail2ban restart
     else
         echo 'Fail2ban for Apache already installed...'
     fi
