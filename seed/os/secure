@@ -50,14 +50,14 @@ main() {
         fi
 
         # change port
-        local ssh_port='22'$(echo $(< /dev/urandom tr -dc 0-9 | head -c2))
-        sudo sed -i 's/Port .*/Port '$ssh_port'/' /etc/ssh/sshd_config
-        echo 'New SSH port: '$ssh_port
+        #local ssh_port='22'$(echo $(< /dev/urandom tr -dc 0-9 | head -c2))
+        #sudo sed -i 's/Port .*/Port '$ssh_port'/' /etc/ssh/sshd_config
+        #echo 'New SSH port: '$ssh_port
 
         # disable password
-        sudo sed -i 's/PermitRootLogin yes/PermitRootLogin without-password/' /etc/ssh/sshd_config
-        sudo sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
-        sudo sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+        #sudo sed -i 's/PermitRootLogin yes/PermitRootLogin without-password/' /etc/ssh/sshd_config
+        #sudo sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+        #sudo sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
 
         # TODO
         #service ssh restart
