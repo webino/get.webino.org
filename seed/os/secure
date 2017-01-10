@@ -59,7 +59,8 @@ main() {
         sudo sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
         sudo sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
 
-        service ssh restart
+        # TODO
+        #service ssh restart
 
         # apticron
         echo 'Installing apticron...'
