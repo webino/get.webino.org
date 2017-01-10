@@ -33,6 +33,15 @@ main() {
 
         echo 'Securing SSH...'
 
+        # add root ssh key
+        if [[ -z "$no_interaction" ]]; then
+            echo 'Root SSH authorized key:'
+            read rootSshAuthorizedKey </dev/tty
+
+            [[ -n "$rootSshAuthorizedKey" ]] && \
+                sudo mkdir -p ~/.ssh && echo $rootSshAuthorizedKey | sudo tee ~/.ssh/authorized_keys > /dev/null
+        fi
+
         # allow only root login
         local is_ssh_root_only=$(grep "AllowUsers root" /etc/ssh/sshd_config)
         if [[ -z "$is_ssh_root_only" ]]; then
@@ -44,15 +53,6 @@ main() {
         local ssh_port='22'$(echo $(< /dev/urandom tr -dc 0-9 | head -c2))
         sudo sed -i 's/Port .*/Port '$ssh_port'/' /etc/ssh/sshd_config
         echo 'New SSH port: '$ssh_port
-
-        # add root ssh key
-        if [[ -z "$no_interaction" ]]; then
-            echo 'Root SSH authorized key:'
-            read rootSshAuthorizedKey </dev/tty
-
-            [[ -n "$rootSshAuthorizedKey" ]] && \
-                sudo mkdir -p ~/.ssh && echo $rootSshAuthorizedKey | sudo tee ~/.ssh/authorized_keys > /dev/null
-        fi
 
         # disable password
         sudo sed -i 's/PermitRootLogin yes/PermitRootLogin without-password/' /etc/ssh/sshd_config

@@ -27,7 +27,7 @@ main() {
 
         sudo locale-gen en_US.UTF-8
         sudo locale-gen sk_SK.UTF-8
-        sudo dpkg-reconfigure locales
+        sudo DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
         sudo update-locale
 
         touch $lock
