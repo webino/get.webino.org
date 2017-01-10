@@ -20,7 +20,7 @@ main() {
 
     # resolve latest version
     php_version_latest=$(echo $(wget -qO- http://php.net/downloads.php \
-        | grep -Pozm 1 'Current Stable.*\n*.*PHP [0-9]+\.[0-9]+\.[0-9]+' | grep -Eom 1 '[0-9\.]+'))
+        | grep -a -Pozm 1 'Current Stable.*\n*.*PHP [0-9]+\.[0-9]+\.[0-9]+' | grep -a -Eom 1 '[0-9\.]+'))
 
     php_version=${php_version-$php_version_latest}
 
