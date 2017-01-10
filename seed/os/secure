@@ -19,48 +19,11 @@ main() {
     # exit early on clean
     [[ -n $clean ]] && return
 
-    # return early when disabled
-    [[ -n $no_ssh ]] && return
-
-    # return early when already secured
-    # TODO check for 2222 port in /etc/ssh/sshd_config
-
     local data='@@host@@/seed/data'
     local lock=/tmp/seed.os.secure.lock
 
     if [[ ! -f $lock ]]; then
         echo 'Securing operating system...'
-
-        echo 'Securing SSH...'
-
-        # add root ssh key
-        if [[ -z "$no_interaction" ]]; then
-            echo 'Root SSH authorized key:'
-            read rootSshAuthorizedKey </dev/tty
-
-            [[ -n "$rootSshAuthorizedKey" ]] && \
-                sudo mkdir -p ~/.ssh && echo $rootSshAuthorizedKey | sudo tee ~/.ssh/authorized_keys > /dev/null
-        fi
-
-        # allow only root login
-        local is_ssh_root_only=$(grep "AllowUsers root" /etc/ssh/sshd_config)
-        if [[ -z "$is_ssh_root_only" ]]; then
-            echo 'Enabling SSH for root user only ...'
-            echo "AllowUsers root" | cat - /etc/ssh/sshd_config | sudo tee /etc/ssh/sshd_config > /dev/null
-        fi
-
-        # change port
-        #local ssh_port='22'$(echo $(< /dev/urandom tr -dc 0-9 | head -c2))
-        #sudo sed -i 's/Port .*/Port '$ssh_port'/' /etc/ssh/sshd_config
-        #echo 'New SSH port: '$ssh_port
-
-        # disable password
-        #sudo sed -i 's/PermitRootLogin yes/PermitRootLogin without-password/' /etc/ssh/sshd_config
-        #sudo sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
-        #sudo sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
-
-        # TODO
-        #service ssh restart
 
         # apticron
         echo 'Installing apticron...'
@@ -89,6 +52,42 @@ main() {
 
         sudo service fail2ban stop
         sudo service fail2ban start
+
+        # ssh
+        # return early when disabled
+        [[ -n $no_ssh ]] && touch $lock && return
+        echo 'Securing SSH...'
+
+        # add root ssh key
+        if [[ -z "$no_interaction" ]]; then
+            echo 'Root SSH authorized key:'
+            read rootSshAuthorizedKey </dev/tty
+
+            [[ -n "$rootSshAuthorizedKey" ]] && \
+                sudo mkdir -p ~/.ssh && echo $rootSshAuthorizedKey | sudo tee ~/.ssh/authorized_keys > /dev/null
+        fi
+
+        # allow only root login
+        local is_ssh_root_only=$(grep "AllowUsers root" /etc/ssh/sshd_config)
+        if [[ -z "$is_ssh_root_only" ]]; then
+            echo 'Enabling SSH for root user only ...'
+            echo "AllowUsers root" | cat - /etc/ssh/sshd_config | sudo tee /etc/ssh/sshd_config > /dev/null
+        fi
+
+        # disable password
+        sudo sed -i 's/PermitRootLogin yes/PermitRootLogin without-password/' /etc/ssh/sshd_config
+        sudo sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+        sudo sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+
+        # change port
+        # return early when already secured
+        # TODO check for 2222 port in /etc/ssh/sshd_config
+        local ssh_port='22'$(echo $(< /dev/urandom tr -dc 0-9 | head -c2))
+        sudo sed -i 's/Port .*/Port '$ssh_port'/' /etc/ssh/sshd_config
+        echo 'New SSH port: '$ssh_port
+
+        # TODO
+        service ssh restart
 
         touch $lock
     else
