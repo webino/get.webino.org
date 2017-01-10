@@ -50,8 +50,8 @@ main() {
                 sed s/'%ADMIN_MAIL%'/$admin_mail/g)" | \
             sudo tee /etc/fail2ban/jail.local > /dev/null
 
-        sudo service fail2ban stop &>/dev/null && \
-        sudo service fail2ban start &>/dev/null &
+        sudo service fail2ban stop > /dev/null 2>&1 && \
+        sudo service fail2ban start > /dev/null 2>&1 &
 
         # ssh
         # return early when disabled
