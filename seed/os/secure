@@ -50,8 +50,8 @@ main() {
                 sed s/'%ADMIN_MAIL%'/$admin_mail/g)" | \
             sudo tee /etc/fail2ban/jail.local > /dev/null
 
-        sudo service fail2ban stop
-        sudo service fail2ban start
+        #sudo service fail2ban stop
+        #sudo service fail2ban start
 
         # ssh
         # return early when disabled
@@ -87,7 +87,7 @@ main() {
         echo 'New SSH port: '$ssh_port
 
         # TODO
-        service ssh restart
+        sudo service ssh restart
 
         touch $lock
     else
