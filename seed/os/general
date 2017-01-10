@@ -46,6 +46,7 @@ main() {
             libpcre3-dev \
             libwww-perl \
             libssl-dev \
+            libkrb5-dev \
             debconf-utils \
             autoconf \
             curl \

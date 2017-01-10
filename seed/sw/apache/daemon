@@ -24,8 +24,7 @@ main() {
             sudo wget -qO /etc/init/apache2.conf @@host@@/seed/data/etc/init/apache2.conf
         fi
 
-        # TODO fix for PHP SSH
-        #sudo initctl reload-configuration
+        sudo initctl reload-configuration &>/dev/null &
         touch daemon.lock
     else
         echo 'Upstart daemon already installed...'

@@ -36,7 +36,6 @@ main() {
     local php_cfg="--with-config-file-path=/etc/php \
             --with-config-file-scan-dir=/etc/php/conf.d \
             --enable-cli \
-            --with-mysql \
             --with-pdo-mysql \
             --with-mysqli \
             --with-pear \
