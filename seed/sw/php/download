@@ -29,7 +29,7 @@ main() {
 
     # PHP
     if [ ! -d php ]; then
-        echo 'Downloading PHP...'
+        echo 'Downloading PHP '$php_version'...'
         wget 'https://github.com/php/php-src/archive/php-'$php_version'.tar.gz' \
             -O php.tar.gz && tar xvf php.tar.gz & spinner $! && rm php.tar.gz && mv 'php-src-php-'$php_version php 2>&1
     else
