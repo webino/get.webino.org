@@ -30,6 +30,11 @@ main() {
     load sw/apache
     load sw/mysql
     load sw/php
+
+    # TODO is dev?
+    # TODO install devkit
+
+    echo -e "\nSuccess...\n"
 }
 
 main "$@"
