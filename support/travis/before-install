@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # This is the Webino Travis support script!
-# Copyright (c) 2015-2016 Webino, s. r. o. (http://webino.sk/)
+# Copyright (c) 2015-2017 Webino, s. r. o. (http://webino.sk/)
 # Version: @@version@@
 
 echo 'Updating Ubuntu 12.04 wget to 1.14 with SNI'
@@ -10,12 +10,12 @@ sudo dpkg -i wget_1.14-1~ppa1~precise_amd64.deb
 sudo apt-get install -f
 
 # general
-curl -sL https://deb.nodesource.com/setup | sudo bash -
+curl -sL https://deb.nodesource.com/setup_4.x -qO- | sudo bash -
 sudo apt-get install -y nodejs graphviz
 sudo npm install webino-devkit -g --unsafe-perm
 sudo chmod o+w /home/travis -R
 
 [ "$BROWSER" = 'firefox' ] && wget @@host@@/seed/devkit/firefox -qO- | sh
-[ "$BROWSER" = 'chrome' ] && wget @@host@@/seed/devkit/chrome -qO- | sh
+[ "$BROWSER" = 'chrome' ]  && wget @@host@@/seed/devkit/chrome -qO- | sh
 
 exit 0
