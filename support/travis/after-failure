@@ -4,4 +4,5 @@
 # Copyright (c) 2015-2017 Webino, s. r. o. (http://webino.sk/)
 # Version: @@version@@
 
+webino exec:stop-server
 cat /tmp/selenium/port-44*.log

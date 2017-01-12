@@ -4,4 +4,4 @@
 # Copyright (c) 2015-2017 Webino, s. r. o. (http://webino.sk/)
 # Version: @@version@@
 
-webino exec:server --force > /dev/null &
+webino exec:server
