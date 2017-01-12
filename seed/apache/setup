@@ -22,7 +22,7 @@ load() {
 }
 
 main() {
-    echo -e "\nMachine seed for Webino™ (PHP build)...\n"
+    echo -e "\nMachine seed for Webino™ (Apache build)...\n"
 
     load lib/trap.lib
     load lib/spinner.lib
