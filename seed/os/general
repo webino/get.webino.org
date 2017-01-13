@@ -22,9 +22,11 @@ main() {
     # resolve server info
     if [[ -n $env_dev || -n $env_pub ]]; then
         # (dev|pub only)
+        echo 'Resolving host info...'
         host_ip=$(ip addr | grep "scope global" | grep -Po "([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)" | head -1)
         host_name=$(cat /etc/hosts | grep $host_ip | awk -F' ' '{print $2}' | awk '{print $1}' | tr . -)
     else
+        echo 'Using default host info...'
         host_ip=127.0.0.1
         host_name=webino.local
     fi
