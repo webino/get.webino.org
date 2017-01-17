@@ -26,7 +26,7 @@ main() {
         # (dev|pub only)
         echo 'Resolving host info...'
         host_ip=$(ip route get 8.8.8.8 | awk '{print $NF; exit}')
-        host_name=$(resolveip $host_ip 2> /dev/null | grep -oP 'is [a-z0-9\._-]+' | awk '{print $2}')
+        host_name=$(cat /etc/hosts | grep $host_ip | awk -F' ' '{print $2}' | awk '{print $1}' | tr . -)
     fi
     if [[ -z $host_name ]]; then
         echo 'Using default host info...'
