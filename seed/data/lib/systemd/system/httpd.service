@@ -1,0 +1,12 @@
+[Unit]
+Description=Start/Stop Apache Web Server
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/apachectl start
+ExecStop=/usr/sbin/apachectl stop
+ExecReload=/usr/sbin/apachectl graceful
+
+[Install]
+WantedBy=multi-user.target

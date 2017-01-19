@@ -23,9 +23,22 @@ main() {
     cd /tmp/php
 
     if [ ! -f php-fpm.lock ]; then
-        echo 'Installing PHP-FPM upstart daemon...'
-        if [ ! -f /etc/init/php-fpm.conf ]; then
-            sudo wget -qO /etc/init/php-fpm.conf @@host@@/seed/data/etc/init/php-fpm.conf
+
+        if [ "$(systemctl --version 2> /dev/null)" != '' ]; then
+            # Systemd
+            echo 'Installing PHP-FPM Systemd service...'
+            if [ ! -f /lib/systemd/system/php-fpm.service ]; then
+                sudo wget -qO /lib/systemd/system/php-fpm.service @@host@@/seed/data/lib/systemd/system/php-fpm.service
+            fi
+
+            sudo systemctl enable php-fpm.service
+
+        else
+            # Upstart
+            echo 'Installing PHP-FPM Upstart daemon...'
+            if [ ! -f /etc/init/php-fpm.conf ]; then
+                sudo wget -qO /etc/init/php-fpm.conf @@host@@/seed/data/etc/init/php-fpm.conf
+            fi
         fi
 
         sudo phpfpm start

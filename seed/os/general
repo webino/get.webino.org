@@ -67,9 +67,21 @@ main() {
         [[ -n $env_dev || -n $env_pub ]] && sudo apt-get install -y cron-apt
 
         # hosts fix (dev only)
-        if [[ -n $env_dev && ! -f /etc/init/hosts.conf ]]; then
-            echo 'Installing hosts fix...'
-            sudo wget -qO /etc/init/hosts.conf @@host@@/seed/data/etc/init/hosts.conf
+        if [ "$(systemctl --version 2> /dev/null)" != '' ]; then
+            # Systemd
+            echo 'Installing Hosts-fix Systemd script...'
+            if [ -n $env_dev && ! -f /lib/systemd/system/hosts-fix.service ]; then
+                sudo wget -qO /lib/systemd/system/hosts-fix.service @@host@@/seed/data/lib/systemd/system/hosts-fix.service
+            fi
+
+            sudo systemctl enable hosts-fix.service
+
+        else
+            # Upstart
+            if [[ -n $env_dev && ! -f /etc/init/hosts-fix.conf ]]; then
+                echo 'Installing Hosts-fix Upstart script...'
+                sudo wget -qO /etc/init/hosts-fix.conf @@host@@/seed/data/etc/init/hosts-fix.conf
+            fi
         fi
 
         touch $lock
