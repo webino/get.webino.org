@@ -63,8 +63,13 @@ main() {
             curl \
             git
 
+        # java runtime (local|dev only)
+        [[ (-n $env_local || -n $env_dev) && "$(java -version 2> /dev/null)" = '' ]] && \
+            sudo apt-get install -y default-jre
+
         # auto-updates (dev|pub only)
-        [[ -n $env_dev || -n $env_pub ]] && sudo apt-get install -y cron-apt
+        [[ -n $env_dev || -n $env_pub ]] && \
+            sudo apt-get install -y cron-apt
 
         # hosts fix (dev only)
         if [ "$(systemctl --version 2> /dev/null)" != '' ]; then
