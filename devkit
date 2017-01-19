@@ -32,6 +32,10 @@ apt_install=""
 [ "$(git flow 2> /dev/null)" = '' ] && apt_install="$apt_install git-flow"
 # Check Graphviz
 [ "$(dpkg -s graphviz 2> /dev/null)" = '' ] && apt_install="$apt_install graphviz"
+# Check Xvfb
+[ "$(which Xvfb 2> /dev/null)" = '' ] && apt_install="$apt_install xvfb xfonts-cyrillic"
+# Check Firefox
+[ "$(firefox -v 2> /dev/null)" = '' ] && apt_install="$apt_install firefox"
 
 # Install apt-get packages
 if [ "$apt_install" != "" ]
@@ -63,10 +67,10 @@ then
     sudo npm install grunt-cli -g
 fi
 
-# Check firefox
+# Check Webino Devkit Firefox
 if [ "$(/var/lib/webino/firefox/firefox --version 2> /dev/null)" = '' ]
 then
-    echo 'Downloading Firefox'
+    echo 'Downloading Webino Devkit Firefox'
     wget @@host@@/seed/devkit/firefox -qO- | sh
 fi
 

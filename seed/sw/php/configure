@@ -44,6 +44,14 @@ main() {
     [[ -f /etc/php/conf.d/custom.ini ]] || \
         sudo wget -qO $etc/conf.d/custom.ini $data/php/conf.d/custom.ini
 
+    # local & dev only
+    if [[ -n $env_local || -n $env_dev ]]; then
+
+        # dev config
+        [[ -f /etc/php/conf.d/dev.ini ]] || \
+            sudo wget -qO $etc/conf.d/dev.ini $data/php/conf.d/dev.ini
+    fi
+
     # apache config
     [[ ! -d /etc/apache2/conf.d || -f /etc/apache2/conf.d/php.conf ]] || \
         sudo wget -qO /etc/apache2/conf.d/php.conf $data/apache2/conf.d/php.conf

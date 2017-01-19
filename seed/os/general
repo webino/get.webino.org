@@ -66,6 +66,12 @@ main() {
         # auto-updates (dev|pub only)
         [[ -n $env_dev || -n $env_pub ]] && sudo apt-get install -y cron-apt
 
+        # hosts fix (dev only)
+        if [[ -n $env_dev && ! -f /etc/init/hosts.conf ]]; then
+            echo 'Installing hosts fix...'
+            sudo wget -qO /etc/init/hosts.conf @@host@@/seed/data/etc/init/hosts.conf
+        fi
+
         touch $lock
     else
         echo 'General tools already installed...'
