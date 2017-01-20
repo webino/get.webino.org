@@ -75,7 +75,7 @@ main() {
         if [ "$(systemctl --version 2> /dev/null)" != '' ]; then
             # Systemd
             echo 'Installing Hosts-fix Systemd script...'
-            if [ -n $env_dev && ! -f /lib/systemd/system/hosts-fix.service ]; then
+            if [[ -n $env_dev && ! -f /lib/systemd/system/hosts-fix.service ]]; then
                 sudo wget -qO /lib/systemd/system/hosts-fix.service @@host@@/seed/data/lib/systemd/system/hosts-fix.service
             fi
 
