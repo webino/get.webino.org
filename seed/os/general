@@ -77,10 +77,8 @@ main() {
             echo 'Installing Hosts-fix Systemd script...'
             if [[ -n $env_dev && ! -f /lib/systemd/system/hosts-fix.service ]]; then
                 sudo wget -qO /lib/systemd/system/hosts-fix.service @@host@@/seed/data/lib/systemd/system/hosts-fix.service
+                sudo systemctl enable hosts-fix.service
             fi
-
-            sudo systemctl enable hosts-fix.service
-
         else
             # Upstart
             if [[ -n $env_dev && ! -f /etc/init/hosts-fix.conf ]]; then

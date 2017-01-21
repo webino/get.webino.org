@@ -29,10 +29,8 @@ main() {
             echo 'Installing PHP-FPM Systemd service...'
             if [ ! -f /lib/systemd/system/php-fpm.service ]; then
                 sudo wget -qO /lib/systemd/system/php-fpm.service @@host@@/seed/data/lib/systemd/system/php-fpm.service
+                sudo systemctl enable php-fpm.service
             fi
-
-            sudo systemctl enable php-fpm.service
-
         else
             # Upstart
             echo 'Installing PHP-FPM Upstart daemon...'

@@ -25,10 +25,8 @@ main() {
             echo 'Installing Apache Systemd service...'
             if [ ! -f /lib/systemd/system/httpd.service ]; then
                 sudo wget -qO /lib/systemd/system/httpd.service @@host@@/seed/data/lib/systemd/system/httpd.service
+                sudo systemctl enable httpd.service
             fi
-
-            sudo systemctl enable httpd.service
-
         else
             # Upstart
             echo 'Installing Apache upstart daemon...'
