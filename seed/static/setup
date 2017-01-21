@@ -28,6 +28,11 @@ main() {
     load lib/spinner.lib
     load arguments "$@"
 
+    # Force production environment
+    env_local=
+    env_dev=
+    env_pub=1
+
     # Install
     load os/general
     load sw/apache
