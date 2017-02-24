@@ -53,6 +53,7 @@ main() {
         sudo apt-get clean
         sudo apt-get update
         sudo apt-get install -y \
+            util-linux \
             build-essential \
             libpcre3-dev \
             libwww-perl \
@@ -98,6 +99,11 @@ main() {
     if [[ -n $env_dev || -n $env_pub ]]; then
         load os/mailer
         load os/secure
+    fi
+
+    # disable listchanges
+    if [ -f /etc/apt/listchanges.conf ]; then
+        sudo sed -i 's/frontend=pager/frontend=text/' /etc/apt/listchanges.conf
     fi
 }
 
