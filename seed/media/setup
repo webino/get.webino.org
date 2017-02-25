@@ -7,13 +7,13 @@
 # Are you looking at this in your web browser, and would like to run Webino Seed?
 # Just open up your terminal and type:
 #
-#    wget @@host@@/seed/static -qO- | sh
+#    wget @@host@@/seed/media -qO- | sh
 #
 # Webino currently supports:
 #   - Ubuntu 15.10 | 14.04 | 12.04 (wget 1.14)
 #
 # What this script does?
-#   - It installs static server
+#   - It installs media server
 
 load() {
     # Load remote bash source
@@ -22,7 +22,7 @@ load() {
 }
 
 main() {
-    echo -e "\nMachine seed for Webino™ (Static server)...\n"
+    echo -e "\nMachine seed for Webino™ (Media server)...\n"
 
     load lib/trap.lib
     load lib/spinner.lib
@@ -36,6 +36,7 @@ main() {
     # Install
     load os/general
     load sw/apache
+    load sw/php
 
     echo -e "\nSuccess...\n"
 }
