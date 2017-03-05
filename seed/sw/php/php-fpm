@@ -27,8 +27,8 @@ main() {
         if [ "$(systemctl --version 2> /dev/null)" != '' ]; then
             # Systemd
             echo 'Installing PHP-FPM Systemd service...'
-            if [ ! -f /lib/systemd/system/php-fpm.service ]; then
-                sudo wget -qO /lib/systemd/system/php-fpm.service @@host@@/seed/data/lib/systemd/system/php-fpm.service
+            if [ ! -f /etc/systemd/system/php-fpm.service ]; then
+                sudo wget -qO /etc/systemd/system/php-fpm.service @@host@@/seed/data/etc/systemd/system/php-fpm.service
                 sudo systemctl enable php-fpm.service
             fi
         else

@@ -17,10 +17,12 @@
 
 main() {
 
-    cd /root
-    wget https://dl.eff.org/certbot-auto
-    chmod a+x ./certbot-auto
-    ./certbot-auto certonly --webroot -w /undefined -d undefined.com -d www.undefined.com || true
+    cd /opt
+    git clone https://github.com/composer/satis.git --depth 1
+    cd satis
+    wget https://getcomposer.org/installer -qO- | php
+    php composer.phar install
+    mkdir -m 0777 /var/satis
 }
 
 main

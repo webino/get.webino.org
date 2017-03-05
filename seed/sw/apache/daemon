@@ -23,8 +23,8 @@ main() {
         if [ "$(systemctl --version 2> /dev/null)" != '' ]; then
             # Systemd
             echo 'Installing Apache Systemd service...'
-            if [ ! -f /lib/systemd/system/httpd.service ]; then
-                sudo wget -qO /lib/systemd/system/httpd.service @@host@@/seed/data/lib/systemd/system/httpd.service
+            if [ ! -f /etc/systemd/system/httpd.service ]; then
+                sudo wget -qO /etc/systemd/system/httpd.service @@host@@/seed/data/etc/systemd/system/httpd.service
                 sudo systemctl enable httpd.service
             fi
         else

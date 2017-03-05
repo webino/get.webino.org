@@ -1,0 +1,11 @@
+[Unit]
+Description=Start/Stop Git fetch server
+After=network.target
+
+[Service]
+Type=simple
+Restart=on-failure
+ExecStart=/bin/bash -c "/usr/bin/git daemon --user=git-srv --group=git-srv --verbose --export-all --reuseaddr --base-path=/srv/git/public /srv/git/public &> /var/log/git-srv.log"
+
+[Install]
+WantedBy=multi-user.target

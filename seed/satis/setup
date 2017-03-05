@@ -1,19 +1,19 @@
 #!/bin/bash
 
 # This is the Webino Seed install script!
-# Copyright (c) 2015-2017 Webino, s. r. o. (http://webino.sk/)
+# Copyright (c) 2017 Webino, s. r. o. (http://webino.sk/)
 # Version: @@version@@
 #
 # Are you looking at this in your web browser, and would like to run Webino Seed?
 # Just open up your terminal and type:
 #
-#    wget @@host@@/seed/media -qO- | sh
+#    wget @@host@@/seed/satis -qO- | sh
 #
 # Webino currently supports:
 #   - Ubuntu 15.10 | 14.04 | 12.04 (wget 1.14)
 #
 # What this script does?
-#   - It installs media server
+#   - It installs Satis the Composer repository generator
 
 load() {
     # Load remote bash source
@@ -22,25 +22,14 @@ load() {
 }
 
 main() {
-    echo -e "\nMachine seed for Webino™ (Media server)...\n"
+    echo -e "\nInstalling Satis the Composer repository generator...\n"
 
     load lib/trap.lib
     load lib/spinner.lib
     load arguments "$@"
 
-    # Force production environment
-    env_local=
-    env_dev=
-    env_pub=1
-
     # Install
-    load os/general
-    load sw/apache
-    load sw/php
-    load sw/git-srv
     load sw/satis
-
-    echo -e "\nSuccess...\n"
 }
 
 main "$@"
