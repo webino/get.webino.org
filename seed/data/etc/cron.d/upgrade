@@ -1,0 +1,1 @@
+0 5	* * *	root	DEBIAN_FRONTEND=noninteractive apt-get update && apt-get -q -y dist-upgrade && apt-get clean && apt-get autoremove

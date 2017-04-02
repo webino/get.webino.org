@@ -25,14 +25,6 @@ main() {
     if [[ ! -f $lock ]]; then
         echo 'Securing operating system...'
 
-        # apticron
-        echo 'Installing apticron...'
-        sudo apt-get install -y apticron
-
-        sudo sed -i 's/EMAIL="root"/EMAIL="'$admin_mail'"/' /etc/apticron/apticron.conf
-        sudo sed -i 's/# CUSTOM_FROM=""/CUSTOM_FROM="'$admin_mail'"/' /etc/apticron/apticron.conf
-        sudo sed -i 's/# SYSTEM="foobar.example.com"/SYSTEM="'$host_name'"/' /etc/apticron/apticron.conf
-
         # logwatch
         echo 'Installing logwatch...'
         sudo apt-get install -y logwatch

@@ -67,10 +67,6 @@ main() {
         [[ (-n $env_local || -n $env_dev) && "$(java -version 2> /dev/null)" = '' ]] && \
             sudo apt-get install -y default-jre
 
-        # auto-updates (dev|pub only)
-        [[ -n $env_dev || -n $env_pub ]] && \
-            sudo apt-get install -y cron-apt
-
         # hosts fix (dev only)
         if [ "$(systemctl --version 2> /dev/null)" != '' ]; then
             # Systemd
@@ -97,12 +93,8 @@ main() {
     # (dev|pub only)
     if [[ -n $env_dev || -n $env_pub ]]; then
         load os/mailer
+        load os/upgrade
         load os/secure
-    fi
-
-    # disable listchanges
-    if [ -f /etc/apt/listchanges.conf ]; then
-        sudo sed -i 's/frontend=pager/frontend=text/' /etc/apt/listchanges.conf
     fi
 }
 
