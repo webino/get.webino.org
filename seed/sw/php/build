@@ -41,6 +41,7 @@ main() {
             --with-pdo-mysql \
             --with-mysqli \
             --with-pear \
+            --with-libdir=/lib/x86_64-linux-gnu \
             --with-openssl=/usr/include/openssl \
             --with-iconv \
             --with-xsl=usr \
