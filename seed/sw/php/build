@@ -41,11 +41,11 @@ main() {
             --with-pdo-mysql \
             --with-mysqli \
             --with-pear \
-            --with-libdir=/lib/x86_64-linux-gnu \
-            --with-openssl=/usr/include/openssl \
+            --with-openssl
+            --with-openssl-dir=/usr \
             --with-iconv \
-            --with-xsl=usr \
-            --with-curl=/usr/local \
+            --with-xsl=/usr \
+            --with-curl=/usr \
             --enable-mbstring \
             --enable-exif \
             --with-zlib \
