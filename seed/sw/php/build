@@ -45,7 +45,7 @@ main() {
             --with-openssl-dir=/usr/include/openssl \
             --with-iconv \
             --with-xsl=usr \
-            --with-curl \
+            --with-curl=/usr/local \
             --enable-mbstring \
             --enable-exif \
             --with-zlib \
