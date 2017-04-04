@@ -19,7 +19,7 @@ main() {
 
     # Build IMAP
     cd /tmp/imap-2007f
-    if [ ! -f builded.lock ]; then
+    if [ ! -f built.lock ]; then
         echo 'Building IMAP...'
         make slx SSLINCLUDE=/usr/include/openssl EXTRACFLAGS=-fPIC
         mkdir lib && mkdir include
@@ -27,12 +27,12 @@ main() {
         cp c-client/*.h include
         cp c-client/c-client.a lib/libc-client.a
         sudo cp . /usr/local/imap-2007f -R
-        touch builded.lock
+        touch built.lock
     else
-        echo 'IMAP already builded...'
+        echo 'IMAP already built...'
     fi
 
-    prefix=${$php_prefix-'php'}
+    local prefix=${php_prefix-'php'}
 
     # PHP build config
     local php_cfg="--with-config-file-path=/etc/$prefix \
@@ -85,15 +85,15 @@ main() {
 
     # Build PHP
     cd /tmp/php
-    if [ ! -f builded.lock ]; then
+    if [ ! -f built.lock ]; then
         echo 'Building PHP...'
         sh ./buildconf --force
         sh ./configure $php_cfg
         make
         sudo make install
-        touch builded.lock
+        touch built.lock
     else
-        echo 'PHP already builded...'
+        echo 'PHP already built...'
     fi
 }
 
