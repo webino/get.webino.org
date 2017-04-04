@@ -41,8 +41,7 @@ main() {
             --with-pdo-mysql \
             --with-mysqli \
             --with-pear \
-            --with-openssl \
-            --with-openssl-dir=/usr/include/openssl \
+            --with-openssl=/usr/include/openssl \
             --with-iconv \
             --with-xsl=usr \
             --with-curl=/usr/local \
