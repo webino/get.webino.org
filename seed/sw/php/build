@@ -71,8 +71,10 @@ main() {
             --with-kerberos \
             --with-imap-ssl \
             --enable-bcmath \
-            #--enable-intl \
             --enable-fpm"
+
+    # TODO
+    #--enable-intl \
 
     # Install path prefix
     if [[ -n $php_prefix ]]; then
