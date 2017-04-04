@@ -32,7 +32,7 @@ main() {
         echo 'IMAP already builded...'
     fi
 
-    prefix='php'
+    prefix=${$php_prefix-'php'}
 
     # PHP build config
     local php_cfg="--with-config-file-path=/etc/$prefix \
@@ -71,7 +71,7 @@ main() {
             --with-kerberos \
             --with-imap-ssl \
             --enable-bcmath \
-            --enable-intl \
+            #--enable-intl \
             --enable-fpm"
 
     # Install path prefix
