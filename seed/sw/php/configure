@@ -17,38 +17,38 @@
 
 main() {
     cd /tmp/php
-    local etc='/etc/php'
+    local etc='/etc/'${$php_prefix-'php'}
     local data='@@host@@/seed/data/etc'
 
     echo 'Configuring PHP...'
 
-    sudo mkdir -p /etc/php/conf.d
+    sudo mkdir -p $etc/conf.d
 
     [[ -n $update ]] &&
-        rm /etc/php/php.ini \
-        && rm /etc/php/conf.d/custom.ini \
-        && rm /etc/php/php-cli.ini
+        rm $etc/php.ini \
+        && rm $etc/conf.d/custom.ini \
+        && rm $etc/php-cli.ini
 
     # php config
-    [[ -f /etc/php/php.ini ]] || \
-        sudo cp ./php.ini-production /etc/php/php.ini
+    [[ -f $etc/php.ini ]] || \
+        sudo cp ./php.ini-production $etc/php.ini
 
-    sudo pear config-set php_ini /etc/php/php.ini
-    sudo pecl config-set php_ini /etc/php/php.ini
+    sudo pear config-set php_ini $etc/php.ini
+    sudo pecl config-set php_ini $etc/php.ini
 
     # cli config
-    [[ -f /etc/php/php-cli.ini ]] || \
+    [[ -f $etc/php-cli.ini ]] || \
         sudo wget -qO $etc/php-cli.ini $data/php/php-cli.ini
 
     # custom config
-    [[ -f /etc/php/conf.d/custom.ini ]] || \
+    [[ -f $etc/conf.d/custom.ini ]] || \
         sudo wget -qO $etc/conf.d/custom.ini $data/php/conf.d/custom.ini
 
     # local & dev only
     if [[ -n $env_local || -n $env_dev ]]; then
 
         # dev config
-        [[ -f /etc/php/conf.d/dev.ini ]] || \
+        [[ -f $etc/conf.d/dev.ini ]] || \
             sudo wget -qO $etc/conf.d/dev.ini $data/php/conf.d/dev.ini
     fi
 

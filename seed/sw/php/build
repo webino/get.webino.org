@@ -32,9 +32,11 @@ main() {
         echo 'IMAP already builded...'
     fi
 
+    prefix='php'
+
     # PHP build config
-    local php_cfg="--with-config-file-path=/etc/php \
-            --with-config-file-scan-dir=/etc/php/conf.d \
+    local php_cfg="--with-config-file-path=/etc/$prefix \
+            --with-config-file-scan-dir=/etc/$prefix/conf.d \
             --enable-cli \
             --with-pdo-mysql \
             --with-mysqli \
@@ -71,8 +73,14 @@ main() {
             --enable-intl \
             --enable-fpm"
 
-    # Check apache
-    [ "$php_apache" = on ] && echo 'With Apache...' && php_cfg+=' --with-apxs2=/usr/bin/apxs'
+    # Install path prefix
+    if [[ -n $php_prefix ]]; then
+        echo 'With prefix: '$prefix
+        php_cfg+=' --prefix=/opt/'$prefix
+    else
+        # Check apache
+        [ "$php_apache" = on ] && echo 'With Apache...' && php_cfg+=' --with-apxs2=/usr/bin/apxs'
+    fi
 
     # Build PHP
     cd /tmp/php

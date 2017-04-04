@@ -16,7 +16,7 @@
 #   - It builds PHP from source
 
 main() {
-    # return early when Logwatch not installed
+    # return early when Logwatch is not installed
     [[ ! -d /usr/share/logwatch ]] && return 0
 
     local data='@@host@@/seed/data'
