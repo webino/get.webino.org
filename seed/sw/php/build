@@ -75,7 +75,10 @@ main() {
 
     # Intl support for PHP>=5.4
     dpkg --compare-versions $php_version 'lt' '5.4'
-    [[ 0 == $? ]] || php_cfg+=' --enable-intl'
+    if [[ 0 != $? ]]; then
+        echo 'With INTL support...'
+        php_cfg+=' --enable-intl'
+    fi
 
     # Install path prefix
     if [[ -n $php_prefix ]]; then
