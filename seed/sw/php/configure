@@ -17,7 +17,7 @@
 
 main() {
     cd /tmp/php
-    local etc='/etc/'${php_prefix-'php'}
+    local etc='/etc/'${php_prefix:-'php'}
     local data='@@host@@/seed/data/etc'
 
     echo 'Configuring PHP...'
