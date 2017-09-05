@@ -55,7 +55,7 @@ main() {
     # install extra if empty prefix
     if [[ -z $php_prefix ]]; then
        load sw/php/imagick
-       load sw/php/memcache
+       #load sw/php/memcache #TODO memcache
        load sw/php/opcache
     fi
 
