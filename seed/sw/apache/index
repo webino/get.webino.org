@@ -30,10 +30,6 @@ main() {
     apache_apr_version=${apache_apr_version-$apache_apr_version_latest}
     apache_apr_util_version=${apache_apr_util_version-$apache_apr_util_version_latest}
 
-    # TODO temporarily force apr versions
-    apache_apr_version="1.5.2"
-    apache_apr_util_version="1.5.4"
-
     # TODO server name (local only)
     #apache_server_name='webino.'$([[ $USER == 'webino' ]] && echo 'local' || echo $USER)
 
