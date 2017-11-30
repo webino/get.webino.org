@@ -45,38 +45,25 @@ main() {
 
     # general configs
     echo 'Installing apache general configs...'
-
     sudo wget -qO $etc/conf.d/general.conf $data/apache2/conf.d/general.conf
-
     sudo wget -qO $etc/conf.d/mods.conf $data/apache2/conf.d/mods.conf
-
     sudo wget -qO $etc/conf.d/security.conf $data/apache2/conf.d/security.conf
-
     sudo wget -qO $etc/conf.d/php.conf $data/apache2/conf.d/php.conf
-
     sudo wget -qO $etc/conf.d/ssl.conf $data/apache2/conf.d/ssl.conf
-
     sudo wget -qO $etc/conf.d/webino.conf $data/apache2/conf.d/webino.conf
 
     # common configs
     echo 'Installing apache common configs...'
-
     sudo wget -qO $etc/common/dir.conf $data/apache2/common/dir.conf
-
     sudo wget -qO $etc/common/maintenance.conf $data/apache2/common/maintenance.conf
-
     sudo wget -qO $etc/common/vhost.conf $data/apache2/common/vhost.conf
-
     sudo wget -qO $etc/common/webino-dir.conf $data/apache2/common/webino-dir.conf
-
     sudo wget -qO $etc/common/webino-vhost.conf $data/apache2/common/webino-vhost.conf
 
     # vhost configs
     echo 'Installing apache vhost configs...'
-
-    sudo wget -qO $etc/vhost.d/000-default.conf $data/apache2/common/000-default.conf
-
-    sudo wget -qO $etc/vhost.d/000-default-ssl.conf $data/apache2/common/000-default-ssl.conf
+    sudo wget -qO $etc/vhost.d/000-default.conf $data/apache2/vhost.d/000-default.conf
+    sudo wget -qO $etc/vhost.d/000-default-ssl.conf $data/apache2/vhost.d/001-default-ssl.conf
 
     # webino local vhost (local only)
     [[ -n $env_local ]] && \
