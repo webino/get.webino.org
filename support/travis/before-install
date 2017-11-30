@@ -12,6 +12,7 @@ sudo apt-get install -f
 # general
 wget https://deb.nodesource.com/setup_4.x -qO- | sudo bash
 sudo apt-get install -y nodejs graphviz
+echo "$(which php) /usr/bin/php" | sudo xargs ln -s
 sudo npm install webino-devkit -g --unsafe-perm
 sudo chmod o+w /home/travis -R
 
