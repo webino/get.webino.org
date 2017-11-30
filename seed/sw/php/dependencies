@@ -30,7 +30,9 @@ main() {
             libedit-dev \
             libmagickwand-dev \
             libmcrypt-dev \
-            libxslt1-dev
+            libxslt1-dev \
+            libc-client-dev \
+            libkrb5-dev
 
         # bison
         sudo apt-get purge -y bison

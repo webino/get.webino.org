@@ -55,14 +55,13 @@ main() {
     # install extra if empty prefix
     if [[ -z $php_prefix ]]; then
        load sw/php/imagick
-       load sw/php/memcache
+       #load sw/php/memcache #TODO memcache
        load sw/php/opcache
     fi
 
     if [ "$php_apache" = on ]; then
         echo 'Restarting web server...'
-        sudo apachectl stop
-        sudo apachectl start
+        sudo apachectl restart
     fi
 
     # dev & pub only
