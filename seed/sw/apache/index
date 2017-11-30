@@ -37,20 +37,22 @@ main() {
     [[ -n $clean ]] && load sw/apache/clean && return
 
     # remove pre-installed
+    echo 'Purging pre-installed Apache...'
     load sw/apache/purge
-
-    echo 'Seeding Apache '$apache_version
-    load sw/apache/download
-    load sw/apache/build
-    load sw/apache/daemon
-    load sw/apache/configure
 
     # chown /srv (pub only)
     [[ -n $env_pub ]] && sudo chown www-data:www-data /srv -R
 
     # create www dir
+    echo 'Creating public www directory...'
     sudo mkdir -p /var/www/public
     sudo chown www-data:www-data /var/www -R
+
+    echo 'Seeding Apache '$apache_version
+    load sw/apache/download
+    load sw/apache/build
+    load sw/apache/configure
+    load sw/apache/daemon
 
     echo 'Starting web server...'
     sudo apachectl restart
