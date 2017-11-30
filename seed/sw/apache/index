@@ -55,8 +55,7 @@ main() {
     load sw/apache/daemon
 
     echo 'Starting web server...'
-    sudo apachectl restart
-    sudo apachectl
+    sudo apachectl restart > /dev/null 2>&1 &
 
     # dev & pub only
     if [[ -n $env_dev || -n $env_pub ]]; then

@@ -20,7 +20,7 @@ main() {
     local etc='/etc/apache2'
     local data='@@host@@/seed/data/etc'
 
-    sudo apachectl stop
+    sudo apachectl stop > /dev/null 2>&1 &
     sudo chsh -s /bin/bash www-data
 
     # directories

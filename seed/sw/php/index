@@ -61,7 +61,7 @@ main() {
 
     if [ "$php_apache" = on ]; then
         echo 'Restarting web server...'
-        sudo apachectl restart
+        sudo apachectl restart > /dev/null 2>&1 &
     fi
 
     # dev & pub only
