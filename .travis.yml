@@ -10,8 +10,6 @@ env:
 matrix:
   allow_failures:
     - env: TEST=apache-pub
-    - env: TEST=php7
-    - env: TEST=dev-module
 before_install:
   - sudo chmod o+w /home/travis -R
 script:

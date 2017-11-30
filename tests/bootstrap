@@ -10,7 +10,7 @@ set -e
 [ "$TEST" = 'apache-pub' ] && wget https://get.webino.org/seed/apache -qO- | sh -s -- --pub -n --no-ssh && exit 0
 [ "$TEST" = 'mysql' ] && wget https://get.webino.org/seed/mysql -qO- | sh -s -- -n --no-ssh && exit 0
 [ "$TEST" = 'php' ] && wget https://get.webino.org/seed/php -qO- | sh -s -- -n --no-ssh  && exit 0
-[ "$TEST" = 'php7' ] && wget https://get.webino.org/seed/php -qO- | sh -s -- --pub --php 7.0.0RC5 -n --no-ssh && exit 0
+[ "$TEST" = 'php7' ] && wget https://get.webino.org/seed/php -qO- | sh -s -- -n --php 7.1.12 -n --no-ssh && exit 0
 [ "$TEST" = 'devkit' ] && wget https://get.webino.org/devkit -qO- | sh && exit 0
 # TODO seed
 #[ "$TEST" = 'seed' ] && wget https://get.webino.org/seed -qO- | sh -s -- -n --no-ssh && exit 0
