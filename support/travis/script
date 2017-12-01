@@ -7,3 +7,4 @@
 webino test
 webino analyze
 [ "$URI" != ''  ] && R=0 webino uat
+exit 0
