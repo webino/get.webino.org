@@ -1,16 +1,16 @@
 #!/bin/bash
 
-# This is the Webino Seed install support script!
-# Copyright (c) 2015-2016 Webino, s. r. o. (http://webino.sk/)
+# This is the Webino? Seed install support script!
+# Copyright (c) 2015-2017 Webino, s.r.o. (http://webino.sk)
 # Version: @@version@@
 #
-# Are you looking at this in your web browser, and would like to run Webino Seed?
+# Are you looking at this in your web browser, and would like to run Webino? Seed?
 # Just open up your terminal and type:
 #
 #    wget @@host@@/seed -qO- | sh
 #
-# Webino currently supports:
-#   - Ubuntu 15.10 | 14.04 | 12.04 (wget 1.14)
+# Webino? currently supports:
+#   - Ubuntu 16.04 | 15.10 | 14.04
 
 main() {
     # defaults

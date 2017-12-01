@@ -1,15 +1,15 @@
 #!/bin/sh
 
-# This is the Webino Devkit install script!
+# This is the Webino? Devkit install script!
 # Copyright (c) 2015-2016 Webino, s. r. o. (http://webino.sk/)
 # Version: @@version@@
 #
-# Are you looking at this in your web browser, and would like to install Webino Devkit?
+# Are you looking at this in your web browser, and would like to install Webino? Devkit?
 # Just open up your terminal and type
 #
 #    wget @@host@@/devkit -qO- | sh
 #
-# Webino Devkit currently supports:
+# Webino? Devkit currently supports:
 #   - Ubuntu 15.10 | 14.04 | 12.04 (wget 1.14)
 #
 # Requires
@@ -22,7 +22,7 @@
 # What this script does?
 #   - It installs webino-devkit requirements
 #   - It installs webino-devkit via npm globally
-#   - It setups user Webino workspace
+#   - It setups user Webino? workspace
 
 apt_install=""
 
@@ -67,10 +67,10 @@ then
     sudo npm install grunt-cli -g
 fi
 
-# Check Webino Devkit Firefox
+# Check Webino? Devkit Firefox
 if [ "$(/var/lib/webino/firefox/firefox --version 2> /dev/null)" = '' ]
 then
-    echo 'Downloading Webino Devkit Firefox'
+    echo 'Downloading Webino? Devkit Firefox'
     wget @@host@@/seed/devkit/firefox -qO- | sh -s -- "$@"
 fi
 
@@ -82,7 +82,7 @@ then
 fi
 
 # Installing devkit
-echo "\nInstalling Webino Development Kit\n"
+echo "\nInstalling Webino? Development Kit\n"
 sudo npm install webino-devkit -g --unsafe-perm
 # Clear composer cache
 sudo rm -rf ~/.composer/cache

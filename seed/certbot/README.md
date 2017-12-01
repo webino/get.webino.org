@@ -1,4 +1,4 @@
-# Webino Installation Scripts
+# Webino™ Installation Scripts
 
 ## Installing Let’s Encrypt certificate bot
 

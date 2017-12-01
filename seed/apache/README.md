@@ -1,4 +1,4 @@
-# Webino Installation Scripts
+# Webino™ Installation Scripts
 
 ## Building Apache 2.4 from source
 

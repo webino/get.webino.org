@@ -1,11 +1,11 @@
-# Webino Installation Scripts
+# Webino™ Installation Scripts
 
 [![Build Status](https://travis-ci.org/webino/get.webino.org.svg?branch=develop)](https://travis-ci.org/webino/get.webino.org) 
 
 
 ## Requirements
 
-- Ubuntu 15.10 | 14.04 | 12.04 (wget 1.14)
+- Ubuntu 16.04 | 15.10 | 14.04
 
 
 ## Features
@@ -14,7 +14,7 @@
 - Apache build from source
 - MySQL database install
 - PHP build from source
-- Webino Devkit install
+- Webino™ Devkit install
 - Travis CI support
 
 
@@ -82,7 +82,7 @@
 - `wget https://get.webino.org/seed/php  -qO- | sh -s -- --pub --php 7.0.0RC5`
 
 
-**Installing Webino Devkit**
+**Installing Webino™ Devkit**
 
 - `wget https://get.webino.org/devkit -qO- | sh`
 

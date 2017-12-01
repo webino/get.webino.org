@@ -1,4 +1,4 @@
-# Webino Installation Scripts
+# Webino™ Installation Scripts
 
 ## Installing Satis the Composer repository generator
 
