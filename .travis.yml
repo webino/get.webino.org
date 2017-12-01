@@ -1,15 +1,19 @@
-language: bash
 matrix:
   include:
     - env: TEST=apache
     - env: TEST=apache-pub
     - env: TEST=mysql
-    - env: TEST=php
-    - env: TEST=php7
-    - env: TEST=devkit
-    - env: TEST=dev-module
+    - env: TEST=php-7.1
+    - env: TEST=php-latest
+    - env: TEST=devkit-php-7.1
+    - env: TEST=devkit-php-latest
+    - env: TEST=dev-module-php-7.1
+    - env: TEST=dev-module-php-latest
   allow_failures:
     - env: TEST=apache-pub
+    - env: TEST=php-latest
+    - env: TEST=devkit-php-latest
+    - env: TEST=dev-module-php-latest
 before_install:
   - sudo chmod o+w /home/travis -R
 script:
