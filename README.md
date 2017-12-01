@@ -77,7 +77,7 @@
 
 - `wget https://get.webino.org/seed/php  -qO- | sh -s -- --pub --update`
 
-*PHP 7*
+*PHP specific version*
 
 - `wget https://get.webino.org/seed/php  -qO- | sh -s -- --pub --php 7.0.0RC5`
 
