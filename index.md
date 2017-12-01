@@ -5,7 +5,7 @@
 
 ## Requirements
 
-- Ubuntu 16.04 | 15.10 | 14.04 | 12.04 (wget 1.14)
+- Ubuntu 16.04 | 15.10 | 14.04
 
 
 ## Features
