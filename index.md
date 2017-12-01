@@ -1,11 +1,12 @@
-# Webino™ Installation Scripts
+# Webino™ installation scripts
 
 [![Build Status](https://travis-ci.org/webino/get.webino.org.svg?branch=develop)](https://travis-ci.org/webino/get.webino.org) 
 
 
 ## Requirements
 
-- Ubuntu   16.04 | 15.10 | 14.04
+- Ubuntu
+  16.04 | 15.10 | 14.04
 
 
 ## Features
