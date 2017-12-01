@@ -1,12 +1,13 @@
-env:
-  - TEST=apache
-  - TEST=apache-pub
-  - TEST=mysql
-  - TEST=php
-  - TEST=php7
-  - TEST=devkit
-  - TEST=dev-module
+language: bash
 matrix:
+  include:
+    - env: TEST=apache
+    - env: TEST=apache-pub
+    - env: TEST=mysql
+    - env: TEST=php
+    - env: TEST=php7
+    - env: TEST=devkit
+    - env: TEST=dev-module
   allow_failures:
     - env: TEST=apache-pub
 before_install:
