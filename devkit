@@ -71,7 +71,7 @@ fi
 if [ "$(/var/lib/webino/firefox/firefox --version 2> /dev/null)" = '' ]
 then
     echo 'Downloading Webino? Devkit Firefox'
-    wget @@host@@/seed/devkit/firefox -qO- | sh -s -- "$@"
+    wget @@host@@/seed/devkit/firefox -qO- | sh
 fi
 
 # Check RecordMyDesktop
