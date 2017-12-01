@@ -1,15 +1,15 @@
 #!/bin/bash
 
-# This is the Webino? Seed install script!
+# This is the Webino™ Seed install script!
 # Copyright (c) 2015-2017 Webino, s.r.o. (http://webino.sk)
 # Version: @@version@@
 #
-# Are you looking at this in your web browser, and would like to install Webino? Devkit?
+# Are you looking at this in your web browser, and would like to install Webino™ Devkit?
 # Just open up your terminal and type
 #
 #    wget @@host@@/devkit -qO- | sh
 #
-# Webino? currently supports:
+# Webino™ currently supports:
 #   - Ubuntu 16.04 | 15.10 | 14.04
 #
 # What this script does?
@@ -29,7 +29,7 @@ main() {
         bzip2 -d firefox-46.0.1.tar.bz2
 
         echo "Untar..."
-        sudo tar -xf firefox-46.0.1.tar -C /var/lib/Webino? && rm firefox-46.0.1.tar & spinner $! 2>&1
+        sudo tar -xf firefox-46.0.1.tar -C /var/lib/Webino™ && rm firefox-46.0.1.tar & spinner $! 2>&1
         sudo chmod +x /var/lib/webino/firefox/firefox
 
         touch $lock
