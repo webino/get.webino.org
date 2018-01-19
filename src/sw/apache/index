@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/apache -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 15.10 | 14.04
+#
+# What this script does?
+#   - It builds Apache from source
+
+main() {
+    # resolve latest versions
+    apache_version_latest=$(echo $(wget -qO- http://www.apache.org/dist/httpd/Announcement2.4.txt \
+        | grep -a -Eom 1 'Server 2\.4\.[0-9]+ Released' | grep -a -Eom 1 '[0-9\.]+'))
+
+    apache_apr_version_latest=$(echo $(wget -qO- http://apr.apache.org/download.cgi \
+        | grep -a -Eom 1 'APR 1\.[0-9]+\.[0-9]+ is the best' | grep -a -Eom 1 '[0-9\.]+'))
+
+    apache_apr_util_version_latest=$(echo $(wget -qO- http://apr.apache.org/download.cgi \
+        | grep -a -Eom 1 'APR-util 1\.[0-9]+\.[0-9]+ is the best' | grep -a -Eom 1 '[0-9\.]+'))
+
+    apache_version=${apache_version-$apache_version_latest}
+    apache_apr_version=${apache_apr_version-$apache_apr_version_latest}
+    apache_apr_util_version=${apache_apr_util_version-$apache_apr_util_version_latest}
+
+    # TODO server name (local only)
+    #apache_server_name='webino.'$([[ $USER == 'webino' ]] && echo 'local' || echo $USER)
+
+    # clean the Apache build
+    [[ -n $clean ]] && load sw/apache/clean && return
+
+    # remove pre-installed
+    echo 'Purging pre-installed Apache...'
+    load sw/apache/purge
+
+    # chown /srv (pub only)
+    [[ -n $env_pub ]] && sudo chown www-data:www-data /srv -R
+
+    # create www dir
+    echo 'Creating public www directory...'
+    sudo mkdir -p /var/www/public
+    sudo chown www-data:www-data /var/www -R
+
+    echo 'Seeding Apache '$apache_version
+    load sw/apache/download
+    load sw/apache/build
+    load sw/apache/configure
+    load sw/apache/daemon
+
+    echo 'Starting web server...'
+    sudo apachectl restart > /dev/null 2>&1 &
+
+    # dev & pub only
+    if [[ -n $env_dev || -n $env_pub ]]; then
+        load sw/apache/logwatch
+        load sw/apache/fail2ban
+    fi
+}
+
+main

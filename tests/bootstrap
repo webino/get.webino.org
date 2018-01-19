@@ -1,22 +1,20 @@
 #!/bin/bash
 
 # This is the Webino™ tests bootstrap script!
-# Copyright (c) 2015-2017 Webino, s.r.o. (http://webino.sk)
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
 # Version: @@version@@
 
 set -e
 
-[ "$TEST" = 'apache' ] && wget https://get.webino.org/seed/apache -qO- | sh -s -- -n --no-ssh && exit 0
-[ "$TEST" = 'apache-pub' ] && wget https://get.webino.org/seed/apache -qO- | sh -s -- -n --no-ssh --pub && exit 0
-[ "$TEST" = 'mysql' ] && wget https://get.webino.org/seed/mysql -qO- | sh -s -- -n --no-ssh && exit 0
-[ "$TEST" = 'php-7.1' ] && wget https://get.webino.org/seed/php -qO- | sh -s -- -n --no-ssh --php 7.1.12 && exit 0
-[ "$TEST" = 'php-latest' ] && wget https://get.webino.org/seed/php -qO- | sh -s -- -n --no-ssh && exit 0
+[ "$TEST" = 'apache' ] && wget https://get.webino.org/apache -qO- | sh -s -- -n && exit 0
+[ "$TEST" = 'apache-pub' ] && wget https://get.webino.org/apache -qO- | sh -s -- -n --pub && exit 0
+[ "$TEST" = 'mysql' ] && wget https://get.webino.org/mysql -qO- | sh -s -- -n && exit 0
+[ "$TEST" = 'php-7.1' ] && wget https://get.webino.org/php -qO- | sh -s -- -n --php 7.1.12 && exit 0
+[ "$TEST" = 'php-latest' ] && wget https://get.webino.org/php -qO- | sh -s -- -n && exit 0
 [ "$TEST" = 'devkit-php-7.1' ] && wget https://get.webino.org/devkit -qO- | sh -s -- -n --php 7.1.12 && exit 0
 [ "$TEST" = 'devkit-php-latest' ] && wget https://get.webino.org/devkit -qO- | sh && exit 0
-# TODO seed
-#[ "$TEST" = 'seed' ] && wget https://get.webino.org/seed -qO- | sh -s -- -n --no-ssh && exit 0
 # TODO easy
-#[ "$TEST" = 'easy' ] && wget https://get.webino.org -qO- | sh -s -- -n --no-ssh && exit 0
+#[ "$TEST" = 'easy' ] && wget https://get.webino.org -qO- | sh -s -- -n && exit 0
 
 if [ "$TEST" = 'dev-module-php-7.1' ]; then
   wget https://get.webino.org/devkit -qO- | sh -s -- -n --php 7.1.12

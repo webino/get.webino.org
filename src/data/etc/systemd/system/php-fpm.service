@@ -1,0 +1,11 @@
+[Unit]
+Description=Start/Stop PHP-FPM Web Server
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/php-fpm start
+ExecStop=/usr/sbin/php-fpm start
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/php -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 15.10 | 14.04
+#
+# What this script does?
+#   - It builds PHP from source
+
+main() {
+    cd /tmp/php
+
+    if [ ! -f mailparse.lock ]; then
+        echo 'Installing Mailparse...'
+        # non-interactive
+        local mailparse_version=$(php -r "echo (-1 === version_compare('$php_version', '7.0.0') ? '2.1.6' : '3.0.2');")
+        echo 'Version: '$mailparse_version
+        printf '\n' | sudo pecl install -f 'mailparse-'$mailparse_version
+        touch mailparse.lock
+    else
+        echo 'Mailparse already installed...'
+    fi
+    
+    # configuring
+    local etc='/etc/php'
+    local is_configured=$(grep mailparse.so $etc/php.ini)
+    if [ "$is_configured" == "" ]; then
+        echo 'Enabling PHP Mailparse module...'
+        echo "extension=mailparse.so" | cat - $etc/php.ini | sudo tee $etc/php.ini > /dev/null
+    fi
+    local is_configured_cli=$(grep mailparse.so $etc/php-cli.ini)
+    if [ "$is_configured_cli" == "" ]; then
+        echo 'Enabling PHP-CLI Mailparse module...'
+        echo "extension=mailparse.so" | cat - $etc/php-cli.ini | sudo tee $etc/php-cli.ini > /dev/null
+    fi
+}
+
+main

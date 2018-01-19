@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/certbot -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 15.10 | 14.04
+#
+# What this script does?
+#   - It installs Let’s Encrypt certificate bot
+
+load() {
+    # Load remote bash source
+    wget -qO /tmp/webino.tmp @@host@@/$1
+    source /tmp/webino.tmp
+}
+
+main() {
+    echo -e "\nInstalling Let’s Encrypt compatible certificate bot...\n"
+
+    load lib/trap
+    load lib/spinner
+    load arguments "$@"
+
+    # Install
+    load sw/certbot
+}
+
+main "$@"

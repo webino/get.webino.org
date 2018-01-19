@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/php -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 15.10 | 14.04
+#
+# What this script does?
+#   - It builds PHP from source
+
+main() {
+    cd /tmp/php
+
+    if [ ! -f imagick.lock ]; then
+        echo 'Installing ImageMagick...'
+        # non-interactive
+        printf '\n' | sudo pecl install -f imagick
+        touch imagick.lock
+    else
+        echo 'ImageMagick already installed...'
+    fi
+
+    # configuring
+    local etc='/etc/php'
+    local is_configured=$(grep imagick.so $etc/php.ini)
+    if [ "$is_configured" == "" ]; then
+        echo 'Enabling PHP Imagick module...'
+        echo "extension=imagick.so" | cat - $etc/php.ini | sudo tee $etc/php.ini > /dev/null
+    fi
+    local is_configured_cli=$(grep  $etc/php-cli.ini)
+    if [ "$is_configured_cli" == "" ]; then
+        echo 'Enabling PHP-CLI Imagick module...'
+        echo "extension=imagick.so" | cat - $etc/php-cli.ini | sudo tee $etc/php-cli.ini > /dev/null
+    fi
+}
+
+main

@@ -1,0 +1,91 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@ -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 15.10 | 14.04
+#
+# What this script does?
+#   - It secures SSH
+
+main() {
+    # exit early on clean
+    [[ -n $clean ]] && return
+
+    local data='@@host@@/data'
+    local lock=/tmp/webino.os.ssh.lock
+
+    if [[ ! -f $lock ]]; then
+        echo 'Securing SSH...'
+
+        # logwatch
+        echo 'Installing logwatch...'
+        sudo apt-get install -y logwatch
+
+        echo "$(wget $data/usr/share/logwatch/dist.conf/logwatch.conf -qO- | \
+                sed s/'%HOST_NAME%'/$host_name/g | \
+                sed s/'%ADMIN_MAIL%'/$admin_mail/g)" | \
+            sudo tee /usr/share/logwatch/dist.conf/logwatch.conf > /dev/null
+
+        # fail2ban
+        echo 'Installing fail2ban...'
+        sudo apt-get install -y fail2ban
+
+        echo "$(wget $data/etc/fail2ban/jail.local -qO- | \
+                sed s/'%ADMIN_MAIL%'/$admin_mail/g)" | \
+            sudo tee /etc/fail2ban/jail.local > /dev/null
+
+        sudo service fail2ban stop > /dev/null 2>&1 && \
+        sudo service fail2ban start > /dev/null 2>&1 &
+
+        # ssh
+        # return early when disabled
+        [[ -z "$with_ssh" ]] && touch $lock && return
+
+        echo 'Securing SSH...'
+
+        # add root ssh key
+        if [[ -z "$no_interaction" ]]; then
+            echo 'Root SSH authorized key:'
+            read rootSshAuthorizedKey </dev/tty
+
+            [[ -n "$rootSshAuthorizedKey" ]] && \
+                sudo mkdir -p ~/.ssh && echo $rootSshAuthorizedKey | sudo tee ~/.ssh/authorized_keys > /dev/null
+        fi
+
+        # allow only root login
+        local is_ssh_root_only=$(grep 'AllowUsers root' /etc/ssh/sshd_config)
+        if [[ -z "$is_ssh_root_only" ]]; then
+            echo 'Enabling SSH for root user only ...'
+            echo "AllowUsers root" | cat - /etc/ssh/sshd_config | sudo tee /etc/ssh/sshd_config > /dev/null
+        fi
+
+        # disable password
+        sudo sed -i 's/PermitRootLogin yes/PermitRootLogin without-password/' /etc/ssh/sshd_config
+        sudo sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+        sudo sed -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+
+        # change port
+        # return early when already secured
+        local is_ssh_port_default=$(grep 'Port 22$' /etc/ssh/sshd_config)
+        if [[ -z "$is_ssh_port_default" ]]; then
+            local ssh_port='22'$(echo $(< /dev/urandom tr -dc 0-9 | head -c2))
+            sudo sed -i 's/Port .*/Port '$ssh_port'/' /etc/ssh/sshd_config
+            echo 'New SSH port: '$ssh_port
+        fi
+
+        sudo service ssh restart
+        touch $lock
+    else
+        echo 'SSH already secured...'
+    fi
+}
+
+main

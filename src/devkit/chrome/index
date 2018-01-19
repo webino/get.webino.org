@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to install Webino™ Devkit?
+# Just open up your terminal and type
+#
+#    wget @@host@@/devkit -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 15.10 | 14.04
+#
+# What this script does?
+#   - It installs Google Chrome with ChromeDriver for Selenium
+
+wget @@host@@/devkit/chrome/setup -qO- | bash -s -- "$@"

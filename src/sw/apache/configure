@@ -1,0 +1,93 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/apache -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 15.10 | 14.04
+#
+# What this script does?
+#   - It builds Apache from source
+
+main() {
+    echo 'Configuring Apache...'
+    local etc='/etc/apache2'
+    local data='@@host@@/data/etc'
+
+    sudo apachectl stop > /dev/null 2>&1 &
+    sudo chsh -s /bin/bash www-data
+
+    # directories
+    sudo mkdir -p $etc/conf.d
+    sudo mkdir -p $etc/vhost.d
+    sudo mkdir -p $etc/common
+    sudo mkdir -p /var/log/apache2
+    sudo chown syslog:adm /var/log/apache2 -R
+    sudo rm -f /usr/local/apache2/cgi-bin/*
+
+    # TODO configure host (local only)
+    #[[ -n $env_local ]] &&
+
+    # httpd
+    local httpd_is_configured=$(grep conf.d $etc/httpd.conf)
+    if [ "$httpd_is_configured" == "" ]; then
+        echo 'Configuring "etc/apache2/httpd.conf"...'
+        echo "Include $etc/conf.d/" | sudo tee --append $etc/httpd.conf > /dev/null
+    else
+        echo 'Apache "etc/apache2/httpd.conf" is already configured...'
+    fi
+
+    # general configs
+    echo 'Installing apache general configs...'
+    sudo wget -qO $etc/conf.d/general.conf $data/apache2/conf.d/general.conf
+    sudo wget -qO $etc/conf.d/mods.conf $data/apache2/conf.d/mods.conf
+    sudo wget -qO $etc/conf.d/security.conf $data/apache2/conf.d/security.conf
+    sudo wget -qO $etc/conf.d/php.conf $data/apache2/conf.d/php.conf
+    sudo wget -qO $etc/conf.d/ssl.conf $data/apache2/conf.d/ssl.conf
+    sudo wget -qO $etc/conf.d/webino.conf $data/apache2/conf.d/webino.conf
+
+    # common configs
+    echo 'Installing apache common configs...'
+    sudo wget -qO $etc/common/dir.conf $data/apache2/common/dir.conf
+    sudo wget -qO $etc/common/maintenance.conf $data/apache2/common/maintenance.conf
+    sudo wget -qO $etc/common/vhost.conf $data/apache2/common/vhost.conf
+    sudo wget -qO $etc/common/webino-dir.conf $data/apache2/common/webino-dir.conf
+    sudo wget -qO $etc/common/webino-vhost.conf $data/apache2/common/webino-vhost.conf
+
+    # vhost configs
+    echo 'Installing apache vhost configs...'
+    sudo wget -qO $etc/vhost.d/000-default.conf $data/apache2/vhost.d/000-default.conf
+    sudo wget -qO $etc/vhost.d/001-default-ssl.conf $data/apache2/vhost.d/001-default-ssl.conf
+
+    # Webino™ local vhost (local only)
+    [[ -n $env_local ]] && \
+        sudo wget -qO $etc/vhost.d/000-default-local.conf $data/apache2/vhost.d/000-default-local.conf
+
+    # bad-bots config
+    echo 'Installing common Bad-bot-blocker config...'
+    sudo wget -qO $etc/common/bad-bot-blocker.conf \
+        https://raw.githubusercontent.com/bluedragonz/bad-bot-blocker/master/.htaccess 2>&1
+
+    echo '<Directory />' | sudo cat - $etc/common/bad-bot-blocker.conf > temp
+    sudo mv temp $etc/common/bad-bot-blocker.conf
+    echo '</Directory>' | sudo tee --append $etc/common/bad-bot-blocker.conf > /dev/null
+
+    # logs
+    echo 'Configuring logrotate...'
+    sudo mkdir -p /etc/logrotate.d/httpd-prerotate
+    sudo wget -qO /etc/logrotate.d/apache2 $data/logrotate.d/apache2
+
+    # logrotate vhosts (dev|pub only)
+    [[ -n $env_dev || -n $env_pub ]] && \
+        sudo wget -qO /etc/logrotate.d/apache2-vhosts $data/logrotate.d/apache2-vhosts
+
+    return 0
+}
+
+main

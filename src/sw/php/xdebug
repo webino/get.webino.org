@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/php -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 15.10 | 14.04
+#
+# What this script does?
+#   - It builds PHP from source
+
+main() {
+    cd /tmp/php
+
+    if [ ! -f xdebug.lock ]; then
+        echo 'Installing Xdebug...'
+        # non-interactive
+        printf '\n' | sudo pecl install -f xdebug
+        touch xdebug.lock
+    else
+        echo 'Xdebug already installed...'
+    fi
+    
+    # configuring
+    local etc='/etc/php'
+    local is_configured=$(grep xdebug.so $etc/php.ini)
+    if [ "$is_configured" == "" ]; then
+        echo 'Enabling PHP Xdebug module...'
+        echo "zend_extension=xdebug.so" | cat - $etc/php.ini | sudo tee $etc/php.ini > /dev/null
+    fi
+}
+
+main

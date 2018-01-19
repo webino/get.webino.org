@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to install Webino™ Devkit?
+# Just open up your terminal and type
+#
+#    wget @@host@@/certbot -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 15.10 | 14.04
+#
+# What this script does?
+#   - It installs Let’s Encrypt certificate bot
+
+main() {
+
+    cd /opt
+    git clone https://github.com/composer/satis.git --depth 1
+    cd satis
+    wget https://getcomposer.org/installer -qO- | php
+    php composer.phar install
+    mkdir -m 0777 /var/satis
+}
+
+main

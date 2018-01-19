@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/os -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 15.10 | 14.04
+
+main() {
+    # defaults
+    with_ssh=
+
+    n=0
+    for i in "$@"
+    do
+    n=$((n + 1))
+    case $i in
+        --with-ssh) # skip ssh
+            with_ssh=1
+            shift
+        ;;
+        --admin-mail) # set server admin mail
+            admin_mail=${argv[$n]}
+            shift
+            shift
+        ;;
+        --smtp-host) # set mailer SMTP host
+            smtp_host=${argv[$n]}
+            shift
+            shift
+        ;;
+        --smtp-user) # set mailer SMTP user
+            smtp_user=${argv[$n]}
+            shift
+            shift
+        ;;
+        --smtp-password) # set mailer SMTP password
+            smtp_password=${argv[$n]}
+            shift
+            shift
+        ;;
+        *)
+            # unknown option
+        ;;
+    esac
+    done
+}
+
+main "${argv[@]}"

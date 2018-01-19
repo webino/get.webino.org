@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/apache -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 15.10 | 14.04
+#
+# What this script does?
+#   - It builds Apache from source
+
+main() {
+    # return early when File2ban not installed
+    [[ ! -f /etc/fail2ban/jail.local ]] && return 0
+
+    local data='@@host@@/data'
+    local is_configured=$(grep apache /etc/fail2ban/jail.local)
+
+    if [[ -z "$is_configured" ]]; then
+        echo 'Installing Fail2ban for Apache...'
+
+        echo "$(wget $data/etc/fail2ban/jail.local-apache -qO-)" | \
+            sudo tee --append /etc/fail2ban/jail.local > /dev/null
+
+        sudo service fail2ban restart > /dev/null 2>&1 &
+    else
+        echo 'Fail2ban for Apache already installed...'
+    fi
+}
+
+main

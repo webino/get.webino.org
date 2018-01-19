@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/apache -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 15.10 | 14.04
+#
+# What this script does?
+#   - It builds Apache from source
+
+main() {
+    cd /tmp/httpd
+
+    if [ ! -f daemon.lock ]; then
+
+        if [ "$(systemctl --version 2> /dev/null)" != '' ]; then
+            # Systemd
+            echo 'Installing Apache Systemd service...'
+            if [ ! -f /etc/systemd/system/httpd.service ]; then
+                sudo wget -qO /etc/systemd/system/httpd.service @@host@@/data/etc/systemd/system/httpd.service
+                sudo systemctl enable httpd.service
+            fi
+        else
+            # Upstart
+            echo 'Installing Apache upstart daemon...'
+            if [ ! -f /etc/init/httpd.conf ]; then
+                sudo wget -qO /etc/init/httpd.conf @@host@@/data/etc/init/httpd.conf
+            fi
+        fi
+
+        sudo initctl reload-configuration > /dev/null 2>&1 &
+        touch daemon.lock
+    else
+        echo 'Upstart daemon already installed...'
+    fi
+}
+
+main

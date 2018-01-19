@@ -1,0 +1,69 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@ -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 15.10 | 14.04
+
+main() {
+    argv=('')
+
+    # defaults
+    no_interaction=
+    env_local=1
+    env_dev=
+    env_pub=
+    update=
+    clean=
+
+    n=0
+    for i in "$@"
+    do
+    n=$((n + 1))
+    argv[$n]=$i
+    case $i in
+        --no-interaction|-n) # non interactive
+            no_interaction=1
+            shift
+        ;;
+        --local) # local development
+            env_local=1
+            env_dev=
+            env_pub=
+            shift
+        ;;
+        --dev) # development server
+            env_dev=1
+            env_local=
+            env_pub=
+            shift
+        ;;
+        --pub) # public server
+            env_pub=1
+            env_dev=
+            env_local=
+            shift
+        ;;
+        --update) # update files
+            update=1
+            shift
+        ;;
+        --clean) # purge files
+            clean=1
+            shift
+        ;;
+        *)
+            # unknown option
+        ;;
+    esac
+    done
+}
+
+main "$@"

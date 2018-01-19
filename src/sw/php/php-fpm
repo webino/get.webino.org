@@ -1,0 +1,63 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/php -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 15.10 | 14.04
+#
+# What this script does?
+#   - It builds PHP from source
+
+main() {
+    cd /tmp/php
+    local etc='/etc/'${php_prefix:-'php'}
+    local data='@@host@@/data/etc'
+
+    if [ ! -f php-fpm.lock ]; then
+
+        echo 'Installing PHP-FPM support...'
+        echo "$(wget $data/usr/sbin/php-fpm -qO- | \
+                sed s/'%PREFIX%'/$php_prefix/g | \
+            sudo tee /usr/sbin/php-fpm > /dev/null
+
+        if [ "$(systemctl --version 2> /dev/null)" != '' ]; then
+            # Systemd
+            echo 'Installing PHP-FPM Systemd service...'
+            if [ ! -f /etc/systemd/system/php-fpm.service ]; then
+                sudo wget -qO /etc/systemd/system/php-fpm.service $data/systemd/system/php-fpm.service
+                sudo systemctl enable php-fpm.service
+            fi
+        else
+            # Upstart
+            echo 'Installing PHP-FPM Upstart daemon...'
+            if [ ! -f /etc/init/php-fpm.conf ]; then
+                sudo wget -qO /etc/init/php-fpm.conf $data/init/php-fpm.conf
+            fi
+        fi
+
+        # setup apache PHP-FPM support config
+        sudo wget -qO /etc/apache2/conf.d/php-fpm.conf $data/apache2/conf.d/php-fpm.conf
+
+        # setup PHP-FPM config
+        [[ -d $etc/fpm ]] || mkdir -p $etc/fpm/pool.d
+
+        [[ -f $etc/fpm/php-fpm.conf ]] || \
+            sudo wget -qO $etc/fpm/php-fpm.conf $data/php/fpm/php-fpm.conf
+
+        # start PHP-FPM
+        echo 'Starting PHP-FPM...'
+        sudo /usr/sbin/php-fpm start > /dev/null 2>&1 &
+        touch php-fpm.lock
+    else
+        echo 'PHP-FPM support already installed...'
+    fi
+}
+
+main

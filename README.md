@@ -25,62 +25,62 @@
 
 `wget https://get.webino.org -qO- | sh`
 
-*NOTE: Skip SSH setup with `--no-ssh`*
+*NOTE: With SSH setup `--with-ssh`*
 
 **Machine setup** [TODO]
 
 *Local development* [TODO]
 
-`wget https://get.webino.org/seed -qO- | sh -s -- --local`
+`wget https://get.webino.org -qO- | sh -s -- --local`
 
 *Development server* [TODO]
 
-`wget https://get.webino.org/seed -qO- | sh -s -- --dev`
+`wget https://get.webino.org -qO- | sh -s -- --dev`
 
 *Public server* [TODO]
 
-`wget https://get.webino.org/seed -qO- | sh -s -- --pub`
+`wget https://get.webino.org -qO- | sh -s -- --pub`
 
 
 **Building Apache 2.4 from source**
 
 *Local development* [TODO]
 
-`wget https://get.webino.org/seed/apache -qO- | sh -s -- --local`
+`wget https://get.webino.org/apache -qO- | sh -s -- --local`
 
 *Development server* [TODO]
 
-`wget https://get.webino.org/seed/apache -qO- | sh -s -- --dev`
+`wget https://get.webino.org/apache -qO- | sh -s -- --dev`
 
 *Public server*
 
-`wget https://get.webino.org/seed/apache -qO- | sh -s -- --pub`
+`wget https://get.webino.org/apache -qO- | sh -s -- --pub`
 
 
 **Installing MySQL database**
 
-`wget https://get.webino.org/seed/mysql  -qO- | sh`
+`wget https://get.webino.org/mysql  -qO- | sh`
 
 
 **Building PHP from source**
 
 *Local development* [TODO]
 
-`wget https://get.webino.org/seed/php -qO- | sh -s -- --local`
+`wget https://get.webino.org/php -qO- | sh -s -- --local`
 
 *Development server* [TODO]
 
-`wget https://get.webino.org/seed/php  -qO- | sh -s -- --dev`
+`wget https://get.webino.org/php  -qO- | sh -s -- --dev`
 
 *Public server*
 
-`wget https://get.webino.org/seed/php  -qO- | sh -s -- --pub`
+`wget https://get.webino.org/php  -qO- | sh -s -- --pub`
 
-`wget https://get.webino.org/seed/php  -qO- | sh -s -- --pub --update`
+`wget https://get.webino.org/php  -qO- | sh -s -- --pub --update`
 
 *PHP specific version*
 
-`wget https://get.webino.org/seed/php  -qO- | sh -s -- --pub --php 7.0.0RC5`
+`wget https://get.webino.org/php  -qO- | sh -s -- --pub --php 7.0.0RC5`
 
 
 **Installing Webino Devkit**

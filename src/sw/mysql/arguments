@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/mysql -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 15.10 | 14.04
+#
+# What this script does?
+#   - It installs MySQL database
+
+main() {
+    n=0
+    for i in "$@"
+    do
+    n=$((n + 1))
+    case $i in
+        --mysql-password) # set MySQL root password
+            mysql_root_password=${argv[$n]}
+            shift
+            shift
+        ;;
+        --mysql-client-user) # set MySQL client user
+            mysql_client_user=${argv[$n]}
+            shift
+            shift
+        ;;
+        --mysql-client-password) # set MySQL client password
+            mysql_client_password=${argv[$n]}
+            shift
+            shift
+        ;;
+        *)
+            # unknown option
+        ;;
+    esac
+    done
+}
+
+main "${argv[@]}"

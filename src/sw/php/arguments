@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@ -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 15.10 | 14.04
+
+main() {
+    # defaults
+    php_prefix=
+    php_fpm=
+
+    n=0
+    for i in "$@"
+    do
+    n=$((n + 1))
+    case $i in
+        --php) # set PHP version
+            php_version=${argv[$n]}
+            shift
+            shift
+        ;;
+        --php-prefix) # set PHP prefix
+            php_prefix=${argv[$n]}
+            shift
+            shift
+        ;;
+        --php-fpm) # support PHP-FPM
+            php_fpm=1
+            shift
+            shift
+        ;;
+        *)
+            # unknown option
+        ;;
+    esac
+    done
+}
+
+main "${argv[@]}"

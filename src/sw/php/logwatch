@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/php -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 15.10 | 14.04
+#
+# What this script does?
+#   - It builds PHP from source
+
+main() {
+    # return early when Logwatch is not installed
+    [[ ! -d /usr/share/logwatch ]] && return 0
+
+    local data='@@host@@/data'
+    if [[ ! -f /usr/share/logwatch/dist.conf/logfiles/php.conf ]]; then
+        echo 'Installing Logwatch for PHP...'
+
+        sudo wget $data/usr/share/logwatch/dist.conf/logfiles/php.conf \
+            -qO /usr/share/logwatch/dist.conf/logfiles/php.conf
+    else
+        echo 'Logwatch for PHP already installed...'
+    fi
+}
+
+main
