@@ -17,7 +17,7 @@
 
 main() {
     cd /tmp
-    local lock=seed.sw.chrome.lock
+    local lock=webino.sw.chrome.lock
 
     if [[ ! -f $lock ]]; then
         echo "Installing Google Chrome for Selenium..."

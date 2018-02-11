@@ -17,8 +17,9 @@
 
 main() {
     cd /tmp
+    local lock=php.dependencies.lock
 
-    if [[ ! -f php.dependencies.lock ]]; then
+    if [[ ! -f $lock ]]; then
         echo "Installing dependencies for PHP build..."
 
         sudo apt-get install -y \
@@ -41,7 +42,11 @@ main() {
         sudo dpkg -i libbison-dev_2.7.1.dfsg-1_amd64.deb
         sudo dpkg -i bison_2.7.1.dfsg-1_amd64.deb
 
-        touch php.dependencies.lock
+        # TODO PHP 5.3.29 legacy support
+        # TODO apt-get install autoconf2.13
+        # TODO export PHP_AUTOCONF=autoconf2.13
+
+        touch $lock
     else
         echo 'Dependencies for PHP build already installed...'
     fi

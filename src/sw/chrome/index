@@ -21,4 +21,4 @@ main() {
     load sw/chrome/driver
 }
 
-main
+main "$@"

@@ -17,33 +17,52 @@
 
 load() {
     # Load remote bash source
-    wget -qO /tmp/webino.tmp @@host@@/$1
+    wget @@host@@/$1 -qO /tmp/webino.tmp
     source /tmp/webino.tmp
 }
 
 main() {
-    echo -e "\nMachine seed for Webino™ (Dev server)...\n"
+    # lock check
+    local lock=/tmp/webino.dev.lock
+    if [[ -f $lock ]]; then
+        echo 'Webino™ (Dev server) already configured...'
+    fi
+
+    # setup
+    echo -e "\nMachine setup for Webino™ (Dev server)...\n"
+    local data='@@host@@/data/'
 
     load lib/trap
     load lib/spinner
     load arguments "$@"
+    load dev/general
 
-    # Force development environment
-    env_local=
-    env_dev=1
-    env_pub=
+    # dev vhost setup
+    sudo mkdir -p /srv/dev/pub
+    sudo mkdir -p /srv/dev/log
+    sudo chown www-data:www-data -R /srv/dev
 
-    # Force PHP-FPM support
-    php_fpm=1
+    # vhost conf setup
+    local file=/etc/php/fpm/pool.d/dev-srv.conf
+    [[ -f $file ]] || sudo wget -qO $file $data$file
 
-    # Install
-    load os/general
-    load sw/apache
-    load sw/mysql
-    load sw/php
-    load sw/devkit
+    # TODO
+    # adding SFTP access for dev group
+    sudo groupadd sftp-only
+    # enable SFTP for sftp-only
+    local is_ssh_sftp_allowed=$(grep 'AllowGroups .* sftp-only' /etc/ssh/sshd_config)
+    if [[ -z "$is_ssh_sftp_allowed" ]]; then
+        sudo sed -i -E 's/AllowGroups (.+)/AllowGroups \1 sftp-only/' /etc/ssh/sshd_config
+        # TODO setup ssh sftp-only config
+    fi
 
-    echo -e "\nSuccess...\n"
+    sudo mkdir /sftp
+
+    # TODO decouple to script call
+    #load dev/user "$@"
+
+    touch $lock
+    echo -e "\nWebino™ (Dev server) configuration success...\n"
 }
 
 main "$@"

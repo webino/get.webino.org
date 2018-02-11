@@ -17,17 +17,18 @@
 
 main() {
     # return early when Logwatch not installed
-    [[ ! -d /usr/share/logwatch ]] && return 0
+    [[ ! -d /usr/share/logwatch ]] && return
 
-    local data='@@host@@/data'
-    if [[ ! -f /usr/share/logwatch/dist.conf/logfiles/http.conf ]]; then
+    local data='@@host@@/data/'
+    local file=/usr/share/logwatch/dist.conf/logfiles/http.conf
+
+    if [[ ! -f $file ]]; then
         echo 'Installing Logwatch for Apache...'
 
-        sudo wget $data/usr/share/logwatch/dist.conf/logfiles/http.conf \
-            -qO /usr/share/logwatch/dist.conf/logfiles/http.conf
+        sudo wget $data$file -qO $file
 
-        sudo wget $data/usr/share/logwatch/dist.conf/logfiles/http-error.conf \
-            -qO /usr/share/logwatch/dist.conf/logfiles/http-error.conf
+        local file=/usr/share/logwatch/dist.conf/logfiles/http-error.conf
+        sudo wget $data$file -qO $file
     else
         echo 'Logwatch for Apache already installed...'
     fi

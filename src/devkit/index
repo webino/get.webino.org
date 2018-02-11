@@ -1,108 +1,18 @@
 #!/bin/sh
 
-# This is the Webino™ Devkit install script!
-# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk/)
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
 # Version: @@version@@
 #
-# Are you looking at this in your web browser, and would like to install Webino™ Devkit?
-# Just open up your terminal and type
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
 #
 #    wget @@host@@/devkit -qO- | sh
 #
-# Webino™ Devkit currently supports:
-#   - Ubuntu 15.10 | 14.04 | 12.04 (wget 1.14)
-#
-# Requires
-#   - Node.js
-#   - PHP >= 7.1
-#   - Git, Gitflow
-#   - Graphviz
-#   - Firefox 46.0.1
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 15.10 | 14.04
 #
 # What this script does?
-#   - It installs webino-devkit requirements
-#   - It installs webino-devkit via npm globally
-#   - It setups user Webino™ workspace
+#   - It setups user Webino™ development kit
 
-apt_install=""
-
-# Check Git
-[ "$(git --version 2> /dev/null)" = '' ] && apt_install="$apt_install git"
-# Check Gitflow
-[ "$(git flow 2> /dev/null)" = '' ] && apt_install="$apt_install git-flow"
-# Check Graphviz
-[ "$(dpkg -s graphviz 2> /dev/null)" = '' ] && apt_install="$apt_install graphviz"
-# Check Xvfb
-[ "$(which Xvfb 2> /dev/null)" = '' ] && apt_install="$apt_install xvfb xfonts-cyrillic"
-# Check Firefox
-[ "$(firefox -v 2> /dev/null)" = '' ] && apt_install="$apt_install firefox"
-
-# Install apt-get packages
-if [ "$apt_install" != "" ]
-then
-    echo "Installing: $apt_install"
-    sudo apt-get update && sudo apt-get install -y $apt_install
-fi
-
-# Check PHP
-# TODO check PHP version
-if [ "$(php -v 2> /dev/null)" = '' ]
-then
-    # Building PHP from source
-    wget @@host@@/php -qO- | sh -s -- "$@"
-fi
-
-# Check npm
-if [ "$(sudo npm -v 2> /dev/null)" = '' ]
-then
-    echo 'Installing: Node.js'
-    wget https://deb.nodesource.com/setup_4.x -qO- | sudo bash
-    sudo apt-get install -y nodejs
-fi
-
-# Check grunt
-if [ "$(grunt --version 2> /dev/null)" = '' ]
-then
-    echo 'Installing Grunt.js'
-    sudo npm install grunt-cli -g
-fi
-
-# Check Webino devkit Firefox
-if [ "$(/var/lib/webino/firefox/firefox --version 2> /dev/null)" = '' ]
-then
-    echo 'Downloading Webino™ Devkit Firefox'
-    wget @@host@@/devkit/firefox -qO- | sh
-fi
-
-# Check RecordMyDesktop
-if [ "$(recordmydesktop --version 2> /dev/null)" = '' ]
-then
-    echo 'Installing: RecordMyDesktop'
-    sudo apt-get install -y recordmydesktop
-fi
-
-# Installing devkit
-echo "\nInstalling Webino™ Development Kit\n"
-sudo npm install webino-devkit -g --unsafe-perm
-# Clear composer cache
-sudo rm -rf ~/.composer/cache
-
-# Check instalation
-if [ "$(webino 2> /dev/null)" = '' ]
-then
-    exit 1
-fi
-
-# TODO https docs
-# Success
-cat <<"EOF"
-
-To get started:
-
-  $ webino
-
-Or see the docs at:
-
-  http://open.webino.org/docs
-
-EOF
+wget @@host@@/devkit/setup -qO- | bash -s -- "$@"

@@ -17,12 +17,13 @@
 
 main() {
     cd /tmp/php
+    local lock=memcache.lock
 
-    if [ ! -f memcache.lock ]; then
+    if [ ! -f $lock ]; then
         echo 'Installing Memcache...'
         # non-interactive
         printf '\n' | sudo pecl install -f memcache
-        touch memcache.lock
+        touch $lock
     else
         echo 'Memcache already installed...'
     fi

@@ -13,40 +13,45 @@
 #   - Ubuntu 16.04 | 15.10 | 14.04
 #
 # What this script does?
-#   - It setups the operating system upgrades
+#   - It configures OS upgrades
 
 main() {
-    # exit early on clean
-    [[ -n $clean ]] && return
-
-    local data='@@host@@/data'
-    local lock=/tmp/webino.os.upgrade.lock
-
-    if [[ ! -f $lock ]]; then
-        echo 'Setting up operating system upgrades...'
-
-        # apticron & cron-apt
-        echo 'Installing apticron & cron-apt...'
-        sudo apt-get install -y apticron cron-apt
-
-        sudo sed -i 's/EMAIL="root"/EMAIL="'$admin_mail'"/' /etc/apticron/apticron.conf
-        sudo sed -i 's/# CUSTOM_FROM=""/CUSTOM_FROM="'$admin_mail'"/' /etc/apticron/apticron.conf
-        sudo sed -i 's/# SYSTEM="foobar.example.com"/SYSTEM="'$host_name'"/' /etc/apticron/apticron.conf
-
-        # disable listchanges
-        if [ -f /etc/apt/listchanges.conf ]; then
-            sudo sed -i 's/frontend=pager/frontend=text/' /etc/apt/listchanges.conf
-        fi
-
-        # set upgrade cron
-        if [[ ! -f /etc/cron.d/upgrade ]]; then
-            echo 'Installing upgrade CRON script...'
-            sudo wget -qO /etc/cron.d/upgrade $data/etc/cron.d/upgrade
-        fi
-
-        touch $lock
-    else
+    # check
+    if [[ "$(whereis apticron)" == *"/apticron"* ]]; then
         echo 'Operating system upgrades already set...'
+        return
+    fi
+
+    # install
+    echo 'Setting up operating system upgrades...'
+    local data='@@host@@/data/'
+
+    # apticron & cron-apt
+    echo 'Installing apticron...'
+    sudo apt-get install -y apticron
+
+    sudo sed -i 's/EMAIL="root"/EMAIL="'$admin_mail'"/' /etc/apticron/apticron.conf
+    sudo sed -i 's/# SYSTEM="foobar.example.com"/SYSTEM="'$host_name'"/' /etc/apticron/apticron.conf
+
+    # apt listchanges config
+    local file=/etc/apt/listchanges.conf
+    if [[ -f $file ]]; then
+        sudo sed -i 's/frontend=pager/frontend=text/' $file
+        sudo sed -i 's/email_address=root/email_address='$admin_mail'/' $file
+    fi
+
+    # set upgrade cron
+    local file=/etc/cron.d/upgrade
+    if [[ ! -f $file ]]; then
+        echo 'Installing upgrade CRON script...'
+        sudo wget -qO $file $data$file
+    fi
+
+    # logs
+    local file=/etc/logrotate.d/upgrade
+    if [[ ! -f $file ]]; then
+        echo 'Configuring upgrade logrotate...'
+        sudo wget -qO $file $data$file
     fi
 }
 

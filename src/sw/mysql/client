@@ -17,8 +17,8 @@
 
 main() {
     cd /tmp
-    local data='@@host@@/data'
-    local lock=seed.sw.mysql.client.lock
+    local data='@@host@@/data/'
+    local lock=webino.sw.mysql.client.lock
 
     if [[ ! -f $lock ]]; then
         echo "Installing MySQL client..."
@@ -43,22 +43,23 @@ main() {
             echo "MySQL client home \`$client_home\`..."
 
             # create client config
-            if [[ ! -f $client_home'/.my.cnf' ]]; then
+            local file=$client_home'/.my.cnf'
+            if [[ ! -f $file ]]; then
                 echo "Creating MySQL client config..."
 
                 echo "$(wget -qO- @@host@@/data/home/example/.my.cnf | \
                     sed s/'%USER%'/$mysql_client_user/ | \
                     sed s/'%PASSWORD%'/$mysql_client_password/)" | \
-                    sudo tee $client_home'/.my.cnf' > /dev/null
+                    sudo tee $file > /dev/null
 
-                sudo chown www-data:root $client_home'/.my.cnf'
-                sudo chmod 660 $client_home'/.my.cnf'
+                sudo chown www-data:root $ile
+                sudo chmod 660 $file
             fi
 
             # create mysql client user
             echo "Creating MySQL client user..."
             sudo -i mysql -e "CREATE USER '$mysql_client_user'@'localhost' IDENTIFIED BY '$mysql_client_password';"
-            sudo -i mysql -e "$(wget $data/extra/mysql-grant-client.sql -qO- | sed s/'%USER%'/$mysql_client_user/g)"
+            sudo -i mysql -e "$(wget ${data}extra/mysql-grant-client.sql -qO- | sed s/'%USER%'/$mysql_client_user/g)"
         fi
 
         touch $lock

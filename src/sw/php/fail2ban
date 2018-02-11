@@ -17,16 +17,17 @@
 
 main() {
     # return early when File2ban not installed
-    [[ ! -f /etc/fail2ban/jail.local ]] && return 0
+    local file=/etc/fail2ban/jail.local
+    [[ ! -f $file ]] && return
 
-    local data='@@host@@/data'
-    local is_configured=$(grep php /etc/fail2ban/jail.local)
+    local data='@@host@@/data/'
+    local is_configured=$(grep php $file)
 
     if [[ -z "$is_configured" ]]; then
         echo 'Installing Fail2Ban for PHP...'
 
-        echo "$(wget $data/etc/fail2ban/jail.local-php -qO-)" | \
-            sudo tee --append /etc/fail2ban/jail.local > /dev/null
+        echo "$(wget $data$file-php -qO-)" | \
+            sudo tee --append $file > /dev/null
 
         sudo service fail2ban restart > /dev/null 2>&1 &
     else

@@ -13,27 +13,23 @@
 #   - Ubuntu 16.04 | 15.10 | 14.04
 #
 # What this script does?
-#   - It fixes locale
+#   - It fixes OS locale
 
 main() {
-    # exit early on clean
-    [[ -n $clean ]] && return
-
-
+    # lock check
     local lock=/tmp/webino.os.locale.lock
-
-    if [[ ! -f $lock ]]; then
-        echo 'Setting locale...'
-
-        sudo locale-gen en_US.UTF-8
-        sudo locale-gen sk_SK.UTF-8
-        sudo DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
-        sudo update-locale
-
-        touch $lock
-    else
-        echo 'Locale already set...'
+    if [[ -f $lock ]]; then
+        echo 'OS locale already configured...'
+        return;
     fi
+
+    # configure
+    echo 'Configuring OS locale...'
+    sudo locale-gen en_US.UTF-8
+    sudo locale-gen sk_SK.UTF-8
+    sudo DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
+    sudo update-locale
+    touch $lock
 }
 
 main

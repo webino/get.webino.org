@@ -17,12 +17,13 @@
 
 main() {
     cd /tmp/php
+    local lock=imagick.lock
 
-    if [ ! -f imagick.lock ]; then
+    if [ ! -f $lock ]; then
         echo 'Installing ImageMagick...'
         # non-interactive
         printf '\n' | sudo pecl install -f imagick
-        touch imagick.lock
+        touch $lock
     else
         echo 'ImageMagick already installed...'
     fi

@@ -1,14 +1,12 @@
 /srv/*/log*/*.log {
     weekly
     missingok
-    rotate 52
+    rotate 7
     compress
     delaycompress
     notifempty
     create 644 root adm
     sharedscripts
-    postrotate
-    endscript
     prerotate
         if [ -d /etc/logrotate.d/httpd-prerotate ]; then \
             run-parts /etc/logrotate.d/httpd-prerotate; \

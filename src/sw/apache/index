@@ -48,7 +48,7 @@ main() {
     sudo mkdir -p /var/www/public
     sudo chown www-data:www-data /var/www -R
 
-    echo 'Seeding Apache '$apache_version
+    echo 'Installing Apache '$apache_version
     load sw/apache/download
     load sw/apache/build
     load sw/apache/configure

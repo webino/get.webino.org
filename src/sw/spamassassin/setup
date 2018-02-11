@@ -1,0 +1,12 @@
+# TODO!!!
+
+
+# install spamassassin
+
+# configure
+# /etc/default/spamassassin
+# /etc/spamassassin/local.cf
+
+# sudo systemctl enable spamassassin.service
+
+# set (passwd) user debian-spamd /bin/sh

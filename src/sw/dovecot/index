@@ -1,0 +1,28 @@
+# TODO !!!
+
+# configure /etc/dovecot/dovecot-sql.conf.ext
+# driver = mysql
+# connect = host=/var/run/mysqld/mysqld.sock dbname=mail_server user=postfix password=%PASSWORD%
+# default_pass_scheme = SHA512-CRYPT
+# password_query = \
+#    SELECT password, CONCAT(user, '@', domain) AS email FROM user LEFT JOIN domain ON domain.id=user.domain_id WHERE domain.enabled=1 AND user.enabled=1 HAVING email='%u'
+#
+#
+
+# configure /etc/dovecot/conf.d/10-logging.conf
+# auth_verbose = yes
+
+
+# configure /etc/dovecot/conf.d/10-mail.conf
+# mail_location = maildir:/var/mail/virtual/%d/%n/
+# mail_privileged_group = mail
+# first_valid_uid = 150
+# last_valid_uid = 150
+# first_valid_gid = 8
+# last_valid_gid = 8
+
+
+# configure /etc/dovecot/conf.d/20-lmpt.conf
+# mail_plugins = $mail_plugins sieve
+
+

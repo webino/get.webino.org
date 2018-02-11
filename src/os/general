@@ -13,90 +13,22 @@
 #   - Ubuntu 16.04 | 15.10 | 14.04
 #
 # What this script does?
-#   - It install general OS tools
+#   - It configures OS
 
 main() {
-    # exit early on clean
-    [[ -n $clean ]] && return
-
-    # resolve server info
-    host_ip=''
-    host_name=''
-    if [[ -n $env_dev || -n $env_pub ]]; then
-        # (dev|pub only)
-        echo 'Resolving host info...'
-        host_ip=$(ip route get 8.8.8.8 | awk '{print $NF; exit}')
-        host_name=$(cat /etc/hosts | grep $host_ip | awk -F' ' '{print $2}' | awk '{print $1}' | tr . -)
-    fi
-    if [[ -z $host_name ]]; then
-        echo 'Using default host info...'
-        host_ip=127.0.0.1
-        host_name=webino.local
-    fi
-
-    # show host info
-    echo 'Host IP: '$host_ip
-    echo 'Host name: '$host_name
-    echo ''
-
-    # set sysadmin mail
-    admin_mail=${admin_mail-'admin@'$host_name}
-
-    # start setup
+    # general
     load os/arguments "$@"
-
-    local lock=/tmp/webino.os.general.lock
-
-    if [[ ! -f $lock ]]; then
-        echo 'Installing general tools...'
-
-        sudo apt-get clean
-        sudo apt-get update
-        sudo apt-get install -y \
-            build-essential \
-            libpcre3-dev \
-            libexpat1-dev \
-            libwww-perl \
-            libssl-dev \
-            libkrb5-dev \
-            debconf-utils \
-            autoconf \
-            curl \
-            git
-
-        # java runtime (local|dev only)
-        [[ (-n $env_local || -n $env_dev) && "$(java -version 2> /dev/null)" = '' ]] && \
-            sudo apt-get install -y default-jre
-
-        # hosts fix (dev only)
-        if [ "$(systemctl --version 2> /dev/null)" != '' ]; then
-            # Systemd
-            echo 'Installing Hosts-fix Systemd script...'
-            if [[ -n $env_dev && ! -f /etc/systemd/system/hosts-fix.service ]]; then
-                sudo wget -qO /etc/systemd/system/hosts-fix.service @@host@@/data/etc/systemd/system/hosts-fix.service
-                sudo systemctl enable hosts-fix.service
-            fi
-        else
-            # Upstart
-            if [[ -n $env_dev && ! -f /etc/init/hosts-fix.conf ]]; then
-                echo 'Installing Hosts-fix Upstart script...'
-                sudo wget -qO /etc/init/hosts-fix.conf @@host@@/data/etc/init/hosts-fix.conf
-            fi
-        fi
-
-        touch $lock
-    else
-        echo 'General tools already installed...'
-    fi
-
+    load os/info
     load os/locale
+    load os/essential
 
-    # (dev|pub only)
+    # extra (dev|pub only)
     if [[ -n $env_dev || -n $env_pub ]]; then
         load os/mailer
         load os/upgrade
+        load os/secure
         load os/ssh
     fi
 }
 
-main
+main "$@"

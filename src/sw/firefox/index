@@ -20,4 +20,4 @@ main() {
     load sw/firefox/browser
 }
 
-main
+main "$@"

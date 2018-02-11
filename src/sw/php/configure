@@ -56,7 +56,7 @@ main() {
     [[ ! -d /etc/apache2/conf.d || -f /etc/apache2/conf.d/php.conf ]] || \
         sudo wget -qO /etc/apache2/conf.d/php.conf $data/apache2/conf.d/php.conf
 
-    return 0
+    return
 }
 
 main

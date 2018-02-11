@@ -1,8 +1,8 @@
 [DEFAULT]
-destemail=%ADMIN_MAIL%
-sendername=%ADMIN_MAIL%
-bantime=3600
-findtime=3600
-maxretry=3
-[ssh-ddos]
-enabled=true
+ignoreip  = 127.0.0.1/8 %HOST_IP%
+destemail = %ADMIN_MAIL%
+sender    = root@%MAIL_HOST%
+bantime   = 3600
+findtime  = 3600
+maxretry  = 3
+usedns    = no

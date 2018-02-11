@@ -18,27 +18,33 @@
 main() {
     cd /tmp/php
 
-    if [ ! -f git-srv.lock ]; then
+    local data='@@host@@/data/'
+    local lock=git-srv.lock
 
-        useradd -r git-srv
-        mkdir -p /srv/git
+    if [ ! -f $lock ]; then
+
+        sudo useradd -r git-srv
+        sudo mkdir -p /srv/git
 
         if [ "$(systemctl --version 2> /dev/null)" != '' ]; then
             # Systemd
             echo 'Installing Git fetch server...'
-            if [ ! -f /etc/systemd/system/git-srv.service ]; then
-                sudo wget -qO /etc/systemd/system/git-srv.service @@host@@/data/etc/systemd/system/git-srv.service
+            local file=/etc/systemd/system/git-srv.service
+            if [ ! -f $file ]; then
+                sudo wget -qO $file $data$file
                 sudo systemctl enable git-srv.service
             fi
         else
             # Upstart
             echo 'Installing Git fetch server...'
-            if [ ! -f /etc/init/git-srv.conf ]; then
-                sudo wget -qO /etc/init/git-srv.conf @@host@@/data/etc/init/git-srv.conf
+            local file=/etc/init/git-srv.conf
+            if [ ! -f $file ]; then
+                sudo wget -qO $file $data$file
+                sudo initctl reload-configuration > /dev/null 2>&1 &
             fi
         fi
 
-        touch git-srv.lock
+        touch $lock
     else
         echo 'Git fetch server already installed...'
     fi

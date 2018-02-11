@@ -17,11 +17,12 @@
 
 main() {
     cd /tmp/php
+    local lock=profiler.lock
 
-    if [ ! -f profiler.lock ]; then
+    if [ ! -f $lock ]; then
         echo 'Installing Profiler [TODO]...'
         # TODO use blackfire
-        touch profiler.lock
+        touch $lock
     else
         echo 'Profiler already installed...'
     fi

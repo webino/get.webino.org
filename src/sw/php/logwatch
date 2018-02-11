@@ -17,14 +17,14 @@
 
 main() {
     # return early when Logwatch is not installed
-    [[ ! -d /usr/share/logwatch ]] && return 0
+    [[ ! -d /usr/share/logwatch ]] && return
 
-    local data='@@host@@/data'
-    if [[ ! -f /usr/share/logwatch/dist.conf/logfiles/php.conf ]]; then
+    local data='@@host@@/data/'
+    local file=/usr/share/logwatch/dist.conf/logfiles/php.conf
+
+    if [[ ! -f $file ]]; then
         echo 'Installing Logwatch for PHP...'
-
-        sudo wget $data/usr/share/logwatch/dist.conf/logfiles/php.conf \
-            -qO /usr/share/logwatch/dist.conf/logfiles/php.conf
+        sudo wget $data$file -qO $file
     else
         echo 'Logwatch for PHP already installed...'
     fi

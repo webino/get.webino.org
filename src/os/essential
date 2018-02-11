@@ -1,0 +1,73 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@ -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 15.10 | 14.04
+#
+# What this script does?
+#   - It install essential OS tools
+
+main() {
+    # lock check
+    local lock=/tmp/webino.os.essential.lock
+    if [[ -f $lock ]]; then
+        echo 'Essential tools already installed...'
+        return
+    fi
+
+    # install
+    echo 'Installing essential tools...'
+    local data='@@host@@/data/'
+
+    sudo apt-get clean
+    sudo apt-get update
+    sudo apt-get install -y \
+        update-manager-core \
+        build-essential \
+        libpcre3-dev \
+        libexpat1-dev \
+        libwww-perl \
+        libssl-dev \
+        libkrb5-dev \
+        debconf-utils \
+        autoconf \
+        curl \
+        git
+
+    # java runtime (local|dev only)
+    [[ (-n $env_local || -n $env_dev) && "$(java -version 2> /dev/null)" = '' ]] && \
+        sudo apt-get install -y default-jre
+
+    # hosts fix (dev only)
+    if [[ -n $env_dev ]]; then
+        if [ "$(systemctl --version 2> /dev/null)" != '' ]; then
+            # Systemd
+            local file=/etc/systemd/system/hosts-fix.service
+            if [[ ! -f $file ]]; then
+                echo 'Installing Hosts-fix Systemd script...'
+                sudo wget -qO $file $data$file
+                sudo systemctl enable hosts-fix.service
+            fi
+        else
+            # Upstart
+            local file=/etc/init/hosts-fix.conf
+            if [[ ! -f $file ]]; then
+                echo 'Installing Hosts-fix Upstart script...'
+                sudo wget -qO $file $data$file
+                sudo initctl reload-configuration > /dev/null 2>&1 &
+            fi
+        fi
+    fi
+
+    touch $lock
+}
+
+main

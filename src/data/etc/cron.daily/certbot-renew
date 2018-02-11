@@ -1,0 +1,3 @@
+#!/bin/sh
+PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
+certbot-auto renew --post-hook "apachectl graceful & service postfix reload & service dovecot reload" >> /var/log/certbot-renew.log 2>&1

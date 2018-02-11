@@ -17,12 +17,12 @@
 
 load() {
     # Load remote bash source
-    wget -qO /tmp/webino.tmp @@host@@/$1
+    wget @@host@@/$1 -qO /tmp/webino.tmp
     source /tmp/webino.tmp
 }
 
 main() {
-    echo -e "\nMachine seed for Webino™ (MySQL install)...\n"
+    echo -e "\nMachine setup for Webino™ (MySQL install)...\n"
 
     load lib/trap
     load lib/spinner

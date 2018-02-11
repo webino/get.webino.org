@@ -1,0 +1,10 @@
+/var/log/upgrade.log {
+    weekly
+    missingok
+    rotate 4
+    compress
+    delaycompress
+    notifempty
+    su root adm
+    create 644 root adm
+}

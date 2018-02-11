@@ -17,8 +17,9 @@
 
 main() {
     cd /tmp/httpd
+    local lock=builded.lock
 
-    if [ ! -f builded.lock ]; then
+    if [ ! -f $lock ]; then
         echo 'Building Apache...'
 
         # optional arguments
@@ -40,7 +41,7 @@ main() {
 
         make
         sudo make install
-        touch builded.lock
+        touch $lock
     else
         echo 'Apache already builded...'
     fi

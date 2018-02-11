@@ -17,12 +17,13 @@
 
 main() {
     cd /tmp/php
+    local lock=xdebug.lock
 
-    if [ ! -f xdebug.lock ]; then
+    if [ ! -f $lock ]; then
         echo 'Installing Xdebug...'
         # non-interactive
         printf '\n' | sudo pecl install -f xdebug
-        touch xdebug.lock
+        touch $lock
     else
         echo 'Xdebug already installed...'
     fi

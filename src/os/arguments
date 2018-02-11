@@ -15,6 +15,11 @@
 main() {
     # defaults
     with_ssh=
+    host_name=
+    host_ip=127.0.0.1
+    admin_mail=
+    smtp_host=
+    smtp_user=
 
     n=0
     for i in "$@"
@@ -23,6 +28,16 @@ main() {
     case $i in
         --with-ssh) # skip ssh
             with_ssh=1
+            shift
+        ;;
+        --host-name) # set host name
+            host_name=${argv[$n]}
+            shift
+            shift
+        ;;
+        --host-ip) # set host ip
+            host_ip=${argv[$n]}
+            shift
             shift
         ;;
         --admin-mail) # set server admin mail
@@ -37,11 +52,6 @@ main() {
         ;;
         --smtp-user) # set mailer SMTP user
             smtp_user=${argv[$n]}
-            shift
-            shift
-        ;;
-        --smtp-password) # set mailer SMTP password
-            smtp_password=${argv[$n]}
             shift
             shift
         ;;

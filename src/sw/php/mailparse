@@ -17,14 +17,15 @@
 
 main() {
     cd /tmp/php
+    local lock=mailparse.lock
 
-    if [ ! -f mailparse.lock ]; then
+    if [ ! -f $lock ]; then
         echo 'Installing Mailparse...'
         # non-interactive
         local mailparse_version=$(php -r "echo (-1 === version_compare('$php_version', '7.0.0') ? '2.1.6' : '3.0.2');")
         echo 'Version: '$mailparse_version
         printf '\n' | sudo pecl install -f 'mailparse-'$mailparse_version
-        touch mailparse.lock
+        touch $lock
     else
         echo 'Mailparse already installed...'
     fi

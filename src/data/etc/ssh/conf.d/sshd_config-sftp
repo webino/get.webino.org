@@ -1,0 +1,5 @@
+Match LocalPort 22 Group sftp-only
+    ChrootDirectory /sftp/%u
+    ForceCommand internal-sftp
+    AllowTCPForwarding no
+    X11Forwarding no

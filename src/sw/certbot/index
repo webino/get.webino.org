@@ -16,11 +16,23 @@
 #   - It installs Let’s Encrypt certificate bot
 
 main() {
+    # install
+    cd /usr/local/bin
+    local data='@@host@@/data/'
+    sudo wget https://dl.eff.org/certbot-auto
+    sudo chmod a+x ./certbot-auto
+    sudo certbot-auto certonly --webroot -w /undefined -d undefined.com -d www.undefined.com || true
 
-    cd /root
-    wget https://dl.eff.org/certbot-auto
-    chmod a+x ./certbot-auto
-    ./certbot-auto certonly --webroot -w /undefined -d undefined.com -d www.undefined.com || true
+    # TODO
+    # renew cron
+
+
+    # renew log rotate
+    local file=/etc/logrotate.d/certbot-renew
+    if [[ ! -f $file ]]; then
+        echo 'Configuring certbot-renew logrotate...'
+        sudo wget -qO $file $data$file
+    fi
 }
 
 main

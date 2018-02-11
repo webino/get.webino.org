@@ -17,15 +17,16 @@
 
 main() {
     cd /tmp/php
+    local lock=opcache.lock
 
-    if [ ! -f opcache.lock ]; then
+    if [ ! -f $lock ]; then
         echo 'Installing Zend OPCache...'
         cd ext/opcache
         phpize
         ./configure
         make
         sudo make install
-        touch /tmp/php/opcache.lock
+        touch $lock
     else
         echo 'Zend OPCache already installed...'
     fi

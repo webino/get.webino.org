@@ -18,25 +18,30 @@
 main() {
     cd /tmp/httpd
 
-    if [ ! -f daemon.lock ]; then
+    local data='@@host@@/data/'
+    local lock=daemon.lock
+
+    if [ ! -f $lock ]; then
 
         if [ "$(systemctl --version 2> /dev/null)" != '' ]; then
             # Systemd
             echo 'Installing Apache Systemd service...'
-            if [ ! -f /etc/systemd/system/httpd.service ]; then
-                sudo wget -qO /etc/systemd/system/httpd.service @@host@@/data/etc/systemd/system/httpd.service
-                sudo systemctl enable httpd.service
+            local file=/etc/systemd/system/httpd.service
+            if [ ! -f $file ]; then
+                sudo wget -qO $file $data$file
+                sudo systemctl enable httpd.service > /dev/null 2>&1 &
             fi
         else
             # Upstart
             echo 'Installing Apache upstart daemon...'
-            if [ ! -f /etc/init/httpd.conf ]; then
-                sudo wget -qO /etc/init/httpd.conf @@host@@/data/etc/init/httpd.conf
+            local file=/etc/init/httpd.conf
+            if [ ! -f $file ]; then
+                sudo wget -qO $file $data$file
+                sudo initctl reload-configuration > /dev/null 2>&1 &
             fi
         fi
 
-        sudo initctl reload-configuration > /dev/null 2>&1 &
-        touch daemon.lock
+        touch $lock
     else
         echo 'Upstart daemon already installed...'
     fi

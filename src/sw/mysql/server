@@ -17,8 +17,8 @@
 
 main() {
     cd /tmp
-    local data='@@host@@/data'
-    local lock=seed.sw.mysql.server.lock
+    local data='@@host@@/data/'
+    local lock=webino.sw.mysql.server.lock
 
     if [[ ! -f $lock ]]; then
         echo "Installing MySQL server..."
@@ -34,15 +34,19 @@ main() {
         sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password '$mysql_root_password
         sudo apt-get install -y mysql-server
 
+        # TODO setup /etc/mysql/conf.d/sql-mode.cnf for mysql background compatibility
+        #
+
         # create root config
-        if [[ ! -f /root/.my.cnf ]]; then
+        local file=/root/.my.cnf
+        if [[ ! -f $file ]]; then
             echo "Creating MySQL root config..."
 
-            echo "$(wget -qO- @@host@@/data/home/example/.my.cnf | \
+            echo "$(wget -qO- ${data}home/example/.my.cnf | \
                 sed s/'%USER%'/root/ | sed s/'%PASSWORD%'/$mysql_root_password/)" | \
-                sudo tee /root/.my.cnf > /dev/null
+                sudo tee $file > /dev/null
 
-            sudo chmod 600 /root/.my.cnf
+            sudo chmod 600 $file
         fi
 
         touch $lock

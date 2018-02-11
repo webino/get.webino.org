@@ -18,43 +18,46 @@
 main() {
     cd /tmp/php
     local etc='/etc/'${php_prefix:-'php'}
-    local data='@@host@@/data/etc'
+    local data='@@host@@/data/'
+    local lock=php-fpm.lock
 
-    if [ ! -f php-fpm.lock ]; then
+    if [ ! -f $lock ]; then
 
         echo 'Installing PHP-FPM support...'
-        echo "$(wget $data/usr/sbin/php-fpm -qO- | \
-                sed s/'%PREFIX%'/$php_prefix/g | \
-            sudo tee /usr/sbin/php-fpm > /dev/null
+        local file=/usr/sbin/php-fpm
+        echo "$(wget $data$file -qO- | sed s/'%PREFIX%'/$php_prefix/g | sudo tee $file > /dev/null
 
         if [ "$(systemctl --version 2> /dev/null)" != '' ]; then
             # Systemd
             echo 'Installing PHP-FPM Systemd service...'
-            if [ ! -f /etc/systemd/system/php-fpm.service ]; then
-                sudo wget -qO /etc/systemd/system/php-fpm.service $data/systemd/system/php-fpm.service
+            local file=/etc/systemd/system/php-fpm.service
+            if [ ! -f $file ]; then
+                sudo wget $data$file -qO $file
                 sudo systemctl enable php-fpm.service
             fi
         else
             # Upstart
             echo 'Installing PHP-FPM Upstart daemon...'
-            if [ ! -f /etc/init/php-fpm.conf ]; then
-                sudo wget -qO /etc/init/php-fpm.conf $data/init/php-fpm.conf
+            local file=/etc/init/php-fpm.conf
+            if [ ! -f $file ]; then
+                sudo wget $data$file -qO $file
+                sudo initctl reload-configuration > /dev/null 2>&1 &
             fi
         fi
 
         # setup apache PHP-FPM support config
-        sudo wget -qO /etc/apache2/conf.d/php-fpm.conf $data/apache2/conf.d/php-fpm.conf
+        local file=/etc/apache2/conf.d/php-fpm.conf
+        sudo wget $data$file -qO $file
 
         # setup PHP-FPM config
         [[ -d $etc/fpm ]] || mkdir -p $etc/fpm/pool.d
-
-        [[ -f $etc/fpm/php-fpm.conf ]] || \
-            sudo wget -qO $etc/fpm/php-fpm.conf $data/php/fpm/php-fpm.conf
+        local file=/fpm/php-fpm.conf
+        [[ -f $etc$file ]] || sudo wget $data'/php'$file -qO $etc$file
 
         # start PHP-FPM
         echo 'Starting PHP-FPM...'
         sudo /usr/sbin/php-fpm start > /dev/null 2>&1 &
-        touch php-fpm.lock
+        touch $lock
     else
         echo 'PHP-FPM support already installed...'
     fi

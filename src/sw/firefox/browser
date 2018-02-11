@@ -17,7 +17,7 @@
 
 main() {
     cd /tmp
-    local lock=seed.sw.firefox.lock
+    local lock=webino.sw.firefox.lock
 
     if [[ ! -f $lock ]]; then
         echo "Installing Firefox for Selenium..."
@@ -33,7 +33,6 @@ main() {
         sudo chmod +x /var/lib/webino/firefox/firefox
 
         touch $lock
-        return 0
     else
         echo 'Firefox for Selenium already installed...'
     fi

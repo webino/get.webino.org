@@ -32,7 +32,7 @@ main() {
     # clean PHP build
     [[ -n $clean ]] && load sw/php/clean && return
 
-    echo 'Seeding PHP '$php_version
+    echo 'Installing PHP '$php_version
 
     load sw/php/dependencies
     load sw/php/download
@@ -76,4 +76,4 @@ main() {
     fi
 }
 
-main
+main "$@"

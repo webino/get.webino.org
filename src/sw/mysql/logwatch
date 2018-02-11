@@ -17,14 +17,13 @@
 
 main() {
     # return early when Logwatch not installed
-    [[ ! -d /usr/share/logwatch ]] && return 0
+    [[ ! -d /usr/share/logwatch ]] && return
 
-    local data='@@host@@/data'
-    if [[ ! -f /usr/share/logwatch/dist.conf/logfiles/mysql.conf ]]; then
+    local data='@@host@@/data/'
+    local file=/usr/share/logwatch/dist.conf/logfiles/mysql.conf
+    if [[ ! -f $file ]]; then
         echo 'Installing Logwatch for MySQL...'
-
-        sudo wget $data/usr/share/logwatch/dist.conf/logfiles/mysql.conf \
-            -qO /usr/share/logwatch/dist.conf/logfiles/mysql.conf
+        sudo wget $data$file -qO $file
     else
         echo 'Logwatch for MySQL already installed...'
     fi
