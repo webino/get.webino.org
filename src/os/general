@@ -10,7 +10,7 @@
 #    wget @@host@@ -qO- | sh
 #
 # Webino™ currently supports:
-#   - Ubuntu 16.04 | 15.10 | 14.04
+#   - Ubuntu 16.04 | 14.04
 #
 # What this script does?
 #   - It configures OS
@@ -25,8 +25,9 @@ main() {
     # extra (dev|pub only)
     if [[ -n $env_dev || -n $env_pub ]]; then
         load os/mailer
-        load os/upgrade
-        load os/secure
+        load os/upgrades
+        load os/logwatch
+        load os/fail2ban
         load os/ssh
     fi
 }

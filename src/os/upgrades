@@ -10,7 +10,7 @@
 #    wget @@host@@ -qO- | sh
 #
 # Webino™ currently supports:
-#   - Ubuntu 16.04 | 15.10 | 14.04
+#   - Ubuntu 16.04 | 14.04
 #
 # What this script does?
 #   - It configures OS upgrades
@@ -23,8 +23,8 @@ main() {
     fi
 
     # install
-    echo 'Setting up operating system upgrades...'
     local data='@@host@@/data/'
+    echo 'Setting up operating system upgrades...'
 
     # apticron & cron-apt
     echo 'Installing apticron...'

@@ -10,7 +10,7 @@
 #    wget @@host@@/os -qO- | sh
 #
 # Webino™ currently supports:
-#   - Ubuntu 16.04 | 15.10 | 14.04
+#   - Ubuntu 16.04 | 14.04
 
 main() {
     # defaults
@@ -26,7 +26,7 @@ main() {
     do
     n=$((n + 1))
     case $i in
-        --with-ssh) # skip ssh
+        --with-ssh) # setup ssh
             with_ssh=1
             shift
         ;;

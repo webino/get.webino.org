@@ -10,7 +10,7 @@
 #    wget @@host@@ -qO- | sh
 #
 # Webino™ currently supports:
-#   - Ubuntu 16.04 | 15.10 | 14.04
+#   - Ubuntu 16.04 | 14.04
 #
 # What this script does?
 #   - It configures system mailer
@@ -47,7 +47,6 @@ main() {
         sudo tee /etc/nullmailer/remotes > /dev/null
 
     echo $mail_host | sudo tee /etc/nullmailer/defaultdomain > /dev/null
-    # TODO uc-first me host name
     echo $host_name | sudo tee /etc/nullmailer/me > /dev/null
 
     sudo chown mail:mail /etc/nullmailer/*

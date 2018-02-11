@@ -10,7 +10,7 @@
 #    wget @@host@@/dev/user -qO- | sh
 #
 # Webino™ currently supports:
-#   - Ubuntu 16.04 | 15.10 | 14.04
+#   - Ubuntu 16.04 | 14.04
 
 
 main() {

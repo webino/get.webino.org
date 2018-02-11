@@ -10,10 +10,10 @@
 #    wget @@host@@ -qO- | sh
 #
 # Webino™ currently supports:
-#   - Ubuntu 16.04 | 15.10 | 14.04
+#   - Ubuntu 16.04 | 14.04
 #
 # What this script does?
-#   - It secures OS
+#   - It installs logwatch
 
 main() {
     # check
@@ -23,33 +23,17 @@ main() {
     fi
 
     # install
-    echo 'Securing OS...'
     local data='@@host@@/data/'
-
-    # logwatch
     echo 'Installing logwatch...'
+
     sudo apt-get install -y logwatch
 
-
-    # TODO uc-first host name
 
     local file=/usr/share/logwatch/dist.conf/logwatch.conf
     echo "$(wget $data$file -qO- | \
             sed s/'%HOST_NAME%'/$host_name/g | \
             sed s/'%ADMIN_MAIL%'/$admin_mail/g)" | \
         sudo tee $file > /dev/null
-
-    # fail2ban
-    echo 'Installing fail2ban...'
-    sudo apt-get install -y fail2ban
-
-    local file=/etc/fail2ban/jail.local
-    echo "$(wget $data$file -qO- | \
-            sed s/'%ADMIN_MAIL%'/$admin_mail/g)" | \
-        sudo tee $file > /dev/null
-
-    sudo service fail2ban stop > /dev/null 2>&1 && \
-    sudo service fail2ban start > /dev/null 2>&1 &
 }
 
 main

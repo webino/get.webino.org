@@ -6,13 +6,221 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>get.webino.org</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header {
+            margin: 0 0 20px;
+        }
+
+        header > * {
+            margin: 0;
+            padding: 0 0 8px;
+        }
+
+        #url {
+            width: 100%;
+            padding: 8px 12px 8px 60px;
+            text-align: center;
+            font-size: 14px;
+            font-family: monospace;
+            box-sizing: border-box;
+            background: lightgray;
+            border: none;
+        }
+
+        fieldset {
+            display: block;
+            width: 500px;
+            margin: 0 auto 20px;
+            font-size: 14px;
+            border: 1px solid gray;
+        }
+
+        legend {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        legend small {
+            font-weight: normal;
+        }
+
+        label {
+            display: block;
+            width: 500px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        label > * {
+            display: block;
+            width: 100%;
+            margin: 8px 0 0;
+            box-sizing: border-box;
+        }
+
+        select,
+        input[type=checkbox] {
+            cursor: pointer;
+        }
+
+        input[type=checkbox] {
+            width: auto;
+            margin-left: 3px;
+            transform: scale(1.6);
+        }
+
+        input[type=text] {
+            padding: 2px 4px;
+        }
+    </style>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+
+    <script>
+        url = 'wget https://get.webino.org/!dev -qO- | sh -s -- ';
+    </script>
 </head>
 <body>
-<h1>Webino™ setup URL generator [WIP]</h1>
+<header>
+    <h1>Command Generator</h1>
+    <p> for <strong>Webino</strong>™ setup</p>
+    <small>[Work In Progress]</small>
+</header>
+
+<hr>
+<input type="text" id="url" readonly>
+<hr>
+
+<form id="form" method="post">
 
 <fieldset>
     <legend>General</legend>
+    <p>
+        <label>
+            Environment:
+            <select name="env">
+                <option value="pub">Public</option>
+                <option value="dev">Develop</option>
+                <option value="local">Local</option>
+            </select>
+        </label>
+    </p>
+    <p>
+        <label>
+            Admin mail:
+            <input type="text" name="admin_mail">
+        </label>
+    </p>
+    <p>
+        <label>
+            SSH setup:
+            <input type="checkbox" name="ssh">
+        </label>
+    </p>
+    <p>
+        <label>
+            Host name:
+            <input type="text" name="host_name" placeholder="(optional)">
+        </label>
+    </p>
+    <p>
+        <label>
+            Host IP:
+            <input type="text" name="host_ip" placeholder="(optional)">
+        </label>
+    </p>
 </fieldset>
+
+<fieldset>
+    <legend>Mailer <small>(dev / pub only)</small></legend>
+    <p>
+        <label>
+            MTA:
+            <select name="mailer">
+                <option></option>
+                <option value="nullmailer" selected>Nullmailer</option>
+            </select>
+        </label>
+    </p>
+    <div id="mta_cards">
+        <div id="nullmailer">
+            <p>
+                <label>
+                    SMTP host:
+                    <input type="text" name="smtp_host">
+                </label>
+            </p>
+            <p>
+                <label>
+                    SMTP user:
+                    <input type="text" name="smtp_user">
+                </label>
+            </p>
+        </div>
+    </div>
+</fieldset>
+
+</form>
+
+<script>
+    var callback = function () {
+        var newUrl = url;
+
+        // Environment
+        newUrl += ' --' + this.env.value;
+
+        // Admin mail
+        newUrl += this.admin_mail.value ? ' --admin-mail ' + this.admin_mail.value : '';
+
+        // SSH setup
+        newUrl += this.ssh.checked ? ' --with-ssh' : '';
+
+        // Mailer (dev / pub only)
+        if (['dev', 'pub'].includes(this.env.value)) {
+
+            //
+            $('#mta_cards > *').hide();
+            this.mailer.value && $('#' + this.mailer.value).show();
+
+            // Nullmailer
+            if ('nullmailer' === this.mailer.value) {
+                // SMTP host
+                newUrl += this.smtp_host.value ? ' --smtp-host ' + this.smtp_host.value : '';
+                // SMTP user
+                newUrl += this.smtp_user.value ? ' --smtp-user ' + this.smtp_user.value : '';
+            }
+            // TODO Postfix support !!!
+        }
+
+        // update url
+        urlInput.val(newUrl);
+    };
+
+    // init url
+    urlInput = $('#url');
+    callback.call(document.getElementById('form'));
+
+    // updates url
+    $(document).on('change', 'form', callback);
+    $(document).on('keyup', 'form', callback);
+
+    // selects url
+    urlInput.hover(function () {
+        // select text
+        this.select();
+    });
+    urlInput.mouseout(function () {
+        // deselect text
+        this.selectionStart = this.selectionEnd;
+    });
+</script>
 
 </body>
 </html>

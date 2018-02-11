@@ -10,7 +10,7 @@
 #    wget @@host@@ -qO- | sh
 #
 # Webino™ currently supports:
-#   - Ubuntu 16.04 | 15.10 | 14.04
+#   - Ubuntu 16.04 | 14.04
 #
 # What this script does?
 #   - It fixes OS locale
@@ -25,6 +25,7 @@ main() {
 
     # configure
     echo 'Configuring OS locale...'
+    # TODO locales option support
     sudo locale-gen en_US.UTF-8
     sudo locale-gen sk_SK.UTF-8
     sudo DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
