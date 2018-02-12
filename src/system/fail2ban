@@ -37,7 +37,7 @@ main() {
     #-----------+
     local file=/etc/fail2ban/jail.local
     echo "$(wget $data$file -qO- | \
-            sed s/'%HOST_IP%'/$_host_ip/g)" | \
+            sed s/'%HOST_IP%'/$_host_ip/g | \
             sed s/'%ADMIN_MAIL%'/$_admin_mail/g)" | \
         sudo tee $file > /dev/null
 
