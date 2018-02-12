@@ -25,7 +25,7 @@ main() {
 
         echo 'Installing PHP-FPM support...'
         local file=/usr/sbin/php-fpm
-        echo "$(wget $data$file -qO- | sed s/'%PREFIX%'/$php_prefix/g | sudo tee $file > /dev/null
+        echo "$(wget $data$file -qO- | sed s/'%PREFIX%'/$_php_prefix/g | sudo tee $file > /dev/null
 
         if [ "$(systemctl --version 2> /dev/null)" != '' ]; then
             # Systemd

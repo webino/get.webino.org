@@ -1,0 +1,102 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/php -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 14.04
+#
+# What this script does?
+#   - It builds PHP from source
+
+main() {
+    load php/arguments "$@"
+
+    #------------------------+
+    # resolve latest version |
+    #------------------------+
+    local php_version_latest=$(echo $(wget -qO- http://php.net/downloads.php \
+        | grep -a -Pozm 1 'Current Stable.*\n*.*PHP [0-9]+\.[0-9]+\.[0-9]+' | grep -a -Eom 1 '[0-9\.]+'))
+
+    php_version=${php_version-$_php_version_latest}
+
+    [[ "$(whereis apachectl)" == *"/apachectl"* ]] && php_apache=on || php_apache=off
+
+    #------------------+
+    # update PHP build |
+    #------------------+
+    # TODO!!!
+    #[[ -n $_update ]] && load php/clean
+
+    #-----------------+
+    # clean PHP build |
+    #-----------------+
+    # TODO!!!
+    #[[ -n $_clean ]] && load php/clean && return
+
+    #---------+
+    # install |
+    #---------+
+    echo 'Installing PHP '$_php_version
+
+    load php/dependencies
+    load php/download
+    load php/build
+    load php/configure
+
+    #-----------------------------------------+
+    # configure local development environment |
+    #-----------------------------------------+
+    # TODO!!!
+    #[[ -z $_update ]] && [[ $ENVIRONMENT == 'local' ]] && source $1/php.d/configure-local-dev # TODO
+    #[[ $ENVIRONMENT == 'local' ]] && source $1/php.d/php-qa # TODO
+
+    #---------------------------+
+    # modules (local & dev only) |
+    #---------------------------+
+    if [[ -n $_env_local || -n $_env_dev ]]; then
+        load php/xdebug
+        load php/mailparse
+        #load php/profiler #TODO profiler
+        load php/composer
+    fi
+
+    #-----------------+
+    # PHP-FPM support |
+    #-----------------+
+    if [[ -n $_php_prefix ]]; then
+        load php/php-fpm
+
+    #-------------------------------+
+    # install extra on empty prefix |
+    #-------------------------------+
+    else
+        load php/opcache
+        load php/imagick
+        #load php/memcache #TODO memcache
+    fi
+
+    #----------------------------------+
+    # system settings (dev & pub only) |
+    #----------------------------------+
+    if [[ -n $_env_dev || -n $_env_pub ]]; then
+        load php/logwatch
+        load php/fail2ban
+    fi
+
+    #--------------------+
+    # web server restart |
+    #--------------------+
+    if [ "$php_apache" = on ]; then
+        echo 'Restarting web server...'
+        sudo apachectl restart > /dev/null 2>&1 &
+    fi
+}
+
+main "$@"

@@ -7,33 +7,39 @@
 # Are you looking at this in your web browser, and would like to get Webino™?
 # Just open up your terminal and type:
 #
-#    wget @@host@@ -qO- | sh
+#    wget @@host@@/php -qO- | sh
 #
 # Webino™ currently supports:
 #   - Ubuntu 16.04 | 14.04
 
 main() {
-    # defaults
-    php_prefix=
-    php_fpm=
+    #----------+
+    # defaults |
+    #----------+
+    _php_version=
+    _php_prefix=
+    _php_fpm=
 
+    #----------+
+    # get args |
+    #----------+
     n=0
     for i in "$@"
     do
     n=$((n + 1))
     case $i in
-        --php) # set PHP version
-            php_version=${argv[$n]}
+        --php)
+            _php_version=${argv[$n]}
             shift
             shift
         ;;
-        --php-prefix) # set PHP prefix
-            php_prefix=${argv[$n]}
+        --php-prefix)
+            _php_prefix=${argv[$n]}
             shift
             shift
         ;;
-        --php-fpm) # support PHP-FPM
-            php_fpm=1
+        --php-fpm)
+            _php_fpm=1
             shift
             shift
         ;;
@@ -44,4 +50,4 @@ main() {
     done
 }
 
-main "${argv[@]}"
+main "$@"

@@ -29,8 +29,8 @@ main() {
     load arguments "$@"
 
     # Install
-    load os/general
-    load sw/php
+    load system/general
+    load php/general
 }
 
 main "$@"

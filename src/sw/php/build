@@ -85,13 +85,13 @@ main() {
     # --enable-sockets \
 
     # Intl support for PHP>=5.4
-    sudo dpkg --compare-versions "$php_version" 'lt' '5.4' || {
+    sudo dpkg --compare-versions "$_php_version" 'lt' '5.4' || {
        echo 'With INTL support...'
        php_cfg+=' --enable-intl'
     }
 
     # Install path prefix
-    if [[ -n $php_prefix ]]; then
+    if [[ -n $_php_prefix ]]; then
         echo 'With prefix: '$prefix
         php_cfg+=' --prefix=/opt'$prefix
     else
@@ -100,7 +100,7 @@ main() {
     fi
 
     # PHP-FPM support
-    if [[ -n $php_fpm ]]; then
+    if [[ -n $_php_fpm ]]; then
         echo 'With PHP-FPM support...'
         php_cfg+=' --enable-fpm'
     fi
