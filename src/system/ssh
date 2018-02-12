@@ -79,10 +79,11 @@ main() {
     # change default port |
     #---------------------+
     local is_ssh_port_default=$(grep 'Port 22$' $config)
-    if [[ -z "$is_ssh_port_default" ]]; then
+    if [[ -n "$is_ssh_port_default" ]]; then
         local ssh_port='22'$(echo $(< /dev/urandom tr -dc 0-9 | head -c2))
         sudo sed -i 's/Port .*/Port '$ssh_port'/' $config
-        echo 'New SSH port: '$ssh_port
+        local msg='New SSH port: '$ssh_port
+        echo $msg && echo $msg >> /root/.webino.log
     fi
 
     #-----------------+

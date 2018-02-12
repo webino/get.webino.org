@@ -21,6 +21,18 @@ load() {
 main() {
     echo -e "\nMachine setup for Webino™...\n"
 
+    #------------------+
+    # environment info |
+    #------------------+
+    echo -n 'Environment: '
+    [[ -n $_env_local ]] && echo 'local'
+    [[ -n $_env_local ]] && echo 'development'
+    [[ -n $_env_local ]] && echo 'public'
+    echo
+
+    #-------+
+    # setup |
+    #-------+
     load lib/trap
     load lib/spinner
     load arguments "$@"
