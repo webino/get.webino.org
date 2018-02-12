@@ -28,11 +28,11 @@ main() {
     # extra (dev|pub only) |
     #----------------------+
     if [[ -n $_env_dev || -n $_env_pub ]]; then
-        load os/mailer
-        load os/upgrades
-        load os/logwatch
-        load os/fail2ban
-        load os/ssh
+        load system/mailer
+        load system/upgrades
+        load system/logwatch
+        load system/fail2ban
+        load system/ssh
     fi
 }
 

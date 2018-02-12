@@ -24,7 +24,7 @@ main() {
     load lib/trap
     load lib/spinner
     load arguments "$@"
-    load os/general
+    load system/general
 }
 
 main "$@"

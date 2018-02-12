@@ -12,4 +12,4 @@
 # Webino™ currently supports:
 #   - Ubuntu 16.04 | 14.04
 
-wget @@host@@/os/setup -qO- | bash -s -- "$@"
+wget @@host@@/system/setup -qO- | bash -s -- "$@"
