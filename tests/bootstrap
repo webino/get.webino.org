@@ -8,28 +8,32 @@ set -e
 
 url='https://get.webino.org/!dev'
 
-[ "$TEST" = 'apache' ] && wget $url/apache -qO- | sh -s -- -n && exit 0
-[ "$TEST" = 'apache-pub' ] && wget $url/apache -qO- | sh -s -- -n --pub && exit 0
-[ "$TEST" = 'mysql' ] && wget $url/mysql -qO- | sh -s -- -n && exit 0
-[ "$TEST" = 'php-7.1' ] && wget $url/php -qO- | sh -s -- -n --php 7.1.12 && exit 0
-[ "$TEST" = 'php-latest' ] && wget $url/php -qO- | sh -s -- -n && exit 0
-[ "$TEST" = 'devkit-php-7.1' ] && wget $url/devkit -qO- | sh -s -- -n --php 7.1.12 && exit 0
-[ "$TEST" = 'devkit-php-latest' ] && wget $url/devkit -qO- | sh && exit 0
+[ "$TEST" = 'system' ] && wget $url/system -qO- | sh -s -- -n && exit $?
+[ "$TEST" = 'system-pub' ] && wget $url/system -qO- | sh -s -- -n --pub && exit $?
 
-if [ "$TEST" = 'dev-module-php-7.1' ]; then
-  wget $url/devkit -qO- | sh -s -- -n --php 7.1.12
-  # TODO use WebinoSkeletonModule instead
-  module=WebinoDev
-  git clone https://github.com/webino/${module}.git
-  cd $module && webino update && webino test && webino analyze && webino api && exit 0
-fi
+# TODO!!!
+#[ "$TEST" = 'apache' ] && wget $url/apache -qO- | sh -s -- -n && exit 0
+#[ "$TEST" = 'apache-pub' ] && wget $url/apache -qO- | sh -s -- -n --pub && exit 0
+#[ "$TEST" = 'mysql' ] && wget $url/mysql -qO- | sh -s -- -n && exit 0
+#[ "$TEST" = 'php-7.1' ] && wget $url/php -qO- | sh -s -- -n --php 7.1.12 && exit 0
+#[ "$TEST" = 'php-latest' ] && wget $url/php -qO- | sh -s -- -n && exit 0
+#[ "$TEST" = 'devkit-php-7.1' ] && wget $url/devkit -qO- | sh -s -- -n --php 7.1.12 && exit 0
+#[ "$TEST" = 'devkit-php-latest' ] && wget $url/devkit -qO- | sh && exit 0
 
-if [ "$TEST" = 'dev-module-php-latest' ]; then
-  wget $url/devkit -qO- | sh
+#if [ "$TEST" = 'dev-module-php-7.1' ]; then
+#  wget $url/devkit -qO- | sh -s -- -n --php 7.1.12
   # TODO use WebinoSkeletonModule instead
-  module=WebinoDev
-  git clone https://github.com/webino/${module}.git
-  cd $module && webino update && webino test && webino analyze && webino api && exit 0
-fi
+#  module=WebinoDev
+#  git clone https://github.com/webino/${module}.git
+#  cd $module && webino update && webino test && webino analyze && webino api && exit 0
+#fi
+
+#if [ "$TEST" = 'dev-module-php-latest' ]; then
+#  wget $url/devkit -qO- | sh
+  # TODO use WebinoSkeletonModule instead
+#  module=WebinoDev
+#  git clone https://github.com/webino/${module}.git
+#  cd $module && webino update && webino test && webino analyze && webino api && exit 0
+#fi
 
 exit 1

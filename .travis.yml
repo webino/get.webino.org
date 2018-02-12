@@ -2,6 +2,8 @@ dist: trusty
 language: bash
 matrix:
   allow_failures:
+    - env: TEST=system
+    - env: TEST=system-pub
     - env: TEST=apache-pub
     - env: TEST=php-latest
     - env: TEST=devkit-php-latest
@@ -12,6 +14,8 @@ script:
   - tests/bootstrap
 env:
   matrix:
+    - TEST=system
+    - TEST=system-pub
     - TEST=apache
     - TEST=apache-pub
     - TEST=mysql
