@@ -27,12 +27,12 @@ main() {
     #----------+
     # get args |
     #----------+
-    #argv=('')
+    argv=('')
     n=0
     for i in "$@"
     do
+    argv[$n]=$i
     n=$((n + 1))
-    #argv[$n]=$i
     case $i in
         --no-interaction|-n) # non interactive
             _no_interaction=1
