@@ -43,12 +43,15 @@ main() {
     # add root SSH key |
     #------------------+
     # TODO add sysadmin ssh key
-    if [[ -z "$_no_interaction" ]]; then
-        echo 'Root SSH authorized key:'
-        read root_ssh_authorized_key </dev/tty
+    local file=/root/.ssh/authorized_keys
+    if ! sudo test -f $file; then
+        if [[ -z "$_no_interaction" ]]; then
+            echo 'Root SSH authorized key:'
+            read root_ssh_authorized_key </dev/tty
 
-        [[ -n "$root_ssh_authorized_key" ]] && \
-            sudo mkdir -p ~/.ssh && echo $root_ssh_authorized_key | sudo tee ~/.ssh/authorized_keys > /dev/null
+            [[ -n "$root_ssh_authorized_key" ]] && \
+                sudo mkdir -p ~/.ssh && echo $root_ssh_authorized_key | sudo tee $file > /dev/null
+        fi
     fi
 
     #-----------------------+
