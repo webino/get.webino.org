@@ -57,7 +57,8 @@ main() {
     #--------------------+
     # configure mailname |
     #--------------------+
-    echo $_admin_mail | grep -oP '[^@]+$' | sudo tee /etc/mailname > /dev/null
+    local mail_host=$(echo $_admin_mail | grep -oP '[^@]+$')
+    echo $mail_host | sudo tee /etc/mailname > /dev/null
 
     #------------------+
     # configure mailer |
