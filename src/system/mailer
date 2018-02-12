@@ -1,0 +1,79 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/system -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 14.04
+#
+# What this script does?
+#   - It configures system mailer
+
+main() {
+    #--------------------------------+
+    # return early on empty settings |
+    #--------------------------------+
+    [[ -z $_smtp_host || -z $_smtp_user ]] && return
+
+    #-------------------------+
+    # check already installed |
+    #-------------------------+
+    if [[ "$(whereis nullmailer)" == *"/nullmailer"* ]]; then
+        echo 'Mailer already installed...'
+        return
+    fi
+
+    #---------+
+    # install |
+    #---------+
+    echo 'Installing mailer...'
+
+    #---------------------------+
+    # read SMTP mailer password |
+    #---------------------------+
+    local smtp_password=
+    if [[ -z "$_no_interaction" ]]; then
+        echo 'SMTP mailer password:'
+        read -s smtp_password </dev/tty
+    fi
+
+    #-----------------------------+
+    # remove pre-installed mailer |
+    #-----------------------------+
+    sudo apt-get purge -y postfix* sendmail* exim*
+    sudo apt-get autoremove -y
+
+    #--------------------+
+    # install nullmailer |
+    #--------------------+
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nullmailer
+
+    #--------------------+
+    # configure mailname |
+    #--------------------+
+    echo $_admin_mail | grep -oP '[^@]+$' | sudo tee /etc/mailname > /dev/null
+
+    #------------------+
+    # configure mailer |
+    #------------------+
+    echo "$_smtp_host smtp --port=587 --starttls --user=$_smtp_user --pass=$smtp_password" | \
+        sudo tee /etc/nullmailer/remotes > /dev/null
+
+    echo $mail_host | sudo tee /etc/nullmailer/defaultdomain > /dev/null
+    echo $_host_name | sudo tee /etc/nullmailer/me > /dev/null
+
+    sudo chown mail:mail /etc/nullmailer/*
+
+    #----------------+
+    # service reload |
+    #----------------+
+    service nullmailer reload
+}
+
+main

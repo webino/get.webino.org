@@ -27,10 +27,10 @@ main() {
     [[ "$(whereis apachectl)" == *"/apachectl"* ]] && php_apache=on || php_apache=off
 
     # update PHP build
-    [[ -n $update ]] && load sw/php/clean
+    [[ -n $_update ]] && load sw/php/clean
 
     # clean PHP build
-    [[ -n $clean ]] && load sw/php/clean && return
+    [[ -n $_clean ]] && load sw/php/clean && return
 
     echo 'Installing PHP '$php_version
 
@@ -40,12 +40,12 @@ main() {
     load sw/php/configure
 
     # configure local development environment
-    #[[ -z $update ]] && [[ $ENVIRONMENT == 'local' ]] && source $1/php.d/configure-local-dev # TODO
+    #[[ -z $_update ]] && [[ $ENVIRONMENT == 'local' ]] && source $1/php.d/configure-local-dev # TODO
     #[[ $ENVIRONMENT == 'local' ]] && source $1/php.d/php-qa # TODO
 
     # TODO
     # local & dev only
-    if [[ -n $env_local || -n $env_dev ]]; then
+    if [[ -n $_env_local || -n $_env_dev ]]; then
         load sw/php/xdebug
         load sw/php/mailparse
         #load sw/php/profiler #TODO profiler
@@ -70,7 +70,7 @@ main() {
     fi
 
     # dev & pub only
-    if [[ -n $env_dev || -n $env_pub ]]; then
+    if [[ -n $_env_dev || -n $_env_pub ]]; then
         load sw/php/logwatch
         load sw/php/fail2ban
     fi

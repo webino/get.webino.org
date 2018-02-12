@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/system -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 14.04
+#
+# What this script does?
+#   - It resolves host operating system info
+
+main() {
+    #------------------------------------+
+    # resolve server info (dev|pub only) |
+    #------------------------------------+
+    if [[ -z $_host_name && (-n $_env_dev || -n $_env_pub) ]]; then
+        echo 'Resolving host info...'
+        host_ip=$(ip route get 8.8.8.8 | awk '{print $NF; exit}')
+        host_name=$(cat /etc/hosts | grep $_host_ip | awk -F' ' '{print $2}' | awk '{print $1}' | tr . -)
+    fi
+
+    #----------------------+
+    # server info defaults |
+    #----------------------+
+    if [[ -z $_host_name ]]; then
+        echo 'Using default host info...'
+        host_name=webino.local
+    fi
+
+    #-----------------------+
+    # sysadmin mail default |
+    #-----------------------+
+    admin_mail=${admin_mail-'admin@'$_host_name}
+
+    #----------------+
+    # show host info |
+    #----------------+
+    echo 'Host IP: '$_host_ip
+    echo 'Host name: '$_host_name
+    echo 'Admin mail: '$_admin_mail
+    echo
+}
+
+main

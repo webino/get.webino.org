@@ -7,51 +7,50 @@
 # Are you looking at this in your web browser, and would like to get Webino™?
 # Just open up your terminal and type:
 #
-#    wget @@host@@/os -qO- | sh
+#    wget @@host@@/system -qO- | sh
 #
 # Webino™ currently supports:
 #   - Ubuntu 16.04 | 14.04
 
 main() {
-    # defaults
-    with_ssh=
-    host_name=
-    host_ip=127.0.0.1
-    admin_mail=
-    smtp_host=
-    smtp_user=
+    #----------+
+    # defaults |
+    #----------+
+    _host_name=
+    _host_ip=127.0.0.1
+    _with_ssh=
+    _smtp_host=
+    _smtp_user=
 
+    #----------+
+    # get args |
+    #----------+
     n=0
     for i in "$@"
     do
     n=$((n + 1))
     case $i in
-        --with-ssh) # setup ssh
-            with_ssh=1
-            shift
-        ;;
-        --host-name) # set host name
-            host_name=${argv[$n]}
+        --host-name)
+            _host_name=${argv[$n]}
             shift
             shift
         ;;
-        --host-ip) # set host ip
-            host_ip=${argv[$n]}
+        --host-ip)
+            _host_ip=${argv[$n]}
             shift
             shift
         ;;
-        --admin-mail) # set server admin mail
-            admin_mail=${argv[$n]}
+        --with-ssh)
+            _with_ssh=1
+            shift
+        ;;
+        --smtp-host)
+            _smtp_host=${argv[$n]}
             shift
             shift
         ;;
-        --smtp-host) # set mailer SMTP host
-            smtp_host=${argv[$n]}
-            shift
-            shift
-        ;;
-        --smtp-user) # set mailer SMTP user
-            smtp_user=${argv[$n]}
+        --smtp-user)
+            _smtp_user=${argv[$n]}
             shift
             shift
         ;;

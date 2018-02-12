@@ -7,7 +7,7 @@
 # Are you looking at this in your web browser, and would like to get Webino™?
 # Just open up your terminal and type:
 #
-#    wget @@host@@ -qO- | sh
+#    wget @@host@@/system -qO- | sh
 #
 # Webino™ currently supports:
 #   - Ubuntu 16.04 | 14.04
@@ -16,23 +16,34 @@
 #   - It installs fail2ban
 
 main() {
-    # check
+    #-------------------------+
+    # check already installed |
+    #-------------------------+
     if [[ "$(whereis fail2ban)" == *"/fail2ban"* ]]; then
         echo 'Fail2ban already installed...'
         return
     fi
 
-    # install
-    local data='@@host@@/data/'
+    #---------+
+    # install |
+    #---------+
+    local data='@@host@@/~data/'
     echo 'Installing fail2ban...'
 
     sudo apt-get install -y fail2ban
 
+    #-----------+
+    # configure |
+    #-----------+
     local file=/etc/fail2ban/jail.local
     echo "$(wget $data$file -qO- | \
-            sed s/'%ADMIN_MAIL%'/$admin_mail/g)" | \
+            sed s/'%HOST_IP%'/$_host_ip/g)" | \
+            sed s/'%ADMIN_MAIL%'/$_admin_mail/g)" | \
         sudo tee $file > /dev/null
 
+    #-----------------+
+    # service restart |
+    #-----------------+
     sudo service fail2ban stop > /dev/null 2>&1 && \
     sudo service fail2ban start > /dev/null 2>&1 &
 }

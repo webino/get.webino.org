@@ -24,7 +24,7 @@ main() {
 
     sudo mkdir -p $etc/conf.d
 
-    [[ -n $update ]] &&
+    [[ -n $_update ]] &&
         rm $etc/php.ini \
         && rm $etc/conf.d/custom.ini \
         && rm $etc/php-cli.ini
@@ -45,7 +45,7 @@ main() {
         sudo wget -qO $etc/conf.d/custom.ini $data/php/conf.d/custom.ini
 
     # local & dev only
-    if [[ -n $env_local || -n $env_dev ]]; then
+    if [[ -n $_env_local || -n $_env_dev ]]; then
 
         # dev config
         [[ -f $etc/conf.d/dev.ini ]] || \

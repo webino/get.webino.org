@@ -7,25 +7,29 @@
 # Are you looking at this in your web browser, and would like to get Webino™?
 # Just open up your terminal and type:
 #
-#    wget @@host@@ -qO- | sh
+#    wget @@host@@/system -qO- | sh
 #
 # Webino™ currently supports:
 #   - Ubuntu 16.04 | 14.04
 #
 # What this script does?
-#   - It install essential OS tools
+#   - It installs essential operating system tools
 
 main() {
-    # lock check
-    local lock=/tmp/webino.os.essential.lock
+    #------------+
+    # lock check |
+    #------------+
+    local lock=/tmp/webino.system.essential.lock
     if [[ -f $lock ]]; then
         echo 'Essential tools already installed...'
         return
     fi
 
-    # install
+    #---------+
+    # install |
+    #---------+
+    local data='@@host@@/system/~data/'
     echo 'Installing essential tools...'
-    local data='@@host@@/data/'
 
     sudo apt-get clean
     sudo apt-get update
@@ -42,31 +46,42 @@ main() {
         curl \
         git
 
-    # java runtime (local|dev only)
-    [[ (-n $env_local || -n $env_dev) && "$(java -version 2> /dev/null)" = '' ]] && \
+    #-------------------------------+
+    # java runtime (local|dev only) |
+    #-------------------------------+
+    [[ (-n $_env_local || -n $_env_dev) && "$(java -version 2> /dev/null)" = '' ]] && \
         sudo apt-get install -y default-jre
 
-    # hosts fix (dev only)
-    if [[ -n $env_dev ]]; then
+    #----------------------+
+    # hosts-fix (dev only) |
+    #----------------------+
+    if [[ -n $_env_dev ]]; then
         if [ "$(systemctl --version 2> /dev/null)" != '' ]; then
-            # Systemd
+            #-----------------+
+            # systemd support |
+            #-----------------+
             local file=/etc/systemd/system/hosts-fix.service
             if [[ ! -f $file ]]; then
-                echo 'Installing Hosts-fix Systemd script...'
+                echo 'Installing hosts-fix systemd script...'
                 sudo wget -qO $file $data$file
                 sudo systemctl enable hosts-fix.service
             fi
         else
-            # Upstart
+            #--------------------------+
+            # upstart support (legacy) |
+            #--------------------------+
             local file=/etc/init/hosts-fix.conf
             if [[ ! -f $file ]]; then
-                echo 'Installing Hosts-fix Upstart script...'
+                echo 'Installing hosts-fix upstart script...'
                 sudo wget -qO $file $data$file
                 sudo initctl reload-configuration > /dev/null 2>&1 &
             fi
         fi
     fi
 
+    #------+
+    # lock |
+    #------+
     touch $lock
 }
 

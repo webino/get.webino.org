@@ -7,7 +7,7 @@
 # Are you looking at this in your web browser, and would like to get Webino™?
 # Just open up your terminal and type:
 #
-#    wget @@host@@ -qO- | sh
+#    wget @@host@@/system -qO- | sh
 #
 # Webino™ currently supports:
 #   - Ubuntu 16.04 | 14.04
@@ -16,25 +16,34 @@
 #   - It configures SSH
 
 main() {
-    # return early when SSH setup is disabled
-    [[ -z "$with_ssh" ]] && return
+    #------------------------------------+
+    # return early on disabled SSH setup |
+    #------------------------------------+
+    [[ -z "$_with_ssh" ]] && return
 
-    # lock check
-    local lock=/tmp/webino.os.ssh.lock
+    #------------+
+    # lock check |
+    #------------+
+    local lock=/tmp/webino.system.ssh.lock
     if [[ -f $lock ]]; then
         echo 'SSH already configured...'
         return
     fi
 
-    # setup
-    echo 'Configuring SSH...'
+    #-------+
+    # setup |
+    #-------+
     local config=/etc/ssh/sshd_config
+    echo 'Configuring SSH...'
 
+    # TODO add sysadmin sudoer
     # TODO generate random sysadmin username
 
+    #------------------+
+    # add root SSH key |
+    #------------------+
     # TODO add sysadmin ssh key
-    # add root SSH key
-    if [[ -z "$no_interaction" ]]; then
+    if [[ -z "$_no_interaction" ]]; then
         echo 'Root SSH authorized key:'
         read root_ssh_authorized_key </dev/tty
 
@@ -42,23 +51,33 @@ main() {
             sudo mkdir -p ~/.ssh && echo $root_ssh_authorized_key | sudo tee ~/.ssh/authorized_keys > /dev/null
     fi
 
-    # allow only root login
-    # TODO disable root login, allow sysadmin instead
+    #-----------------------+
+    # allow root login only |
+    #-----------------------+
+    # TODO disable root login, allow sysadmin only instead
     local is_ssh_root_only=$(grep 'AllowGroups root' $config)
     if [[ -z "$is_ssh_root_only" ]]; then
         echo 'Enabling SSH for root only ...'
         echo "AllowGroups root" | cat - $config | sudo tee $config > /dev/null
     fi
 
-    # disable password
+    #------------------------+
+    # disable password login |
+    #------------------------+
     # TODO disable root login
     sudo sed -i 's/LogLevel INFO/LogLevel VERBOSE/' $config
     sudo sed -i 's/PermitRootLogin yes/PermitRootLogin without-password/' $config
     sudo sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' $config
+
+    #-----------+
+    # configure |
+    #-----------+
     sudo sed -i 's/Subsystem sftp /usr/lib/openssh/sftp-server/Subsystem sftp internal-sftp/' $config
     sudo sed -i 's/UsePAM yes/UsePAM no/' $config
 
-    # change default port
+    #---------------------+
+    # change default port |
+    #---------------------+
     local is_ssh_port_default=$(grep 'Port 22$' $config)
     if [[ -z "$is_ssh_port_default" ]]; then
         local ssh_port='22'$(echo $(< /dev/urandom tr -dc 0-9 | head -c2))
@@ -66,7 +85,14 @@ main() {
         echo 'New SSH port: '$ssh_port
     fi
 
+    #-----------------+
+    # service restart |
+    #-----------------+
     sudo service ssh restart
+
+    #------+
+    # lock |
+    #------+
     touch $lock
 }
 

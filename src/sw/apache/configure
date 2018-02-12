@@ -32,7 +32,7 @@ main() {
     sudo rm -f /usr/local/apache2/cgi-bin/*
 
     # TODO configure host (local only)
-    #[[ -n $env_local ]] &&
+    #[[ -n $_env_local ]] &&
 
     # httpd config
     local file=/etc/apache2/httpd.conf
@@ -94,7 +94,7 @@ main() {
 
     # Webino™ local vhost (local only)
     local file=/etc/apache2/vhost.d/000-default-local.conf
-    [[ -n $env_local ]] && sudo wget -qO $file $data$file
+    [[ -n $_env_local ]] && sudo wget -qO $file $data$file
 
     # bad-bots config
     echo 'Installing common Bad-bot-blocker config...'
@@ -113,7 +113,7 @@ main() {
 
     # logrotate vhosts (dev|pub only)
     local file=/etc/logrotate.d/apache2-vhosts
-    [[ -n $env_dev || -n $env_pub ]] && sudo wget -qO $file $data$file
+    [[ -n $_env_dev || -n $_env_pub ]] && sudo wget -qO $file $data$file
 }
 
 main

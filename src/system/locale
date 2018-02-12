@@ -7,29 +7,37 @@
 # Are you looking at this in your web browser, and would like to get Webino™?
 # Just open up your terminal and type:
 #
-#    wget @@host@@ -qO- | sh
+#    wget @@host@@/system -qO- | sh
 #
 # Webino™ currently supports:
 #   - Ubuntu 16.04 | 14.04
 #
 # What this script does?
-#   - It fixes OS locale
+#   - It fixes operating system locales
 
 main() {
-    # lock check
-    local lock=/tmp/webino.os.locale.lock
+    #------------+
+    # lock check |
+    #------------+
+    local lock=/tmp/webino.system.locale.lock
     if [[ -f $lock ]]; then
-        echo 'OS locale already configured...'
-        return;
+        echo 'System locales already configured...'
+        return
     fi
 
-    # configure
-    echo 'Configuring OS locale...'
-    # TODO locales option support
+    #-----------+
+    # configure |
+    #-----------+
+    echo 'Configuring system locales...'
+    # TODO optional locales support
     sudo locale-gen en_US.UTF-8
     sudo locale-gen sk_SK.UTF-8
     sudo DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
     sudo update-locale
+
+    #------+
+    # lock |
+    #------+
     touch $lock
 }
 

@@ -17,7 +17,7 @@
 
 main() {
     # local & dev only
-    if [[ -n $env_local || -n $env_dev ]]; then
+    if [[ -n $_env_local || -n $_env_dev ]]; then
         echo 'Installing WebinoDevkit™...'
         wget @@host@@/devkit -qO- | sh
     fi

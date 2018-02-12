@@ -7,7 +7,7 @@
 # Are you looking at this in your web browser, and would like to get Webino™?
 # Just open up your terminal and type:
 #
-#    wget @@host@@ -qO- | sh
+#    wget @@host@@/system -qO- | sh
 #
 # Webino™ currently supports:
 #   - Ubuntu 16.04 | 14.04
@@ -16,23 +16,29 @@
 #   - It installs logwatch
 
 main() {
-    # check
+    #-------------------------+
+    # check already installed |
+    #-------------------------+
     if [[ "$(whereis logwatch)" == *"/logwatch"* ]]; then
-        echo 'OS already secured...'
+        echo 'Logwatch already installed...'
         return
     fi
 
-    # install
-    local data='@@host@@/data/'
+    #---------+
+    # install |
+    #---------+
+    local data='@@host@@/~data/'
     echo 'Installing logwatch...'
 
     sudo apt-get install -y logwatch
 
-
+    #-----------+
+    # configure |
+    #-----------+
     local file=/usr/share/logwatch/dist.conf/logwatch.conf
     echo "$(wget $data$file -qO- | \
-            sed s/'%HOST_NAME%'/$host_name/g | \
-            sed s/'%ADMIN_MAIL%'/$admin_mail/g)" | \
+            sed s/'%HOST_NAME%'/$_host_name/g | \
+            sed s/'%ADMIN_MAIL%'/$_admin_mail/g)" | \
         sudo tee $file > /dev/null
 }
 

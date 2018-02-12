@@ -1,7 +1,7 @@
 [DEFAULT]
 ignoreip  = 127.0.0.1/8 %HOST_IP%
 destemail = %ADMIN_MAIL%
-sender    = root@%MAIL_HOST%
+sender    = root
 bantime   = 3600
 findtime  = 3600
 maxretry  = 3

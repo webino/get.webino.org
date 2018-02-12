@@ -7,47 +7,59 @@
 # Are you looking at this in your web browser, and would like to get Webino™?
 # Just open up your terminal and type:
 #
-#    wget @@host@@ -qO- | sh
+#    wget @@host@@/system -qO- | sh
 #
 # Webino™ currently supports:
 #   - Ubuntu 16.04 | 14.04
 #
 # What this script does?
-#   - It configures OS upgrades
+#   - It configures operating system upgrades
 
 main() {
-    # check
+    #--------------------------+
+    # check already configured |
+    #--------------------------+
     if [[ "$(whereis apticron)" == *"/apticron"* ]]; then
         echo 'Operating system upgrades already set...'
         return
     fi
 
-    # install
-    local data='@@host@@/data/'
-    echo 'Setting up operating system upgrades...'
+    #-------+
+    # setup |
+    #-------+
+    local data='@@host@@/~data/'
+    echo 'Setting operating system upgrades...'
 
-    # apticron & cron-apt
+    #------------------+
+    # apticron install |
+    #------------------+
     echo 'Installing apticron...'
     sudo apt-get install -y apticron
 
-    sudo sed -i 's/EMAIL="root"/EMAIL="'$admin_mail'"/' /etc/apticron/apticron.conf
-    sudo sed -i 's/# SYSTEM="foobar.example.com"/SYSTEM="'$host_name'"/' /etc/apticron/apticron.conf
+    sudo sed -i 's/EMAIL="root"/EMAIL="'$_admin_mail'"/' /etc/apticron/apticron.conf
+    sudo sed -i 's/# SYSTEM="foobar.example.com"/SYSTEM="'$_host_name'"/' /etc/apticron/apticron.conf
 
-    # apt listchanges config
+    #------------------------+
+    # apt-listchanges config |
+    #------------------------+
     local file=/etc/apt/listchanges.conf
     if [[ -f $file ]]; then
         sudo sed -i 's/frontend=pager/frontend=text/' $file
-        sudo sed -i 's/email_address=root/email_address='$admin_mail'/' $file
+        sudo sed -i 's/email_address=root/email_address='$_admin_mail'/' $file
     fi
 
-    # set upgrade cron
+    #------------------+
+    # set upgrade cron |
+    #------------------+
     local file=/etc/cron.d/upgrade
     if [[ ! -f $file ]]; then
         echo 'Installing upgrade CRON script...'
         sudo wget -qO $file $data$file
     fi
 
-    # logs
+    #-----------+
+    # logrotate |
+    #-----------+
     local file=/etc/logrotate.d/upgrade
     if [[ ! -f $file ]]; then
         echo 'Configuring upgrade logrotate...'

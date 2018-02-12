@@ -24,7 +24,7 @@ main() {
 
         # optional arguments
         local opt=''
-        [[ -z $env_local ]] && local opt='--disable-autoindex';
+        [[ -z $_env_local ]] && local opt='--disable-autoindex';
 
         sudo sh ./configure \
             --bindir=/usr/bin \

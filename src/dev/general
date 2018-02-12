@@ -29,9 +29,9 @@ main() {
     fi
 
     # force development environment
-    env_local=
-    env_dev=1
-    env_pub=
+    _env_local=
+    _env_dev=1
+    _env_pub=
 
     # force PHP-FPM support
     php_fpm=1

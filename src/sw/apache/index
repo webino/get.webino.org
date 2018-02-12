@@ -34,14 +34,14 @@ main() {
     #apache_server_name='webino.'$([[ $USER == 'webino' ]] && echo 'local' || echo $USER)
 
     # clean the Apache build
-    [[ -n $clean ]] && load sw/apache/clean && return
+    [[ -n $_clean ]] && load sw/apache/clean && return
 
     # remove pre-installed
     echo 'Purging pre-installed Apache...'
     load sw/apache/purge
 
     # chown /srv (pub only)
-    [[ -n $env_pub ]] && sudo chown www-data:www-data /srv -R
+    [[ -n $_env_pub ]] && sudo chown www-data:www-data /srv -R
 
     # create www dir
     echo 'Creating public www directory...'
@@ -58,7 +58,7 @@ main() {
     sudo apachectl restart > /dev/null 2>&1 &
 
     # dev & pub only
-    if [[ -n $env_dev || -n $env_pub ]]; then
+    if [[ -n $_env_dev || -n $_env_pub ]]; then
         load sw/apache/logwatch
         load sw/apache/fail2ban
     fi

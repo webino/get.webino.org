@@ -24,7 +24,7 @@ main() {
     sudo service mysql start
 
     # dev & pub only
-    if [[ -n $env_dev || -n $env_pub ]]; then
+    if [[ -n $_env_dev || -n $_env_pub ]]; then
         load sw/mysql/logwatch
     fi
 }

@@ -7,23 +7,27 @@
 # Are you looking at this in your web browser, and would like to get Webino™?
 # Just open up your terminal and type:
 #
-#    wget @@host@@ -qO- | sh
+#    wget @@host@@/system -qO- | sh
 #
 # Webino™ currently supports:
 #   - Ubuntu 16.04 | 14.04
 #
 # What this script does?
-#   - It configures OS
+#   - It configures operating system
 
 main() {
-    # general
-    load os/arguments "$@"
-    load os/info
-    load os/locale
-    load os/essential
+    #---------+
+    # general |
+    #---------+
+    load system/arguments "$@"
+    load system/info
+    load system/locale
+    load system/essential
 
-    # extra (dev|pub only)
-    if [[ -n $env_dev || -n $env_pub ]]; then
+    #----------------------+
+    # extra (dev|pub only) |
+    #----------------------+
+    if [[ -n $_env_dev || -n $_env_pub ]]; then
         load os/mailer
         load os/upgrades
         load os/logwatch

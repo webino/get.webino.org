@@ -1,0 +1,16 @@
+# hosts-fix (fix system hosts)
+#
+# This task is run on startup to fix the system hosts in /etc/hosts,
+# fixing localhost.localdomain, because selenium is failing when multiple
+# aliases are registered for one IP per line.
+
+[Unit]
+Description=Hosts-fix
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c "sed -ri 's/localhost.localdomain localhost/localhost localhost.localdomain/g' /etc/hosts"
+
+[Install]
+WantedBy=multi-user.target

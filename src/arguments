@@ -16,12 +16,13 @@ main() {
     argv=('')
 
     # defaults
-    no_interaction=
-    env_local=1
-    env_dev=
-    env_pub=
-    update=
-    clean=
+    _no_interaction=
+    _env_local=1
+    _env_dev=
+    _env_pub=
+    _update=
+    _clean=
+    _admin_mail=
 
     n=0
     for i in "$@"
@@ -30,33 +31,38 @@ main() {
     argv[$n]=$i
     case $i in
         --no-interaction|-n) # non interactive
-            no_interaction=1
+            _no_interaction=1
             shift
         ;;
         --local) # local development
-            env_local=1
-            env_dev=
-            env_pub=
+            _env_local=1
+            _env_dev=
+            _env_pub=
             shift
         ;;
         --dev) # development server
-            env_dev=1
-            env_local=
-            env_pub=
+            _env_dev=1
+            _env_local=
+            _env_pub=
             shift
         ;;
         --pub) # public server
-            env_pub=1
-            env_dev=
-            env_local=
+            _env_pub=1
+            _env_dev=
+            _env_local=
             shift
         ;;
         --update) # update files
-            update=1
+            _update=1
             shift
         ;;
         --clean) # purge files
-            clean=1
+            _clean=1
+            shift
+        ;;
+        --admin-mail)
+            _admin_mail=${argv[$n]}
+            shift
             shift
         ;;
         *)
