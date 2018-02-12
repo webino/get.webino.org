@@ -28,6 +28,7 @@ main() {
     for i in "$@"
     do
     n=$((n + 1))
+    argv[$n]=$i
     case $i in
         --no-interaction|-n) # non interactive
             _no_interaction=1

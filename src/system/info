@@ -36,7 +36,7 @@ main() {
     #-----------------------+
     # sysadmin mail default |
     #-----------------------+
-    _admin_mail=${admin_mail-'sysadmin@'$_host_name}
+    _admin_mail=${_admin_mail-'sysadmin@'$_host_name}
 
     #----------------+
     # show host info |
