@@ -13,9 +13,9 @@
 #   - Ubuntu 16.04 | 14.04
 
 main() {
-    argv=('')
-
-    # defaults
+    #----------+
+    # defaults |
+    #----------+
     _no_interaction=
     _env_local=1
     _env_dev=
@@ -24,39 +24,43 @@ main() {
     _clean=
     _admin_mail=
 
+    #----------+
+    # get args |
+    #----------+
+    #argv=('')
     n=0
     for i in "$@"
     do
     n=$((n + 1))
-    argv[$n]=$i
+    #argv[$n]=$i
     case $i in
         --no-interaction|-n) # non interactive
             _no_interaction=1
             shift
         ;;
-        --local) # local development
+        --local)
             _env_local=1
             _env_dev=
             _env_pub=
             shift
         ;;
-        --dev) # development server
+        --dev)
             _env_dev=1
             _env_local=
             _env_pub=
             shift
         ;;
-        --pub) # public server
+        --pub)
             _env_pub=1
             _env_dev=
             _env_local=
             shift
         ;;
-        --update) # update files
+        --update)
             _update=1
             shift
         ;;
-        --clean) # purge files
+        --clean)
             _clean=1
             shift
         ;;
