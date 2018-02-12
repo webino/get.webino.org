@@ -21,8 +21,8 @@ main() {
     #------------------------------------+
     if [[ -z $_host_name && (-n $_env_dev || -n $_env_pub) ]]; then
         echo 'Resolving host info...'
-        host_ip=$(ip route get 8.8.8.8 | awk '{print $NF; exit}')
-        host_name=$(cat /etc/hosts | grep $_host_ip | awk -F' ' '{print $2}' | awk '{print $1}' | tr . -)
+        _host_ip=$(ip route get 8.8.8.8 | awk '{print $NF; exit}')
+        _host_name=$(cat /etc/hosts | grep $_host_ip | awk -F' ' '{print $2}' | awk '{print $1}' | tr . -)
     fi
 
     #----------------------+
@@ -30,13 +30,13 @@ main() {
     #----------------------+
     if [[ -z $_host_name ]]; then
         echo 'Using default host info...'
-        host_name=webino.local
+        _host_name=webino.local
     fi
 
     #-----------------------+
     # sysadmin mail default |
     #-----------------------+
-    admin_mail=${admin_mail-'admin@'$_host_name}
+    _admin_mail=${admin_mail-'sysadmin@'$_host_name}
 
     #----------------+
     # show host info |
