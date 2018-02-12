@@ -72,7 +72,7 @@ main() {
     #-----------+
     # configure |
     #-----------+
-    sudo sed -i 's/Subsystem sftp /usr/lib/openssh/sftp-server/Subsystem sftp internal-sftp/' $config
+    sudo sed -i 's~Subsystem sftp /usr/lib/openssh/sftp-server~Subsystem sftp internal-sftp~' $config
     sudo sed -i 's/UsePAM yes/UsePAM no/' $config
 
     #---------------------+
