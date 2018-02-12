@@ -34,6 +34,11 @@ main() {
         load system/fail2ban
         load system/ssh
     fi
+
+    #------+
+    # done |
+    #------+
+    echo 'System setup done...'
 }
 
 main "$@"
