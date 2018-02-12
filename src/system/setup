@@ -26,8 +26,8 @@ main() {
     #------------------+
     echo -n 'Environment: '
     [[ -n $_env_local ]] && echo 'local'
-    [[ -n $_env_local ]] && echo 'development'
-    [[ -n $_env_local ]] && echo 'public'
+    [[ -n $_env_dev ]]   && echo 'development'
+    [[ -n $_env_pub ]]   && echo 'public'
     echo
 
     #-------+
