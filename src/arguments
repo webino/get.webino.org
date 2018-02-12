@@ -27,7 +27,7 @@ main() {
     #----------+
     # get args |
     #----------+
-    argv=('')
+    argv=("$@")
     n=0
     for i in "$@"
     do
