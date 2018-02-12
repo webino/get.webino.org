@@ -6,7 +6,7 @@
 
 set -e
 
-url='https://get.webino.org/!dev'
+url='https://get.webino.org/~dev'
 
 [ "$TEST" = 'system' ] && wget $url/system -qO- | sh -s -- -n && exit $?
 [ "$TEST" = 'system-pub' ] && wget $url/system -qO- | sh -s -- -n --pub && exit $?
