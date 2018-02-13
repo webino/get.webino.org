@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/mysql -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 14.04
+#
+# What this script does?
+#   - It installs MySQL database
+
+main() {
+    load mysql/arguments "$@"
+    load mysql/server
+    load mysql/client
+
+    #-----------------+
+    # service restart |
+    #-----------------+
+    sudo service mysql stop > /dev/null 2>&1 && \
+    sudo service mysql start > /dev/null 2>&1 &
+
+    #--------------------------------+
+    # server settings (dev|pub only) |
+    #--------------------------------+
+    if [[ -n $_env_dev || -n $_env_pub ]]; then
+        load mysql/logwatch
+    fi
+}
+
+main "$@"

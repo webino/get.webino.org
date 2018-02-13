@@ -16,17 +16,29 @@
 #   - It installs MySQL database
 
 main() {
-    load sw/mysql/arguments "$@"
-    load sw/mysql/server
-    load sw/mysql/client
+    #----------+
+    # defaults |
+    #----------+
+    _mysql_client_user=
 
-    sudo service mysql stop
-    sudo service mysql start
-
-    # dev & pub only
-    if [[ -n $_env_dev || -n $_env_pub ]]; then
-        load sw/mysql/logwatch
-    fi
+    #----------+
+    # get args |
+    #----------+
+    n=0
+    for i in "$@"
+    do
+    n=$((n + 1))
+    case $i in
+        --mysql-client-user)
+            _mysql_client_user=${argv[$n]}
+            shift
+            shift
+        ;;
+        *)
+            # unknown option
+        ;;
+    esac
+    done
 }
 
-main "$@"
+main "${argv[@]}"

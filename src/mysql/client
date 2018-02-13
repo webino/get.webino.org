@@ -1,0 +1,90 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/mysql -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 14.04
+#
+# What this script does?
+#   - It installs MySQL database
+
+main() {
+    #-------------------------+
+    # check already installed |
+    #-------------------------+
+    if [[ "$(whereis mysql)" == *"/mysql"* ]]; then
+        echo 'MySQL client already installed...'
+        return
+    fi
+
+    #---------+
+    # install |
+    #---------+
+    local data='@@host@@/mysql/~data/'
+    echo 'Installing MySQL client...'
+    apt-get install -y mysql-client
+
+    #---------------------+
+    # resolve client home |
+    #---------------------+
+    local client_home=$(echo ~)
+    if [ "$(id www-data 2> /dev/null)" ]; then
+        client_home=$(echo ~www-data)
+    fi
+
+    if [[ ! -d "$client_home" ]]; then
+        echo 'MySQL client home directory not found!!!'
+        return
+    fi
+
+    echo 'MySQL client home `'$client_home'`...'
+
+    local config=$client_home'/.my.cnf'
+    #------------------------------------+
+    # check client config already exists |
+    #------------------------------------+
+    if [[ -f $config ]]; then
+        echo 'MySQL client already configured...'
+        return
+    fi
+
+    #---------------------------+
+    # create client credentials |
+    #---------------------------+
+    if [ -z "${_mysql_client_user-}" ]; then
+        echo 'Generating MySQL client user...'
+        _mysql_client_user=$(echo $(< /dev/urandom tr -dc a-z0-9 | head -c6))
+    fi
+
+    echo 'Generating MySQL password for user `'$_mysql_client_user'`...'
+    local client_password=$(echo $(< /dev/urandom tr -dc a-z0-9 | head -c12))
+
+    #----------------------+
+    # create client config |
+    #----------------------+
+    echo 'Creating MySQL client config...'
+
+    echo "$(wget -qO- ${data}home/example/.my.cnf | \
+        sed s/'%USER%'/$_mysql_client_user/ | \
+        sed s/'%PASSWORD%'/$client_password/)" | \
+        sudo tee $config > /dev/null
+
+    sudo chown www-data:www-data $config
+    sudo chmod 600 $config
+
+    #--------------------------+
+    # create mysql client user |
+    #--------------------------+
+    echo 'Creating MySQL client user...'
+    sudo -i mysql -e "CREATE USER '$_mysql_client_user'@'localhost' IDENTIFIED BY '$client_password';"
+    sudo -i mysql -e "$(wget ${data}extra/mysql-grant-client.sql -qO- | sed s/'%USER%'/$_mysql_client_user/g)"
+}
+
+main

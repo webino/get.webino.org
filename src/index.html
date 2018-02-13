@@ -166,12 +166,21 @@
             <select name="task">
                 <option value="system">System setup</option>
                 <option value="mysql">MySQL install</option>
+                <option value="apache">Apache build</option>
                 <option value="php" selected>PHP build</option>
                 <option value="devkit">Devkit setup</option>
             </select>
         </label>
     </p>
     <div id="task_cards">
+        <div id="mysql">
+            <p>
+                <label>
+                    MySQL client user:
+                    <input type="text" name="mysql_client_user" placeholder="(optional)">
+                </label>
+            </p>
+        </div>
         <div id="php">
             <p>
                 <label>
@@ -296,6 +305,16 @@
 
         // Environment
         newUrl += ' --' + this.env.value;
+
+        //-------+
+        // Tasks |
+        //-------+
+        switch (this.task.value) {
+            // MySQL
+            case 'mysql':
+                newUrl += this.mysql_client_user.value ? ' --mysql-client-user ' + this.mysql_client_user.value : '';
+                break;
+        }
 
         // Admin mail
         newUrl += this.admin_mail.value ? ' --admin-mail ' + this.admin_mail.value : '';

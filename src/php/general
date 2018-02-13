@@ -31,13 +31,13 @@ main() {
     #------------------+
     # update PHP build |
     #------------------+
-    # TODO!!!
+    # TODO
     #[[ -n $_update ]] && load php/clean
 
     #-----------------+
     # clean PHP build |
     #-----------------+
-    # TODO!!!
+    # TODO
     #[[ -n $_clean ]] && load php/clean && return
 
     #---------+
@@ -53,7 +53,7 @@ main() {
     #-----------------------------------------+
     # configure local development environment |
     #-----------------------------------------+
-    # TODO!!!
+    # TODO
     #[[ -z $_update ]] && [[ $ENVIRONMENT == 'local' ]] && source $1/php.d/configure-local-dev # TODO
     #[[ $ENVIRONMENT == 'local' ]] && source $1/php.d/php-qa # TODO
 

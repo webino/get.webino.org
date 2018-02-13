@@ -29,8 +29,8 @@ main() {
     load arguments "$@"
 
     # Install
-    load os/general
-    load sw/apache
+    load system/general
+    load apache/general
 }
 
 main "$@"

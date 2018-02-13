@@ -16,51 +16,73 @@
 #   - It builds Apache from source
 
 main() {
-    # resolve latest versions
-    apache_version_latest=$(echo $(wget -qO- http://www.apache.org/dist/httpd/Announcement2.4.txt \
+    #-------------------------+
+    # resolve latest versions |
+    #-------------------------+
+    local apache_version_latest=$(echo $(wget -qO- http://www.apache.org/dist/httpd/Announcement2.4.txt \
         | grep -a -Eom 1 'Server 2\.4\.[0-9]+ Released' | grep -a -Eom 1 '[0-9\.]+'))
 
-    apache_apr_version_latest=$(echo $(wget -qO- http://apr.apache.org/download.cgi \
+    local apache_apr_version_latest=$(echo $(wget -qO- http://apr.apache.org/download.cgi \
         | grep -a -Eom 1 'APR 1\.[0-9]+\.[0-9]+ is the best' | grep -a -Eom 1 '[0-9\.]+'))
 
-    apache_apr_util_version_latest=$(echo $(wget -qO- http://apr.apache.org/download.cgi \
+    local apache_apr_util_version_latest=$(echo $(wget -qO- http://apr.apache.org/download.cgi \
         | grep -a -Eom 1 'APR-util 1\.[0-9]+\.[0-9]+ is the best' | grep -a -Eom 1 '[0-9\.]+'))
 
     apache_version=${apache_version-$apache_version_latest}
     apache_apr_version=${apache_apr_version-$apache_apr_version_latest}
     apache_apr_util_version=${apache_apr_util_version-$apache_apr_util_version_latest}
 
-    # TODO server name (local only)
+    #--------------------------+
+    # server name (local only) |
+    #--------------------------+
+    # TODO
     #apache_server_name='webino.'$([[ $USER == 'webino' ]] && echo 'local' || echo $USER)
 
-    # clean the Apache build
-    [[ -n $_clean ]] && load sw/apache/clean && return
+    #-------+
+    # clean |
+    #-------+
+    # TODO
+    #[[ -n $_clean ]] && load sw/apache/clean && return
 
-    # remove pre-installed
+    #----------------------+
+    # remove pre-installed |
+    #----------------------+
     echo 'Purging pre-installed Apache...'
-    load sw/apache/purge
+    load apache/purge
 
-    # chown /srv (pub only)
-    [[ -n $_env_pub ]] && sudo chown www-data:www-data /srv -R
+    #---------------------------+
+    # chown /srv (dev|pub only) |
+    #---------------------------+
+    [[ -n $_env_dev || -n $_env_pub ]] && sudo chown www-data:www-data /srv -R
 
-    # create www dir
+    #----------------+
+    # create www dir |
+    #----------------+
     echo 'Creating public www directory...'
     sudo mkdir -p /var/www/public
     sudo chown www-data:www-data /var/www -R
 
+    #---------+
+    # install |
+    #---------+
     echo 'Installing Apache '$apache_version
     load sw/apache/download
     load sw/apache/build
     load sw/apache/configure
     load sw/apache/daemon
 
+    #--------------------+
+    # web server restart |
+    #--------------------+
     echo 'Starting web server...'
     sudo apachectl restart > /dev/null 2>&1 &
 
-    # dev & pub only
+    #------------------------------+
+    # system settings dev|pub only |
+    #------------------------------+
     if [[ -n $_env_dev || -n $_env_pub ]]; then
-        load sw/apache/logwatch
-        load sw/apache/fail2ban
+        load apache/logwatch
+        load apache/fail2ban
     fi
 }
 

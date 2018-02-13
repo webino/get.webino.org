@@ -1,0 +1,73 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/mysql -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04 | 14.04
+#
+# What this script does?
+#   - It installs MySQL database server
+
+main() {
+    #-------------------------+
+    # check already installed |
+    #-------------------------+
+    if [[ "$(whereis mysqld)" == *"/mysqld"* ]]; then
+        echo 'MySQL server already installed...'
+        return
+    fi
+
+    #---------+
+    # install |
+    #---------+
+    local data='@@host@@/mysql/~data/'
+    echo 'Installing MySQL server...'
+
+    #-------------------------------+
+    # create root credentials |
+    #-------------------------------+
+    echo 'Generating MySQL password for user `root`...'
+    local root_password=$(echo $(< /dev/urandom tr -dc a-z0-9 | head -c12))
+
+    #-------------------------+
+    # install non-interactive |
+    #-------------------------+
+    sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password '$root_password
+    sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password '$root_password
+    sudo apt-get install -y mysql-server
+
+    #---------------------------------+
+    # config background compatibility |
+    #---------------------------------+
+    local file=/etc/mysql/conf.d/sql-mode.cnf
+    sudo wget -qO $file $data$file
+
+    #----------------------------------+
+    # check root config already exists |
+    #----------------------------------+
+    local config=/root/.my.cnf
+    if [[ -f $config ]]; then
+        echo 'MySQL root already configured...'
+        return
+    fi
+
+    #--------------------+
+    # create root config |
+    #--------------------+
+    echo 'Creating MySQL root config...'
+
+    echo "$(wget -qO- ${data}home/example/.my.cnf | \
+        sed s/'%USER%'/root/ | sed s/'%PASSWORD%'/$root_password/)" | \
+        sudo tee $config > /dev/null
+
+    sudo chmod 600 $config
+}
+
+main

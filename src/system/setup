@@ -13,22 +13,15 @@
 #   - Ubuntu 16.04 | 14.04
 
 load() {
-    # Load remote bash source
+    #-------------------------+
+    # load remote bash source |
+    #-------------------------+
     wget @@host@@/$1 -qO /tmp/webino.tmp
     source /tmp/webino.tmp
 }
 
 main() {
     echo -e "\nMachine setup for Webino™...\n"
-
-    #------------------+
-    # environment info |
-    #------------------+
-    echo -n 'Environment: '
-    [[ -n $_env_local ]] && echo 'local'
-    [[ -n $_env_dev ]]   && echo 'development'
-    [[ -n $_env_pub ]]   && echo 'public'
-    echo
 
     #-------+
     # setup |
