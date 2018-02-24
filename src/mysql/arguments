@@ -19,7 +19,7 @@ main() {
     #----------+
     # defaults |
     #----------+
-    _mysql_client_user=
+    _mysql_client_user=www-data
 
     #----------+
     # get args |

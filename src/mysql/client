@@ -16,12 +16,26 @@
 #   - It installs MySQL database
 
 main() {
+    #-------------------------+
+    # check already installed |
+    #-------------------------+
+    if [[ "$(whereis mysql)" == *"/mysql"* ]]; then
+        echo 'MySQL client already installed...'
+
+    #---------+
+    # install |
+    #---------+
+    else
+        echo 'Installing MySQL client...'
+        apt-get install -y mysql-client
+    fi
+
     #---------------------+
     # resolve client home |
     #---------------------+
-    local client_home=$(echo ~)
-    if [ "$(id www-data 2> /dev/null)" ]; then
-        client_home=$(echo ~www-data)
+    local client_home=
+    if [ "$(id $_mysql_client_user 2> /dev/null)" ]; then
+        client_home=$(echo ~$_mysql_client_user)
     fi
 
     if [[ ! -d "$client_home" ]]; then
@@ -43,12 +57,13 @@ main() {
     #---------------------------+
     # create client credentials |
     #---------------------------+
-    if [ -z "${_mysql_client_user-}" ]; then
-        echo 'Generating MySQL client user...'
-        _mysql_client_user=$(echo $(< /dev/urandom tr -dc a-z0-9 | head -c6))
+    if [ -z "${client_username-}" ]; then
+
     fi
 
-    echo 'Generating MySQL password for user `'$_mysql_client_user'`...'
+    echo 'Generating MySQL client username...'
+    local client_username=$(echo $(< /dev/urandom tr -dc a-z0-9 | head -c6))
+    echo 'Generating MySQL password for username `'$client_username'`...'
     local client_password=$(echo $(< /dev/urandom tr -dc a-z0-9 | head -c12))
 
     #----------------------+
@@ -58,7 +73,7 @@ main() {
     echo 'Creating MySQL client config...'
 
     echo "$(wget -qO- $data/home/example/.my.cnf | \
-        sed s/'%USER%'/$_mysql_client_user/ | \
+        sed s/'%USER%'/$client_username/ | \
         sed s/'%PASSWORD%'/$client_password/)" | \
         sudo tee $config > /dev/null
 
@@ -69,22 +84,8 @@ main() {
     # create mysql client user |
     #--------------------------+
     echo 'Creating MySQL client user...'
-    sudo -i mysql -e "CREATE USER '$_mysql_client_user'@'localhost' IDENTIFIED BY '$client_password';"
-    sudo -i mysql -e "$(wget ${data}extra/mysql-grant-client.sql -qO- | sed s/'%USER%'/$_mysql_client_user/g)"
-
-    #-------------------------+
-    # check already installed |
-    #-------------------------+
-    if [[ "$(whereis mysql)" == *"/mysql"* ]]; then
-        echo 'MySQL client already installed...'
-        return
-    fi
-
-    #---------+
-    # install |
-    #---------+
-    echo 'Installing MySQL client...'
-    apt-get install -y mysql-client
+    sudo -i mysql -e "CREATE USER '$client_username'@'localhost' IDENTIFIED BY '$client_password';"
+    sudo -i mysql -e "$(wget ${data}extra/mysql-grant-client.sql -qO- | sed s/'%USER%'/$client_username/g)"
 }
 
 main
