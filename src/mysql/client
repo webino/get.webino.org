@@ -30,12 +30,17 @@ main() {
         apt-get install -y mysql-client
     fi
 
+    #-----------+
+    # configure |
+    #-----------+
+    echo 'Configuring MySQL client for user '$_mysql_client_user
+
     #---------------------+
     # resolve client home |
     #---------------------+
     local client_home=
     if [ "$(id $_mysql_client_user 2> /dev/null)" ]; then
-        client_home=$(echo ~$_mysql_client_user)
+        client_home=$(eval echo "~$_mysql_client_user")
     fi
 
     if [[ ! -d "$client_home" ]]; then
@@ -43,12 +48,12 @@ main() {
         return
     fi
 
-    echo 'MySQL client home `'$client_home'`...'
+    echo 'Resolved MySQL client home `'$client_home'`...'
 
-    local config=$client_home'/.my.cnf'
     #------------------------------------+
     # check client config already exists |
     #------------------------------------+
+    local config=$client_home'/.my.cnf'
     if [[ -f $config ]]; then
         echo 'MySQL client already configured...'
         return
@@ -77,7 +82,7 @@ main() {
         sed s/'%PASSWORD%'/$client_password/)" | \
         sudo tee $config > /dev/null
 
-    sudo chown www-data:www-data $config
+    sudo chown $_mysql_client_user:$_mysql_client_user $config
     sudo chmod 600 $config
 
     #--------------------------+
