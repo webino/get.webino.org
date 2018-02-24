@@ -86,7 +86,7 @@ main() {
     #--------------------------+
     echo 'Creating MySQL client user...'
     sudo -i mysql -e "CREATE USER '$client_username'@'localhost' IDENTIFIED BY '$client_password';"
-    sudo -i mysql -e "$(wget ${data}extra/mysql-grant-client.sql -qO- | sed s/'%USER%'/$client_username/g)"
+    sudo -i mysql -e "$(wget $data/extra/mysql-grant-client.sql -qO- | sed s/'%USER%'/$client_username/g)"
 }
 
 main

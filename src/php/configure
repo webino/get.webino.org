@@ -17,32 +17,43 @@
 
 main() {
     cd /tmp/php
-    local etc='/etc/'${php_prefix:-'php'}
-    local data='@@host@@/data/etc'
+
+    #-----------+
+    # configure |
+    #-----------+
+    local data='@@host@@/php/~data'
+
+    // TODO PHP prefix support
+    #local etc='/etc/'${php_prefix:-'php'}
+
 
     echo 'Configuring PHP...'
 
     sudo mkdir -p $etc/conf.d
 
-    [[ -n $_update ]] &&
-        rm $etc/php.ini \
-        && rm $etc/conf.d/custom.ini \
-        && rm $etc/php-cli.ini
+    # TODO PHP version update support
+    if [[ -n $_update ]]; then
+        rm -f $etc/php.ini
+        rm -f $etc/conf.d/custom.ini
+        rm -f $etc/php-cli.ini
+    fi
 
-    # php config
-    [[ -f $etc/php.ini ]] || \
-        sudo cp ./php.ini-production $etc/php.ini
-
+    #------------+
+    # php config |
+    #------------+
+    [[ -f $etc/php.ini ]] || sudo cp ./php.ini-production $etc/php.ini
     sudo pear config-set php_ini $etc/php.ini
     sudo pecl config-set php_ini $etc/php.ini
 
-    # cli config
-    [[ -f $etc/php-cli.ini ]] || \
-        sudo wget -qO $etc/php-cli.ini $data/php/php-cli.ini
+    #------------+
+    # cli config |
+    #------------+
+    [[ -f $etc/php-cli.ini ]] || sudo wget -qO $etc/php-cli.ini $data/php/php-cli.ini
 
-    # custom config
-    [[ -f $etc/conf.d/custom.ini ]] || \
-        sudo wget -qO $etc/conf.d/custom.ini $data/php/conf.d/custom.ini
+    #---------------+
+    # custom config |
+    #---------------+
+    [[ -f $etc/conf.d/custom.ini ]] || sudo wget $etc/conf.d/custom.ini -qO $data/php/conf.d/custom.ini
 
     # local & dev only
     if [[ -n $_env_local || -n $_env_dev ]]; then
