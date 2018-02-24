@@ -82,6 +82,7 @@ main() {
     #------+
     # done |
     #------+
+    rm -rf /tmp/httpd
     echo 'Apache build done...'
 }
 
