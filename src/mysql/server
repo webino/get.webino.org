@@ -47,7 +47,7 @@ main() {
     # config background compatibility |
     #---------------------------------+
     local file=/etc/mysql/conf.d/sql-mode.cnf
-    sudo wget -qO $file $data$file
+    sudo wget $data$file -qO $file
 
     #----------------------------------+
     # check root config already exists |

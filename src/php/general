@@ -16,6 +16,9 @@
 #   - It builds PHP from source
 
 main() {
+    #------+
+    # init |
+    #------+
     load php/arguments "$@"
 
     #------------------------+
@@ -26,19 +29,10 @@ main() {
 
     php_version=${php_version-$_php_version_latest}
 
+    #----------------+
+    # Apache support |
+    #----------------+
     [[ "$(whereis apachectl)" == *"/apachectl"* ]] && php_apache=on || php_apache=off
-
-    #------------------+
-    # update PHP build |
-    #------------------+
-    # TODO
-    #[[ -n $_update ]] && load php/clean
-
-    #-----------------+
-    # clean PHP build |
-    #-----------------+
-    # TODO
-    #[[ -n $_clean ]] && load php/clean && return
 
     #---------+
     # install |
@@ -97,6 +91,11 @@ main() {
         echo 'Restarting web server...'
         sudo apachectl restart > /dev/null 2>&1 &
     fi
+
+    #------+
+    # done |
+    #------+
+    echo 'PHP build done...'
 }
 
 main "$@"

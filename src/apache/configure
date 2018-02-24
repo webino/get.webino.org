@@ -58,16 +58,16 @@ main() {
     echo 'Installing Apache general configs...'
 
     local file=/etc/apache2/conf.d/general.conf
-    sudo wget -qO $file $data$file
+    sudo wget $data$file -qO $file
 
     local file=/etc/apache2/conf.d/mods.conf
-    sudo wget -qO $file $data$file
+    sudo wget $data$file -qO $file
 
     local file=/etc/apache2/conf.d/security.conf
-    sudo wget -qO $file $data$file
+    sudo wget $data$file -qO $file
 
     local file=/etc/apache2/conf.d/ssl.conf
-    sudo wget -qO $file $data$file
+    sudo wget $data$file -qO $file
 
     #----------------+
     # common configs |
@@ -75,13 +75,13 @@ main() {
     echo 'Installing apache common configs...'
 
     local file=/etc/apache2/common/dir.conf
-    sudo wget -qO $file $data$file
+    sudo wget $data$file -qO $file
 
     local file=/etc/apache2/common/maintenance.conf
-    sudo wget -qO $file $data$file
+    sudo wget $data$file -qO $file
 
     local file=/etc/apache2/common/vhost.conf
-    sudo wget -qO $file $data$file
+    sudo wget $data$file -qO $file
 
     #---------------+
     # vhost configs |
@@ -89,33 +89,33 @@ main() {
     echo 'Installing apache vhost configs...'
 
     local file=/etc/apache2/vhost.d/000-default.conf
-    sudo wget -qO $file $data$file
+    sudo wget $data$file -qO $file
 
     local file=/etc/apache2/vhost.inc/default.conf
-    sudo wget -qO $file $data$file
+    sudo wget $data$file -qO $file
 
     local file=/etc/apache2/vhost.d/001-default-ssl.conf
-    sudo wget -qO $file $data$file
+    sudo wget $data$file -qO $file
 
     local file=/etc/apache2/vhost.inc/default-ssl.conf
-    sudo wget -qO $file $data$file
+    sudo wget $data$file -qO $file
 
     #----------------------------+
     # Webino™ support (optional) |
     #----------------------------+
     if [[ -z "$_no_webino" ]]; then
         local file=/etc/apache2/conf.d/webino.conf
-        sudo wget -qO $file $data$file
+        sudo wget $data$file -qO $file
 
         local file=/etc/apache2/common/webino-dir.conf
-        sudo wget -qO $file $data$file
+        sudo wget $data$file -qO $file
 
         local file=/etc/apache2/common/webino-vhost.conf
-        sudo wget -qO $file $data$file
+        sudo wget $data$file -qO $file
 
         # vhost (local only)
         local file=/etc/apache2/vhost.d/000-default-local.conf
-        [[ -n $_env_local ]] && sudo wget -qO $file $data$file
+        [[ -n $_env_local ]] && sudo wget $data$file -qO $file
     fi
 
     #-----------------+
@@ -135,13 +135,13 @@ main() {
     echo 'Configuring logrotate...'
     sudo mkdir -p /etc/logrotate.d/httpd-prerotate
     local file=/etc/logrotate.d/apache
-    sudo wget -qO $file $data$file
+    sudo wget $data$file -qO $file
 
     #---------------------------------+
     # logrotate vhosts (dev|pub only) |
     #---------------------------------+
     local file=/etc/logrotate.d/apache-vhosts
-    [[ -n $_env_dev || -n $_env_pub ]] && sudo wget -qO $file $data$file
+    [[ -n $_env_dev || -n $_env_pub ]] && sudo wget $data$file -qO $file
 
 
     #-------------------------------------+
@@ -150,7 +150,7 @@ main() {
     if [[ -z "$_no_webino" ]]; then
         # webino vhost (dev|pub only)
         local file=/etc/logrotate.d/webino-vhosts
-        [[ -n $_env_dev || -n $_env_pub ]] && sudo wget -qO $file $data$file
+        [[ -n $_env_dev || -n $_env_pub ]] && sudo wget $data$file -qO $file
     fi
 }
 

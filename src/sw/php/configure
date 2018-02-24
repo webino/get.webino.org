@@ -59,7 +59,7 @@ main() {
     # PHP Apache config
     # TODO decouple to PHP setup
     #local file=/etc/apache2/conf.d/php.conf
-    #sudo wget -qO $file $data$file
+    #sudo wget $data$file -qO $file
 
     # apache config
     [[ ! -d /etc/apache2/conf.d || -f /etc/apache2/conf.d/php.conf ]] || \

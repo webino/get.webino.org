@@ -27,7 +27,7 @@ main() {
     #---------+
     # install |
     #---------+
-    local data='@@host@@/~data'
+    local data='@@host@@/system/~data'
     echo 'Installing logwatch...'
 
     sudo apt-get install -y logwatch

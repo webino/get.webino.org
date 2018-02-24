@@ -27,7 +27,7 @@ main() {
     #---------+
     # install |
     #---------+
-    local data='@@host@@/~data'
+    local data='@@host@@/system/~data'
     echo 'Installing fail2ban...'
 
     sudo apt-get install -y fail2ban

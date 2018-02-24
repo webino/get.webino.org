@@ -31,7 +31,7 @@ main() {
     local file=/etc/logrotate.d/certbot-renew
     if [[ ! -f $file ]]; then
         echo 'Configuring certbot-renew logrotate...'
-        sudo wget -qO $file $data$file
+        sudo wget $data$file -qO $file
     fi
 }
 

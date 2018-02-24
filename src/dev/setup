@@ -43,7 +43,7 @@ main() {
 
     # vhost conf setup
     local file=/etc/php/fpm/pool.d/dev-srv.conf
-    [[ -f $file ]] || sudo wget -qO $file $data$file
+    [[ -f $file ]] || sudo wget $data$file -qO $file
 
     # TODO
     # adding SFTP access for dev group

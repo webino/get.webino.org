@@ -63,7 +63,7 @@ main() {
             local file=/etc/systemd/system/hosts-fix.service
             if [[ ! -f $file ]]; then
                 echo 'Installing hosts-fix systemd script...'
-                sudo wget -qO $file $data$file
+                sudo wget $data$file -qO $file
                 sudo systemctl enable hosts-fix.service
             fi
         else
@@ -73,7 +73,7 @@ main() {
             local file=/etc/init/hosts-fix.conf
             if [[ ! -f $file ]]; then
                 echo 'Installing hosts-fix upstart script...'
-                sudo wget -qO $file $data$file
+                sudo wget $data$file -qO $file
                 sudo initctl reload-configuration > /dev/null 2>&1 &
             fi
         fi

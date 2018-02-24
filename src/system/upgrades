@@ -27,7 +27,7 @@ main() {
     #-------+
     # setup |
     #-------+
-    local data='@@host@@/~data'
+    local data='@@host@@/system/~data'
     echo 'Setting operating system upgrades...'
 
     #------------------+
@@ -54,7 +54,7 @@ main() {
     local file=/etc/cron.d/upgrade
     if [[ ! -f $file ]]; then
         echo 'Installing upgrade CRON script...'
-        sudo wget -qO $file $data$file
+        sudo wget $data$file -qO $file
     fi
 
     #-----------+
@@ -63,7 +63,7 @@ main() {
     local file=/etc/logrotate.d/upgrade
     if [[ ! -f $file ]]; then
         echo 'Configuring upgrade logrotate...'
-        sudo wget -qO $file $data$file
+        sudo wget $data$file -qO $file
     fi
 }
 
