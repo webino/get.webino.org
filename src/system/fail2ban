@@ -50,6 +50,7 @@ main() {
     #-----------------+
     sudo service fail2ban stop > /dev/null 2>&1 && \
     sudo service fail2ban start > /dev/null 2>&1 &
+    return
 }
 
 main

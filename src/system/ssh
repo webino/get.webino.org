@@ -92,7 +92,7 @@ main() {
     #-----------------+
     # service restart |
     #-----------------+
-    sudo service ssh restart
+    sudo service ssh restart &
 
     #------+
     # lock |

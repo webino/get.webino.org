@@ -27,6 +27,7 @@ main() {
     local file=/usr/share/logwatch/dist.conf/logfiles/http.conf
     if [[ -f $file ]]; then
         echo 'Logwatch for Apache already installed...'
+        return
     fi
 
     #-------+

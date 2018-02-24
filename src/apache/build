@@ -19,11 +19,12 @@ main() {
     cd /tmp/httpd
     local lock=built.lock
 
-    #--------------------+
-    # check already built|
-    #--------------------+
+    #---------------------+
+    # check already built |
+    #---------------------+
     if [ -f $lock ]; then
         echo 'Apache already built...'
+        return
     fi
 
     #-------+

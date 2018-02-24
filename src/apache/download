@@ -23,6 +23,7 @@ main() {
     #--------------------------+
     if [ -d httpd ]; then
         echo 'Apache already downloaded...'
+        return
     fi
 
     #-----------------+

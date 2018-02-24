@@ -152,6 +152,8 @@ main() {
         local file=/etc/logrotate.d/webino-vhosts
         [[ -n $_env_dev || -n $_env_pub ]] && sudo wget -qO $file $data$file
     fi
+
+    return
 }
 
 main

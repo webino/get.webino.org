@@ -28,6 +28,7 @@ main() {
     local file=$dir/apache.conf
     if [[ -f $file ]]; then
         echo 'Fail2ban for Apache already configured...'
+        return
     fi
 
     #-------+
@@ -36,7 +37,12 @@ main() {
     local data='@@host@@/apache/~data'
     echo 'Installing Fail2ban for Apache...'
     sudo wget $data$file -qO $file
+
+    #-----------------+
+    # service restart |
+    #-----------------+
     sudo service fail2ban restart > /dev/null 2>&1 &
+    return
 }
 
 main
