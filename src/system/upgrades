@@ -65,8 +65,6 @@ main() {
         echo 'Configuring upgrade logrotate...'
         sudo wget -qO $file $data$file
     fi
-
-    return
 }
 
 main

@@ -75,7 +75,6 @@ main() {
     # service reload |
     #----------------+
     sudo service nullmailer reload &
-    return
 }
 
 main

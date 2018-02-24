@@ -40,8 +40,6 @@ main() {
             sed s/'%HOST_NAME%'/$_host_name/g | \
             sed s/'%ADMIN_MAIL%'/$_admin_mail/g)" | \
         sudo tee $file > /dev/null
-
-    return
 }
 
 main

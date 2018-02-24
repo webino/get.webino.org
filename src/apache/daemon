@@ -42,8 +42,6 @@ main() {
             sudo initctl reload-configuration > /dev/null 2>&1 &
         fi
     fi
-
-    return
 }
 
 main

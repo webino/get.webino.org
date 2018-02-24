@@ -20,7 +20,7 @@ main() {
     # return early when File2ban not installed |
     #------------------------------------------+
     local dir=/etc/fail2ban/jail.d
-    [[ ! -d $file ]] && return
+    [[ ! -d $dir ]] && return
 
     #--------------------------+
     # check already configured |
@@ -42,7 +42,6 @@ main() {
     # service restart |
     #-----------------+
     sudo service fail2ban restart > /dev/null 2>&1 &
-    return
 }
 
 main
