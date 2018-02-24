@@ -62,10 +62,6 @@ main() {
     #---------------------------+
     # create client credentials |
     #---------------------------+
-    if [ -z "${client_username-}" ]; then
-
-    fi
-
     echo 'Generating MySQL client username...'
     local client_username=$(echo $(< /dev/urandom tr -dc a-z0-9 | head -c6))
     echo 'Generating MySQL password for username `'$client_username'`...'
