@@ -8,14 +8,10 @@
 
 - `wget https://get.webino.org/apache -qO- | sh -s -- --local`
 
-**Development server** [TODO]
+**Development server**
 
 - `wget https://get.webino.org/apache -qO- | sh -s -- --dev`
 
 **Public server**
 
 - `wget https://get.webino.org/apache -qO- | sh -s -- --pub`
-
-**Cleanup**
-
-- `wget https://get.webino.org/apache -qO- | sh -s -- --clean`

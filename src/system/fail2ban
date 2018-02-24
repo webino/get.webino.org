@@ -10,7 +10,7 @@
 #    wget @@host@@/system -qO- | sh
 #
 # Webino™ currently supports:
-#   - Ubuntu 16.04 | 14.04
+#   - Ubuntu 16.04
 #
 # What this script does?
 #   - It installs fail2ban
@@ -27,7 +27,7 @@ main() {
     #---------+
     # install |
     #---------+
-    local data='@@host@@/~data/'
+    local data='@@host@@/~data'
     echo 'Installing fail2ban...'
 
     sudo apt-get install -y fail2ban
@@ -40,6 +40,10 @@ main() {
             sed s/'%HOST_IP%'/$_host_ip/g | \
             sed s/'%ADMIN_MAIL%'/$_admin_mail/g)" | \
         sudo tee $file > /dev/null
+
+    # ssh jail
+    local file=/etc/fail2ban/jail.d/ssh.conf
+    sudo wget $data$file -qO $file
 
     #-----------------+
     # service restart |

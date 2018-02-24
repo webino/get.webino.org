@@ -10,15 +10,15 @@
 #    wget @@host@@/apache -qO- | sh
 #
 # Webino™ currently supports:
-#   - Ubuntu 16.04 | 14.04
+#   - Ubuntu 16.04
 #
 # What this script does?
 #   - It builds Apache from source
 
 main() {
-    #-------------------------+
-    # resolve latest versions |
-    #-------------------------+
+    #-----------------------------+
+    # resolve latest 2.4 versions |
+    #-----------------------------+
     local apache_version_latest=$(echo $(wget -qO- http://www.apache.org/dist/httpd/Announcement2.4.txt \
         | grep -a -Eom 1 'Server 2\.4\.[0-9]+ Released' | grep -a -Eom 1 '[0-9\.]+'))
 
@@ -37,12 +37,6 @@ main() {
     #--------------------------+
     # TODO
     #apache_server_name='webino.'$([[ $USER == 'webino' ]] && echo 'local' || echo $USER)
-
-    #-------+
-    # clean |
-    #-------+
-    # TODO
-    #[[ -n $_clean ]] && load sw/apache/clean && return
 
     #----------------------+
     # remove pre-installed |
@@ -66,20 +60,20 @@ main() {
     # install |
     #---------+
     echo 'Installing Apache '$apache_version
-    load sw/apache/download
-    load sw/apache/build
-    load sw/apache/configure
-    load sw/apache/daemon
+    load apache/download
+    load apache/build
+    load apache/configure
+    load apache/daemon
 
     #--------------------+
     # web server restart |
     #--------------------+
-    echo 'Starting web server...'
+    echo 'Restarting web server...'
     sudo apachectl restart > /dev/null 2>&1 &
 
-    #------------------------------+
-    # system settings dev|pub only |
-    #------------------------------+
+    #--------------------------------+
+    # system settings (dev|pub only) |
+    #--------------------------------+
     if [[ -n $_env_dev || -n $_env_pub ]]; then
         load apache/logwatch
         load apache/fail2ban

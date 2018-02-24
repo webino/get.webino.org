@@ -1,0 +1,10 @@
+/srv/*/public/\#system/data/log/*.log {
+    weekly
+    missingok
+    rotate 3
+    compress
+    delaycompress
+    notifempty
+    su www-data www-data
+    create 0640 www-data www-data
+}

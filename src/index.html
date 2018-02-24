@@ -53,6 +53,12 @@
             padding: 0;
         }
 
+        p::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
         label {
             margin: 0;
             padding: 0;
@@ -113,8 +119,13 @@
         }
 
         input[type=checkbox] {
+            float: left;
+            display: inline-block;
+            position: relative;
+            top: -2px;
             width: auto;
             margin-left: 4px;
+            margin-right: 6px;
             transform: scale(1.6);
         }
 
@@ -149,7 +160,7 @@
 <body>
 <header>
     <h1>Command Builder</h1>
-    <p> for <strong>Webino</strong>™ setup <i>@ Ubuntu 16.04/14.04</i></p>
+    <p> for <strong>Webino</strong>™ setup <i>@ Ubuntu 16.04</i></p>
     <small>[ Work In Progress ]</small>
 </header>
 
@@ -165,14 +176,17 @@
         <label>
             <select name="task">
                 <option value="system">System setup</option>
+                <option value="apache" selected>Apache build</option>
                 <option value="mysql">MySQL install</option>
-                <option value="apache">Apache build</option>
-                <option value="php" selected>PHP build</option>
+                <option value="php">PHP build</option>
                 <option value="devkit">Devkit setup</option>
             </select>
         </label>
     </p>
     <div id="task_cards">
+        <div id="apache">
+            <!-- TODO -->
+        </div>
         <div id="mysql">
             <p>
                 <label>
@@ -195,7 +209,19 @@
             </p>
             <p>
                 <label>
-                    PHP-FPM:
+                    With Apache
+                    <input type="checkbox" name="php_apache" checked>
+                </label>
+            </p>
+            <p>
+                <label>
+                    With MySQL
+                    <input type="checkbox" name="php_mysql" checked>
+                </label>
+            </p>
+            <p>
+                <label>
+                    PHP-FPM
                     <input type="checkbox" name="php_fpm">
                 </label>
             </p>
@@ -223,8 +249,14 @@
     </p>
     <p>
         <label>
-            SSH setup:
-            <input type="checkbox" name="ssh">
+            Webino support
+            <input type="checkbox" name="support_webino" checked>
+        </label>
+    </p>
+    <p>
+        <label>
+            SSH setup
+            <input type="checkbox" name="ssh" checked>
         </label>
     </p>
     <p>
@@ -292,37 +324,110 @@
 </footer>
 
 <script>
+(function ($) {
+    //-----------------+
+    // Form controller |
+    //-----------------+
     var callback = function () {
+        var self = this;
         var newUrl = url;
 
-        // Task
+        //-------+
+        // Flags |
+        //-------+
+        var withoutWebino = false;
+
+        //---------+
+        // Helpers |
+        //---------+
+        var showTaskOptions = function (task) {
+            $('#' + task).show();
+        };
+        var newUrlArg = function (cond, name, value) {
+            newUrl += cond ? ' --' + name + (value ? ' ' + value : '') : '';
+        };
+
+        //-----------+
+        // Init task |
+        //-----------+
         var task = '/' + this.task.value;
         newUrl += task + ' -qO- | sh -s --';
-
         // init task cards
         $('#task_cards > *').hide();
-        this.task.value && $('#' + this.task.value).show();
+        this.task.value && showTaskOptions(this.task.value);
 
-        // Environment
-        newUrl += ' --' + this.env.value;
+        //-------------+
+        // Environment |
+        //-------------+
+        newUrlArg(true, this.env.value);
 
         //-------+
         // Tasks |
         //-------+
+        var tasks = {
+            apache: function () {
+                // TODO
+            },
+            mySql: function () {
+                newUrlArg(self.mysql_client_user.value, 'mysql-client-user', self.mysql_client_user.value);
+            },
+            php: function () {
+                newUrlArg(self.php_version.value, 'php', self.php_version.value);
+            }
+        };
+        //-----------------+
+        // tasks controller
         switch (this.task.value) {
+
+            //-------+
+            // Apache
+            case 'apache':
+                tasks.apache();
+                break;
+
+            //------+
             // MySQL
             case 'mysql':
-                newUrl += this.mysql_client_user.value ? ' --mysql-client-user ' + this.mysql_client_user.value : '';
+                tasks.mySql();
+                break;
+
+            //----+
+            // PHP
+            case 'php':
+                tasks.php();
+                // PHP-FPM
+                if (this.php_fpm.checked) {
+                    newUrlArg(true, 'php-fpm');
+                }
+                // PHP with Apache
+                if (this.php_apache.checked) {
+                    newUrlArg(true, 'with-apache');
+                }
+                // PHP with MySQL
+                if (this.php_mysql.checked) {
+                    newUrlArg(true, 'with-mysql');
+                    showTaskOptions('mysql');
+                    tasks.mySql();
+                }
                 break;
         }
+        //--------+
+        // /Tasks |
+        //--------+
 
-        // Admin mail
-        newUrl += this.admin_mail.value ? ' --admin-mail ' + this.admin_mail.value : '';
+        //------------+
+        // Admin mail |
+        //------------+
+        newUrlArg(this.admin_mail.value, 'admin-mail', this.admin_mail.value);
 
-        // SSH setup
-        newUrl += this.ssh.checked ? ' --with-ssh' : '';
+        //-----------+
+        // SSH setup |
+        //-----------+
+        newUrlArg(this.ssh.checked, 'with-ssh');
 
-        // Mailer (dev / pub only)
+        //-------------------------+
+        // Mailer (dev / pub only) |
+        //-------------------------+
         var mtaInputs = $('#mta select,#mta_cards input');
         if (['dev', 'pub'].includes(this.env.value)) {
 
@@ -331,31 +436,50 @@
             this.mailer.value && $('#' + this.mailer.value).show();
             mtaInputs.attr('disabled', null);
 
+            //-----------+
             // Nullmailer
             if ('nullmailer' === this.mailer.value) {
                 // SMTP host
-                newUrl += this.smtp_host.value ? ' --smtp-host ' + this.smtp_host.value : '';
+                newUrlArg(this.smtp_host.value, 'smtp-host', this.smtp_host.value);
                 // SMTP user
-                newUrl += this.smtp_user.value ? ' --smtp-user ' + this.smtp_user.value : '';
+                newUrlArg(this.smtp_user.value, 'smtp-user', this.smtp_user.value);
             }
+
             // TODO Postfix support !!!
+
         } else {
             mtaInputs.attr('disabled', 'disabled');
         }
+        //---------+
+        // /Mailer |
+        //---------+
 
-        // update command
+        //------------------------+
+        // Without Webino support |
+        //------------------------+
+        newUrlArg(!self.support_webino.checked, 'without-webino');
+
+        //----------------+
+        // Update command |
+        //----------------+
         urlInput.val('wget ' + newUrl);
     };
 
-    // init url
+    //----------+
+    // Init URL |
+    //----------+
     urlInput = $('#url');
     callback.call(document.getElementById('form'));
 
-    // updates url
+    //-------------+
+    // Updates URL |
+    //-------------+
     $(document).on('change', 'form', callback);
     $(document).on('keyup', 'form', callback);
 
-    // selects url
+    //-------------+
+    // Selects URL |
+    //-------------+
     urlInput.hover(function () {
         // select text
         this.select();
@@ -364,6 +488,7 @@
         // deselect text
         this.selectionStart = this.selectionEnd;
     });
+})(jQuery);
 </script>
 
 </body>

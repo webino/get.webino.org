@@ -10,7 +10,7 @@
 #    wget @@host@@ -qO- | sh
 #
 # Webino™ currently supports:
-#   - Ubuntu 16.04 | 14.04
+#   - Ubuntu 16.04
 #
 # Original source
 # http://fitnr.com/showing-a-bash-spinner.html

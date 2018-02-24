@@ -1,10 +1,10 @@
 /var/log/certbot-renew.log {
     weekly
     missingok
-    rotate 4
+    rotate 3
     compress
     delaycompress
     notifempty
     su root adm
-    create 644 root adm
+    create 06440 root adm
 }

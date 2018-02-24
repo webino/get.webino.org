@@ -10,7 +10,7 @@
 #    wget @@host@@/system -qO- | sh
 #
 # Webino™ currently supports:
-#   - Ubuntu 16.04 | 14.04
+#   - Ubuntu 16.04
 #
 # What this script does?
 #   - It installs essential operating system tools
@@ -28,7 +28,7 @@ main() {
     #---------+
     # install |
     #---------+
-    local data='@@host@@/system/~data/'
+    local data='@@host@@/system/~data'
     echo 'Installing essential tools...'
 
     sudo apt-get clean

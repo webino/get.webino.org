@@ -10,28 +10,34 @@
 #    wget @@host@@/apache -qO- | sh
 #
 # Webino™ currently supports:
-#   - Ubuntu 16.04 | 14.04
+#   - Ubuntu 16.04
 #
 # What this script does?
 #   - It builds Apache from source
 
 main() {
-    # return early when Logwatch not installed
+    #------------------------------------------+
+    # return early when Logwatch not installed |
+    #------------------------------------------+
     [[ ! -d /usr/share/logwatch ]] && return
 
-    local data='@@host@@/data/'
+    #--------------------------+
+    # check already configured |
+    #--------------------------+
     local file=/usr/share/logwatch/dist.conf/logfiles/http.conf
-
-    if [[ ! -f $file ]]; then
-        echo 'Installing Logwatch for Apache...'
-
-        sudo wget $data$file -qO $file
-
-        local file=/usr/share/logwatch/dist.conf/logfiles/http-error.conf
-        sudo wget $data$file -qO $file
-    else
+    if [[ -f $file ]]; then
         echo 'Logwatch for Apache already installed...'
     fi
+
+    #-------+
+    # setup |
+    #-------+
+    local data='@@host@@/apache/~data'
+    echo 'Installing Logwatch for Apache...'
+    sudo wget $data$file -qO $file
+
+    local file=/usr/share/logwatch/dist.conf/logfiles/http-error.conf
+    sudo wget $data$file -qO $file
 }
 
 main

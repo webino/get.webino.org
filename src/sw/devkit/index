@@ -10,7 +10,7 @@
 #    wget @@host@@/devkit -qO- | sh
 #
 # Webino™ currently supports:
-#   - Ubuntu 16.04 | 14.04
+#   - Ubuntu 16.04
 #
 # What this script does?
 #   - It installs Webino™ Development Kit

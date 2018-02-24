@@ -10,6 +10,9 @@
 #    wget @@host@@/system -qO- | sh
 #
 # Webino™ currently supports:
-#   - Ubuntu 16.04 | 14.04
+#   - Ubuntu 16.04
+#
+# What this script does?
+#   - It configures operating system
 
 wget @@host@@/system/setup -qO- | bash -s -- "$@"

@@ -10,41 +10,51 @@
 #    wget @@host@@/apache -qO- | sh
 #
 # Webino™ currently supports:
-#   - Ubuntu 16.04 | 14.04
+#   - Ubuntu 16.04
 #
 # What this script does?
 #   - It builds Apache from source
 
 main() {
-    # setup
+    #-------+
+    # setup |
+    #-------+
+    local data='@@host@@/apache/~data'
     echo 'Configuring Apache...'
-    local data='@@host@@/data/'
 
+    # stop web server
     sudo apachectl stop > /dev/null 2>&1 &
+
+    # set www-data user shell
     sudo chsh -s /bin/bash www-data
 
-    # directories
+    # setup directories
+    sudo mkdir -p /etc/apache2/ssl
+    sudo mkdir -p /etc/apache2/common
     sudo mkdir -p /etc/apache2/conf.d
     sudo mkdir -p /etc/apache2/vhost.d
-    sudo mkdir -p /etc/apache2/common
+    sudo mkdir -p /etc/apache2/vhost.inc
+
     sudo mkdir -p /var/log/apache2
     sudo chown syslog:adm /var/log/apache2 -R
+
     sudo rm -f /usr/local/apache2/cgi-bin/*
 
-    # TODO configure host (local only)
-    #[[ -n $_env_local ]] &&
-
-    # httpd config
+    #--------------+
+    # httpd config |
+    #--------------+
     local file=/etc/apache2/httpd.conf
     local httpd_is_configured=$(grep conf.d $file)
-    if [ "$httpd_is_configured" == "" ]; then
+    if [ "$httpd_is_configured" == '' ]; then
         echo 'Configuring "'$file'"...'
-        echo "Include /etc/apache2/conf.d/" | sudo tee --append $file > /dev/null
+        echo 'Include /etc/apache2/conf.d/' | sudo tee --append $file > /dev/null
     else
         echo 'Apache "'$file'" is already configured...'
     fi
 
-    # general configs
+    #-----------------+
+    # general configs |
+    #-----------------+
     echo 'Installing Apache general configs...'
 
     local file=/etc/apache2/conf.d/general.conf
@@ -56,16 +66,12 @@ main() {
     local file=/etc/apache2/conf.d/security.conf
     sudo wget -qO $file $data$file
 
-    local file=/etc/apache2/conf.d/php.conf
-    sudo wget -qO $file $data$file
-
     local file=/etc/apache2/conf.d/ssl.conf
     sudo wget -qO $file $data$file
 
-    local file=/etc/apache2/conf.d/webino.conf
-    sudo wget -qO $file $data$file
-
-    # common configs
+    #----------------+
+    # common configs |
+    #----------------+
     echo 'Installing apache common configs...'
 
     local file=/etc/apache2/common/dir.conf
@@ -77,26 +83,41 @@ main() {
     local file=/etc/apache2/common/vhost.conf
     sudo wget -qO $file $data$file
 
-    local file=/etc/apache2/common/webino-dir.conf
-    sudo wget -qO $file $data$file
-
-    local file=/etc/apache2/common/webino-vhost.conf
-    sudo wget -qO $file $data$file
-
-    # vhost configs
+    #---------------+
+    # vhost configs |
+    #---------------+
     echo 'Installing apache vhost configs...'
 
     local file=/etc/apache2/vhost.d/000-default.conf
     sudo wget -qO $file $data$file
 
+    local file=/etc/apache2/vhost.inc/default.conf
+    sudo wget -qO $file $data$file
+
     local file=/etc/apache2/vhost.d/001-default-ssl.conf
     sudo wget -qO $file $data$file
 
-    # Webino™ local vhost (local only)
-    local file=/etc/apache2/vhost.d/000-default-local.conf
-    [[ -n $_env_local ]] && sudo wget -qO $file $data$file
+    #----------------------------+
+    # Webino™ support (optional) |
+    #----------------------------+
+    if [[ -z "$_no_webino" ]]; then
+        local file=/etc/apache2/conf.d/webino.conf
+        sudo wget -qO $file $data$file
 
-    # bad-bots config
+        local file=/etc/apache2/common/webino-dir.conf
+        sudo wget -qO $file $data$file
+
+        local file=/etc/apache2/common/webino-vhost.conf
+        sudo wget -qO $file $data$file
+
+        # vhost (local only)
+        local file=/etc/apache2/vhost.d/000-default-local.conf
+        [[ -n $_env_local ]] && sudo wget -qO $file $data$file
+    fi
+
+    #-----------------+
+    # bad-bots config |
+    #-----------------+
     echo 'Installing common Bad-bot-blocker config...'
     local file=/etc/apache2/common/bad-bot-blocker.conf
     sudo wget -qO $file https://raw.githubusercontent.com/bluedragonz/bad-bot-blocker/master/.htaccess 2>&1
@@ -105,15 +126,29 @@ main() {
     sudo mv temp $file
     echo '</Directory>' | sudo tee --append $file > /dev/null
 
-    # logs
+    #-----------+
+    # logrotate |
+    #-----------+
     echo 'Configuring logrotate...'
     sudo mkdir -p /etc/logrotate.d/httpd-prerotate
-    local file=/etc/logrotate.d/apache2
+    local file=/etc/logrotate.d/apache
     sudo wget -qO $file $data$file
 
-    # logrotate vhosts (dev|pub only)
-    local file=/etc/logrotate.d/apache2-vhosts
+    #---------------------------------+
+    # logrotate vhosts (dev|pub only) |
+    #---------------------------------+
+    local file=/etc/logrotate.d/apache-vhosts
     [[ -n $_env_dev || -n $_env_pub ]] && sudo wget -qO $file $data$file
+
+
+    #-------------------------------------+
+    # Webino™ vhosts logrotate (optional) |
+    #-------------------------------------+
+    if [[ -z "$_no_webino" ]]; then
+        # webino vhost (dev|pub only)
+        local file=/etc/logrotate.d/webino-vhosts
+        [[ -n $_env_dev || -n $_env_pub ]] && sudo wget -qO $file $data$file
+    fi
 }
 
 main

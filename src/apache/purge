@@ -10,24 +10,27 @@
 #    wget @@host@@/apache -qO- | sh
 #
 # Webino™ currently supports:
-#   - Ubuntu 16.04 | 14.04
+#   - Ubuntu 16.04
 #
 # What this script does?
 #   - It builds Apache from source
 
 main() {
-    local lock=/tmp/webino.sw.apache.purge.lock
-
-    if [ ! -f $lock ]; then
-        echo 'Removing pre-installed Apache...'
-
-        sudo apt-get purge -y apache*
-        sudo apt-get autoremove -y
-
-        touch $lock
-    else
-        echo 'Pre-installed Apache already removed...'
+    #-----------------+
+    # check installed |
+    #-----------------+
+    if [[ "$(whereis apache2)" != *"/apache2"* ]]; then
+        # not installed, return early
+        return
     fi
+
+    #-------+
+    # purge |
+    #-------+
+    echo 'Removing pre-installed Apache...'
+    sudo apt-get purge -y apache*
+    sudo apt-get autoremove -y
+    sudo rm -rf /etc/apache2
 }
 
 main

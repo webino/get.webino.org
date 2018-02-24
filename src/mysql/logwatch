@@ -10,7 +10,7 @@
 #    wget @@host@@/mysql -qO- | sh
 #
 # Webino™ currently supports:
-#   - Ubuntu 16.04 | 14.04
+#   - Ubuntu 16.04
 #
 # What this script does?
 #   - It installs MySQL database
@@ -35,7 +35,7 @@ main() {
     #-------+
     # setup |
     #-------+
-    local data='@@host@@/data/'
+    local data='@@host@@/mysql/~data'
     echo 'Installing Logwatch for MySQL...'
     sudo wget $data$file -qO $file
 }

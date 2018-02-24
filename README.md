@@ -6,7 +6,7 @@
 ## Requirements
 
 - Ubuntu 
-  16.04 | 14.04
+  16.04
 
 
 ## Features

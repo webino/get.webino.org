@@ -10,7 +10,7 @@
 #    wget @@host@@/mysql -qO- | sh
 #
 # Webino™ currently supports:
-#   - Ubuntu 16.04 | 14.04
+#   - Ubuntu 16.04
 #
 # What this script does?
 #   - It installs MySQL database server
@@ -27,7 +27,7 @@ main() {
     #---------+
     # install |
     #---------+
-    local data='@@host@@/mysql/~data/'
+    local data='@@host@@/mysql/~data'
     echo 'Installing MySQL server...'
 
     #-------------------------------+
@@ -63,7 +63,7 @@ main() {
     #--------------------+
     echo 'Creating MySQL root config...'
 
-    echo "$(wget -qO- ${data}home/example/.my.cnf | \
+    echo "$(wget -qO- $data/home/example/.my.cnf | \
         sed s/'%USER%'/root/ | sed s/'%PASSWORD%'/$root_password/)" | \
         sudo tee $config > /dev/null
 

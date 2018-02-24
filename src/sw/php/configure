@@ -10,7 +10,7 @@
 #    wget @@host@@/php -qO- | sh
 #
 # Webino™ currently supports:
-#   - Ubuntu 16.04 | 14.04
+#   - Ubuntu 16.04
 #
 # What this script does?
 #   - It builds PHP from source
@@ -51,6 +51,15 @@ main() {
         [[ -f $etc/conf.d/dev.ini ]] || \
             sudo wget -qO $etc/conf.d/dev.ini $data/php/conf.d/dev.ini
     fi
+
+    # TODO!!!
+    # TODO!!!
+    # TODO!!!
+    # TODO!!!
+    # PHP Apache config
+    # TODO decouple to PHP setup
+    #local file=/etc/apache2/conf.d/php.conf
+    #sudo wget -qO $file $data$file
 
     # apache config
     [[ ! -d /etc/apache2/conf.d || -f /etc/apache2/conf.d/php.conf ]] || \
