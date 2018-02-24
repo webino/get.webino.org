@@ -31,6 +31,7 @@ main() {
     sudo apt-get purge -y apache*
     sudo apt-get autoremove -y
     sudo rm -rf /etc/apache2
+    sudo rm -rf /var/www/html
 }
 
 main

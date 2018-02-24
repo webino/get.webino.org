@@ -97,6 +97,9 @@ main() {
     local file=/etc/apache2/vhost.d/001-default-ssl.conf
     sudo wget -qO $file $data$file
 
+    local file=/etc/apache2/vhost.inc/default-ssl.conf
+    sudo wget -qO $file $data$file
+
     #----------------------------+
     # Webino™ support (optional) |
     #----------------------------+

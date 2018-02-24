@@ -78,6 +78,8 @@ main() {
         load apache/logwatch
         load apache/fail2ban
     fi
+
+    return
 }
 
 main
