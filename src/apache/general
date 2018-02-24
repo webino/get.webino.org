@@ -16,6 +16,19 @@
 #   - It builds Apache from source
 
 main() {
+    #----------------------+
+    # remove pre-installed |
+    #----------------------+
+    load apache/purge
+
+    #-------------------------+
+    # check already installed |
+    #-------------------------+
+    if [[ $(whereis apachectl) != */apachectl* ]]; then
+        echo 'Apache already installed...'
+        return
+    fi
+
     #-----------------------------+
     # resolve latest 2.4 versions |
     #-----------------------------+
@@ -37,12 +50,6 @@ main() {
     #--------------------------+
     # TODO
     #apache_server_name='webino.'$([[ $USER == 'webino' ]] && echo 'local' || echo $USER)
-
-    #----------------------+
-    # remove pre-installed |
-    #----------------------+
-    echo 'Purging pre-installed Apache...'
-    load apache/purge
 
     #---------------------------+
     # chown /srv (dev|pub only) |

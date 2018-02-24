@@ -76,7 +76,7 @@ main() {
     #----------------+
     # Apache support |
     #----------------+
-    if [[ $_php_apache == on ]]; then
+    if [[ $_php_apache ]]; then
 
         local data='@@host@@/php/~data'
         local file=/etc/apache2/conf.d/php.conf

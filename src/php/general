@@ -27,13 +27,13 @@ main() {
     local php_version_latest=$(echo $(wget -qO- http://php.net/downloads.php \
         | grep -a -Pozm 1 'Current Stable.*\n*.*PHP [0-9]+\.[0-9]+\.[0-9]+' | grep -a -Eom 1 '[0-9\.]+'))
 
-    php_version=${php_version-$_php_version_latest}
+    _php_version=${_php_version-$php_version_latest}
 
     #----------------+
     # Apache support |
     #----------------+
-    _php_apache=off
-    [[ "$(whereis apachectl)" == *"/apachectl"* ]] && _php_apache=on
+    _php_apache=
+    [[ $(whereis apachectl) == */apachectl* ]] && _php_apache=1
 
     #---------+
     # install |
@@ -88,7 +88,7 @@ main() {
     #--------------------+
     # web server restart |
     #--------------------+
-    if [[ $_php_apache = on ]]; then
+    if [[ $_php_apache ]]; then
         echo 'Restarting web server...'
         sudo apachectl restart > /dev/null 2>&1 &
     fi

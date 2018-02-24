@@ -33,7 +33,7 @@ main() {
     #-----------+
     # configure |
     #-----------+
-    echo 'Configuring MySQL client for user '$_mysql_client_user
+    echo 'Configuring MySQL client for user '$_mysql_client_user'...'
 
     #---------------------+
     # resolve client home |

@@ -105,7 +105,7 @@ main() {
     #----------------+
     # Apache support |
     #----------------+
-    elif [[ $_php_apache == 'on' ]]; then
+    elif [[ $_php_apache == ]]; then
         echo 'With Apache...'
         php_cfg+=' --with-apxs2=/usr/bin/apxs'
     fi

@@ -35,8 +35,6 @@ main() {
     if [[ $_env_dev || $_env_pub ]]; then
         load mysql/logwatch
     fi
-
-    return
 }
 
 main "$@"
