@@ -47,7 +47,7 @@ main() {
     if ! sudo test -f $file; then
         if [[ -z "$_no_interaction" ]]; then
             echo 'Root SSH authorized key:'
-            read -d '' root_ssh_authorized_key </dev/tty
+            read root_ssh_authorized_key </dev/tty
 
             [[ -n "$root_ssh_authorized_key" ]] && \
                 sudo mkdir -p ~/.ssh && echo $root_ssh_authorized_key | sudo tee $file > /dev/null
