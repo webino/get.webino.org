@@ -22,7 +22,7 @@ main() {
 
     # return early when user exists
     local dev_user_exists=$(grep -c '^'$dev_user_name':' /etc/passwd)
-    [ "$dev_user_exists" == 0 ] && return
+    [[ "$dev_user_exists" == 0 ]] && return
 
     # create dev user
     sudo useradd -s /usr/sbin/nologin -rUm $dev_user_name

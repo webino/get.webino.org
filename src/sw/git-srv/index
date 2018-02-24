@@ -21,16 +21,16 @@ main() {
     local data='@@host@@/data/'
     local lock=git-srv.lock
 
-    if [ ! -f $lock ]; then
+    if [[ ! -f $lock ]]; then
 
         sudo useradd -r git-srv
         sudo mkdir -p /srv/git
 
-        if [ "$(systemctl --version 2> /dev/null)" != '' ]; then
+        if [[ $(systemctl --version 2> /dev/null) ]]; then
             # Systemd
             echo 'Installing Git fetch server...'
             local file=/etc/systemd/system/git-srv.service
-            if [ ! -f $file ]; then
+            if [[ ! -f $file ]]; then
                 sudo wget $data$file -qO $file
                 sudo systemctl enable git-srv.service
             fi
@@ -38,7 +38,7 @@ main() {
             # Upstart
             echo 'Installing Git fetch server...'
             local file=/etc/init/git-srv.conf
-            if [ ! -f $file ]; then
+            if [[ ! -f $file ]]; then
                 sudo wget $data$file -qO $file
                 sudo initctl reload-configuration > /dev/null 2>&1 &
             fi

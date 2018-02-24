@@ -19,7 +19,12 @@ main() {
     cd /tmp/php
     local lock=opcache.lock
 
-    if [ ! -f $lock ]; then
+    #---------+
+    # install |
+    #---------+
+    if [[ -f $lock ]]; then
+        echo 'Zend OPCache already installed...'
+    else
         echo 'Installing Zend OPCache...'
         cd ext/opcache
         phpize
@@ -27,16 +32,16 @@ main() {
         make
         sudo make install
         touch $lock
-    else
-        echo 'Zend OPCache already installed...'
     fi
 
-    # configuring
-    local etc='/etc/php'
-    local is_configured=$(grep opcache.so $etc/php.ini)
-    if [ "$is_configured" == "" ]; then
+    #-----------+
+    # configure |
+    #-----------+
+    local etc='/etc/'${_php_prefix:-'php'}
+    local file=/php.ini
+    if [[ ! $(grep opcache.so $etc$file) ]]; then
         echo 'Enabling PHP Zend OPCache module...'
-        echo "zend_extension=opcache.so" | cat - $etc/php.ini | sudo tee $etc/php.ini > /dev/null
+        echo 'zend_extension=opcache.so' | cat - $etc$file | sudo tee $etc$file > /dev/null
     fi
 }
 

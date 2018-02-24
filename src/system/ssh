@@ -19,7 +19,7 @@ main() {
     #------------------------------------+
     # return early on disabled SSH setup |
     #------------------------------------+
-    [[ -z "$_with_ssh" ]] && return
+    [[ ! $_with_ssh ]] && return
 
     #------------+
     # lock check |
@@ -45,7 +45,7 @@ main() {
     # TODO add sysadmin ssh key
     local file=/root/.ssh/authorized_keys
     if ! sudo test -f $file; then
-        if [[ -z "$_no_interaction" ]]; then
+        if [[ ! $_no_interaction ]]; then
             echo 'Root SSH authorized key:'
             read root_ssh_authorized_key </dev/tty
 
@@ -59,7 +59,7 @@ main() {
     #-----------------------+
     # TODO disable root login, allow sysadmin only instead
     local is_ssh_root_only=$(grep 'AllowGroups root' $config)
-    if [[ -z "$is_ssh_root_only" ]]; then
+    if [[ ! $is_ssh_root_only ]]; then
         echo 'Enabling SSH for root only ...'
         echo "AllowGroups root" | cat - $config | sudo tee $config > /dev/null
     fi
@@ -82,7 +82,7 @@ main() {
     # change default port |
     #---------------------+
     local is_ssh_port_default=$(grep 'Port 22$' $config)
-    if [[ -n "$is_ssh_port_default" ]]; then
+    if [[ $is_ssh_port_default ]]; then
         local ssh_port='22'$(echo $(< /dev/urandom tr -dc 0-9 | head -c2))
         sudo sed -i 's/Port .*/Port '$ssh_port'/' $config
         local msg='New SSH port: '$ssh_port

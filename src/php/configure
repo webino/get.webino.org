@@ -21,62 +21,71 @@ main() {
     #-----------+
     # configure |
     #-----------+
-    local data='@@host@@/php/~data'
-
-    // TODO PHP prefix support
-    #local etc='/etc/'${php_prefix:-'php'}
-
-
+    local data='@@host@@/php/~data/php'
+    local etc='/etc/'${_php_prefix:-'php'}
     echo 'Configuring PHP...'
 
+    #-------------+
+    # directories |
+    #-------------+
     sudo mkdir -p $etc/conf.d
+    sudo mkdir -p $etc/local.d
 
+    #------------------------+
+    # version update support |
+    #------------------------+
     # TODO PHP version update support
-    if [[ -n $_update ]]; then
+    if [[ $_update ]]; then
         rm -f $etc/php.ini
         rm -f $etc/conf.d/custom.ini
+        rm -f $etc/conf.d/dev.ini
         rm -f $etc/php-cli.ini
     fi
 
-    #------------+
-    # php config |
-    #------------+
-    [[ -f $etc/php.ini ]] || sudo cp ./php.ini-production $etc/php.ini
-    sudo pear config-set php_ini $etc/php.ini
-    sudo pecl config-set php_ini $etc/php.ini
+    #----------------+
+    # general config |
+    #----------------+
+    local file=/php.ini
+    [[ -f $etc$file ]] || sudo cp ./php.ini-production $etc$file
+    sudo pear config-set php_ini $etc$file
+    sudo pecl config-set php_ini $etc$file
 
     #------------+
-    # cli config |
+    # CLI config |
     #------------+
-    [[ -f $etc/php-cli.ini ]] || sudo wget -qO $etc/php-cli.ini $data/php/php-cli.ini
+    local file=/php-cli.ini
+    [[ -f $etc$file ]] || sudo wget $data$file -qO $etc$file
 
     #---------------+
     # custom config |
     #---------------+
-    [[ -f $etc/conf.d/custom.ini ]] || sudo wget $etc/conf.d/custom.ini -qO $data/php/conf.d/custom.ini
+    local file=/conf.d/custom.ini
+    [[ -f $etc$file ]] || sudo wget $data$file -qO $etc$file
 
-    # local & dev only
-    if [[ -n $_env_local || -n $_env_dev ]]; then
-
-        # dev config
-        [[ -f $etc/conf.d/dev.ini ]] || \
-            sudo wget -qO $etc/conf.d/dev.ini $data/php/conf.d/dev.ini
+    #----------------+
+    # local|dev only |
+    #----------------+
+    if [[ $_env_local || $_env_dev ]]; then
+        #------------+
+        # dev config |
+        #------------+
+        local file=/conf.d/dev.ini
+        [[ -f $etc$file ]] || sudo wget $data$file -qO $etc$file
     fi
 
-    # TODO!!!
-    # TODO!!!
-    # TODO!!!
-    # TODO!!!
-    # PHP Apache config
-    # TODO decouple to PHP setup
-    #local file=/etc/apache2/conf.d/php.conf
-    #sudo wget $data$file -qO $file
+    #----------------+
+    # Apache support |
+    #----------------+
+    if [[ $_php_apache == on ]]; then
 
-    # apache config
-    [[ ! -d /etc/apache2/conf.d || -f /etc/apache2/conf.d/php.conf ]] || \
-        sudo wget -qO /etc/apache2/conf.d/php.conf $data/apache2/conf.d/php.conf
+        local data='@@host@@/php/~data'
+        local file=/etc/apache2/conf.d/php.conf
 
-    return
+        if [[ ! -f $file ]]; then
+            echo 'Configuring PHP for Apache...'
+            sudo wget $data$file -qO $file
+        fi
+    fi
 }
 
 main

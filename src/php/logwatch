@@ -16,18 +16,27 @@
 #   - It builds PHP from source
 
 main() {
-    # return early when Logwatch is not installed
+    #---------------------------------------------+
+    # return early when Logwatch is not installed |
+    #---------------------------------------------+
     [[ ! -d /usr/share/logwatch ]] && return
 
-    local data='@@host@@/data/'
+    local data='@@host@@/php/~data'
     local file=/usr/share/logwatch/dist.conf/logfiles/php.conf
 
-    if [[ ! -f $file ]]; then
-        echo 'Installing Logwatch for PHP...'
-        sudo wget $data$file -qO $file
-    else
+    #-------------------------+
+    # check already installed |
+    #-------------------------+
+    if [[ -f $file ]]; then
         echo 'Logwatch for PHP already installed...'
+        return
     fi
+
+    #---------+
+    # install |
+    #---------+
+    echo 'Installing Logwatch for PHP...'
+    sudo wget $data$file -qO $file
 }
 
 main

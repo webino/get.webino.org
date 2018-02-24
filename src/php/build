@@ -22,7 +22,9 @@ main() {
     cd /tmp/imap-2007f
     local lock=built.lock
 
-    if [ ! -f $lock ]; then
+    if [[ -f $lock ]]; then
+        echo 'IMAP already built...'
+    else
         echo 'Building IMAP...'
         make slx SSLINCLUDE=/usr/include/openssl EXTRACFLAGS=-fPIC
         mkdir lib && mkdir include
@@ -31,17 +33,14 @@ main() {
         cp c-client/c-client.a lib/libc-client.a
         sudo cp . /usr/local/imap-2007f -R
         touch $lock
-    else
-        echo 'IMAP already built...'
     fi
-
 
     #------------------+
     # PHP build config |
     #------------------+
-    local prefix='/'${php_prefix:-'php'}
+    local prefix='/'${_php_prefix:-'php'}
     local php_cfg="--with-config-file-path=/etc$prefix \
-            --with-config-file-scan-dir=/etc$prefix/conf.d \
+            --with-config-file-scan-dir=/etc$prefix/conf.d:/etc$prefix/local.d \
             --enable-cli \
             --enable-calendar \
             --enable-pcntl \
@@ -99,14 +98,14 @@ main() {
     #---------------------+
     # path prefix support |
     #---------------------+
-    if [[ -n $_php_prefix ]]; then
+    if [[ $_php_prefix ]]; then
         echo 'With prefix: '$prefix
         php_cfg+=' --prefix=/opt'$prefix
 
     #----------------+
     # Apache support |
     #----------------+
-    elif [[ "$php_apache" == 'on' ]]
+    elif [[ $_php_apache == 'on' ]]; then
         echo 'With Apache...'
         php_cfg+=' --with-apxs2=/usr/bin/apxs'
     fi
@@ -114,7 +113,7 @@ main() {
     #-----------------+
     # PHP-FPM support |
     #-----------------+
-    if [[ -n $_php_fpm ]]; then
+    if [[ $_php_fpm ]]; then
         echo 'With PHP-FPM support...'
         php_cfg+=' --enable-fpm'
     fi
@@ -124,15 +123,15 @@ main() {
     #-----------+
     cd /tmp/php
     local lock=built.lock
-    if [ ! -f $lock ]; then
+    if [[ -f $lock ]]; then
+        echo 'PHP already built...'
+    else
         echo 'Building PHP...'
         sh ./buildconf --force
         sh ./configure $php_cfg
         make
         sudo make install
         touch $lock
-    else
-        echo 'PHP already built...'
     fi
 }
 

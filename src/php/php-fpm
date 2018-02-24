@@ -1,0 +1,83 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/php -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04
+#
+# What this script does?
+#   - It builds PHP from source
+
+main() {
+    cd /tmp/php
+    local lock=php-fpm.lock
+
+    #-------------------------+
+    # check already installed |
+    #-------------------------+
+    if [[ -f $lock ]]; then
+        echo 'PHP-FPM support already installed...'
+        return
+    fi
+
+    #---------+
+    # install |
+    #---------+
+    local etc='/etc/'${_php_prefix:-'php'}
+    local data='@@host@@/php/~data'
+    local file=/usr/sbin/php-fpm
+
+    echo 'Installing PHP-FPM support...'
+    echo "$(wget $data$file -qO-)" | sed s/'%PREFIX%'/$_php_prefix/g | sudo tee $file > /dev/null
+
+    if [[ $(systemctl --version 2> /dev/null) ]]; then
+        #-----------------+
+        # systemd support |
+        #-----------------+
+        local file=/etc/systemd/system/php-fpm.service
+        if [[ ! -f $file ]]; then
+            echo 'Installing PHP-FPM Systemd service...'
+            sudo wget $data$file -qO $file
+            sudo systemctl enable php-fpm.service > /dev/null 2>&1 &
+        fi
+    else
+        #--------------------------+
+        # upstart support (legacy) |
+        #--------------------------+
+        local file=/etc/init/php-fpm.conf
+        if [[ ! -f $file ]]; then
+            echo 'Installing PHP-FPM Upstart daemon...'
+            sudo wget $data$file -qO $file
+            sudo initctl reload-configuration > /dev/null 2>&1 &
+        fi
+    fi
+
+    #----------------+
+    # Apache support |
+    #----------------+
+    local file=/etc/apache2/conf.d/php-fpm.conf
+    sudo wget $data$file -qO $file
+
+    #-----------+
+    # configure |
+    #-----------+
+    mkdir -p $etc/fpm/pool.d
+    local file=/fpm/php-fpm.conf
+    [[ -f $etc$file ]] || sudo wget $data'/php'$file -qO $etc$file
+
+    #---------------+
+    # service start |
+    #---------------+
+    echo 'Starting PHP-FPM...'
+    sudo /usr/sbin/php-fpm start > /dev/null 2>&1 &
+    touch $lock
+}
+
+main

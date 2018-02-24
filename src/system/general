@@ -20,9 +20,9 @@ main() {
     # environment info |
     #------------------+
     echo -n 'Environment: '
-    [[ -n $_env_local ]] && echo 'local'
-    [[ -n $_env_dev ]]   && echo 'development'
-    [[ -n $_env_pub ]]   && echo 'public'
+    [[ $_env_local ]] && echo 'local'
+    [[ $_env_dev ]]   && echo 'development'
+    [[ $_env_pub ]]   && echo 'public'
     echo
 
     #---------+
@@ -36,7 +36,7 @@ main() {
     #----------------------+
     # extra (dev|pub only) |
     #----------------------+
-    if [[ -n $_env_dev || -n $_env_pub ]]; then
+    if [[ $_env_dev || $_env_pub ]]; then
         load system/mailer
         load system/upgrades
         load system/logwatch

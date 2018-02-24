@@ -32,6 +32,7 @@ main() {
     sudo mkdir -p /etc/apache2/ssl
     sudo mkdir -p /etc/apache2/common
     sudo mkdir -p /etc/apache2/conf.d
+    sudo mkdir -p /etc/apache2/local.d
     sudo mkdir -p /etc/apache2/vhost.d
     sudo mkdir -p /etc/apache2/vhost.inc
 
@@ -43,25 +44,22 @@ main() {
     #--------------+
     # httpd config |
     #--------------+
-    # conf.d support
     local file=/etc/apache2/httpd.conf
-    local httpd_is_configured=$(grep conf.d $file)
-    if [ "$httpd_is_configured" == '' ]; then
+
+    # conf.d support
+    if [[ $(grep conf.d $file) ]]; then
+        echo 'Apache "'$file'" conf.d support is already configured...'
+    else
         echo 'Configuring "'$file'" conf.d support...'
         echo 'Include /etc/apache2/conf.d/' | sudo tee --append $file > /dev/null
-    else
-        echo 'Apache "'$file'" conf.d support is already configured...'
     fi
 
-    # local.conf support
-    local httpd_is_configured=$(grep local.conf $file)
-    if [ "$httpd_is_configured" == '' ]; then
-        echo 'Configuring "'$file'" local.conf support...'
-        local config=/etc/apache2/local.conf
-        sudo wget $data$config -qO $config
-        echo 'Include /etc/apache2/local.conf' | sudo tee --append $file > /dev/null
+    # local.d support
+    if [[ $(grep local.d $file) ]]; then
+        echo 'Apache "'$file'" local.d support is already configured...'
     else
-        echo 'Apache "'$file'" local.conf support is already configured...'
+        echo 'Configuring "'$file'" local.d support...'
+        echo 'Include /etc/apache2/local.d/' | sudo tee --append $file > /dev/null
     fi
 
     #-----------------+
@@ -96,6 +94,14 @@ main() {
     sudo wget $data$file -qO $file
 
     #---------------+
+    # local configs |
+    #---------------+
+    echo 'Installing Apache local configs...'
+
+    local file=/etc/apache2/local.d/local.conf
+    sudo wget $data$file -qO $file
+
+    #---------------+
     # vhost configs |
     #---------------+
     echo 'Installing apache vhost configs...'
@@ -115,7 +121,7 @@ main() {
     #----------------------------+
     # Webino™ support (optional) |
     #----------------------------+
-    if [[ -z "$_no_webino" ]]; then
+    if [[ ! $_no_webino ]]; then
         local file=/etc/apache2/conf.d/webino.conf
         sudo wget $data$file -qO $file
 
@@ -127,7 +133,7 @@ main() {
 
         # vhost (local only)
         local file=/etc/apache2/vhost.d/000-default-local.conf
-        [[ -n $_env_local ]] && sudo wget $data$file -qO $file
+        [[ $_env_local ]] && sudo wget $data$file -qO $file
     fi
 
     #-----------------+
@@ -153,16 +159,16 @@ main() {
     # logrotate vhosts (dev|pub only) |
     #---------------------------------+
     local file=/etc/logrotate.d/apache-vhosts
-    [[ -n $_env_dev || -n $_env_pub ]] && sudo wget $data$file -qO $file
+    [[ $_env_dev || $_env_pub ]] && sudo wget $data$file -qO $file
 
 
     #-------------------------------------+
     # Webino™ vhosts logrotate (optional) |
     #-------------------------------------+
-    if [[ -z "$_no_webino" ]]; then
+    if [[ ! $_no_webino ]]; then
         # webino vhost (dev|pub only)
         local file=/etc/logrotate.d/webino-vhosts
-        [[ -n $_env_dev || -n $_env_pub ]] && sudo wget $data$file -qO $file
+        [[ $_env_dev || $_env_pub ]] && sudo wget $data$file -qO $file
     fi
 }
 

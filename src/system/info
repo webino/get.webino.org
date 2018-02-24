@@ -19,7 +19,7 @@ main() {
     #------------------------------------+
     # resolve server info (dev|pub only) |
     #------------------------------------+
-    if [[ -z $_host_name && (-n $_env_dev || -n $_env_pub) ]]; then
+    if [[ ! $_host_name && ( ! $_env_dev || ! $_env_pub ) ]]; then
         echo 'Resolving host info...'
         _host_ip=$(ip route get 8.8.8.8 | awk '{print $NF; exit}')
         _host_name=$(cat /etc/hosts | grep $_host_ip | awk -F' ' '{print $2}' | awk '{print $1}' | tr . -)
@@ -28,7 +28,7 @@ main() {
     #----------------------+
     # server info defaults |
     #----------------------+
-    if [[ -z $_host_name ]]; then
+    if [[ ! $_host_name ]]; then
         echo 'Using default host info...'
         _host_name=webino.local
     fi

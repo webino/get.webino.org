@@ -19,7 +19,7 @@ main() {
     #-------------------------+
     # check already installed |
     #-------------------------+
-    if [[ "$(whereis fail2ban)" == *"/fail2ban"* ]]; then
+    if [[ $(whereis fail2ban) == */fail2ban* ]]; then
         echo 'Fail2ban already installed...'
         return
     fi

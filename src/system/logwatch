@@ -19,7 +19,7 @@ main() {
     #-------------------------+
     # check already installed |
     #-------------------------+
-    if [[ "$(whereis logwatch)" == *"/logwatch"* ]]; then
+    if [[ $(whereis logwatch) == */logwatch* ]]; then
         echo 'Logwatch already installed...'
         return
     fi

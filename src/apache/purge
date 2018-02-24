@@ -19,7 +19,7 @@ main() {
     #-----------------+
     # check installed |
     #-----------------+
-    if [[ "$(whereis apache2)" != *"/apache2"* ]]; then
+    if [[ $(whereis apache2) != */apache2* ]]; then
         # not installed, return early
         return
     fi

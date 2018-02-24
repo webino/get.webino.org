@@ -21,12 +21,12 @@ main() {
     #-------+
     local data='@@host@@/apache/~data'
 
-    if [ "$(systemctl --version 2> /dev/null)" != '' ]; then
+    if [[ $(systemctl --version 2> /dev/null) ]]; then
         #-----------------+
         # systemd support |
         #-----------------+
         local file=/etc/systemd/system/httpd.service
-        if [ ! -f $file ]; then
+        if [[ ! -f $file ]]; then
             echo 'Installing Apache systemd service...'
             sudo wget $data$file -qO $file
             sudo systemctl enable httpd.service > /dev/null 2>&1 &
@@ -36,7 +36,7 @@ main() {
         # upstart support (legacy) |
         #--------------------------+
         local file=/etc/init/httpd.conf
-        if [ ! -f $file ]; then
+        if [[ ! -f $file ]]; then
             echo 'Installing Apache upstart script...'
             sudo wget $data$file -qO $file
             sudo initctl reload-configuration > /dev/null 2>&1 &

@@ -16,8 +16,10 @@
 #   - It installs Webino™ Development Kit
 
 main() {
-    # local & dev only
-    if [[ -n $_env_local || -n $_env_dev ]]; then
+    #--------------------------+
+    # install (local|dev only) |
+    #--------------------------+
+    if [[ $_env_local || $_env_dev ]]; then
         echo 'Installing WebinoDevkit™...'
         wget @@host@@/devkit -qO- | sh
     fi

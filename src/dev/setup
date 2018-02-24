@@ -26,6 +26,7 @@ main() {
     local lock=/tmp/webino.dev.lock
     if [[ -f $lock ]]; then
         echo 'Webino™ (Dev server) already configured...'
+        return
     fi
 
     # setup
@@ -50,7 +51,7 @@ main() {
     sudo groupadd sftp-only
     # enable SFTP for sftp-only
     local is_ssh_sftp_allowed=$(grep 'AllowGroups .* sftp-only' /etc/ssh/sshd_config)
-    if [[ -z "$is_ssh_sftp_allowed" ]]; then
+    if [[ ! $is_ssh_sftp_allowed ]]; then
         sudo sed -i -E 's/AllowGroups (.+)/AllowGroups \1 sftp-only/' /etc/ssh/sshd_config
         # TODO setup ssh sftp-only config
     fi

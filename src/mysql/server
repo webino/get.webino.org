@@ -19,7 +19,7 @@ main() {
     #-------------------------+
     # check already installed |
     #-------------------------+
-    if [[ "$(whereis mysqld)" == *"/mysqld"* ]]; then
+    if [[ $(whereis mysqld) == */mysqld* ]]; then
         echo 'MySQL server already installed...'
         return
     fi

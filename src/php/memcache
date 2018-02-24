@@ -19,21 +19,26 @@ main() {
     cd /tmp/php
     local lock=memcache.lock
 
-    if [ ! -f $lock ]; then
+    #---------+
+    # install |
+    #---------+
+    if [[ -f $lock ]]; then
+        echo 'Memcache already installed...'
+    else
         echo 'Installing Memcache...'
         # non-interactive
         printf '\n' | sudo pecl install -f memcache
         touch $lock
-    else
-        echo 'Memcache already installed...'
     fi
 
-    # configuring
-    local etc='/etc/php'
-    local is_configured=$(grep memcache.so $etc/php.ini)
-    if [ "$is_configured" == "" ]; then
+    #-----------+
+    # configure |
+    #-----------+
+    local etc='/etc/'${_php_prefix:-'php'}
+    local file=/php.ini
+    if [[ ! $(grep memcache.so $etc$file) ]]; then
         echo 'Enabling PHP Memcache module...'
-        echo "extension=memcache.so" | cat - $etc/php.ini | sudo tee $etc/php.ini > /dev/null
+        echo 'extension=memcache.so' | cat - $etc$file | sudo tee $etc$file > /dev/null
     fi
 }
 

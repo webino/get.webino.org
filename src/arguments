@@ -43,6 +43,11 @@ main() {
             _no_webino=1
             shift
         ;;
+        --admin-mail)
+            _admin_mail=${argv[$n]}
+            shift
+            shift
+        ;;
         --local)
             _env_local=1
             _env_dev=
@@ -67,11 +72,6 @@ main() {
         ;;
         --clean)
             _clean=1
-            shift
-        ;;
-        --admin-mail)
-            _admin_mail=${argv[$n]}
-            shift
             shift
         ;;
         *)

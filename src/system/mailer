@@ -19,12 +19,12 @@ main() {
     #--------------------------------+
     # return early on empty settings |
     #--------------------------------+
-    [[ -z $_smtp_host || -z $_smtp_user ]] && return
+    [[ ! $_smtp_host || ! $_smtp_user ]] && return
 
     #-------------------------+
     # check already installed |
     #-------------------------+
-    if [[ "$(whereis nullmailer)" == *"/nullmailer"* ]]; then
+    if [[ $(whereis nullmailer) == */nullmailer* ]]; then
         echo 'Mailer already installed...'
         return
     fi
@@ -38,7 +38,7 @@ main() {
     # read SMTP mailer password |
     #---------------------------+
     local smtp_password=
-    if [[ -z "$_no_interaction" ]]; then
+    if [[ ! $_no_interaction ]]; then
         echo 'SMTP mailer password:'
         read -s smtp_password </dev/tty
     fi

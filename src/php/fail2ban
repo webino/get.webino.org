@@ -7,38 +7,41 @@
 # Are you looking at this in your web browser, and would like to get Webino™?
 # Just open up your terminal and type:
 #
-#    wget @@host@@/mysql -qO- | sh
+#    wget @@host@@/php -qO- | sh
 #
 # Webino™ currently supports:
 #   - Ubuntu 16.04
 #
 # What this script does?
-#   - It installs MySQL database
+#   - It builds PHP from source
 
 main() {
-    #--------------------------+
-    # check logwatch installed |
-    #--------------------------+
-    if [[ $(whereis logwatch) != */logwatch* ]]; then
-        echo 'Required logwatch installed!!!'
-        return
-    fi
+    #------------------------------------------+
+    # return early when File2ban not installed |
+    #------------------------------------------+
+    local dir=/etc/fail2ban/jail.d
+    [[ ! -d $dir ]] && return
 
     #--------------------------+
     # check already configured |
     #--------------------------+
-    local file=/usr/share/logwatch/dist.conf/logfiles/mysql.conf
+    local file=$dir/php.conf
     if [[ -f $file ]]; then
-        echo 'Logwatch for MySQL already configured...'
+        echo 'Fail2ban for PHP already configured...'
         return
     fi
 
     #-------+
     # setup |
     #-------+
-    local data='@@host@@/mysql/~data'
-    echo 'Installing Logwatch for MySQL...'
+    local data='@@host@@/php/~data'
+    echo 'Installing Fail2ban for PHP...'
     sudo wget $data$file -qO $file
+
+    #-----------------+
+    # service restart |
+    #-----------------+
+    sudo service fail2ban restart > /dev/null 2>&1 &
 }
 
 main

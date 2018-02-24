@@ -17,14 +17,17 @@
 
 main() {
     cd /tmp/php
+    local lock=profiler.lock
 
-    if [ ! -f composer.lock ]; then
-        echo 'Installing Composer...'
-        # Install PHP composer (local|dev only)
-        wget https://getcomposer.org/installer -qO- | sudo php -- --install-dir=/usr/local/bin --filename=composer
+    if [[ -f $lock ]]; then
+        echo 'Profiler already installed...'
     else
-        echo 'Composer already installed...'
+        echo 'Installing Profiler...'
+        # TODO use blackfire
+        touch $lock
     fi
+
+    # TODO add profiler extension to php.ini
 }
 
 main

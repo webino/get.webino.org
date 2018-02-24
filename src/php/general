@@ -32,7 +32,8 @@ main() {
     #----------------+
     # Apache support |
     #----------------+
-    [[ "$(whereis apachectl)" == *"/apachectl"* ]] && php_apache=on || php_apache=off
+    _php_apache=off
+    [[ "$(whereis apachectl)" == *"/apachectl"* ]] && _php_apache=on
 
     #---------+
     # install |
@@ -48,13 +49,13 @@ main() {
     # configure local development environment |
     #-----------------------------------------+
     # TODO
-    #[[ -z $_update ]] && [[ $ENVIRONMENT == 'local' ]] && source $1/php.d/configure-local-dev # TODO
+    #[[ $_update ]] && [[ $ENVIRONMENT == 'local' ]] && source $1/php.d/configure-local-dev # TODO
     #[[ $ENVIRONMENT == 'local' ]] && source $1/php.d/php-qa # TODO
 
-    #---------------------------+
-    # modules (local & dev only) |
-    #---------------------------+
-    if [[ -n $_env_local || -n $_env_dev ]]; then
+    #--------------------------+
+    # modules (local|dev only) |
+    #--------------------------+
+    if [[ $_env_local || $_env_dev ]]; then
         load php/xdebug
         load php/mailparse
         #load php/profiler #TODO profiler
@@ -64,7 +65,7 @@ main() {
     #-----------------+
     # PHP-FPM support |
     #-----------------+
-    if [[ -n $_php_prefix ]]; then
+    if [[ $_php_prefix ]]; then
         load php/php-fpm
 
     #-------------------------------+
@@ -76,10 +77,10 @@ main() {
         #load php/memcache #TODO memcache
     fi
 
-    #----------------------------------+
-    # system settings (dev & pub only) |
-    #----------------------------------+
-    if [[ -n $_env_dev || -n $_env_pub ]]; then
+    #--------------------------------+
+    # system settings (dev|pub only) |
+    #--------------------------------+
+    if [[ $_env_dev || $_env_pub ]]; then
         load php/logwatch
         load php/fail2ban
     fi
@@ -87,7 +88,7 @@ main() {
     #--------------------+
     # web server restart |
     #--------------------+
-    if [ "$php_apache" = on ]; then
+    if [[ $_php_apache = on ]]; then
         echo 'Restarting web server...'
         sudo apachectl restart > /dev/null 2>&1 &
     fi

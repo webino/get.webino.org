@@ -19,28 +19,39 @@ main() {
     cd /tmp/php
     local lock=mailparse.lock
 
-    if [ ! -f $lock ]; then
+    #---------+
+    # install |
+    #---------+
+    if [[ -f $lock ]]; then
+        echo 'Mailparse already installed...'
+    else
         echo 'Installing Mailparse...'
-        # non-interactive
+        # depends on PHP version
         local mailparse_version=$(php -r "echo (-1 === version_compare('$_php_version', '7.0.0') ? '2.1.6' : '3.0.2');")
         echo 'Version: '$mailparse_version
+        # non-interactive
         printf '\n' | sudo pecl install -f 'mailparse-'$mailparse_version
         touch $lock
-    else
-        echo 'Mailparse already installed...'
     fi
-    
-    # configuring
-    local etc='/etc/php'
-    local is_configured=$(grep mailparse.so $etc/php.ini)
-    if [ "$is_configured" == "" ]; then
+
+    #-----------+
+    # configure |
+    #-----------+
+    local etc='/etc/'${_php_prefix:-'php'}
+
+    local file=/php.ini
+    if [[ ! $(grep mailparse.so $etc$file) ]]; then
         echo 'Enabling PHP Mailparse module...'
-        echo "extension=mailparse.so" | cat - $etc/php.ini | sudo tee $etc/php.ini > /dev/null
+        echo 'extension=mailparse.so' | cat - $etc$file | sudo tee $etc$file > /dev/null
     fi
-    local is_configured_cli=$(grep mailparse.so $etc/php-cli.ini)
-    if [ "$is_configured_cli" == "" ]; then
+
+    #---------------+
+    # configure CLI |
+    #---------------+
+    local file=/php-cli.ini
+    if [[ ! $(grep mailparse.so $etc$file) ]]; then
         echo 'Enabling PHP-CLI Mailparse module...'
-        echo "extension=mailparse.so" | cat - $etc/php-cli.ini | sudo tee $etc/php-cli.ini > /dev/null
+        echo 'extension=mailparse.so' | cat - $etc$file | sudo tee $etc$file > /dev/null
     fi
 }
 

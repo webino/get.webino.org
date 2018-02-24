@@ -19,26 +19,36 @@ main() {
     cd /tmp/php
     local lock=imagick.lock
 
-    if [ ! -f $lock ]; then
+    #---------+
+    # install |
+    #---------+
+    if [[ -f $lock ]]; then
+        echo 'ImageMagick already installed...'
+    else
         echo 'Installing ImageMagick...'
         # non-interactive
         printf '\n' | sudo pecl install -f imagick
         touch $lock
-    else
-        echo 'ImageMagick already installed...'
     fi
 
-    # configuring
-    local etc='/etc/php'
-    local is_configured=$(grep imagick.so $etc/php.ini)
-    if [ "$is_configured" == "" ]; then
+    #-----------+
+    # configure |
+    #-----------+
+    local etc='/etc/'${_php_prefix:-'php'}
+
+    local file=/php.ini
+    if [[ ! $(grep imagick.so $etc$file) ]]; then
         echo 'Enabling PHP Imagick module...'
-        echo "extension=imagick.so" | cat - $etc/php.ini | sudo tee $etc/php.ini > /dev/null
+        echo 'extension=imagick.so' | cat - $etc$file | sudo tee $etc$file > /dev/null
     fi
-    local is_configured_cli=$(grep  $etc/php-cli.ini)
-    if [ "$is_configured_cli" == "" ]; then
+
+    #---------------+
+    # configure CLI |
+    #---------------+
+    local file=/php-cli.ini
+    if [[ ! $(grep  $etc$file) ]]; then
         echo 'Enabling PHP-CLI Imagick module...'
-        echo "extension=imagick.so" | cat - $etc/php-cli.ini | sudo tee $etc/php-cli.ini > /dev/null
+        echo 'extension=imagick.so' | cat - $etc$file | sudo tee $etc$file > /dev/null
     fi
 }
 

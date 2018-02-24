@@ -19,7 +19,7 @@ main() {
     #--------------------------+
     # check already configured |
     #--------------------------+
-    if [[ "$(whereis apticron)" == *"/apticron"* ]]; then
+    if [[ $(whereis apticron) == */apticron* ]]; then
         echo 'Operating system upgrades already set...'
         return
     fi

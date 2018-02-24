@@ -19,21 +19,26 @@ main() {
     cd /tmp/php
     local lock=xdebug.lock
 
-    if [ ! -f $lock ]; then
+    #---------+
+    # install |
+    #---------+
+    if [[ -f $lock ]]; then
+        echo 'Xdebug already installed...'
+    else
         echo 'Installing Xdebug...'
         # non-interactive
         printf '\n' | sudo pecl install -f xdebug
         touch $lock
-    else
-        echo 'Xdebug already installed...'
     fi
-    
-    # configuring
-    local etc='/etc/php'
-    local is_configured=$(grep xdebug.so $etc/php.ini)
-    if [ "$is_configured" == "" ]; then
+
+    #-----------+
+    # configure |
+    #-----------+
+    local etc='/etc/'${_php_prefix:-'php'}
+    local file=/php.ini
+    if [[ ! $(grep xdebug.so $etc$file) ]]; then
         echo 'Enabling PHP Xdebug module...'
-        echo "zend_extension=xdebug.so" | cat - $etc/php.ini | sudo tee $etc/php.ini > /dev/null
+        echo 'zend_extension=xdebug.so' | cat - $etc$file | sudo tee $etc$file > /dev/null
     fi
 }
 

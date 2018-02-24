@@ -19,7 +19,7 @@ main() {
     #-------------------------+
     # check already installed |
     #-------------------------+
-    if [[ "$(whereis mysql)" == *"/mysql"* ]]; then
+    if [[ $(whereis mysql) == */mysql* ]]; then
         echo 'MySQL client already installed...'
 
     #---------+
@@ -39,11 +39,11 @@ main() {
     # resolve client home |
     #---------------------+
     local client_home=
-    if [ "$(id $_mysql_client_user 2> /dev/null)" ]; then
-        client_home=$(eval echo "~$_mysql_client_user")
+    if [[ $(id $_mysql_client_user 2> /dev/null) ]]; then
+        client_home=$(eval echo ~$_mysql_client_user)
     fi
 
-    if [[ ! -d "$client_home" ]]; then
+    if [[ ! -d $client_home ]]; then
         echo 'MySQL client home directory not found!!!'
         return
     fi

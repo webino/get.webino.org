@@ -32,7 +32,7 @@ main() {
     #--------------------------------+
     # server settings (dev|pub only) |
     #--------------------------------+
-    if [[ -n $_env_dev || -n $_env_pub ]]; then
+    if [[ $_env_dev || $_env_pub ]]; then
         load mysql/logwatch
     fi
 

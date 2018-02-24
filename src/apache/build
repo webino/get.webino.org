@@ -22,7 +22,7 @@ main() {
     #---------------------+
     # check already built |
     #---------------------+
-    if [ -f $lock ]; then
+    if [[ -f $lock ]]; then
         echo 'Apache already built...'
         return
     fi
@@ -38,7 +38,7 @@ main() {
     #----------------------------------+
     # disable autoindex (dev|pub only) |
     #----------------------------------+
-    [[ -z $_env_local ]] && local opt='--disable-autoindex';
+    [[ ! $_env_local ]] && local opt='--disable-autoindex';
 
     sudo sh ./configure \
         --bindir=/usr/bin \

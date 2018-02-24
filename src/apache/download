@@ -21,7 +21,7 @@ main() {
     #--------------------------+
     # check already downloaded |
     #--------------------------+
-    if [ -d httpd ]; then
+    if [[ -d httpd ]]; then
         echo 'Apache already downloaded...'
         return
     fi

@@ -47,7 +47,7 @@ main() {
     #---------------------------+
     # chown /srv (dev|pub only) |
     #---------------------------+
-    [[ -n $_env_dev || -n $_env_pub ]] && sudo chown www-data:www-data /srv -R
+    [[ $_env_dev || $_env_pub ]] && sudo chown www-data:www-data /srv -R
 
     #----------------+
     # create www dir |
@@ -74,7 +74,7 @@ main() {
     #--------------------------------+
     # system settings (dev|pub only) |
     #--------------------------------+
-    if [[ -n $_env_dev || -n $_env_pub ]]; then
+    if [[ $_env_dev || $_env_pub ]]; then
         load apache/logwatch
         load apache/fail2ban
     fi

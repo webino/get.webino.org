@@ -49,14 +49,14 @@ main() {
     #-------------------------------+
     # java runtime (local|dev only) |
     #-------------------------------+
-    [[ (-n $_env_local || -n $_env_dev) && "$(java -version 2> /dev/null)" = '' ]] && \
+    [[ ( $_env_local || $_env_dev ) && ! $(java -version 2> /dev/null) ]] && \
         sudo apt-get install -y default-jre
 
     #----------------------+
     # hosts-fix (dev only) |
     #----------------------+
-    if [[ -n $_env_dev ]]; then
-        if [ "$(systemctl --version 2> /dev/null)" != '' ]; then
+    if [[ $_env_dev ]]; then
+        if [[ $(systemctl --version 2> /dev/null) ]]; then
             #-----------------+
             # systemd support |
             #-----------------+
