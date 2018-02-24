@@ -24,8 +24,7 @@ load() {
 main() {
     echo -e "\nInstalling Git fetch server...\n"
 
-    load lib/trap
-    load lib/spinner
+    load ~lib
     load arguments "$@"
 
     # Install

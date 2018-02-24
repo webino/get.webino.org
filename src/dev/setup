@@ -32,8 +32,7 @@ main() {
     echo -e "\nMachine setup for Webino™ (Dev server)...\n"
     local data='@@host@@/data/'
 
-    load lib/trap
-    load lib/spinner
+    load ~lib
     load arguments "$@"
     load dev/general
 

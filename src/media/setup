@@ -24,8 +24,7 @@ load() {
 main() {
     echo -e "\nMachine setup for Webino™ (Media server)...\n"
 
-    load lib/trap
-    load lib/spinner
+    load ~lib
     load arguments "$@"
 
     # Force production environment

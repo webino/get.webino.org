@@ -29,8 +29,7 @@ main() {
     #------+
     # init |
     #------+
-    load lib/trap
-    load lib/spinner
+    load ~lib
     load arguments "$@"
 
     #--------+

@@ -21,8 +21,7 @@ load() {
 main() {
     echo -e "\nMachine setup for Webino™...\n"
 
-    load lib/trap
-    load lib/spinner
+    load ~lib
     load arguments "$@"
 
     # Install

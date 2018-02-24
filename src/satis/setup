@@ -24,8 +24,7 @@ load() {
 main() {
     echo -e "\nInstalling Satis the Composer repository generator...\n"
 
-    load lib/trap
-    load lib/spinner
+    load ~lib
     load arguments "$@"
 
     # Install

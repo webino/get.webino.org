@@ -24,8 +24,7 @@ load() {
 main() {
     echo -e "\nInstalling Let’s Encrypt compatible certificate bot...\n"
 
-    load lib/trap
-    load lib/spinner
+    load ~lib
     load arguments "$@"
 
     # Install
