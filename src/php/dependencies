@@ -17,39 +17,48 @@
 
 main() {
     cd /tmp
-    local lock=php.dependencies.lock
+    local lock=webino.php.dependencies.lock
 
-    if [[ ! -f $lock ]]; then
-        echo "Installing dependencies for PHP build..."
-
-        sudo apt-get install -y \
-            re2c \
-            libcurl4-openssl-dev \
-            pkg-config \
-            libpspell-dev \
-            libicu-dev \
-            libedit-dev \
-            libmagickwand-dev \
-            libmcrypt-dev \
-            libxslt1-dev \
-            libc-client-dev \
-            libkrb5-dev
-
-        # bison
-        sudo apt-get purge -y bison
-        sudo wget http://launchpadlibrarian.net/140087283/libbison-dev_2.7.1.dfsg-1_amd64.deb
-        sudo wget http://launchpadlibrarian.net/140087282/bison_2.7.1.dfsg-1_amd64.deb
-        sudo dpkg -i libbison-dev_2.7.1.dfsg-1_amd64.deb
-        sudo dpkg -i bison_2.7.1.dfsg-1_amd64.deb
-
-        # TODO PHP 5.3.29 legacy support
-        # TODO apt-get install autoconf2.13
-        # TODO export PHP_AUTOCONF=autoconf2.13
-
-        touch $lock
-    else
+    #------------+
+    # check lock |
+    #------------+
+    if [[ -f $lock ]]; then
         echo 'Dependencies for PHP build already installed...'
     fi
+
+    #----------------------+
+    # dependencies install |
+    #----------------------+
+    echo "Installing dependencies for PHP build..."
+
+    sudo apt-get install -y \
+        re2c \
+        libcurl4-openssl-dev \
+        pkg-config \
+        libpspell-dev \
+        libicu-dev \
+        libedit-dev \
+        libmagickwand-dev \
+        libmcrypt-dev \
+        libxslt1-dev \
+        libc-client-dev \
+        libkrb5-dev
+
+    # bison
+    sudo apt-get purge -y bison
+    sudo wget http://launchpadlibrarian.net/140087283/libbison-dev_2.7.1.dfsg-1_amd64.deb
+    sudo wget http://launchpadlibrarian.net/140087282/bison_2.7.1.dfsg-1_amd64.deb
+    sudo dpkg -i libbison-dev_2.7.1.dfsg-1_amd64.deb
+    sudo dpkg -i bison_2.7.1.dfsg-1_amd64.deb
+
+    # TODO PHP 5.3.29 legacy support
+    # TODO apt-get install autoconf2.13
+    # TODO export PHP_AUTOCONF=autoconf2.13
+
+    #------+
+    # lock |
+    #------+
+    touch $lock
 }
 
 main

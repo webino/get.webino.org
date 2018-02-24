@@ -16,8 +16,9 @@
 #   - It builds PHP from source
 
 main() {
-
-    # Build IMAP
+    #------------+
+    # IMAP build |
+    #------------+
     cd /tmp/imap-2007f
     local lock=built.lock
 
@@ -35,7 +36,9 @@ main() {
     fi
 
 
-    # PHP build config
+    #------------------+
+    # PHP build config |
+    #------------------+
     local prefix='/'${php_prefix:-'php'}
     local php_cfg="--with-config-file-path=/etc$prefix \
             --with-config-file-scan-dir=/etc$prefix/conf.d \
@@ -67,45 +70,58 @@ main() {
             --with-freetype-dir \
             --without-readline"
 
-    # TODO PHP 5.3 support
-    # TODO PHP 5.6 support
-
-    # TODO not with PHP 7.1
-    # deprecated
-    # --with-mcrypt \
-    # --with-mysqli \
-
-    # TODO not with Ubuntu 16.04 and PHP 5.3!!!
-    # --enable-ftp \
-    # --with-openssl \
-    # --with-openssl-dir=/usr \
-
-    # TODO not with Ubuntu 16.04 and 5.6
-    # --enable-wddx \
-    # --enable-sockets \
-
-    # Intl support for PHP>=5.4
+    #---------------------------+
+    # Intl support for PHP>=5.4 |
+    #---------------------------+
     sudo dpkg --compare-versions "$_php_version" 'lt' '5.4' || {
        echo 'With INTL support...'
        php_cfg+=' --enable-intl'
     }
 
-    # Install path prefix
+    #--------------+
+    # For PHP>=7.0 |
+    #--------------+
+    sudo dpkg --compare-versions "$_php_version" 'lt' '7.0' && {
+
+        echo 'Without PHP7 support (legacy)...'
+        php_cfg+=' --with-mcrypt \
+                   --with-mysqli'
+    } || {
+
+       echo 'With PHP7 support...'
+       php_cfg+=' --enable-ftp \
+                  --enable-wddx \
+                  --enable-sockets \
+                  --with-openssl \
+                  --with-openssl-dir=/usr'
+    }
+
+    #---------------------+
+    # path prefix support |
+    #---------------------+
     if [[ -n $_php_prefix ]]; then
         echo 'With prefix: '$prefix
         php_cfg+=' --prefix=/opt'$prefix
-    else
-        # Check Apache
-        [ "$php_apache" = on ] && echo 'With Apache...' && php_cfg+=' --with-apxs2=/usr/bin/apxs'
+
+    #----------------+
+    # Apache support |
+    #----------------+
+    elif [[ "$php_apache" == 'on' ]]
+        echo 'With Apache...'
+        php_cfg+=' --with-apxs2=/usr/bin/apxs'
     fi
 
-    # PHP-FPM support
+    #-----------------+
+    # PHP-FPM support |
+    #-----------------+
     if [[ -n $_php_fpm ]]; then
         echo 'With PHP-FPM support...'
         php_cfg+=' --enable-fpm'
     fi
 
-    # Build PHP
+    #-----------+
+    # PHP build |
+    #-----------+
     cd /tmp/php
     local lock=built.lock
     if [ ! -f $lock ]; then

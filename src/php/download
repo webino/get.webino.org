@@ -18,7 +18,9 @@
 main() {
     cd /tmp
 
-    # IMAP
+    #---------------+
+    # IMAP download |
+    #---------------+
     if [ ! -d imap-2007f ]; then
         echo 'Downloading IMAP...'
         wget https://media.webino.sk/support/imap/imap-2007f.tar.gz \
@@ -27,7 +29,9 @@ main() {
         echo 'IMAP already downloaded...'
     fi
 
-    # PHP
+    #--------------+
+    # PHP download |
+    #--------------+
     if [ ! -d php ]; then
         echo 'Downloading PHP '$_php_version'...'
         wget 'https://github.com/php/php-src/archive/php-'$_php_version'.tar.gz' \
