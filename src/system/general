@@ -48,7 +48,7 @@ main() {
     # done |
     #------+
     echo 'System setup done...'
-    return
+    return 0
 }
 
 main "$@"
