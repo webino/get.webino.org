@@ -31,6 +31,9 @@ main() {
     local data='@@host@@/system/~data'
     echo 'Installing essential tools...'
 
+    # apt force ipv4
+    echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4
+
     sudo apt-get clean
     sudo apt-get update
     sudo apt-get install -y \
