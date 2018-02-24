@@ -78,6 +78,11 @@ main() {
         load apache/logwatch
         load apache/fail2ban
     fi
+
+    #------+
+    # done |
+    #------+
+    echo 'Apache build done...'
 }
 
 main
