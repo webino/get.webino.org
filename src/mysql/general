@@ -16,6 +16,9 @@
 #   - It installs MySQL database
 
 main() {
+    #-------+
+    # setup |
+    #-------+
     load mysql/arguments "$@"
     load mysql/server
     load mysql/client
@@ -32,6 +35,8 @@ main() {
     if [[ -n $_env_dev || -n $_env_pub ]]; then
         load mysql/logwatch
     fi
+
+    return
 }
 
 main "$@"

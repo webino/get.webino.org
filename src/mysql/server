@@ -30,9 +30,9 @@ main() {
     local data='@@host@@/mysql/~data'
     echo 'Installing MySQL server...'
 
-    #-------------------------------+
+    #-------------------------+
     # create root credentials |
-    #-------------------------------+
+    #-------------------------+
     echo 'Generating MySQL password for user `root`...'
     local root_password=$(echo $(< /dev/urandom tr -dc a-z0-9 | head -c12))
 
