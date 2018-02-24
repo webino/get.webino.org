@@ -37,9 +37,9 @@ main() {
     #-------+
     load system/general
     # with Apache (optional)
-    [[ $@ =~ --with-apache( |$) ]] load apache/general
+    [[ $@ =~ --with-apache( |$) ]] && load apache/general
     # with MySQL (optional)
-    [[ $@ =~ --with-mysql( |$) ]] load mysql/general
+    [[ $@ =~ --with-mysql( |$) ]] && load mysql/general
     load php/general
 }
 
