@@ -17,8 +17,8 @@
 
 load() {
     # Load remote bash source
-    wget @@host@@/$1 -qO /tmp/webino.tmp
-    source /tmp/webino.tmp
+    wget @@host@@/$1 -qO /tmp/webino
+    source /tmp/webino; rm webino
 }
 
 main() {
