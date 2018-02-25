@@ -46,7 +46,7 @@ main() {
     # configure CLI |
     #---------------+
     local file=/php-cli.ini
-    if [[ ! $(grep  $etc$file) ]]; then
+    if [[ ! $(grep imagick.so $etc$file) ]]; then
         echo 'Enabling PHP-CLI Imagick module...'
         echo 'extension=imagick.so' | cat - $etc$file | sudo tee $etc$file > /dev/null
     fi
