@@ -24,7 +24,7 @@ main() {
     #-------------------------+
     # check already installed |
     #-------------------------+
-    if [[ $(whereis apachectl) != */apachectl* ]]; then
+    if [[ $(whereis apachectl) == */apachectl* ]]; then
         echo 'Apache already installed...'
         return
     fi
