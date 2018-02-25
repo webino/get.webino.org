@@ -45,11 +45,12 @@ main() {
         libkrb5-dev
 
     # bison
-    sudo apt-get purge -y bison
-    sudo wget http://launchpadlibrarian.net/140087283/libbison-dev_2.7.1.dfsg-1_amd64.deb
-    sudo wget http://launchpadlibrarian.net/140087282/bison_2.7.1.dfsg-1_amd64.deb
-    sudo dpkg -i libbison-dev_2.7.1.dfsg-1_amd64.deb
-    sudo dpkg -i bison_2.7.1.dfsg-1_amd64.deb
+    # TODO
+    #sudo apt-get purge -y bison
+    #sudo wget http://launchpadlibrarian.net/140087283/libbison-dev_2.7.1.dfsg-1_amd64.deb
+    #sudo wget http://launchpadlibrarian.net/140087282/bison_2.7.1.dfsg-1_amd64.deb
+    #sudo dpkg -i libbison-dev_2.7.1.dfsg-1_amd64.deb
+    #sudo dpkg -i bison_2.7.1.dfsg-1_amd64.deb
 
     # TODO PHP 5.3.29 legacy support
     # TODO apt-get install autoconf2.13

@@ -62,9 +62,15 @@ main() {
     local file=/conf.d/custom.ini
     [[ -f $etc$file ]] || sudo wget $data$file -qO $etc$file
 
-    #----------------+
-    # local|dev only |
-    #----------------+
+    #--------------+
+    # local config |
+    #--------------+
+    local file=/local.d/local.ini
+    [[ -f $etc$file ]] || sudo wget $data$file -qO $etc$file
+
+    #-----------------------------+
+    # dev config (local|dev only) |
+    #-----------------------------+
     if [[ $_env_local || $_env_dev ]]; then
         #------------+
         # dev config |
