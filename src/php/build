@@ -83,16 +83,16 @@ main() {
     sudo dpkg --compare-versions "$_php_version" 'lt' '7.0' && {
 
         echo 'Without PHP7 support (legacy)...'
-        php_cfg+=' --with-mcrypt \
-                   --with-mysqli'
+        php_cfg+=" --with-mcrypt \
+                   --with-mysqli"
     } || {
 
        echo 'With PHP7 support...'
-       php_cfg+=' --enable-ftp \
+       php_cfg+=" --enable-ftp \
                   --enable-wddx \
                   --enable-sockets \
                   --with-openssl \
-                  --with-openssl-dir=/usr'
+                  --with-openssl-dir=/usr"
     }
 
     #---------------------+
@@ -127,7 +127,10 @@ main() {
         echo 'PHP already built...'
     else
         echo 'Building PHP...'
+        echo 'with config:'
         echo $php_cfg;
+        echo
+
         sh ./buildconf --force
         sh ./configure $php_cfg
         make
