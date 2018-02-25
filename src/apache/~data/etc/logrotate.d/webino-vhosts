@@ -1,4 +1,4 @@
-/srv/*/public/\#system/data/log/*.log {
+/srv/*/public/*/data/log/*.log {
     weekly
     missingok
     rotate 3
