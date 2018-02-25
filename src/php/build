@@ -127,6 +127,7 @@ main() {
         echo 'PHP already built...'
     else
         echo 'Building PHP...'
+        echo $php_cfg;
         sh ./buildconf --force
         sh ./configure $php_cfg
         make
