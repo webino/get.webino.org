@@ -19,7 +19,10 @@ main() {
     #------------+
     # hello file |
     #------------+
-    echo '<?php phpinfo();' > '/srv/'$_vhost_name'/public/index.php'
+    echo 'Installing vhost hello file...'
+    local file='/srv/'$_vhost_name'/public/index.php'
+    echo '<?php phpinfo();' > $file
+    chown www-data:www-data $file
 }
 
 main
