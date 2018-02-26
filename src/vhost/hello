@@ -16,9 +16,10 @@
 #   - It creates a virtual host
 
 main() {
-    # TODO
-    # TODO
-    # TODO hello file
+    #------------+
+    # hello file |
+    #------------+
+    echo '<?php phpinfo();' > '/srv/'$_vhost_name'/public/index.php'
 }
 
 main
