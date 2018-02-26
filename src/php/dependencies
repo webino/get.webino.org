@@ -44,12 +44,20 @@ main() {
         libc-client-dev \
         libkrb5-dev
 
-    # bison
-    sudo apt-get purge -y bison
-    sudo wget http://launchpadlibrarian.net/140087283/libbison-dev_2.7.1.dfsg-1_amd64.deb
-    sudo wget http://launchpadlibrarian.net/140087282/bison_2.7.1.dfsg-1_amd64.deb
-    sudo dpkg -i libbison-dev_2.7.1.dfsg-1_amd64.deb
-    sudo dpkg -i bison_2.7.1.dfsg-1_amd64.deb
+    #-------+
+    # bison |
+    #-------+
+    if [[ $(whereis bison) == */bison* ]]; then
+        echo 'Checking installed bison version...'
+        sudo dpkg --compare-versions $(bison -V | grep -o [0-9]\.[0-9] | head -1) gt 2.3 || {
+           echo 'Installing bison...'
+           sudo apt-get purge -y bison
+           sudo wget http://launchpadlibrarian.net/140087283/libbison-dev_2.7.1.dfsg-1_amd64.deb
+           sudo wget http://launchpadlibrarian.net/140087282/bison_2.7.1.dfsg-1_amd64.deb
+           sudo dpkg -i libbison-dev_2.7.1.dfsg-1_amd64.deb
+           sudo dpkg -i bison_2.7.1.dfsg-1_amd64.deb
+        }
+    fi
 
     # TODO PHP 5.3.29 legacy support
     # TODO apt-get install autoconf2.13
