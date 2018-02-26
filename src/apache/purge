@@ -19,7 +19,7 @@ main() {
     #-----------------+
     # check installed |
     #-----------------+
-    if [[ $(whereis apache2) != */apache2* ]]; then
+    if [[ ! $(apt-cache show apache2 2>/dev/null) ]]; then
         # not installed, return early
         return
     fi
