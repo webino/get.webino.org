@@ -23,19 +23,19 @@ main() {
 
     local src=/srv/example/common.conf
     local dest='/srv/'$_vhost_name'/common.conf'
-    [[ -f $file ]] || sudo wget $data$src -qO $dest
+    [[ -f $dest ]] || sudo wget $data$src -qO $dest
 
     local src=/srv/example/http.conf
     local dest='/srv/'$_vhost_name'/http.conf'
-    [[ -f $file ]] || sudo wget $data$src -qO $dest
+    [[ -f $dest ]] || sudo wget $data$src -qO $dest
 
     local src=/srv/example/https.conf
     local dest='/srv/'$_vhost_name'/https.conf'
-    [[ -f $file ]] || sudo wget $data$src -qO $dest
+    [[ -f $dest ]] || sudo wget $data$src -qO $dest
 
     local src=/srv/example/vhost.conf
     local dest='/srv/'$_vhost_name'/vhost.conf'
-    [[ -f $file ]] || sudo wget $data$src -qO $dest
+    [[ -f $dest ]] || sudo wget $data$src -qO $dest
 
     #-------------------------+
     # replace vars in configs |
