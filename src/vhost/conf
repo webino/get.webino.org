@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/dev -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04
+#
+# What this script does?
+#   - It creates a virtual host
+
+main() {
+    #------------------+
+    # vhost conf setup |
+    #------------------+
+    local data='@@host@@/vhost/~data'
+
+    local src=/srv/example/common.conf
+    local dest='/srv/'$_vhost_name'/common.conf'
+    [[ -f $file ]] || sudo wget $data$src -qO $dest
+
+    local src=/srv/example/http.conf
+    local dest='/srv/'$_vhost_name'/http.conf'
+    [[ -f $file ]] || sudo wget $data$src -qO $dest
+
+    local src=/srv/example/https.conf
+    local dest='/srv/'$_vhost_name'/https.conf'
+    [[ -f $file ]] || sudo wget $data$src -qO $dest
+
+    local src=/srv/example/vhost.conf
+    local dest='/srv/'$_vhost_name'/vhost.conf'
+    [[ -f $file ]] || sudo wget $data$src -qO $dest
+
+    #-------------------------+
+    # replace vars in configs |
+    #-------------------------+
+    local dir='/srv/'$_vhost_name
+    sed -i 's/%VHOST_NAME%/'$_vhost_name'/g' $dir/*
+    sed -i 's/%VHOST_DOMAIN%/'$_vhost_domain'/g' $dir/*
+}
+
+main

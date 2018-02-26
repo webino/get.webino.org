@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/php -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04
+#
+# What this script does?
+#   - It creates a virtual host
+
+main() {
+    #----------+
+    # defaults |
+    #----------+
+    _vhost_domain=
+    _vhost_www=
+    _vhost_name=
+
+    #----------+
+    # get args |
+    #----------+
+    n=0
+    for i in "$@"
+    do
+    n=$((n + 1))
+    case $i in
+        --vhost-domain)
+            _vhost_domain=${argv[$n]}
+            [[ $_vhost_name ]] || _vhost_name=$_vhost_domain
+            shift
+            shift
+        ;;
+        --vhost-www)
+            _vhost_www=1
+            shift
+        ;;
+        --vhost-name)
+            _vhost_name=${argv[$n]}
+            shift
+            shift
+        ;;
+        *)
+            # unknown option
+        ;;
+    esac
+    done
+}
+
+main "${argv[@]}"

@@ -15,4 +15,4 @@
 # What this script does?
 #   - It installs dev server
 
-wget @@host@@/dev/setup -qO- | bash -s -- "$@"
+wget @@host@@/dev-srv/setup -qO- | bash -s -- "$@"

@@ -10,7 +10,7 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash -c "sed -ri 's/localhost.localdomain localhost/localhost localhost.localdomain/g' /etc/hosts"
+ExecStart=/bin/bash -c "sed -i 's/localhost.localdomain localhost/localhost localhost.localdomain/g' /etc/hosts"
 
 [Install]
 WantedBy=multi-user.target
