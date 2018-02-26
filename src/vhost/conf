@@ -41,8 +41,8 @@ main() {
     # replace vars in configs |
     #-------------------------+
     local dir='/srv/'$_vhost_name
-    sed -i 's/%VHOST_NAME%/'$_vhost_name'/g' $dir/* 2> /dev/null
-    sed -i 's/%VHOST_DOMAIN%/'$_vhost_domain'/g' $dir/* 2> /dev/null
+    find $dir -type f -exec sed -i 's/%VHOST_NAME%/'$_vhost_name'/g' {} \;
+    find $dir -type f -exec sed -i 's/%VHOST_DOMAIN%/'$_vhost_domain'/g' {} \;
 }
 
 main
