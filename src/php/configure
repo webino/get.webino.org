@@ -21,7 +21,7 @@ main() {
     #-----------+
     # configure |
     #-----------+
-    local data='@@host@@/php/~data/php'
+    local data='@@host@@/php/~data/etc/php'
     local etc='/etc/'${_php_prefix:-'php'}
     echo 'Configuring PHP...'
 
@@ -47,8 +47,8 @@ main() {
     #----------------+
     local file=/php.ini
     [[ -f $etc$file ]] || sudo cp ./php.ini-production $etc$file
-    sudo pear config-set php_ini $etc$file &
-    sudo pecl config-set php_ini $etc$file &
+    sudo pear config-set php_ini $etc$file
+    sudo pecl config-set php_ini $etc$file
 
     #------------+
     # CLI config |
@@ -60,15 +60,13 @@ main() {
     # custom config |
     #---------------+
     local file=/conf.d/custom.ini
-    #[[ -f $etc$file ]] || sudo wget $data$file -qO $etc$file
-    sudo wget $data$file -O $etc$file
+    [[ -f $etc$file ]] || sudo wget $data$file -qO $etc$file
 
     #--------------+
     # local config |
     #--------------+
     local file=/local.d/local.ini
-    #[[ -f $etc$file ]] || sudo wget $data$file -qO $etc$file
-    sudo wget $data$file -O $etc$file
+    [[ -f $etc$file ]] || sudo wget $data$file -qO $etc$file
 
     #-----------------------------+
     # dev config (local|dev only) |
