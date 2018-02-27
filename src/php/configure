@@ -60,13 +60,15 @@ main() {
     # custom config |
     #---------------+
     local file=/conf.d/custom.ini
-    [[ -f $etc$file ]] || sudo wget $data$file -qO $etc$file
+    #[[ -f $etc$file ]] || sudo wget $data$file -qO $etc$file
+    sudo wget $data$file -O $etc$file
 
     #--------------+
     # local config |
     #--------------+
     local file=/local.d/local.ini
-    [[ -f $etc$file ]] || sudo wget $data$file -qO $etc$file
+    #[[ -f $etc$file ]] || sudo wget $data$file -qO $etc$file
+    sudo wget $data$file -O $etc$file
 
     #-----------------------------+
     # dev config (local|dev only) |
