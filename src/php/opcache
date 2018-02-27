@@ -17,7 +17,7 @@
 
 main() {
     cd /tmp/php
-    local lock=opcache.lock
+    local lock=/tmp/php/opcache.lock
 
     #---------+
     # install |

@@ -47,8 +47,8 @@ main() {
     #----------------+
     local file=/php.ini
     [[ -f $etc$file ]] || sudo cp ./php.ini-production $etc$file
-    sudo pear config-set php_ini $etc$file
-    sudo pecl config-set php_ini $etc$file
+    sudo pear config-set php_ini $etc$file &
+    sudo pecl config-set php_ini $etc$file &
 
     #------------+
     # CLI config |
