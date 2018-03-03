@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@ -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04
+
+#-----------------+
+# Write setup log |
+#-----------------+
+setup_log()
+{
+    echo $1 && echo $1 >> /root/.webino.log
+}
+
+#----------------+
+# Show setup log |
+#----------------+
+setup_done()
+{
+    local log=/root/.webino.log
+    if [[ -s $log ]]; then
+        hr
+        cat $log
+    fi
+}
+
+#------------------+
+# Horizontal ruler |
+#------------------+
+hr()
+{
+    printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+}

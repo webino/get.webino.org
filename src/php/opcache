@@ -16,8 +16,8 @@
 #   - It builds PHP from source
 
 main() {
-    cd /tmp/php
-    local lock=/tmp/php/opcache.lock
+    cd /tmp/php/ext/opcache
+    local lock=opcache.lock
 
     #---------+
     # install |
@@ -26,7 +26,6 @@ main() {
         echo 'Zend OPCache already installed...'
     else
         echo 'Installing Zend OPCache...'
-        cd ext/opcache
         phpize
         ./configure
         make

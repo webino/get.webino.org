@@ -86,7 +86,7 @@ main() {
         local ssh_port='22'$(echo $(< /dev/urandom tr -dc 0-9 | head -c2))
         sudo sed -i 's/Port .*/Port '$ssh_port'/' $config
         local msg='New SSH port: '$ssh_port
-        echo $msg && echo $msg >> /root/.webino.log
+        setup_log $msg
     fi
 
     #-----------------+

@@ -41,6 +41,11 @@ main() {
     # with MySQL (optional)
     [[ $@ =~ --with-mysql( |$) ]] && load mysql/general
     load php/general
+
+    #------+
+    # done |
+    #------+
+    setup_done
 }
 
 main "$@"

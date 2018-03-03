@@ -14,3 +14,4 @@
 
 load ~lib/spinner
 load ~lib/trap
+load ~lib/utils

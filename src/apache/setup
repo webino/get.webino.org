@@ -37,6 +37,11 @@ main() {
     #-------+
     load system/general
     load apache/general
+
+    #------+
+    # done |
+    #------+
+    setup_done
 }
 
 main "$@"

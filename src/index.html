@@ -179,9 +179,10 @@
                 <option value="apache">Apache build</option>
                 <option value="mysql">MySQL install</option>
                 <option value="php" selected>PHP build</option>
-                <option value="devkit">Devkit setup</option>
-                <option value="dev-srv">Dev server setup</option>
+                <option value="devkit">Devkit setup [TODO]</option>
+                <option value="dev-srv">Dev server setup [TODO]</option>
                 <option value="vhost">Virtual host setup</option>
+                <option value="sftp-user">SFTP user setup [TODO]</option>
             </select>
         </label>
     </p>
@@ -204,8 +205,8 @@
                     <select name="php_version">
                         <option value="5.6.33">5.6.33</option>
                         <option value="7.0.27">7.0.27</option>
-                        <option value="7.1.14">7.1.14</option>
-                        <option value="7.2.2" selected>7.2.2</option>
+                        <option value="7.1.14" selected>7.1.14</option>
+                        <option value="7.2.2">7.2.2</option>
                     </select>
                 </label>
             </p>
@@ -237,14 +238,34 @@
             </p>
             <p>
                 <label>
-                    With www
-                    <input type="checkbox" name="vhost_www">
+                    Vhost name:
+                    <input type="text" name="vhost_name" placeholder="(optional)">
                 </label>
             </p>
             <p>
                 <label>
-                    Vhost name:
-                    <input type="text" name="vhost_name" placeholder="(optional)">
+                    HTTP
+                    <input type="checkbox" name="vhost_http">
+                </label>
+            </p>
+            <p>
+                <label>
+                    HTTPS
+                    <input type="checkbox" name="vhost_https" checked>
+                </label>
+            </p>
+            <p>
+                <label>
+                    With www
+                    <input type="checkbox" name="vhost_www" checked>
+                </label>
+            </p>
+        </div>
+        <div id="sftp-user">
+            <p>
+                <label>
+                    Username:
+                    <input type="text" name="sftp_user_name">
                 </label>
             </p>
         </div>
@@ -258,7 +279,7 @@
             Environment:
             <select name="env">
                 <option></option>
-                <option value="pub">Public</option>
+                <option value="pub" selected>Public</option>
                 <option value="dev">Develop</option>
                 <option value="local">Local</option>
             </select>
@@ -352,8 +373,10 @@
     // Form controller |
     //-----------------+
     var callback = function () {
+
         var self = this;
         var newUrl = url;
+        var cards = {};
 
         //---------+
         // Helpers |
@@ -364,6 +387,48 @@
         var newUrlArg = function (cond, name, value) {
             newUrl += cond ? ' --' + name + (value ? ' ' + value : '') : '';
         };
+
+        //-------------+
+        // Mailer card |
+        //-------------+
+        cards.mailer = function () {
+            if (['dev', 'pub'].includes(self.env.value)) {
+
+                // init mailer cards
+                $('#mta_cards > *').hide();
+                self.mailer.value && $('#' + self.mailer.value).show();
+                cards.mailer.enable();
+
+                //-----------+
+                // Nullmailer
+                if ('nullmailer' === self.mailer.value) {
+                    // SMTP host
+                    newUrlArg(self.smtp_host.value, 'smtp-host', self.smtp_host.value);
+                    // SMTP user
+                    newUrlArg(self.smtp_user.value, 'smtp-user', self.smtp_user.value);
+                }
+
+                // TODO Postfix support !!!
+
+            } else {
+                cards.mailer.disable();
+            }
+        };
+
+        cards.mailer.mta = $('#mta');
+        cards.mailer.mtaInputs = $('#mta select,#mta_cards input');
+
+        cards.mailer.enable = function () {
+            cards.mailer.mtaInputs.attr('disabled', null);
+            cards.mailer.mta.show();
+        };
+        cards.mailer.disable = function () {
+            cards.mailer.mtaInputs.attr('disabled', 'disabled');
+            cards.mailer.mta.hide();
+        };
+        //--------------+
+        // /Mailer card |
+        //--------------+
 
         //-----------+
         // Init task |
@@ -379,6 +444,26 @@
         //-------------+
         newUrlArg(this.env.value, this.env.value);
 
+        //------------+
+        // Admin mail |
+        //------------+
+        newUrlArg(this.admin_mail.value, 'admin-mail', this.admin_mail.value);
+
+        //-----------+
+        // SSH setup |
+        //-----------+
+        newUrlArg(this.ssh.checked, 'with-ssh');
+
+        //-------------------------+
+        // Mailer (dev / pub only) |
+        //-------------------------+
+        cards.mailer();
+
+        //------------------------+
+        // Without Webino support |
+        //------------------------+
+        newUrlArg(!self.support_webino.checked, 'without-webino');
+
         //-------+
         // Tasks |
         //-------+
@@ -386,33 +471,27 @@
             apache: function () {
                 // TODO
             },
-            mySql: function () {
+            mysql: function () {
                 newUrlArg(self.mysql_client_user.value, 'mysql-client-user', self.mysql_client_user.value);
             },
             php: function () {
                 newUrlArg(self.php_version.value, 'php', self.php_version.value);
             },
             vhost: function () {
+                cards.mailer.disable();
                 newUrlArg(self.vhost_domain.value, 'vhost-domain', self.vhost_domain.value);
-                newUrlArg(self.vhost_www.checked, 'vhost-www');
                 newUrlArg(self.vhost_name.value, 'vhost-name', self.vhost_name.value);
+                newUrlArg(self.vhost_http.checked, 'vhost-http');
+                newUrlArg(self.vhost_https.checked, 'vhost-https');
+                newUrlArg(self.vhost_www.checked, 'vhost-www');
+            },
+            'sftp-user': function () {
+                cards.mailer.disable();
             }
         };
         //-----------------+
         // tasks controller
         switch (this.task.value) {
-
-            //-------+
-            // Apache
-            case 'apache':
-                tasks.apache();
-                break;
-
-            //------+
-            // MySQL
-            case 'mysql':
-                tasks.mySql();
-                break;
 
             //----+
             // PHP
@@ -430,7 +509,7 @@
                 if (this.php_mysql.checked) {
                     newUrlArg(true, 'with-mysql');
                     showTaskOptions('mysql');
-                    tasks.mySql();
+                    tasks.mysql();
                 }
                 break;
 
@@ -443,50 +522,6 @@
         //--------+
         // /Tasks |
         //--------+
-
-        //------------+
-        // Admin mail |
-        //------------+
-        newUrlArg(this.admin_mail.value, 'admin-mail', this.admin_mail.value);
-
-        //-----------+
-        // SSH setup |
-        //-----------+
-        newUrlArg(this.ssh.checked, 'with-ssh');
-
-        //-------------------------+
-        // Mailer (dev / pub only) |
-        //-------------------------+
-        var mtaInputs = $('#mta select,#mta_cards input');
-        if (['dev', 'pub'].includes(this.env.value)) {
-
-            // init mailer cards
-            $('#mta_cards > *').hide();
-            this.mailer.value && $('#' + this.mailer.value).show();
-            mtaInputs.attr('disabled', null);
-
-            //-----------+
-            // Nullmailer
-            if ('nullmailer' === this.mailer.value) {
-                // SMTP host
-                newUrlArg(this.smtp_host.value, 'smtp-host', this.smtp_host.value);
-                // SMTP user
-                newUrlArg(this.smtp_user.value, 'smtp-user', this.smtp_user.value);
-            }
-
-            // TODO Postfix support !!!
-
-        } else {
-            mtaInputs.attr('disabled', 'disabled');
-        }
-        //---------+
-        // /Mailer |
-        //---------+
-
-        //------------------------+
-        // Without Webino support |
-        //------------------------+
-        newUrlArg(!self.support_webino.checked, 'without-webino');
 
         //----------------+
         // Update command |
