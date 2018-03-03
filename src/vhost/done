@@ -16,12 +16,16 @@
 #   - It creates a virtual host
 
 main() {
+    #------+
+    # init |
+    #------+
+    load apache/utils
+
     #---------------+
     # server reload |
     #---------------+
-    # TODO configtest
     echo 'Reloading web server...'
-    sudo apachectl graceful > /dev/null 2>&1 &
+    apache_reload
 
     #------+
     # done |

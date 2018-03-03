@@ -76,7 +76,7 @@ main() {
     # web server restart |
     #--------------------+
     echo 'Restarting web server...'
-    sudo apachectl restart > /dev/null 2>&1 &
+    apache_restart
 
     #--------------------------------+
     # system settings (dev|pub only) |
