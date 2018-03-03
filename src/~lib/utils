@@ -17,7 +17,7 @@
 #-----------------+
 setup_log()
 {
-    echo $1 && echo $1 >> /root/.webino.log
+    echo $@ && echo $@ >> /root/.webino.log
 }
 
 #----------------+
@@ -29,6 +29,7 @@ setup_done()
     if [[ -s $log ]]; then
         hr
         cat $log
+        hr
     fi
 }
 
@@ -37,5 +38,5 @@ setup_done()
 #------------------+
 hr()
 {
-    printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+    printf '%*s\n' $((${COLUMNS:-$(tput cols)}-1)) '' | tr ' ' -
 }
