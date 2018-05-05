@@ -1,0 +1,147 @@
+body {
+    margin: 0;
+    padding: 20px 0;
+    font-size: 14px;
+    text-align: center;
+    font-family: Roboto, sans-serif;
+    background: #fff;
+}
+
+header {
+    margin: 0 0 20px;
+}
+
+header > * {
+    margin: 0;
+    padding: 0 0 8px;
+}
+
+footer {
+    padding: 20px 0 0;
+    font-size: 12px;
+    color: gray;
+}
+
+footer hr {
+    margin: 0 0 20px;
+}
+
+footer a {
+    text-decoration: none;
+    color: inherit;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+p {
+    margin: 10px 0;
+    padding: 0;
+}
+
+p::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+label {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    color: #555;
+}
+
+hr {
+    margin: 10px 0;
+    padding: 0;
+    border: 1px solid lightgray;
+}
+
+form {
+    width: 500px;
+    margin: 20px auto 0;
+}
+
+fieldset {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 20px;
+    font-size: 14px;
+    border: 1px solid lightgray;
+}
+
+fieldset fieldset {
+    padding: 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+}
+
+legend {
+    margin: 0;
+    padding: 0 6px;
+    font-weight: bold;
+    font-size: 18px;
+    color: gray;
+}
+
+legend small {
+    font-weight: normal;
+}
+
+label {
+    display: block;
+    margin: 0 auto;
+    text-align: left;
+    font-size: 13px;
+}
+
+label > * {
+    display: block;
+    width: 100%;
+    margin: 4px 0 0;
+    box-sizing: border-box;
+}
+
+select,
+input[type=text] {
+    font-size: 14px;
+    font-family: monospace;
+}
+
+select,
+input[type=checkbox] {
+    cursor: pointer;
+}
+
+input[type=checkbox] {
+    float: left;
+    display: inline-block;
+    position: relative;
+    top: -2px;
+    width: auto;
+    margin-left: 4px;
+    margin-right: 6px;
+    transform: scale(1.6);
+}
+
+input[type=text] {
+    padding: 2px 4px;
+}
+
+#command {
+    width: 100%;
+    padding: 8px 12px;
+    text-align: center;
+    font-size: 14px;
+    font-family: monospace;
+    box-sizing: border-box;
+    background: lightgray;
+    border: none;
+}
+
+.disclaimer {
+    font-style: italic;
+}

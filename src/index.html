@@ -6,156 +6,11 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Webino™ setup command builder</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 20px 0;
-            font-size: 14px;
-            text-align: center;
-            font-family: Roboto, sans-serif;
-            background: #fff;
-        }
-
-        header {
-            margin: 0 0 20px;
-        }
-
-        header > * {
-            margin: 0;
-            padding: 0 0 8px;
-        }
-
-        footer {
-            padding: 20px 0 0;
-            font-size: 12px;
-            color: gray;
-        }
-
-        footer hr {
-            margin: 0 0 20px;
-        }
-
-        footer a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        form {
-            margin: 20px 0 0;
-        }
-
-        p {
-            margin: 10px 0;
-            padding: 0;
-        }
-
-        p::after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-
-        label {
-            margin: 0;
-            padding: 0;
-            font-weight: bold;
-            color: #555;
-        }
-
-        hr {
-            margin: 10px 0;
-            padding: 0;
-            border: 1px solid lightgray;
-        }
-
-        fieldset {
-            display: block;
-            width: 500px;
-            margin: 0 auto 20px;
-            font-size: 14px;
-            border: 1px solid lightgray;
-        }
-
-        legend {
-            margin: 0;wget https://get.webino.org/!dev/php -qO- | sh -s -- --pub
-            padding: 0 6px;
-            font-weight: bold;
-            font-size: 18px;
-            color: gray;
-        }
-
-        legend small {
-            font-weight: normal;
-        }
-
-        label {
-            display: block;
-            width: 500px;
-            margin: 0 auto;
-            text-align: left;
-            font-size: 13px;
-        }
-
-        label > * {
-            display: block;
-            width: 100%;
-            margin: 4px 0 0;
-            box-sizing: border-box;
-        }
-
-        select,
-        input[type=text] {
-            font-size: 14px;
-            font-family: monospace;
-        }
-
-        select,
-        input[type=checkbox] {
-            cursor: pointer;
-        }
-
-        input[type=checkbox] {
-            float: left;
-            display: inline-block;
-            position: relative;
-            top: -2px;
-            width: auto;
-            margin-left: 4px;
-            margin-right: 6px;
-            transform: scale(1.6);
-        }
-
-        input[type=text] {
-            padding: 2px 4px;
-        }
-
-        #url {
-            width: 100%;
-            padding: 8px 12px;
-            text-align: center;
-            font-size: 14px;
-            font-family: monospace;
-            box-sizing: border-box;
-            background: lightgray;
-            border: none;
-        }
-
-        .disclaimer {
-            font-style: italic;
-        }
-    </style>
     <link href="//fonts.googleapis.com/css?family=Roboto:400,400i,700&amp;subset=latin-ext" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <script src="//code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
-
-    <script>
-        url = 'https://get.webino.org/~dev';
-    </script>
 </head>
 <body>
 <header>
@@ -165,20 +20,19 @@
 </header>
 
 <hr>
-<input type="text" id="url" readonly>
+<input type="text" id="command" readonly>
 <hr>
 
 <form id="form" method="post">
 
-<fieldset>
-    <legend>Task</legend>
     <p>
         <label>
+            Task:
             <select name="task">
-                <option value="system">System setup</option>
+                <option value="system" selected>System setup</option>
                 <option value="apache">Apache build</option>
                 <option value="mysql">MySQL install</option>
-                <option value="php" selected>PHP build</option>
+                <option value="php">PHP build</option>
                 <option value="devkit">Devkit setup [TODO]</option>
                 <option value="dev-srv">Dev server setup [TODO]</option>
                 <option value="vhost">Virtual host setup</option>
@@ -186,179 +40,66 @@
             </select>
         </label>
     </p>
-    <div id="task_cards">
-        <div id="apache">
-            <!-- TODO -->
-        </div>
-        <div id="mysql">
-            <p>
-                <label>
-                    MySQL client user:
-                    <input type="text" name="mysql_client_user" placeholder="www-data">
-                </label>
-            </p>
-        </div>
-        <div id="php">
-            <p>
-                <label>
-                    PHP Version:
-                    <select name="php_version">
-                        <option value="5.6.33">5.6.33</option>
-                        <option value="7.0.27">7.0.27</option>
-                        <option value="7.1.14" selected>7.1.14</option>
-                        <option value="7.2.2">7.2.2</option>
-                    </select>
-                </label>
-            </p>
-            <p>
-                <label>
-                    With Apache
-                    <input type="checkbox" name="php_apache" checked>
-                </label>
-            </p>
-            <p>
-                <label>
-                    With MySQL
-                    <input type="checkbox" name="php_mysql" checked>
-                </label>
-            </p>
-            <p>
-                <label>
-                    PHP-FPM
-                    <input type="checkbox" name="php_fpm">
-                </label>
-            </p>
-        </div>
-        <div id="vhost">
-            <p>
-                <label>
-                    Vhost domain:
-                    <input type="text" name="vhost_domain">
-                </label>
-            </p>
-            <p>
-                <label>
-                    Vhost name:
-                    <input type="text" name="vhost_name" placeholder="(optional)">
-                </label>
-            </p>
-            <p>
-                <label>
-                    HTTP
-                    <input type="checkbox" name="vhost_http">
-                </label>
-            </p>
-            <p>
-                <label>
-                    HTTPS
-                    <input type="checkbox" name="vhost_https" checked>
-                </label>
-            </p>
-            <p>
-                <label>
-                    With www
-                    <input type="checkbox" name="vhost_www" checked>
-                </label>
-            </p>
-        </div>
-        <div id="sftp-user">
-            <p>
-                <label>
-                    Username:
-                    <input type="text" name="sftp_user_name">
-                </label>
-            </p>
-        </div>
-    </div>
-</fieldset>
 
-<fieldset>
-    <legend>General</legend>
-    <p>
-        <label>
-            Environment:
-            <select name="env">
-                <option></option>
-                <option value="pub" selected>Public</option>
-                <option value="dev">Develop</option>
-                <option value="local">Local</option>
-            </select>
-        </label>
-    </p>
-    <p>
-        <label>
-            Admin mail:
-            <input type="text" name="admin_mail">
-        </label>
-    </p>
-    <p>
-        <label>
-            Webino support
-            <input type="checkbox" name="support_webino" checked>
-        </label>
-    </p>
-    <p>
-        <label>
-            SSH setup
-            <input type="checkbox" name="ssh" checked>
-        </label>
-    </p>
-    <p>
-        <label>
-            Host name:
-            <input type="text" name="host_name" placeholder="(optional)">
-        </label>
-    </p>
-    <p>
-        <label>
-            Host IP:
-            <input type="text" name="host_ip" placeholder="(optional)">
-        </label>
-    </p>
-</fieldset>
+    <fieldset>
+        <legend>General</legend>
+        <p>
+            <label>
+                Environment:
+                <select name="env">
+                    <option></option>
+                    <option value="pub" selected>Public</option>
+                    <option value="dev">Develop</option>
+                    <option value="local">Local</option>
+                </select>
+            </label>
+        </p>
+        <p>
+            <label>
+                Admin mail:
+                <input type="text" name="admin_mail">
+            </label>
+        </p>
+        <p>
+            <label>
+                Webino support
+                <input type="checkbox" name="support_webino" checked>
+            </label>
+        </p>
+        <p>
+            <label>
+                Host name:
+                <input type="text" name="host_name" placeholder="(optional)">
+            </label>
+        </p>
+        <p>
+            <label>
+                Host IP:
+                <input type="text" name="host_ip" placeholder="(optional)">
+            </label>
+        </p>
+    </fieldset>
 
-<fieldset id="mta">
-    <legend>Mailer <small>(dev / pub only)</small></legend>
-    <p>
-        <label>
-            MTA:
-            <select name="mailer">
-                <option></option>
-                <option value="nullmailer" selected>Nullmailer</option>
-            </select>
-        </label>
-    </p>
-    <div id="mta_cards">
-        <div id="nullmailer">
-            <p>
-                <label>
-                    SMTP host:
-                    <input type="text" name="smtp_host">
-                </label>
-            </p>
-            <p>
-                <label>
-                    SMTP user:
-                    <input type="text" name="smtp_user">
-                </label>
-            </p>
-        </div>
-    </div>
-</fieldset>
+    <div id="options"></div>
 
 </form>
 
 <a href="https://github.com/webino/get.webino.org" title="Get Webino @ Github">
-<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 250 250" fill="#fff" style="position: absolute; top: 0; right: 0">
-    <path d="M0 0l115 115h15l12 27 108 108V0z" fill="#151513"/>
-    <path class="octo-arm" d="M128 109c-15-9-9-19-9-19 3-7 2-11 2-11-1-7 3-2 3-2 4 5 2 11 2 11-3 10 5 15 9 16" style="-webkit-transform-origin: 130px 106px; transform-origin: 130px 106px"/>
-    <path class="octo-body" d="M115 115s4 2 5 0l14-14c3-2 6-3 8-3-8-11-15-24 2-41 5-5 10-7 16-7 1-2 3-7 12-11 0 0 5 3 7 16 4 2 8 5 12 9s7 8 9 12c14 3 17 7 17 7-4 8-9 11-11 11 0 6-2 11-7 16-16 16-30 10-41 2 0 3-1 7-5 11l-12 11c-1 1 1 5 1 5z"/>
-</svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 250 250" fill="#fff"
+         style="position: absolute; top: 0; right: 0">
+        <path d="M0 0l115 115h15l12 27 108 108V0z" fill="#151513"/>
+        <path class="octo-arm" d="M128 109c-15-9-9-19-9-19 3-7 2-11 2-11-1-7 3-2 3-2 4 5 2 11 2 11-3 10 5 15 9 16"
+              style="-webkit-transform-origin: 130px 106px; transform-origin: 130px 106px"/>
+        <path class="octo-body"
+              d="M115 115s4 2 5 0l14-14c3-2 6-3 8-3-8-11-15-24 2-41 5-5 10-7 16-7 1-2 3-7 12-11 0 0 5 3 7 16 4 2 8 5 12 9s7 8 9 12c14 3 17 7 17 7-4 8-9 11-11 11 0 6-2 11-7 16-16 16-30 10-41 2 0 3-1 7-5 11l-12 11c-1 1 1 5 1 5z"/>
+    </svg>
 </a>
 
 <footer>
     <hr>
-    Copyright &copy; <a href="http://webino.sk" title="CMS na mieru, tvorba web stránok, e-shopov a internetových aplikácií">Webino, s. r. o.</a>
+    Copyright &copy; <a href="http://webino.sk"
+                        title="CMS na mieru, tvorba web stránok, e-shopov a internetových aplikácií">Webino, s. r.
+    o.</a>
     <p class="disclaimer">
         Any action you take upon the information on this website is strictly at your own risk!
     </p>
@@ -367,193 +108,6 @@
     </p>
 </footer>
 
-<script>
-(function ($) {
-    //-----------------+
-    // Form controller |
-    //-----------------+
-    var callback = function () {
-
-        var self = this;
-        var newUrl = url;
-        var cards = {};
-
-        //---------+
-        // Helpers |
-        //---------+
-        var showTaskOptions = function (task) {
-            $('#' + task).show();
-        };
-        var newUrlArg = function (cond, name, value) {
-            newUrl += cond ? ' --' + name + (value ? ' ' + value : '') : '';
-        };
-
-        //-------------+
-        // Mailer card |
-        //-------------+
-        cards.mailer = function () {
-            if (['dev', 'pub'].includes(self.env.value)) {
-
-                // init mailer cards
-                $('#mta_cards > *').hide();
-                self.mailer.value && $('#' + self.mailer.value).show();
-                cards.mailer.enable();
-
-                //-----------+
-                // Nullmailer
-                if ('nullmailer' === self.mailer.value) {
-                    // SMTP host
-                    newUrlArg(self.smtp_host.value, 'smtp-host', self.smtp_host.value);
-                    // SMTP user
-                    newUrlArg(self.smtp_user.value, 'smtp-user', self.smtp_user.value);
-                }
-
-                // TODO Postfix support !!!
-
-            } else {
-                cards.mailer.disable();
-            }
-        };
-
-        cards.mailer.mta = $('#mta');
-        cards.mailer.mtaInputs = $('#mta select,#mta_cards input');
-
-        cards.mailer.enable = function () {
-            cards.mailer.mtaInputs.attr('disabled', null);
-            cards.mailer.mta.show();
-        };
-        cards.mailer.disable = function () {
-            cards.mailer.mtaInputs.attr('disabled', 'disabled');
-            cards.mailer.mta.hide();
-        };
-        //--------------+
-        // /Mailer card |
-        //--------------+
-
-        //-----------+
-        // Init task |
-        //-----------+
-        var task = '/' + this.task.value;
-        newUrl += task + ' -qO- | sh -s --';
-        // init task cards
-        $('#task_cards > *').hide();
-        this.task.value && showTaskOptions(this.task.value);
-
-        //-------------+
-        // Environment |
-        //-------------+
-        newUrlArg(this.env.value, this.env.value);
-
-        //------------+
-        // Admin mail |
-        //------------+
-        newUrlArg(this.admin_mail.value, 'admin-mail', this.admin_mail.value);
-
-        //-----------+
-        // SSH setup |
-        //-----------+
-        newUrlArg(this.ssh.checked, 'with-ssh');
-
-        //-------------------------+
-        // Mailer (dev / pub only) |
-        //-------------------------+
-        cards.mailer();
-
-        //------------------------+
-        // Without Webino support |
-        //------------------------+
-        newUrlArg(!self.support_webino.checked, 'without-webino');
-
-        //-------+
-        // Tasks |
-        //-------+
-        var tasks = {
-            apache: function () {
-                // TODO
-            },
-            mysql: function () {
-                newUrlArg(self.mysql_client_user.value, 'mysql-client-user', self.mysql_client_user.value);
-            },
-            php: function () {
-                newUrlArg(self.php_version.value, 'php', self.php_version.value);
-            },
-            vhost: function () {
-                cards.mailer.disable();
-                newUrlArg(self.vhost_domain.value, 'vhost-domain', self.vhost_domain.value);
-                newUrlArg(self.vhost_name.value, 'vhost-name', self.vhost_name.value);
-                newUrlArg(self.vhost_http.checked, 'vhost-http');
-                newUrlArg(self.vhost_https.checked, 'vhost-https');
-                newUrlArg(self.vhost_www.checked, 'vhost-www');
-            },
-            'sftp-user': function () {
-                cards.mailer.disable();
-            }
-        };
-        //-----------------+
-        // tasks controller
-        switch (this.task.value) {
-
-            //----+
-            // PHP
-            case 'php':
-                tasks.php();
-                // PHP-FPM
-                if (this.php_fpm.checked) {
-                    newUrlArg(true, 'php-fpm');
-                }
-                // PHP with Apache
-                if (this.php_apache.checked) {
-                    newUrlArg(true, 'with-apache');
-                }
-                // PHP with MySQL
-                if (this.php_mysql.checked) {
-                    newUrlArg(true, 'with-mysql');
-                    showTaskOptions('mysql');
-                    tasks.mysql();
-                }
-                break;
-
-            //--------+
-            // Default
-            default:
-                tasks[this.task.value] && tasks[this.task.value]();
-                break;
-        }
-        //--------+
-        // /Tasks |
-        //--------+
-
-        //----------------+
-        // Update command |
-        //----------------+
-        urlInput.val('wget ' + newUrl);
-    };
-
-    //----------+
-    // Init URL |
-    //----------+
-    urlInput = $('#url');
-    callback.call(document.getElementById('form'));
-
-    //-------------+
-    // Updates URL |
-    //-------------+
-    $(document).on('change', 'form', callback);
-    $(document).on('keyup', 'form', callback);
-
-    //-------------+
-    // Selects URL |
-    //-------------+
-    urlInput.hover(function () {
-        // select text
-        this.select();
-    });
-    urlInput.mouseout(function () {
-        // deselect text
-        this.selectionStart = this.selectionEnd;
-    });
-})(jQuery);
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
