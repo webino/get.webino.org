@@ -158,9 +158,7 @@
     // Init tasks |
     //------------+
     $(form.task).find('option:not(:disabled)').each(function () {
-        if (this.value) {
-            $.get(URL + '/' + this.value + '/~builder/script.js');
-        }
+        this.value && $.get(URL + '/' + this.value + '/~builder/script.js');
     });
 
     //------------+
