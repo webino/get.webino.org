@@ -29,14 +29,14 @@
         <label>
             Task:
             <select name="task">
-                <option value="system" selected>System setup</option>
-                <option value="apache">Apache build</option>
-                <option value="mysql">MySQL install</option>
-                <option value="php">PHP build</option>
-                <option value="devkit">Devkit setup [TODO]</option>
-                <option value="dev-srv">Dev server setup [TODO]</option>
-                <option value="vhost">Virtual host setup</option>
-                <option value="sftp-user">SFTP user setup [TODO]</option>
+                <option value="system" selected>System setup [WIP]</option>
+                <option value="apache">Apache build [WIP]</option>
+                <option value="mysql">MySQL install [WIP]</option>
+                <option value="php">PHP build [WIP]</option>
+                <option value="devkit" disabled>Devkit setup [TODO]</option>
+                <option value="dev-srv" disabled>Dev server setup [TODO]</option>
+                <option value="vhost">Virtual host setup [WIP]</option>
+                <option value="sftp-user" disabled>SFTP user setup [TODO]</option>
             </select>
         </label>
     </p>
@@ -56,8 +56,8 @@
         </p>
         <p>
             <label>
-                Admin mail:
-                <input type="text" name="admin_mail">
+                Admin email:
+                <input type="text" name="admin_email">
             </label>
         </p>
         <p>
@@ -68,14 +68,8 @@
         </p>
         <p>
             <label>
-                Host name:
-                <input type="text" name="host_name" placeholder="(optional)">
-            </label>
-        </p>
-        <p>
-            <label>
-                Host IP:
-                <input type="text" name="host_ip" placeholder="(optional)">
+                No Interaction
+                <input type="checkbox" name="no_interaction">
             </label>
         </p>
     </fieldset>

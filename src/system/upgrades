@@ -36,7 +36,7 @@ main() {
     echo 'Installing apticron...'
     sudo apt-get install -y apticron
 
-    sudo sed -i 's/EMAIL="root"/EMAIL="'$_admin_mail'"/' /etc/apticron/apticron.conf
+    sudo sed -i 's/EMAIL="root"/EMAIL="'$_admin_email'"/' /etc/apticron/apticron.conf
     sudo sed -i 's/# SYSTEM="foobar.example.com"/SYSTEM="'$_host_name'"/' /etc/apticron/apticron.conf
 
     #------------------------+
@@ -45,7 +45,7 @@ main() {
     local file=/etc/apt/listchanges.conf
     if [[ -f $file ]]; then
         sudo sed -i 's/frontend=pager/frontend=text/' $file
-        sudo sed -i 's/email_address=root/email_address='$_admin_mail'/' $file
+        sudo sed -i 's/email_address=root/email_address='$_admin_email'/' $file
     fi
 
     #------------------+

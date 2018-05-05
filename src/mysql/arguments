@@ -29,7 +29,7 @@ main() {
     do
     n=$((n + 1))
     case $i in
-        --mysql-client-user)
+        -mysql-client-user)
             _mysql_client_user=${argv[$n]}
             shift
             shift

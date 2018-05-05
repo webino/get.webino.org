@@ -31,17 +31,17 @@ main() {
     do
     n=$((n + 1))
     case $i in
-        --vhost-domain)
+        -vhost-domain)
             _vhost_domain=${argv[$n]}
             [[ $_vhost_name ]] || _vhost_name=$_vhost_domain
             shift
             shift
         ;;
-        --vhost-www)
+        -vhost-www)
             _vhost_www=1
             shift
         ;;
-        --vhost-name)
+        -vhost-name)
             _vhost_name=${argv[$n]}
             shift
             shift

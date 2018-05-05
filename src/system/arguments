@@ -30,26 +30,26 @@ main() {
     do
     n=$((n + 1))
     case $i in
-        --host-name)
+        -host-name)
             _host_name=${argv[$n]}
             shift
             shift
         ;;
-        --host-ip)
+        -host-ip)
             _host_ip=${argv[$n]}
             shift
             shift
         ;;
-        --with-ssh)
+        -with-ssh)
             _with_ssh=1
             shift
         ;;
-        --smtp-host)
+        -smtp-host)
             _smtp_host=${argv[$n]}
             shift
             shift
         ;;
-        --smtp-user)
+        -smtp-user)
             _smtp_user=${argv[$n]}
             shift
             shift

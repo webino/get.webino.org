@@ -5,11 +5,10 @@
             'system'
         ],
         onUpdate: function () {
-            // SSH
             form.setCommand(form.ssh.checked, 'with-ssh');
-            // SMTP host
+            form.setCommand(form.host_name.value, 'host-name', form.host_name.value);
+            form.setCommand(form.host_ip.value, 'host-ip', form.host_ip.value);
             form.setCommand(form.smtp_host.value, 'smtp-host', form.smtp_host.value);
-            // SMTP user
             form.setCommand(form.smtp_user.value, 'smtp-user', form.smtp_user.value);
         }
     };

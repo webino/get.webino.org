@@ -21,8 +21,8 @@ main() {
     #------------------------------------+
     if [[ ! $_host_name && ( ! $_env_dev || ! $_env_pub ) ]]; then
         echo 'Resolving host info...'
-        _host_ip=$(ip route get 8.8.8.8 | awk '{print $NF; exit}')
-        _host_name=$(cat /etc/hosts | grep $_host_ip | awk -F' ' '{print $2}' | awk '{print $1}' | tr . -)
+        _host_ip=$(wget ipecho.net/plain -qO-)
+        _host_name=$(hostname)
     fi
 
     #----------------------+
@@ -33,17 +33,17 @@ main() {
         _host_name=webino.local
     fi
 
-    #-----------------------+
-    # sysadmin mail default |
-    #-----------------------+
-    _admin_mail=${_admin_mail-'sysadmin@'$_host_name}
+    #------------------------+
+    # sysadmin email default |
+    #------------------------+
+    _admin_email=${_admin_email-'sysadmin@'$_host_name}
 
     #----------------+
     # show host info |
     #----------------+
     echo 'Host IP: '$_host_ip
     echo 'Host name: '$_host_name
-    echo 'Admin mail: '$_admin_mail
+    echo 'Admin email: '$_admin_email
     echo
 }
 

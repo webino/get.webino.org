@@ -19,7 +19,6 @@
                 }
                 break;
             default:
-                console.log(type);
                 if (arguments.length) {
                     return $.fn.valInternal.call(this, val);
                 } else {
@@ -69,7 +68,7 @@
 
     // Add command argument
     form.setCommand = function (cond, name, value) {
-        form.command += cond ? ' --' + name + (value ? ' ' + value : '') : '';
+        form.command += cond ? ' -' + name + (value ? ' ' + value : '') : '';
     };
 
     // Invoke module update
@@ -99,20 +98,17 @@
         var task = '/' + form.task.value;
         form.command += task + ' -qO- | sh -s --';
 
+        // no interaction
+        form.setCommand(form.no_interaction.checked, 'n');
+
         // environment
         form.setCommand(form.env.value, form.env.value);
-
-        // admin email
-        form.setCommand(form.admin_mail.value, 'admin-mail', form.admin_mail.value);
 
         // support Webino
         form.setCommand(!form.support_webino.checked, 'without-webino');
 
-        // host name
-        form.setCommand(form.host_name.value, 'host', form.host_name.value);
-
-        // host IP
-        form.setCommand(form.host_ip.value, 'ip', form.host_ip.value);
+        // admin email
+        form.setCommand(form.admin_email.value, 'admin-mail', form.admin_email.value);
 
         // update module options
         if (form.modules[form.task.value] && form.modules[form.task.value].options) {
@@ -161,7 +157,7 @@
     //------------+
     // Init tasks |
     //------------+
-    $(form.task).find('option').each(function () {
+    $(form.task).find('option:not(:disabled)').each(function () {
         if (this.value) {
             $.get(URL + '/' + this.value + '/~builder/script.js');
         }

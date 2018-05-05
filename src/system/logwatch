@@ -38,7 +38,7 @@ main() {
     local file=/usr/share/logwatch/dist.conf/logwatch.conf
     echo "$(wget $data$file -qO- | \
             sed s/'%HOST_NAME%'/$_host_name/g | \
-            sed s/'%ADMIN_MAIL%'/$_admin_mail/g)" | \
+            sed s/'%ADMIN_EMAIL%'/$_admin_email/g)" | \
         sudo tee $file > /dev/null
 }
 

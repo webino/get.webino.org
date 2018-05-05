@@ -28,17 +28,17 @@ main() {
     do
     n=$((n + 1))
     case $i in
-        --php)
+        -php)
             _php_version=${argv[$n]}
             shift
             shift
         ;;
-        --php-prefix)
+        -php-prefix)
             _php_prefix=${argv[$n]}
             shift
             shift
         ;;
-        --php-fpm)
+        -php-fpm)
             _php_fpm=1
             shift
             shift

@@ -23,7 +23,7 @@ main() {
     _env_pub=
     _update=
     _clean=
-    _admin_mail=
+    _admin_email=
 
     #----------+
     # get args |
@@ -35,42 +35,42 @@ main() {
     argv[$n]=$i
     n=$((n + 1))
     case $i in
-        --no-interaction|-n)
+        -no-interaction|-n)
             _no_interaction=1
             shift
         ;;
-        --without-webino)
+        -without-webino)
             _no_webino=1
             shift
         ;;
-        --admin-mail)
-            _admin_mail=${argv[$n]}
+        -admin-email)
+            _admin_email=${argv[$n]}
             shift
             shift
         ;;
-        --local)
+        -local)
             _env_local=1
             _env_dev=
             _env_pub=
             shift
         ;;
-        --dev)
+        -dev)
             _env_dev=1
             _env_local=
             _env_pub=
             shift
         ;;
-        --pub)
+        -pub)
             _env_pub=1
             _env_dev=
             _env_local=
             shift
         ;;
-        --update)
+        -update)
             _update=1
             shift
         ;;
-        --clean)
+        -clean)
             _clean=1
             shift
         ;;
