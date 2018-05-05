@@ -5,8 +5,7 @@
     compress
     delaycompress
     notifempty
-    su www-data www-data
-    create 0640 www-data www-data
+    create 0640 root adm
     sharedscripts
     prerotate
         if [ -d /etc/logrotate.d/httpd-prerotate ]; then \
