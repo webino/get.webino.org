@@ -108,7 +108,7 @@
         form.setCommand(!form.support_webino.checked, 'without-webino');
 
         // admin email
-        form.setCommand(form.admin_email.value, 'admin-mail', form.admin_email.value);
+        form.setCommand(form.admin_email.value, 'admin-email', form.admin_email.value);
 
         // update module options
         if (form.modules[form.task.value] && form.modules[form.task.value].options) {
