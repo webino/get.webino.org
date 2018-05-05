@@ -32,9 +32,9 @@ main() {
     load ~lib
     load arguments "$@"
 
-    #--------+
+    #-------+
     # setup  |
-    #--------+
+    #-------+
     load system/general
     load mysql/general
 

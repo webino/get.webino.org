@@ -36,6 +36,11 @@ main() {
     # setup |
     #-------+
     load system/general
+
+    #------+
+    # done |
+    #------+
+    setup_done
 }
 
 main "$@"

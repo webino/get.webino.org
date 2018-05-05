@@ -1,4 +1,4 @@
-# Webino™ Installation Scripts
+# Webino™ Setup Scripts
 
 ## Building Apache 2.4 from source
 
@@ -6,12 +6,12 @@
 
 - `wget https://get.webino.org/apache -qO- | sh`
 
-- `wget https://get.webino.org/apache -qO- | sh -s -- --local`
+- `wget https://get.webino.org/apache -qO- | sh -s -- -local`
 
 **Development server**
 
-- `wget https://get.webino.org/apache -qO- | sh -s -- --dev`
+- `wget https://get.webino.org/apache -qO- | sh -s -- -dev`
 
 **Public server**
 
-- `wget https://get.webino.org/apache -qO- | sh -s -- --pub`
+- `wget https://get.webino.org/apache -qO- | sh -s -- -pub`
