@@ -1,4 +1,4 @@
-# Webino™ Installation Scripts
+# Webino™ Setup Scripts
 
 ## Installing Google Chrome with ChromeDriver for Selenium
 

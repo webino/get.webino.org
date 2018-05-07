@@ -1,4 +1,4 @@
-# Webino™ Installation Scripts
+# Webino™ Setup Scripts
 
 ## Installing Firefox for Selenium
 

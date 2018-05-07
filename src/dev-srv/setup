@@ -35,7 +35,7 @@ main() {
 
     load ~lib
     load arguments "$@"
-    load dev/general
+    load dev-srv/general
 
     # dev vhost setup
     sudo mkdir -p /srv/dev/pub

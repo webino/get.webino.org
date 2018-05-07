@@ -22,13 +22,23 @@ load() {
 }
 
 main() {
-    echo -e "\nMachine setup for Webino™ (Firefox install)...\n"
+    echo -e "\nMachine setup for Webino™\n"
 
+    #------+
+    # init |
+    #------+
     load ~lib
     load arguments "$@"
 
-    # Install
-    load sw/firefox
+    #-------+
+    # setup |
+    #-------+
+    load devkit/firefox/general
+
+    #------+
+    # done |
+    #------+
+    setup_done
 }
 
 main "$@"

@@ -16,6 +16,8 @@
 #   - It installs MySQL database
 
 main() {
+    echo -e "\nMySQL install...\n"
+
     #-------+
     # setup |
     #-------+

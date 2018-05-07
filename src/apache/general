@@ -16,6 +16,8 @@
 #   - It builds Apache from source
 
 main() {
+    echo -e "\nApache build...\n"
+
     #----------------------+
     # remove pre-installed |
     #----------------------+
@@ -25,7 +27,7 @@ main() {
     # check already installed |
     #-------------------------+
     if [[ $(whereis apachectl) == */apachectl* ]]; then
-        echo 'Apache already installed...'
+        echo 'Apache already built...'
         return
     fi
 

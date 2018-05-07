@@ -22,13 +22,23 @@ load() {
 }
 
 main() {
-    echo -e "\nMachine setup for Webino™ (Chrome install)...\n"
+    echo -e "\nMachine setup for Webino™\n"
 
+    #------+
+    # init |
+    #------+
     load ~lib
     load arguments "$@"
 
-    # Install
-    load sw/chrome
+    #-------+
+    # setup |
+    #-------+
+    load devkit/chrome/general
+
+    #------+
+    # done |
+    #------+
+    setup_done
 }
 
 main "$@"

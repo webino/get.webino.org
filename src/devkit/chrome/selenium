@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to install Webino™ Devkit?
+# Just open up your terminal and type
+#
+#    wget @@host@@/devkit -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04
+#
+# What this script does?
+#   - It installs ChromeDriver for Selenium
+
+main () {
+    local file=/usr/bin/chromedriver
+    if [[ -f $file ]]; then
+    echo 'ChromeDriver for Selenium already installed...'
+        return
+    fi
+
+    echo "Installing ChromeDriver for Selenium..."
+    cd /tmp
+
+    # resolve latest chrome driver version
+    chrome_driver_version_latest=$(echo $(wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE))
+
+    # chrome driver
+    local file=chromedriver_linux64.zip
+    local path=/tmp/$name
+    wget -N 'http://chromedriver.storage.googleapis.com/'$chrome_driver_version_latest'/'$file -P /tmp \
+         && unzip $path -d /tmp && rm -f $path & spinner $! 2>&1
+
+    chmod +x /tmp/chromedriver
+    sudo mv -f /tmp/chromedriver $file
+}
+
+main "$@"

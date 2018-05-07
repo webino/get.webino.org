@@ -37,11 +37,11 @@ main() {
     php_fpm=1
 
     # install general tools
-    load os/general
-    load sw/apache
-    load sw/mysql
-    load sw/php
-    load sw/devkit
+    load system/general
+    load apache/general
+    load mysql/general
+    load php/general
+    load devkit/general
 
     touch $lock
 }

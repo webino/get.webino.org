@@ -15,22 +15,24 @@
 # What this script does?
 #   - It installs Google Chrome for Selenium
 
-main() {
-    cd /tmp
-    local lock=webino.sw.chrome.lock
+main () {
+    echo -e "\nGoogle Chrome install\n"
 
-    if [[ ! -f $lock ]]; then
-        echo "Installing Google Chrome for Selenium..."
-
-        # google chrome
-        sudo apt-get install -y libxss1 libappindicator1 libindicator7
-        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        sudo dpkg -i google-chrome*.deb
-
-        touch $lock
-    else
+    if [[ "$(google-chrome --version 2> /dev/null)" != '' ]]; then
         echo 'Google Chrome for Selenium already installed...'
+        return
     fi
+
+    echo "Installing Google Chrome for Selenium..."
+    cd /tmp
+
+    # google chrome
+    sudo apt-get install -y libxss1 libappindicator1 libindicator7
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    sudo dpkg -i google-chrome*.deb
+
+    # selenium driver
+    load devkit/chrome/selenium
 }
 
-main
+main "$@"

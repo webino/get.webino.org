@@ -24,7 +24,7 @@ load() {
 }
 
 main() {
-    echo -e "\nMachine setup for Webino™ (PHP build)...\n"
+    echo -e "\nMachine setup for Webino™\n"
 
     #------+
     # init |
