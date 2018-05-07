@@ -15,7 +15,7 @@
 # What this script does?
 #   - It installs ChromeDriver for Selenium
 
-main () {
+main() {
     local file=/usr/bin/chromedriver
     if [[ -f $file ]]; then
     echo 'ChromeDriver for Selenium already installed...'

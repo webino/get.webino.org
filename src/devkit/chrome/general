@@ -15,7 +15,7 @@
 # What this script does?
 #   - It installs Google Chrome for Selenium
 
-main () {
+main() {
     echo -e "\nGoogle Chrome install\n"
 
     if [[ "$(google-chrome --version 2> /dev/null)" != '' ]]; then

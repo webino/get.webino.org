@@ -15,7 +15,7 @@
 # What this script does?
 #   - It installs Firefox for Selenium
 
-main () {
+main() {
     echo -e "\nFirefox for Selenium install...\n"
 
     local file=/var/lib/webino/firefox/firefox

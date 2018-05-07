@@ -23,7 +23,7 @@
 #   - It installs Webino™ devkit dependencies
 #   - It installs Webino™ devkit via npm globally
 
-main () {
+main() {
     #----------------+
     # local|dev only |
     #----------------+
