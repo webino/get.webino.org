@@ -90,7 +90,7 @@ main() {
     fi
 
     # Installing devkit
-    echo "\nInstalling Webino™ Development Kit\n"
+    echo 'Installing: Webino™ Development Kit'
     sudo npm install webino-devkit -g --unsafe-perm
     # Clear composer cache
     sudo rm -rf ~/.composer/cache
