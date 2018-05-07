@@ -7,7 +7,7 @@
 # Are you looking at this in your web browser, and would like to get Webino™?
 # Just open up your terminal and type:
 #
-#    wget @@host@@/dev -qO- | sh
+#    wget @@host@@/vhost -qO- | sh
 #
 # Webino™ currently supports:
 #   - Ubuntu 16.04
@@ -19,9 +19,10 @@ main() {
     #-------------------+
     # vhost directories |
     #-------------------+
-    sudo mkdir -p '/srv/'$_vhost_name'/public'
-    sudo mkdir -p '/srv/'$_vhost_name'/log'
-    sudo chown www-data:www-data -R /srv/dev
+    local dir='/srv/'$_vhost_name
+    sudo mkdir -p $dir'/public'
+    sudo mkdir -p $dir'/log'
+    sudo chown www-data:www-data -R $dir
 }
 
-main
+main "$@"

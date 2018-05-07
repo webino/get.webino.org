@@ -16,6 +16,8 @@
 #   - It creates a virtual host
 
 main() {
+    echo -e "\nVirtual host setup...\n"
+
     #------+
     # init |
     #------+
@@ -28,6 +30,11 @@ main() {
     load vhost/conf
     load vhost/hello
     load vhost/done
+
+    #------+
+    # done |
+    #------+
+    echo 'Virtual host setup done...'
 }
 
 main "$@"

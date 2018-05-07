@@ -5,11 +5,11 @@
             'vhost'
         ],
         onUpdate: function () {
-            form.setCommand(self.vhost_domain.value, 'vhost-domain', self.vhost_domain.value);
-            form.setCommand(self.vhost_name.value, 'vhost-name', self.vhost_name.value);
-            form.setCommand(self.vhost_http.checked, 'vhost-http');
-            form.setCommand(self.vhost_https.checked, 'vhost-https');
-            form.setCommand(self.vhost_www.checked, 'vhost-www');
+            form.setCommand(form.vhost_domain.value, 'vhost-domain', form.vhost_domain.value);
+            form.setCommand(form.vhost_name.value, 'vhost-name', form.vhost_name.value);
+            form.setCommand(form.vhost_http.checked, 'vhost-http');
+            form.setCommand(form.vhost_https.checked, 'vhost-https');
+            form.setCommand(form.vhost_www.checked, 'vhost-www');
         }
     };
 

@@ -1,4 +1,4 @@
-# Webino™ Installation Scripts
+# Webino™ Setup Scripts
 
 ## Virtual host setup
 

@@ -7,7 +7,7 @@
 # Are you looking at this in your web browser, and would like to get Webino™?
 # Just open up your terminal and type:
 #
-#    wget @@host@@/dev -qO- | sh
+#    wget @@host@@/vhost -qO- | sh
 #
 # Webino™ currently supports:
 #   - Ubuntu 16.04
@@ -16,13 +16,15 @@
 #   - It creates a virtual host
 
 load() {
-    # Load remote bash source
+    #-------------------------+
+    # load remote bash source |
+    #-------------------------+
     wget @@host@@/$1 -qO /tmp/webino
     source /tmp/webino
 }
 
 main() {
-    echo -e "\nMachine setup for Webino™ (Virtual host)...\n"
+    echo -e "\nMachine setup for Webino™\n"
 
     #------+
     # init |
@@ -34,6 +36,11 @@ main() {
     # setup |
     #-------+
     load vhost/general
+
+    #------+
+    # done |
+    #------+
+    setup_done
 }
 
 main "$@"
