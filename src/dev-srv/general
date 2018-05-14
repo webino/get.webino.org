@@ -22,11 +22,8 @@ load() {
 }
 
 main() {
-    # lock check
-    local lock=/tmp/webino.dev.general.lock
-    if [[ -f $lock ]]; then
-        return
-    fi
+    echo -e "\nDev server setup...\n"
+    local data='@@host@@/dev-srv/~data/'
 
     # force development environment
     _env_local=
@@ -36,14 +33,51 @@ main() {
     # force PHP-FPM support
     php_fpm=1
 
-    # install general tools
-    load system/general
-    load apache/general
-    load mysql/general
-    load php/general
-    load devkit/general
+    # force vhost name
+    _vhost_name=dev
 
-    touch $lock
+    # TODO??
+    # setup vhost
+    load vhost/dirs
+    #sudo mkdir -p /srv/dev/pub
+    #sudo mkdir -p /srv/dev/log
+    #sudo chown www-data:www-data -R /srv/dev
+
+    # vhost conf setup
+    local file=/etc/php/fpm/pool.d/dev-srv.conf
+    [[ -f $file ]] || sudo wget $data$file -qO $file
+
+    # TODO
+    # adding SFTP access for dev group
+    #sudo groupadd sftp-only
+    # enable SFTP for sftp-only
+    #local is_ssh_sftp_allowed=$(grep 'AllowGroups .* sftp-only' /etc/ssh/sshd_config)
+    #if [[ ! $is_ssh_sftp_allowed ]]; then
+    #    sudo sed -i -E 's/AllowGroups (.+)/AllowGroups \1 sftp-only/' /etc/ssh/sshd_config
+        # TODO setup ssh sftp-only config
+    #fi
+
+    #sudo mkdir /sftp
+
+    # TODO decouple to script call
+    #load dev/user "$@"
+
+    #touch $lock
+    #echo -e "\nWebino™ (Dev server) configuration success...\n"
+
+    # install general tools
+    #load system/general
+    #load apache/general
+    #load mysql/general
+    #load php/general
+    #load devkit/general
+
+    #touch $lock
+
+    #------+
+    # done |
+    #------+
+    echo 'Dev server setup done...'
 }
 
 main "$@"
