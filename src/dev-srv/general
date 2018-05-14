@@ -46,7 +46,7 @@ main() {
 
     # TODO
     # adding SFTP access for dev group
-    sudo groupadd sftp-only 2>/dev/null
+    sudo groupadd sftp-only 2>/dev/null || true
     # enable SFTP for sftp-only
     local is_ssh_sftp_allowed=$(grep 'AllowGroups .* sftp-only' /etc/ssh/sshd_config)
     if [[ ! $is_ssh_sftp_allowed ]]; then
