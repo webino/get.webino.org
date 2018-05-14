@@ -67,7 +67,7 @@ main() {
     #-----------------+
     # PHP-FPM support |
     #-----------------+
-    if [[ $_php_prefix ]]; then
+    if [[ $_php_fpm ]]; then
         load php/php-fpm
 
     #-------------------------------+
