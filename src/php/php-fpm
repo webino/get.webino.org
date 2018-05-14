@@ -70,7 +70,7 @@ main() {
     #-----------+
     mkdir -p $etc/fpm/pool.d
     local file=/fpm/php-fpm.conf
-    [[ -f $etc$file ]] || sudo wget $data'/php'$file -qO $etc$file
+    [[ -f $etc$file ]] || sudo wget $data'/etc/php'$file -qO $etc$file
 
     #---------------+
     # service start |
