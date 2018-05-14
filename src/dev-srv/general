@@ -22,7 +22,7 @@ load() {
 }
 
 main() {
-    echo -e "\nDev server setup...\n"
+    echo 'Dev server setup...'
     local data='@@host@@/dev-srv/~data'
 
     # force development environment
@@ -44,9 +44,10 @@ main() {
     local file=/etc/php/fpm/pool.d/dev-srv.conf
     [[ -f $file ]] || sudo wget $data$file -qO $file
 
-    # TODO
     # adding SFTP access for dev group
     sudo groupadd sftp-only 2>/dev/null || true
+    sudo mkdir -p /sftp
+
     # enable SFTP for sftp-only
     local is_ssh_sftp_allowed=$(grep 'AllowGroups .* sftp-only' /etc/ssh/sshd_config)
     if [[ ! $is_ssh_sftp_allowed ]]; then
@@ -57,8 +58,6 @@ main() {
     else
         echo 'SSH sftp-only group access already configured...'
     fi
-
-    #sudo mkdir /sftp
 
     # TODO decouple to script call
     #load dev-srv/user/general "$@"
