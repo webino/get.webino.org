@@ -40,18 +40,28 @@ main() {
     #----------------------+
     echo "Installing dependencies for PHP build..."
 
+    # TODO redesign dependencies
+
     sudo apt-get install -y \
-        re2c \
-        libcurl4-openssl-dev \
-        pkg-config \
-        libpspell-dev \
-        libicu-dev \
-        libedit-dev \
-        libmagickwand-dev \
-        libmcrypt-dev \
-        libxslt1-dev \
-        libc-client-dev \
-        libkrb5-dev
+        build-essential \
+        autoconf \
+        automake \
+        libtool \
+        bison \
+        re2c
+
+    #sudo apt-get install -y \
+    #    re2c \
+    #    libcurl4-openssl-dev \
+    #    pkg-config \
+    #    libpspell-dev \
+    #    libicu-dev \
+    #    libedit-dev \
+    #    libmagickwand-dev \
+    #    libmcrypt-dev \
+    #    libxslt1-dev \
+    #    libc-client-dev \
+    #    libkrb5-dev
 
     #-------+
     # bison |

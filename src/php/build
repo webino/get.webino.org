@@ -131,9 +131,9 @@ main() {
         echo $php_cfg;
         echo
 
-        sh ./buildconf --force
-        sh ./configure $php_cfg
-        make
+        ./buildconf --force
+        ./configure $php_cfg
+        make -jN
         sudo make install
         touch $lock
     fi

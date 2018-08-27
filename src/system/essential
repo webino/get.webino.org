@@ -36,18 +36,25 @@ main() {
 
     sudo apt-get clean
     sudo apt-get update
+
+    # TODO redesign dependencies
+
     sudo apt-get install -y \
-        update-manager-core \
-        build-essential \
-        libpcre3-dev \
-        libexpat1-dev \
-        libwww-perl \
-        libssl-dev \
-        libkrb5-dev \
-        debconf-utils \
-        autoconf \
         curl \
         git
+
+    #sudo apt-get install -y \
+    #    update-manager-core \
+    #    build-essential \
+    #    libpcre3-dev \
+    #    libexpat1-dev \
+    #    libwww-perl \
+    #    libssl-dev \
+    #    libkrb5-dev \
+    #    debconf-utils \
+    #    autoconf \
+    #    curl \
+    #    git
 
     #-------------------------------+
     # java runtime (local|dev only) |
