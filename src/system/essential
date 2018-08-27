@@ -42,15 +42,12 @@ main() {
         libpcre3-dev \
         libexpat1-dev \
         libwww-perl \
-        libssl1.0-dev \
+        libssl-dev \
         libkrb5-dev \
         debconf-utils \
         autoconf \
         curl \
         git
-
-    # TODO decide between libssl1.0-dev
-    # libssl-dev \
 
     #-------------------------------+
     # java runtime (local|dev only) |

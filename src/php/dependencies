@@ -51,7 +51,9 @@ main() {
         libmcrypt-dev \
         libxslt1-dev \
         libc-client-dev \
-        libkrb5-dev
+        libkrb5-dev \
+        libssl1.0-dev
+        # TODO use libssl1.0-dev with ubu8ntu 18.04 only?
 
     #-------+
     # bison |
