@@ -133,7 +133,7 @@ main() {
 
         ./buildconf --force
         ./configure $php_cfg
-        make -jN
+        make
         sudo make install
         touch $lock
     fi
