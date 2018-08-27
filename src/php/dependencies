@@ -42,6 +42,7 @@ main() {
 
     sudo apt-get install -y \
         re2c \
+        libcurl4-openssl-dev \
         pkg-config \
         libpspell-dev \
         libicu-dev \
@@ -50,10 +51,7 @@ main() {
         libmcrypt-dev \
         libxslt1-dev \
         libc-client-dev \
-        libkrb5-dev \
-        libssl1.0-dev
-        # TODO use? libcurl4-openssl-dev \
-        # TODO use? libssl1.0-dev with ubu8ntu 18.04 only
+        libkrb5-dev
 
     #-------+
     # bison |
