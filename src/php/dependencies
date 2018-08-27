@@ -50,7 +50,15 @@ main() {
         bison \
         re2c \
         libcurl4-openssl-dev \
-        pkg-config
+        pkg-config \
+        libpspell-dev \
+        libicu-dev \
+        libedit-dev \
+        libmagickwand-dev \
+        libmcrypt-dev \
+        libxslt1-dev \
+        libc-client-dev \
+        libkrb5-dev
 
     #sudo apt-get install -y \
     #    re2c \
