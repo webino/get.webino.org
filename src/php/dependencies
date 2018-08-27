@@ -49,7 +49,7 @@ main() {
         libtool \
         bison \
         re2c \
-        libcurl-openssl1.0-dev
+        libcurl4-openssl-dev
 
     #sudo apt-get install -y \
     #    re2c \
