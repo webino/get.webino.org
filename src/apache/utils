@@ -20,7 +20,7 @@
 #--------------------+
 apache_restart()
 {
-    $(sleep 3 && sudo apachectl restart > /dev/null 2>&1) &
+    $(sleep 3 && sudo apachectl restart > /dev/null 2>&1) & || true
 }
 
 #-------------------+
@@ -28,5 +28,5 @@ apache_restart()
 #-------------------+
 apache_reload()
 {
-    $(sleep 3 && sudo apachectl graceful > /dev/null 2>&1) &
+    $(sleep 3 && sudo apachectl graceful > /dev/null 2>&1) & || true
 }
