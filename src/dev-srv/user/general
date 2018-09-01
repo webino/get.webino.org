@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/dev-srv/user -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04
+#
+# What this script does?
+#   - It manages dev server users
+
+main() {
+    echo -e "\nDev server user setup..."
+
+    #------+
+    # init |
+    #------+
+    load dev-srv/user/arguments "$@"
+    cd /tmp
+
+    # return early when user exists
+    local dev_user_exists=$(grep -c '^'$_dev_user_name':' /etc/passwd)
+    [[ "$dev_user_exists" == 0 ]] && return
+
+    # create dev user
+    sudo useradd -s /usr/sbin/nologin -rUm $_dev_user_name
+    # add user to the SFTP group
+    sudo usermod -aG sftp-only $_dev_user_name
+
+    # disable password access
+    sudo usermod -p '*' $_dev_user_name
+
+    # create dev www user
+    local dev_www_user_name=$_dev_user_name'-www-data'
+    sudo useradd -s /usr/sbin/nologin -d /nonexistent -rUM $dev_www_user_name
+
+    # create dev user SFTP work directory
+    local dev_user_work_dir = '/sftp/'$_dev_user_name'/work'
+    sudo mkdir -p $dev_user_work_dir
+    sudo chown $_dev_user_name':'$_dev_user_name $dev_user_work_dir
+
+    # TODO
+    # setup dev user web environment
+    local dir=/srv/dev/users
+    sudo mkdir -p $dir
+    sudo mkdir $dir'/'$_dev_user_name
+    # TODO create php-fpm.conf
+    # TODO create vhost.conf
+
+    # TODO read dev user SSH public key
+
+    sudo service sshd restart
+
+    #------+
+    # done |
+    #------+
+    echo 'Dev server user setup done...'
+}
+
+main "$@"

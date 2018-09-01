@@ -7,7 +7,7 @@
 # Are you looking at this in your web browser, and would like to get Webino™?
 # Just open up your terminal and type:
 #
-#    wget @@host@@/dev/user -qO- | sh
+#    wget @@host@@/dev-srv/user -qO- | sh
 #
 # Webino™ currently supports:
 #   - Ubuntu 16.04

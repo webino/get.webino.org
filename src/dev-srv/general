@@ -36,7 +36,9 @@ main() {
     # force vhost name
     _vhost_name=dev
 
-    # TODO??
+    # force dev server user name
+    _dev_user_name=dev
+
     # setup vhost
     load vhost/dirs
 
@@ -59,8 +61,8 @@ main() {
         echo 'SSH sftp-only group access already configured...'
     fi
 
-    # TODO decouple to script call
-    #load dev-srv/user/general "$@"
+    # setup dev server user
+    load dev-srv/user/general
 
     #touch $lock
     #echo -e "\nWebino™ (Dev server) configuration success...\n"

@@ -1,6 +1,6 @@
 (function (form) {
 
-    form.modules.apache = {
+    form.modules['dev-srv'] = {
         options: [
             'system',
             'apache',

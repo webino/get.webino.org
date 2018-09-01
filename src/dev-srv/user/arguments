@@ -7,23 +7,28 @@
 # Are you looking at this in your web browser, and would like to get Webino™?
 # Just open up your terminal and type:
 #
-#    wget @@host@@/dev/user -qO- | sh
+#    wget @@host@@/dev-srv/user -qO- | sh
 #
 # Webino™ currently supports:
 #   - Ubuntu 16.04
 
 
 main() {
-    # defaults
-    dev_user_name=
+    #----------+
+    # defaults |
+    #----------+
+    _dev_user_name=
 
+    #----------+
+    # get args |
+    #----------+
     n=0
     for i in "$@"
     do
     n=$((n + 1))
     case $i in
-        --dev-user-name) # set PHP version
-            dev_user_name=${argv[$n]}
+        -dev-user-name)
+            _dev_user_name=${argv[$n]}
             shift
             shift
         ;;

@@ -16,7 +16,7 @@
 #   - It builds PHP from source
 
 main() {
-    echo -e "\nPHP build...\n"
+    echo -e "\nPHP build..."
 
     #------+
     # init |
