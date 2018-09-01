@@ -69,6 +69,7 @@ main() {
     # install |
     #---------+
     echo 'Installing Apache '$apache_version
+    load apache/dependencies
     load apache/download
     load apache/build
     load apache/configure

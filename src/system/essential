@@ -43,8 +43,6 @@ main() {
         update-manager-core \
         build-essential \
         debconf-utils \
-        libpcre3-dev \
-        libssl-dev \
         pkg-config \
         autoconf \
         automake \
@@ -54,7 +52,6 @@ main() {
         git
 
     #sudo apt-get install -y \
-    #    libexpat1-dev \
     #    libwww-perl \
     #    libkrb5-dev \
 
