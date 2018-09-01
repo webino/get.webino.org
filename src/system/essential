@@ -43,6 +43,7 @@ main() {
         update-manager-core \
         build-essential \
         debconf-utils \
+        libpcre3-dev \
         pkg-config \
         autoconf \
         automake \
