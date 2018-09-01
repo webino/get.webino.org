@@ -43,14 +43,7 @@ main() {
     # TODO redesign dependencies
 
     sudo apt-get install -y \
-        build-essential \
-        autoconf \
-        automake \
-        libtool \
-        bison \
-        re2c \
         libcurl4-openssl-dev \
-        pkg-config \
         libpspell-dev \
         libicu-dev \
         libedit-dev \
@@ -61,9 +54,7 @@ main() {
         libkrb5-dev
 
     #sudo apt-get install -y \
-    #    re2c \
     #    libcurl4-openssl-dev \
-    #    pkg-config \
     #    libpspell-dev \
     #    libicu-dev \
     #    libedit-dev \

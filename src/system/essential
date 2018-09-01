@@ -40,21 +40,23 @@ main() {
     # TODO redesign dependencies
 
     sudo apt-get install -y \
+        update-manager-core \
+        build-essential \
+        debconf-utils \
+        pkg-config \
+        autoconf \
+        automake \
+        libtool \
+        re2c \
         curl \
         git
 
     #sudo apt-get install -y \
-    #    update-manager-core \
-    #    build-essential \
     #    libpcre3-dev \
     #    libexpat1-dev \
     #    libwww-perl \
     #    libssl-dev \
     #    libkrb5-dev \
-    #    debconf-utils \
-    #    autoconf \
-    #    curl \
-    #    git
 
     #-------------------------------+
     # java runtime (local|dev only) |
