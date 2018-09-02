@@ -36,7 +36,7 @@ main() {
     sudo useradd -s /usr/sbin/nologin -d /nonexistent -rUM $dev_www_user_name
 
     # create dev user sFTP work directory
-    local dev_user_work_dir = '/sftp/'$_dev_user_name'/work'
+    local dev_user_work_dir='/sftp/'$_dev_user_name'/work'
     sudo mkdir -p $dev_user_work_dir
     sudo chown $_dev_user_name':'$_dev_user_name $dev_user_work_dir
 
