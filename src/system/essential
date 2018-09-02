@@ -37,8 +37,6 @@ main() {
     sudo apt-get clean
     sudo apt-get update
 
-    # TODO redesign dependencies
-
     sudo apt-get install -y \
         update-manager-core \
         build-essential \
@@ -51,6 +49,7 @@ main() {
         curl \
         git
 
+    # TODO remove useless dependencies
     #sudo apt-get install -y \
     #    libwww-perl \
     #    libkrb5-dev \

@@ -17,7 +17,7 @@
 
 main() {
     #------------------+
-    # vhost conf setup |
+    # vhost.conf setup |
     #------------------+
     local data='@@host@@/vhost/~data'
     local dir='/srv/'$_vhost_name

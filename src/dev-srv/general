@@ -41,21 +41,36 @@ main() {
 
     # setup vhost
     load vhost/dirs
+    load vhost/conf
+    # TODO setup vhost SSL protection with user certs
 
-    # vhost conf setup
+    # setup vhost.conf
+    local file=/srv/dev/common.conf
+    local is_vhost_configured=$(grep 'Dev server' $file)
+    if [[ ! $is_vhost_configured ]]; then
+        echo 'Configuring dev server vhost.conf...'
+        wget $data$file -qO- | sudo tee --append $file > /dev/null
+    else
+        echo 'Dev server vhost.conf already configured...'
+    fi
+
+    # .user.ini setup
+    local file=/srv/dev/public/.user.ini
+    [[ -f $file ]] || sudo wget $data$file -qO $file
+
+    # php-fpm dev-srv.conf setup
     local file=/etc/php/fpm/pool.d/dev-srv.conf
     [[ -f $file ]] || sudo wget $data$file -qO $file
 
-    # adding SFTP access for dev group
+    # adding sFTP access for dev group
     sudo groupadd sftp-only 2>/dev/null || true
     sudo mkdir -p /sftp
 
-    # enable SFTP for sftp-only
+    # enable sFTP for sftp-only
     local is_ssh_sftp_allowed=$(grep 'AllowGroups .* sftp-only' /etc/ssh/sshd_config)
     if [[ ! $is_ssh_sftp_allowed ]]; then
         echo 'Configuring SSH sftp-only group access...'
         sudo sed -i -E 's/AllowGroups (.+)/AllowGroups \1 sftp-only/' /etc/ssh/sshd_config
-        # TODO setup ssh sftp-only config
         wget $data'/etc/ssh/sshd_config.sftp-only' -qO- | sudo tee --append /etc/ssh/sshd_config > /dev/null
     else
         echo 'SSH sftp-only group access already configured...'

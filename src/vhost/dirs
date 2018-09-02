@@ -22,6 +22,7 @@ main() {
     local dir='/srv/'$_vhost_name
     sudo mkdir -p $dir'/public'
     sudo mkdir -p $dir'/log'
+    sudo mkdir -p $dir'/tmp'
     sudo chown www-data:www-data -R $dir
 }
 

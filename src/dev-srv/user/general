@@ -17,6 +17,7 @@
 
 main() {
     echo -e "\nDev server user setup..."
+    local data='@@host@@/dev-srv/user/~data'
 
     #------+
     # init |
@@ -40,18 +41,42 @@ main() {
     local dev_www_user_name=$_dev_user_name'-www-data'
     sudo useradd -s /usr/sbin/nologin -d /nonexistent -rUM $dev_www_user_name
 
-    # create dev user SFTP work directory
+    # create dev user sFTP work directory
     local dev_user_work_dir = '/sftp/'$_dev_user_name'/work'
     sudo mkdir -p $dev_user_work_dir
     sudo chown $_dev_user_name':'$_dev_user_name $dev_user_work_dir
 
-    # TODO
     # setup dev user web environment
     local dir=/srv/dev/users
     sudo mkdir -p $dir
     sudo mkdir $dir'/'$_dev_user_name
-    # TODO create php-fpm.conf
-    # TODO create vhost.conf
+
+    # php-fpm.conf setup
+    local src='/srv/dev/users/example/php-fpm.conf'
+    local dest='/srv/dev/users/'$_dev_user_name'/php-fpm.conf'
+    if [[ ! -f $dest ]]; then
+        echo "$(wget $data$src -qO- | \
+            sed s/'%NAME%'/$_dev_user_name/g)" | \
+        sudo tee $dest > /dev/null
+    fi
+
+    # vhost.conf setup
+    local src='/srv/dev/users/example/vhost.conf'
+    local dest='/srv/dev/users/'$_dev_user_name'/vhost.conf'
+    if [[ ! -f $dest ]]; then
+        echo "$(wget $data$src -qO- | \
+            sed s/'%NAME%'/$_dev_user_name/g)" | \
+        sudo tee $dest > /dev/null
+    fi
+
+    # .user.ini setup
+    local src='/srv/dev/public/example/.user.ini'
+    local dest='/srv/dev/public/'$_dev_user_name'/.user.ini'
+    if [[ ! -f $dest ]]; then
+        echo "$(wget $data$src -qO- | \
+            sed s/'%NAME%'/$_dev_user_name/g)" | \
+        sudo tee $dest > /dev/null
+    fi
 
     # TODO read dev user SSH public key
 

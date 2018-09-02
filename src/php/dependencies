@@ -40,8 +40,6 @@ main() {
     #----------------------+
     echo "Installing dependencies for PHP build..."
 
-    # TODO redesign dependencies
-
     sudo apt-get install -y \
         libcurl4-openssl-dev \
         libpspell-dev \
@@ -52,17 +50,6 @@ main() {
         libxslt1-dev \
         libc-client-dev \
         libkrb5-dev
-
-    #sudo apt-get install -y \
-    #    libcurl4-openssl-dev \
-    #    libpspell-dev \
-    #    libicu-dev \
-    #    libedit-dev \
-    #    libmagickwand-dev \
-    #    libmcrypt-dev \
-    #    libxslt1-dev \
-    #    libc-client-dev \
-    #    libkrb5-dev
 
     #-------+
     # bison |
