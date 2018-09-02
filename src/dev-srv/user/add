@@ -21,7 +21,7 @@ main() {
 
     # create dev user
     echo 'Adding dev server user "'$_dev_user_name'"...'
-    sudo useradd -s /usr/sbin/nologin -rUm "$_dev_user_name" 2&>1 /dev/null
+    sudo useradd -s /usr/sbin/nologin -rUm "$_dev_user_name" 2&>1 /dev/null || true
     # add user to the sFTP group
     sudo usermod -aG sftp-only $_dev_user_name
 
@@ -31,7 +31,7 @@ main() {
     # create dev www user
     local dev_www_user_name=$_dev_user_name'-www-data'
     echo 'Adding dev server www user "'$_dev_www_user_name'"...'
-    sudo useradd -s /usr/sbin/nologin -d /nonexistent -rUM $dev_www_user_name 2&>1 /dev/null
+    sudo useradd -s /usr/sbin/nologin -d /nonexistent -rUM $dev_www_user_name 2&>1 /dev/null || true
 
     # create dev user sFTP work directory
     local dev_user_work_dir='/sftp/'$_dev_user_name'/work'
