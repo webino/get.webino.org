@@ -43,14 +43,12 @@ main() {
 
     # setup dev user web environment
     local dir=/srv/dev/public
-    sudo mkdir -p $dir
-    sudo mkdir $dir'/'$_dev_user_name
+    sudo mkdir -p $dir'/'$_dev_user_name
 
     # setup dev user work environment
     local dir=/srv/dev/users
-    sudo mkdir -p $dir
-    sudo mkdir $dir'/'$_dev_user_name'/work'
-    sudo mkdir $dir'/'$_dev_user_name'/tmp'
+    sudo mkdir -p $dir'/'$_dev_user_name'/work'
+    sudo mkdir -p $dir'/'$_dev_user_name'/tmp'
 
     # php-fpm.conf setup
     local src='/srv/dev/users/example/php-fpm.conf'
@@ -69,6 +67,8 @@ main() {
             sed s/'%NAME%'/$_dev_user_name/g)" | \
         sudo tee $dest > /dev/null
     fi
+
+    # TODO setup database account
 
     # TODO read dev user SSH public key
 
