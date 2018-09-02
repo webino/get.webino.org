@@ -35,6 +35,8 @@ main() {
 
     # force vhost name
     _vhost_name=dev
+    # TODO option
+    _vhost_domain=dev.webino.sk
 
     # force dev server user name
     _dev_user_name=dev
