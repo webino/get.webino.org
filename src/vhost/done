@@ -25,7 +25,7 @@ main() {
     # server reload |
     #---------------+
     echo 'Reloading web server...'
-    apache_reload
+    apache_reload || true
 
     #------+
     # done |
