@@ -83,7 +83,6 @@ main() {
     #--------------------+
     # web server restart |
     #--------------------+
-    echo 'Restarting web server...'
     apache_restart || true
 
     #--------------------------------+

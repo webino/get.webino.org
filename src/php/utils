@@ -20,6 +20,7 @@
 #-----------------+
 php_fpm_restart()
 {
+    echo 'Restarting PHP_FPM...'
     $(sleep 3 && sudo /usr/sbin/php-fpm stop; sleep 1 && sudo /usr/sbin/php-fpm start > /dev/null 2>&1) &
 }
 
@@ -28,5 +29,6 @@ php_fpm_restart()
 #--------------+
 php_fpm_stop()
 {
+    echo 'Stopping PHP_FPM...'
     $(sleep 3 && sudo /usr/sbin/php-fpm stop > /dev/null 2>&1) &
 }
