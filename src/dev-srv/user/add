@@ -30,12 +30,12 @@ main() {
 
     # create dev www user
     local dev_www_user_name=$_dev_user_name'-www-data'
-    echo 'Adding dev server www user "'$_dev_www_user_name'"...'
+    echo 'Adding dev server www user "'$dev_www_user_name'"...'
     sudo useradd -s /usr/sbin/nologin -d /nonexistent -rUM $dev_www_user_name 2&>1 /dev/null || true
 
     # create dev user sFTP work directory
     local dev_user_work_dir='/sftp/'$_dev_user_name'/work'
-    echo 'Creating dev user sFTP work directory "'$_dev_user_work_dir'"...'
+    echo 'Creating dev user sFTP work directory "'$dev_user_work_dir'"...'
     sudo mkdir -p $dev_user_work_dir
     sudo chown $_dev_user_name':'$_dev_user_name $dev_user_work_dir
 
