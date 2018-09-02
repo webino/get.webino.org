@@ -26,7 +26,7 @@ main() {
     cd /tmp
 
     # return early when user exists
-    local dev_user_exists=$(grep -c '^'$_dev_user_name':' /etc/passwd)
+    local dev_user_exists=$(grep -c '^$'$_dev_user_name':' /etc/passwd)
     [[ "$dev_user_exists" == 0 ]] && return
 
     # create dev user
