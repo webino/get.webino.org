@@ -48,6 +48,7 @@ main() {
     local dir=/srv/dev/users
     sudo mkdir -p $dir
     sudo mkdir $dir'/'$_dev_user_name'/work'
+    sudo mkdir $dir'/'$_dev_user_name'/tmp'
 
     # php-fpm.conf setup
     local src='/srv/dev/users/example/php-fpm.conf'
