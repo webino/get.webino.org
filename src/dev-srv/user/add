@@ -71,9 +71,10 @@ main() {
     # setup database account
     # TODO create random password
     echo 'Creating MySQL client user...'
-    sudo -i mysql -e "CREATE USER '$_dev_user_name'@'localhost' IDENTIFIED BY '123456';" 2&>1 > /dev/null || true
-    sudo -i mysql -e "$(wget $data/extra/mysql-grant-client.sql -qO- | sed s/'%USER%'/$_dev_user_name/g)" 2&>1 > /dev/null || true
-    #sudo -i mysql -e "$(wget $data/extra/mysql-grant-client.sql -qO- | sed s/'%USER%'/$_dev_user_name/g)"
+    #sudo -i mysql -e "CREATE USER '$_dev_user_name'@'localhost' IDENTIFIED BY '123456';" 2&>1 > /dev/null || true
+    sudo -i mysql -e "CREATE USER '$_dev_user_name'@'localhost' IDENTIFIED BY '123456';"
+    #sudo -i mysql -e "$(wget $data/extra/mysql-grant-client.sql -qO- | sed s/'%USER%'/$_dev_user_name/g)" 2&>1 > /dev/null || true
+    sudo -i mysql -e "$(wget $data/extra/mysql-grant-client.sql -qO- | sed s/'%USER%'/$_dev_user_name/g)"
 
     # TODO read dev user SSH public key
 
