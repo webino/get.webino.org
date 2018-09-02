@@ -1,0 +1,80 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/dev-srv/user -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04
+#
+# What this script does?
+#   - It manages dev server users
+
+main() {
+    cd /tmp
+    local data='@@host@@/dev-srv/user/~data'
+
+    # return early when user exists
+    local dev_user_exists=$(grep -c '^'$_dev_user_name':' /etc/passwd)
+    [[ "$dev_user_exists" == 0 ]] || return
+
+    # create dev user
+    sudo useradd -s /usr/sbin/nologin -rUm "$_dev_user_name"
+    # add user to the sFTP group
+    sudo usermod -aG sftp-only $_dev_user_name
+
+    # disable password access
+    sudo usermod -p '*' $_dev_user_name
+
+    # create dev www user
+    local dev_www_user_name=$_dev_user_name'-www-data'
+    sudo useradd -s /usr/sbin/nologin -d /nonexistent -rUM $dev_www_user_name
+
+    # create dev user sFTP work directory
+    local dev_user_work_dir = '/sftp/'$_dev_user_name'/work'
+    sudo mkdir -p $dev_user_work_dir
+    sudo chown $_dev_user_name':'$_dev_user_name $dev_user_work_dir
+
+    # setup dev user web environment
+    local dir=/srv/dev/users
+    sudo mkdir -p $dir
+    sudo mkdir $dir'/'$_dev_user_name
+
+    # php-fpm.conf setup
+    local src='/srv/dev/users/example/php-fpm.conf'
+    local dest='/srv/dev/users/'$_dev_user_name'/php-fpm.conf'
+    if [[ ! -f $dest ]]; then
+        echo "$(wget $data$src -qO- | \
+            sed s/'%NAME%'/$_dev_user_name/g)" | \
+        sudo tee $dest > /dev/null
+    fi
+
+    # vhost.conf setup
+    local src='/srv/dev/users/example/vhost.conf'
+    local dest='/srv/dev/users/'$_dev_user_name'/vhost.conf'
+    if [[ ! -f $dest ]]; then
+        echo "$(wget $data$src -qO- | \
+            sed s/'%NAME%'/$_dev_user_name/g)" | \
+        sudo tee $dest > /dev/null
+    fi
+
+    # .user.ini setup
+    local src='/srv/dev/public/example/.user.ini'
+    local dest='/srv/dev/public/'$_dev_user_name'/.user.ini'
+    if [[ ! -f $dest ]]; then
+        echo "$(wget $data$src -qO- | \
+            sed s/'%NAME%'/$_dev_user_name/g)" | \
+        sudo tee $dest > /dev/null
+    fi
+
+    # TODO read dev user SSH public key
+
+    sudo service sshd restart
+}
+
+main "$@"
