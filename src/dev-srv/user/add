@@ -40,9 +40,14 @@ main() {
     sudo chown $_dev_user_name':'$_dev_user_name $dev_user_work_dir
 
     # setup dev user web environment
-    local dir=/srv/dev/users
+    local dir=/srv/dev/public
     sudo mkdir -p $dir
     sudo mkdir $dir'/'$_dev_user_name
+
+    # setup dev user work environment
+    local dir=/srv/dev/users
+    sudo mkdir -p $dir
+    sudo mkdir $dir'/'$_dev_user_name'/work'
 
     # php-fpm.conf setup
     local src='/srv/dev/users/example/php-fpm.conf'
