@@ -38,9 +38,6 @@ main() {
     # TODO option
     _vhost_domain=dev.webino.sk
 
-    # force dev server user name
-    _dev_user_name=dev
-
     # setup vhost
     load vhost/dirs
     load vhost/conf
@@ -77,6 +74,9 @@ main() {
     else
         echo 'SSH sftp-only group access already configured...'
     fi
+
+    # force dev server user name
+    _dev_user_name=dev
 
     # setup dev server user
     load dev-srv/user/general
