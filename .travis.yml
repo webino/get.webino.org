@@ -28,3 +28,6 @@ env:
   global:
     - GH_REF=github.com/webino/get.webino.org
     - secure: O2T13SnWVLTvmIWRxmWPh8VB7j1VOk2qjxXUfvLTZOVFInoJz0cy/Vo5K82Hug+qdz4ncH3bDjUOKiyFinkZr3uoxBOVlam9Z61XiHeHBluWbcKhSW2IW2chc5F8RVHDxCYa79q9vLoIwDNWDVe42E9BY+jCx32zSXhWlgTetaM=
+notifications:
+  email:
+    - syslog@webino.sk
