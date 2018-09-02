@@ -79,7 +79,7 @@ main() {
     # web server restart |
     #--------------------+
     echo 'Restarting web server...'
-    apache_restart || true
+    apache_restart
 
     #--------------------------------+
     # system settings (dev|pub only) |

@@ -93,7 +93,7 @@ main() {
     if [[ $_php_apache ]]; then
         echo 'Restarting web server...'
         load apache/utils
-        apache_restart || true
+        apache_restart
     fi
 
     #------+

@@ -21,6 +21,7 @@
 apache_restart()
 {
     $(sleep 3 && sudo apachectl restart > /dev/null 2>&1) &
+    return 0
 }
 
 #-------------------+
@@ -29,4 +30,5 @@ apache_restart()
 apache_reload()
 {
     $(sleep 3 && sudo apachectl graceful > /dev/null 2>&1) &
+    return 0
 }
