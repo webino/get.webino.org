@@ -76,7 +76,7 @@ main() {
     # service start |
     #---------------+
     echo 'Starting PHP-FPM...'
-    sudo /usr/sbin/php-fpm start > /dev/null 2>&1 &
+    php_fpm_restart
     touch $lock
 }
 

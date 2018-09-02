@@ -22,6 +22,7 @@ main() {
     # init |
     #------+
     load php/arguments "$@"
+    load php/utils
 
     #------------------------+
     # resolve latest version |

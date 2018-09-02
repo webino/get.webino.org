@@ -56,10 +56,6 @@ main() {
         echo 'Dev server vhost.conf already configured...'
     fi
 
-    # .user.ini setup
-    local file=/srv/dev/public/.user.ini
-    [[ -f $file ]] || sudo wget $data$file -qO $file
-
     # php-fpm dev-srv.conf setup
     local file=/etc/php/fpm/pool.d/dev-srv.conf
     [[ -f $file ]] || sudo wget $data$file -qO $file

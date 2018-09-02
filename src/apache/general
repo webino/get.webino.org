@@ -18,6 +18,11 @@
 main() {
     echo -e "\nApache build...\n"
 
+    #------+
+    # init |
+    #------+
+    load apache/utils
+
     #----------------------+
     # remove pre-installed |
     #----------------------+

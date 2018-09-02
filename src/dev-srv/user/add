@@ -32,6 +32,8 @@ main() {
     local dev_www_user_name=$_dev_user_name'-www-data'
     echo 'Adding dev server www user "'$dev_www_user_name'"...'
     sudo useradd -s /usr/sbin/nologin -d /nonexistent -rUM $dev_www_user_name 2&>1 /dev/null || true
+    # add www user to the www-data group
+    sudo usermod -aG www-data $_dev_user_name
 
     # create dev user sFTP work directory
     local dev_user_work_dir='/sftp/'$_dev_user_name'/work'
@@ -68,18 +70,15 @@ main() {
         sudo tee $dest > /dev/null
     fi
 
-    # .user.ini setup
-    local src='/srv/dev/public/example/.user.ini'
-    local dest='/srv/dev/public/'$_dev_user_name'/.user.ini'
-    if [[ ! -f $dest ]]; then
-        echo "$(wget $data$src -qO- | \
-            sed s/'%NAME%'/$_dev_user_name/g)" | \
-        sudo tee $dest > /dev/null
-    fi
-
     # TODO read dev user SSH public key
 
     sudo service sshd restart
+
+    # restart PHP-FPM & apache
+    load php/utils
+    load apache/utils
+    php_fpm_restart
+    apache_restart
 }
 
 main "$@"
