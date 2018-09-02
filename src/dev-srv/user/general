@@ -30,8 +30,8 @@ main() {
     [[ "$dev_user_exists" == 0 ]] || return
 
     # create dev user
-    sudo useradd -s /usr/sbin/nologin -rUm $_dev_user_name
-    # add user to the SFTP group
+    sudo useradd -s /usr/sbin/nologin -rUm "$_dev_user_name"
+    # add user to the sFTP group
     sudo usermod -aG sftp-only $_dev_user_name
 
     # disable password access
