@@ -77,9 +77,9 @@ main() {
         # setup database account |
         #------------------------+
         echo 'Generating MySQL password for username `'$_dev_user_name'`...'
-        local $_dev_user_pwd=$(echo $(< /dev/urandom tr -dc a-z0-9 | head -c12))
+        local dev_user_pwd=$(echo $(< /dev/urandom tr -dc a-z0-9 | head -c12))
         echo 'Creating MySQL client user...'
-        sudo -i mysql -e "CREATE USER '$_dev_user_name'@'localhost' IDENTIFIED BY '$_dev_user_pwd';" > /dev/null 2>&1 || true
+        sudo -i mysql -e "CREATE USER '$_dev_user_name'@'localhost' IDENTIFIED BY '$dev_user_pwd';" > /dev/null 2>&1 || true
         sudo -i mysql -e "$(wget $data/extra/mysql-grant-client.sql -qO- | sed s/'%USER%'/$_dev_user_name/g)" > /dev/null 2>&1 || true
 
         #------------------------+
@@ -90,7 +90,7 @@ main() {
 
         echo "$(wget -qO- $dbData/home/example/.my.cnf | \
             sed s/'%USER%'/$_dev_user_name/ | \
-            sed s/'%PASSWORD%'/$_dev_user_pwd/)" | \
+            sed s/'%PASSWORD%'/$dev_user_pwd/)" | \
             sudo tee $config > /dev/null
 
         sudo chown $_dev_user_name:$_dev_user_name $config
