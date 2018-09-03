@@ -21,7 +21,7 @@ main() {
 
     # create dev user
     echo 'Adding dev server user "'$_dev_user_name'"...'
-    sudo useradd -s /usr/sbin/nologin -rUm "$_dev_user_name" 2&>1 /dev/null || true
+    sudo useradd -s /usr/sbin/nologin -d /nonexistent -rUM "$_dev_user_name" 2&>1 /dev/null || true
     # add user to the sFTP group
     sudo usermod -aG sftp-only $_dev_user_name
 
