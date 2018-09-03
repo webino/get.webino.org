@@ -24,7 +24,7 @@ case "${1:-''}" in
     'stop')
         # Kill all php-fpm instances
         echo 'Stopping php-fpm...'
-        kill $(ps aux | grep '[p]hp-fpm' | awk '{print $2}') 2> /dev/null
+        kill $(ps aux | grep '[p]hp-fpm:' | awk '{print $2}') 2> /dev/null
         exit 0
     ;;
     *)
