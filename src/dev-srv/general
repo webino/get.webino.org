@@ -76,7 +76,7 @@ main() {
 
     # TODO setup webino-devkit user
     echo 'Adding webino-devkit user...'
-    sudo useradd -s /bin/bash -rUm webino-devkit 2&>1 /dev/null || true
+    sudo useradd -s /bin/bash -rUm webino-devkit
 
     # TODO setup authorized key for git to webino-devkit user
     # TODO setup webino-devkit
