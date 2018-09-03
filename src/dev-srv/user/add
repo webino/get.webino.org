@@ -82,7 +82,7 @@ main() {
     load php/utils
     load apache/utils
     php_fpm_restart
-    apache_restart
+    #apache_restart
 }
 
 main "$@"
