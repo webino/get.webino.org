@@ -24,7 +24,7 @@ main() {
     #-------+
     # setup |
     #-------+
-    echo 'Mailer setup...'
+    echo -e "\nMailer setup..."
 
     #---------------------------+
     # read SMTP mailer password |
