@@ -26,7 +26,7 @@ main() {
     file=/etc/apt/apt.conf.d/99force-ipv4
     if [ -f $file ]; then
         echo 'Forcing IPv4...'
-        echo 'Acquire::ForceIPv4 "true";' | sudo tee $file
+        file_put 'Acquire::ForceIPv4 "true";' $file
     else
         echo 'IPv4 already forced...'
     fi
