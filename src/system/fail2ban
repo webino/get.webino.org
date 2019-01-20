@@ -20,7 +20,7 @@ main() {
     # install |
     #---------+
     local data='@@host@@/system/~data'
-    echo 'Fail2ban...'
+    echo -e "\nFail2ban..."
     install fail2ban
 
     #-----------+
