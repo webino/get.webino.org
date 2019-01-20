@@ -29,7 +29,7 @@ main() {
 
     # TODO add sysadmin sudoer
     local sysadmin=$(rand_word 8)
-    [ user_exists $sysadmin ];then
+    if [ user_exists $sysadmin ];then
         echo -e "\nAdding sysadmin user..."
         sudo useradd -ms /bin/bash $sysadmin
         local ssh_filepath=$(user_ssh_keygen $sysadmin id_rsa)
