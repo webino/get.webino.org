@@ -16,25 +16,17 @@
 #   - It configures operating system upgrades
 
 main() {
-    #--------------------------+
-    # check already configured |
-    #--------------------------+
-    if [[ $(whereis apticron) == */apticron* ]]; then
-        echo 'Operating system upgrades already set...'
-        return
-    fi
-
     #-------+
     # setup |
     #-------+
     local data='@@host@@/system/~data'
-    echo 'Setting operating system upgrades...'
+    echo 'Operating system upgrades setup...'
 
     #------------------+
     # apticron install |
     #------------------+
-    echo 'Installing apticron...'
-    sudo apt-get install -y apticron
+    echo 'Apticron...'
+    install apticron
 
     sudo sed -i 's/EMAIL="root"/EMAIL="'$_admin_email'"/' /etc/apticron/apticron.conf
     sudo sed -i 's/# SYSTEM="foobar.example.com"/SYSTEM="'$_host_name'"/' /etc/apticron/apticron.conf
@@ -54,7 +46,7 @@ main() {
     local file=/etc/cron.d/upgrade
     if [[ ! -f $file ]]; then
         echo 'Installing upgrade CRON script...'
-        sudo wget $data$file -qO $file
+        root_file_wget $data$file $file
     fi
 
     #-----------+
@@ -63,7 +55,7 @@ main() {
     local file=/etc/logrotate.d/upgrade
     if [[ ! -f $file ]]; then
         echo 'Configuring upgrade logrotate...'
-        sudo wget $data$file -qO $file
+        root_file_wget $data$file $file
     fi
 }
 
