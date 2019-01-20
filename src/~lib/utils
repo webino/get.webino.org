@@ -113,3 +113,12 @@ rand_word()
 {
     echo "u$(< /dev/urandom tr -dc a-z0-9 | head -c${1:-$1})"
 }
+
+#----------------------+
+# Check user existence |
+#----------------------+
+user_exists()
+{
+    id $1 &>/dev/null
+    return $?
+}
