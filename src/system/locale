@@ -35,11 +35,9 @@ setup_locale()
         sudo locale-gen $to_configure
         sudo DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
         sudo update-locale
-        return 0
+    else
+        echo 'Locales already configured...'
     fi
-    
-    echo 'Locales already configured...'
-    return 0
 }
 
 main() {
@@ -48,7 +46,6 @@ main() {
     #-------+
     # TODO optional locales support
     setup_locale en_US.utf8 sk_SK.utf8
-    return 0
 }
 
 main
