@@ -33,8 +33,8 @@ main() {
         echo -e "\nAdding sysadmin user..."
         sudo useradd -ms /bin/bash $sysadmin
         local ssh_filepath=$(user_ssh_keygen $sysadmin id_rsa)
-        local msg='Sysadmin username: '$sysadmin"\nSSH key:\n $(printf -- "$(cat $ssh_filepath)")"
-        setup_log $msg
+        local msg="Sysadmin username: $sysadmin\nSSH key:\n $(printf -- "$(cat $ssh_filepath)")"
+        setup_log "$msg"
     fi
     
     #sudo useradd $
