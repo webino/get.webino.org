@@ -16,34 +16,26 @@
 #   - It installs fail2ban
 
 main() {
-    #-------------------------+
-    # check already installed |
-    #-------------------------+
-    if [[ $(whereis fail2ban) == */fail2ban* ]]; then
-        echo 'Fail2ban already installed...'
-        return
-    fi
-
     #---------+
     # install |
     #---------+
     local data='@@host@@/system/~data'
-    echo 'Installing fail2ban...'
-
-    sudo apt-get install -y fail2ban
+    echo 'Fail2ban...'
+    install fail2ban
 
     #-----------+
     # configure |
     #-----------+
     local file=/etc/fail2ban/jail.local
-    echo "$(wget $data$file -qO- | \
-            sed s/'%HOST_IP%'/$_host_ip/g | \
-            sed s/'%ADMIN_EMAIL%'/$_admin_email/g)" | \
-        sudo tee $file > /dev/null
+    [ -f "$file" ] || \
+        echo "$(wget $data$file -qO- | \
+                sed s/'%HOST_IP%'/$_host_ip/g | \
+                sed s/'%ADMIN_EMAIL%'/$_admin_email/g)" | \
+            sudo tee $file > /dev/null
 
     # ssh jail
     local file=/etc/fail2ban/jail.d/ssh.conf
-    sudo wget $data$file -qO $file
+    [ -f "$file" ] || sudo wget $data$file -qO $file
 
     #-----------------+
     # service restart |
