@@ -32,7 +32,7 @@ setup_locale()
     done
     
     if [ "$to_configure" ]; then
-        sudo locale-gen "$to_configure"
+        sudo locale-gen $to_configure
         sudo DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
         sudo update-locale
         return 0
