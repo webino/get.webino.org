@@ -15,30 +15,39 @@
 # What this script does?
 #   - It fixes operating system locales
 
-main() {
-    #------------+
-    # lock check |
-    #------------+
-    local lock=/tmp/webino.system.locale.lock
-    if [[ -f $lock ]]; then
-        echo 'System locales already configured...'
-        return
-    fi
-
-    #-----------+
-    # configure |
-    #-----------+
+setup_locale()
+{
     echo 'Configuring system locales...'
-    # TODO optional locales support
-    sudo locale-gen en_US.UTF-8
-    sudo locale-gen sk_SK.UTF-8
-    sudo DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
-    sudo update-locale
 
-    #------+
-    # lock |
-    #------+
-    touch $lock
+    local configured=$(locale -a)
+    local to_configure=''
+
+    for l in $@; do
+        if [ "$(echo $configured | grep -o $l 2>/dev/null)" ]; then
+            echo $l' \ configured'
+        else
+            echo $l' \ configuring'
+            to_configure=$to_configure' '$l
+        fi
+    done
+    
+    if [ "$to_configure" ]; then
+        sudo locale-gen "$to_configure"
+        sudo DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
+        sudo update-locale
+        return 0
+    fi
+    
+    echo 'Locales already configured...'
+    return 1
+}
+
+main() {
+    #-------+
+    # setup |
+    #-------+
+    # TODO optional locales support
+    setup_locale en_US.UTF-8 sk_SK.UTF-8
 }
 
 main
