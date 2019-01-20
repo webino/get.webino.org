@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This is the Webino™ setup script!
-# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Copyright (c) 2015-2019 Webino, s.r.o. (http://webino.sk)
 # Version: @@version@@
 #
 # Are you looking at this in your web browser, and would like to get Webino™?
@@ -16,28 +16,28 @@
 #   - It installs essential operating system tools
 
 main() {
-    #------------+
-    # lock check |
-    #------------+
-    local lock=/tmp/webino.system.essential.lock
-    if [[ -f $lock ]]; then
-        echo 'Essential tools already installed...'
-        return
-    fi
-
-    #---------+
-    # install |
-    #---------+
+    #-------+
+    # setup |
+    #-------+
     local data='@@host@@/system/~data'
-    echo 'Installing essential tools...'
+    echo 'Essential setup...'
 
     # apt force ipv4
-    echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4
+    file=/etc/apt/apt.conf.d/99force-ipv4
+    if [ -f $file ]; then
+        echo 'Forcing IPv4...'
+        echo 'Acquire::ForceIPv4 "true";' | sudo tee $file
+    else
+        echo 'IPv4 already forced...'
+    fi
 
+    #--------------------+
+    # essential packages |
+    #--------------------+
     sudo apt-get clean
     sudo apt-get update
 
-    sudo apt-get install -y \
+    install \
         update-manager-core \
         build-essential \
         debconf-utils \
@@ -48,17 +48,12 @@ main() {
         re2c \
         curl \
         git
-
-    # TODO remove useless dependencies
-    #sudo apt-get install -y \
-    #    libwww-perl \
-    #    libkrb5-dev \
-
+        
     #-------------------------------+
     # java runtime (local|dev only) |
     #-------------------------------+
     [[ ( $_env_local || $_env_dev ) && ! $(java -version 2> /dev/null) ]] && \
-        sudo apt-get install -y default-jre
+        install default-jre
 
     #----------------------+
     # hosts-fix (dev only) |
@@ -86,11 +81,6 @@ main() {
             fi
         fi
     fi
-
-    #------+
-    # lock |
-    #------+
-    touch $lock
 }
 
 main
