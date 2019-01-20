@@ -49,7 +49,7 @@ main() {
     #------+
     # done |
     #------+
-    echo 'System setup done...'
+    echo -e "\nSystem setup done..."
 }
 
 main "$@"
