@@ -20,7 +20,7 @@ main() {
     # install |
     #---------+
     local data='@@host@@/system/~data'
-    echo 'Logwatch...'
+    echo -e "\nLogwatch..."
     install logwatch
 
     #-----------+
