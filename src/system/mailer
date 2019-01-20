@@ -55,7 +55,7 @@ main() {
     # configure mailer |
     #------------------+
     local file=/etc/nullmailer/remotes
-    if [ ! "$(grep -oP "^$(echo $_smtp_host | sed -e 's/\./\\\./g')" $file)" 2>/dev/null ] && [ ! "$(grep -oP "user=$(echo $_smtp_user | sed -e 's/\./\\\./g')" $file)" 2>/dev/null ]; then
+    if [ "$(grep -oP "^$(echo $_smtp_host | sed -e 's/\./\\\./g')" $file)" 2>/dev/null ] || [ "$(grep -oP "user=$(echo $_smtp_user | sed -e 's/\./\\\./g')" $file)" 2>/dev/null ]; then
         root_file_write "$_smtp_host smtp --port=587 --starttls --user=$_smtp_user --pass=$smtp_password" $file
     fi
 
