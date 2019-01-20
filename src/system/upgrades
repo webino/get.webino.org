@@ -20,7 +20,7 @@ main() {
     # setup |
     #-------+
     local data='@@host@@/system/~data'
-    echo 'Operating system upgrades setup...'
+    echo -e "\nOperating system upgrades setup..."
 
     #------------------+
     # apticron install |
