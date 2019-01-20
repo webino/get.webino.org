@@ -20,19 +20,11 @@ main() {
     # return early on empty settings |
     #--------------------------------+
     [[ ! $_smtp_host || ! $_smtp_user ]] && return
-
-    #-------------------------+
-    # check already installed |
-    #-------------------------+
-    if [[ $(whereis nullmailer) == */nullmailer* ]]; then
-        echo 'Mailer already installed...'
-        return
-    fi
-
-    #---------+
-    # install |
-    #---------+
-    echo 'Installing mailer...'
+    
+    #-------+
+    # setup |
+    #-------+
+    echo 'Mailer setup...'
 
     #---------------------------+
     # read SMTP mailer password |
@@ -49,16 +41,16 @@ main() {
     sudo apt-get purge -y postfix* sendmail* exim*
     sudo apt-get autoremove -y
 
-    #--------------------+
-    # install nullmailer |
-    #--------------------+
-    sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nullmailer
+    #---------+
+    # install |
+    #---------+
+    install nullmailer
 
     #--------------------+
     # configure mailname |
     #--------------------+
     local mail_host=$(echo $_admin_email | grep -oP '[^@]+$')
-    echo $mail_host | sudo tee /etc/mailname > /dev/null
+    root_file_write $mail_host /etc/mailname
 
     #------------------+
     # configure mailer |
@@ -66,8 +58,8 @@ main() {
     echo "$_smtp_host smtp --port=587 --starttls --user=$_smtp_user --pass=$smtp_password" | \
         sudo tee /etc/nullmailer/remotes > /dev/null
 
-    echo $mail_host | sudo tee /etc/nullmailer/defaultdomain > /dev/null
-    echo $_host_name | sudo tee /etc/nullmailer/me > /dev/null
+    root_file_write $mail_host /etc/nullmailer/defaultdomain
+    root_file_write $_host_name /etc/nullmailer/me
 
     sudo chown mail:mail /etc/nullmailer/*
 
