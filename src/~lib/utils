@@ -71,7 +71,7 @@ install()
 #-----------------+
 # Root file write |
 #-----------------+
-root_file_put()
+root_file_write()
 {
     echo $1 | sudo tee $2 > /dev/null
 }
