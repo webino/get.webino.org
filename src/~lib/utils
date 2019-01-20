@@ -60,7 +60,7 @@ install()
     
     if [ "$to_install" ]; then
         echo 'Installing:'$to_install
-        sudo DEBIAN_FRONTEND=noninteractive apt-get install -y "$to_install"
+        sudo DEBIAN_FRONTEND=noninteractive apt-get install -y $to_install
         return 0
     fi
     
