@@ -23,7 +23,7 @@ main() {
     echo 'Essential setup...'
 
     # apt force ipv4
-    file=/etc/apt/apt.conf.d/99force-ipv4
+    local file=/etc/apt/apt.conf.d/99force-ipv4
     if [ -f $file ]; then
         echo 'Forcing IPv4...'
         root_file_write 'Acquire::ForceIPv4 "true";' $file
@@ -66,7 +66,7 @@ main() {
             local file=/etc/systemd/system/hosts-fix.service
             if [[ ! -f $file ]]; then
                 echo 'Installing hosts-fix systemd script...'
-                sudo wget $data$file -qO $file
+                root_file_wget $data$file $file
                 sudo systemctl enable hosts-fix.service
             fi
         else
@@ -76,7 +76,7 @@ main() {
             local file=/etc/init/hosts-fix.conf
             if [[ ! -f $file ]]; then
                 echo 'Installing hosts-fix upstart script...'
-                sudo wget $data$file -qO $file
+                root_file_wget $data$file $file
                 sudo initctl reload-configuration > /dev/null 2>&1 &
             fi
         fi
