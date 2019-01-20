@@ -64,7 +64,7 @@ install()
         return 0
     fi
     
-    echo 'Nothing to install...'
+    echo -e "Nothing to install...\n"
     return 1
 }
 
