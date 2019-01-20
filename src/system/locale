@@ -39,7 +39,7 @@ setup_locale()
     fi
     
     echo 'Locales already configured...'
-    return 1
+    return 0
 }
 
 main() {
