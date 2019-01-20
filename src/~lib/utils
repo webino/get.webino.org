@@ -73,3 +73,11 @@ root_file_put()
 {
     echo $1 | sudo tee $2 > /dev/null
 }
+
+#-------------------+
+# Root file web get |
+#-------------------+
+root_file_wget()
+{
+    sudo wget $1 -qO $2
+}
