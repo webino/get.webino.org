@@ -15,7 +15,7 @@
 #-----------------+
 # Write setup log |
 #-----------------+
-setup_log()
+setup_log() # <message>
 {
     echo $@ && echo $@ >> /root/.webino.log
 }
@@ -44,7 +44,7 @@ hr()
 #--------------------+
 # Packages installer |
 #--------------------+
-install() 
+install() # <pckg-name> [<pckg-name> ...]
 {
     local to_install=''
     local installed=$(dpkg -l)
@@ -69,7 +69,8 @@ install()
 #----------------------+
 # Packages uninstaller |
 #----------------------+
-uninstall() {
+uninstall() # <pckg-name> [<pckg-name> ...]
+{
     local to_uninstall=''
     local installed=$(dpkg -l)
 
@@ -93,7 +94,7 @@ uninstall() {
 #-----------------+
 # Root file write |
 #-----------------+
-root_file_write()
+root_file_write() # <data> <filepath>
 {
     echo $1 | sudo tee $2 > /dev/null
 }
@@ -101,7 +102,7 @@ root_file_write()
 #-------------------+
 # Root file web get |
 #-------------------+
-root_file_wget()
+root_file_wget() # <url> <filepath>
 {
     sudo wget $1 -qO $2
 }
@@ -109,7 +110,7 @@ root_file_wget()
 #-------------+
 # Random word |
 #-------------+
-rand_word()
+rand_word() # <length>
 {
     echo "u$(< /dev/urandom tr -dc a-z0-9 | head -c${1:-$1})"
 }
@@ -117,8 +118,16 @@ rand_word()
 #----------------------+
 # Check user existence |
 #----------------------+
-user_exists()
+user_exists() # <username>
 {
     id $1 &>/dev/null
     return $?
+}
+
+#-----------------------+
+# Generate user ssh key |
+#-----------------------+
+user_ssh_keygen() # <username> <filename>
+{
+    yes y | sudo su $1 -c "ssh-keygen -t rsa -N '' -f ~/.ssh/$2 &>/dev/null echo ~/.ssh/$2"
 }
