@@ -105,3 +105,11 @@ root_file_wget()
 {
     sudo wget $1 -qO $2
 }
+
+#-------------+
+# Random word |
+#-------------+
+rand_word()
+{
+    echo "u$(< /dev/urandom tr -dc a-z0-9 | head -c${1:-$1})"
+}
