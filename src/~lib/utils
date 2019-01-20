@@ -129,5 +129,5 @@ user_exists() # <username>
 #-----------------------+
 user_ssh_keygen() # <username> <filename>
 {
-    yes y | sudo su $1 -c "ssh-keygen -t rsa -N '' -f ~/.ssh/$2 &>/dev/null echo ~/.ssh/$2"
+    yes y | sudo su $1 -c "ssh-keygen -t rsa -N '' -f ~/.ssh/$2 &>/dev/null; echo ~/.ssh/$2"
 }
