@@ -17,7 +17,7 @@
 #-----------------+
 setup_log() # <message>
 {
-    echo $@ && echo $@ >> /root/.webino.log
+    echo -e $@ && echo -e $@ >> /root/.webino.log
 }
 
 #----------------+
