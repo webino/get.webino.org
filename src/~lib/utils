@@ -65,3 +65,11 @@ install()
     echo 'Nothing to install...'
     return 1
 }
+
+#-----------------+
+# Root file write |
+#-----------------+
+root_file_put()
+{
+    echo $1 | sudo tee $2 > /dev/null
+}
