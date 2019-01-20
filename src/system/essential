@@ -20,7 +20,7 @@ main() {
     # setup |
     #-------+
     local data='@@host@@/system/~data'
-    echo 'Essential setup...'
+    echo -e "\nEssential setup..."
 
     # apt force ipv4
     local file=/etc/apt/apt.conf.d/99force-ipv4
