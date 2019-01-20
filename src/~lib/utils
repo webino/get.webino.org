@@ -17,7 +17,7 @@
 #-----------------+
 setup_log() # <message>
 {
-    echo -e $@ && echo -e $@ >> /root/.webino.log
+    printf $@ | tee -a /root/.webino.log
 }
 
 #----------------+
