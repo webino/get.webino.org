@@ -47,7 +47,7 @@ main() {
     # setup |
     #-------+
     # TODO optional locales support
-    setup_locale en_US.utf8 sk_SK.utf8
+    #setup_locale en_US.utf8 sk_SK.utf8
     return 0
 }
 
