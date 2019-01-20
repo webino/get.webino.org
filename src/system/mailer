@@ -54,8 +54,10 @@ main() {
     #------------------+
     # configure mailer |
     #------------------+
-    echo "$_smtp_host smtp --port=587 --starttls --user=$_smtp_user --pass=$smtp_password" | \
-        sudo tee /etc/nullmailer/remotes > /dev/null
+    local file=/etc/nullmailer/remotes
+    ( [ "$(grep -oP "^$(echo $_smtp_host | sed -e 's/\./\\\./g')" $file)" 2>/dev/null ] \ 
+        && [ "$(grep -oP "user=$(echo $_smtp_user | sed -e 's/\./\\\./g')" $file)" 2>/dev/null ]) \
+            || root_file_write "$_smtp_host smtp --port=587 --starttls --user=$_smtp_user --pass=$smtp_password" $file
 
     root_file_write $mail_host /etc/nullmailer/defaultdomain
     root_file_write $_host_name /etc/nullmailer/me
