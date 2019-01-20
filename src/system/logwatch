@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This is the Webino™ setup script!
-# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Copyright (c) 2015-2019 Webino, s.r.o. (http://webino.sk)
 # Version: @@version@@
 #
 # Are you looking at this in your web browser, and would like to get Webino™?
@@ -16,30 +16,22 @@
 #   - It installs logwatch
 
 main() {
-    #-------------------------+
-    # check already installed |
-    #-------------------------+
-    if [[ $(whereis logwatch) == */logwatch* ]]; then
-        echo 'Logwatch already installed...'
-        return
-    fi
-
     #---------+
     # install |
     #---------+
     local data='@@host@@/system/~data'
-    echo 'Installing logwatch...'
-
-    sudo apt-get install -y logwatch
+    echo 'Logwatch...'
+    install logwatch
 
     #-----------+
     # configure |
     #-----------+
     local file=/usr/share/logwatch/dist.conf/logwatch.conf
-    echo "$(wget $data$file -qO- | \
-            sed s/'%HOST_NAME%'/$_host_name/g | \
-            sed s/'%ADMIN_EMAIL%'/$_admin_email/g)" | \
-        sudo tee $file > /dev/null
+    [ -f "$file" ] || \
+            echo "$(wget $data$file -qO- | \
+                sed s/'%HOST_NAME%'/$_host_name/g | \
+                sed s/'%ADMIN_EMAIL%'/$_admin_email/g)" | \
+            sudo tee $file > /dev/null
 }
 
 main
