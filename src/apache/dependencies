@@ -17,7 +17,7 @@
 
 main() {
     cd /tmp
-    local lock=webino.aoache.dependencies.lock
+    local lock=webino.apache.dependencies.lock
 
     #------------+
     # check lock |
