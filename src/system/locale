@@ -36,7 +36,7 @@ setup_locale()
         sudo DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
         sudo update-locale
     else
-        echo "Locales already configured...\n"
+        echo "Locales already configured.../n"
     fi
 }
 
