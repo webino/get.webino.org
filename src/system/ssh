@@ -28,6 +28,9 @@ main() {
     echo -e "\nSSH setup..."
 
     # TODO add sysadmin sudoer
+    local sysadmin=$(rand_word 8)
+    echo $sysadmin
+    #sudo useradd $
     # TODO generate random sysadmin username
 
     #------------------+
