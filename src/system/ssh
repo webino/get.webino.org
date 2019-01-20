@@ -29,7 +29,9 @@ main() {
 
     # TODO add sysadmin sudoer
     local sysadmin=$(rand_word 8)
-    echo $sysadmin
+    user_exists $sysadmin || echo $sysadmin
+    user_exists root || echo 'ROOT NOT EXISTS'
+    
     #sudo useradd $
     # TODO generate random sysadmin username
 
