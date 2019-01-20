@@ -16,7 +16,7 @@
 #   - It configures operating system
 
 main() {
-    echo -e "\nSystem setup..."
+    echo 'System setup...'
 
     #------------------+
     # environment info |
