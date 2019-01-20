@@ -25,7 +25,7 @@ main() {
     # setup |
     #-------+
     local config=/etc/ssh/sshd_config
-    echo 'SSH setup...'
+    echo -e "\nSSH setup..."
 
     # TODO add sysadmin sudoer
     # TODO generate random sysadmin username
