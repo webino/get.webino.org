@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This is the Webino™ setup script!
-# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Copyright (c) 2015-2019 Webino, s.r.o. (http://webino.sk)
 # Version: @@version@@
 #
 # Are you looking at this in your web browser, and would like to get Webino™?
@@ -16,7 +16,7 @@
 #   - It configures operating system
 
 main() {
-    echo -e "\nSystem setup...\n"
+    echo -e "\nSystem setup..."
 
     #------------------+
     # environment info |
