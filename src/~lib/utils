@@ -40,3 +40,28 @@ hr()
 {
     printf '%*s\n' $((${COLUMNS:-$(tput cols)}-1)) '' | tr ' ' -
 }
+
+#--------------------+
+# Packages installer |
+#--------------------+
+install() 
+{
+    local to_install=''
+    local installed=$(dpkg -l)
+
+    for n in $@; do
+        if [ "$(echo $installed | grep -o $n 2>/dev/null)" ]; then
+            echo $n' \ installed'
+            continue
+        fi
+        echo $n' \ installing'
+        to_install=$to_install' '$n
+    done
+     if [ "$to_install" ]; then
+        echo 'Installing:'$to_install
+        echo 'sudo apt-get install -y'$to_install
+        return 0
+    fi
+    echo 'Nothing to install...'
+    return 1
+}
