@@ -150,3 +150,7 @@ input[type=text] {
 .disclaimer {
     font-style: italic;
 }
+
+datalist {
+    display: none;
+}
