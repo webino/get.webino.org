@@ -19,7 +19,7 @@ main() {
     #---------+
     # install |
     #---------+
-    echo 'MySQL client...'
+    echo "\nMySQL client..."
     install mysql-client
 
     #-----------+
