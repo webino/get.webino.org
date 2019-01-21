@@ -16,7 +16,7 @@
 #   - It builds Apache from source
 
 main() {
-    echo -e "\nApache build...\n"
+    echo -e "\nApache build..."
 
     #------+
     # init |
