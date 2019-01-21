@@ -41,6 +41,15 @@ hr()
     printf '%*s\n' $((${COLUMNS:-$(tput cols)}-1)) '' | tr ' ' -
 }
 
+#-------------------------+
+# Check package installed |
+#-------------------------+
+installed() # <pckg-name>
+{
+    dpkg -l | grep -o $1 &>/dev/null
+    return $?
+}
+
 #--------------------+
 # Packages installer |
 #--------------------+
