@@ -38,7 +38,7 @@ main() {
         sudo useradd -ms /bin/bash -Ng sysadmin -G sudo -c sysadmin $sysadmin
         echo -e "$sysadmin_pwd\n$sysadmin_pwd" | sudo passwd $sysadmin
         local ssh_filepath=$(user_ssh_keygen $sysadmin id_rsa)
-        local msg="Sysadmin username: $sysadmin\nSysadmin password: $sysadmin_pwd\nSysadmin SSH key: \n$(printf -- "$(cat $ssh_filepath)")"
+        local msg="Sysadmin\nUsername: $sysadmin\nPassword: $sysadmin_pwd\nSSH key: \n$(printf -- "$(cat $ssh_filepath)")"
         setup_log "$msg"
     fi
 
