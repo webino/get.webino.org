@@ -54,9 +54,10 @@ label {
 }
 
 hr {
-    margin: 10px 0;
+    margin: 10px 0 9px;
     padding: 0;
     border: 1px solid lightgray;
+    border-top: none;
 }
 
 form {
@@ -80,7 +81,7 @@ fieldset fieldset {
 }
 
 fieldset hr {
-    margin: 15px 0;
+    margin: 14px 0 15px;
 }
 
 legend {
