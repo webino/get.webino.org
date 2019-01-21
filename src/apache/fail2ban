@@ -36,7 +36,7 @@ main() {
     #-------+
     local data='@@host@@/apache/~data'
     echo 'Installing Fail2ban for Apache...'
-    sudo wget $data$file -qO $file
+    root_file_wget $data$file $file
 
     #-----------------+
     # service restart |
