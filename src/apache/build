@@ -38,6 +38,7 @@ main() {
         --with-included-apr \
         --with-perl \
         --with-ssl \
+        --enable-so \
         --enable-ssl \
         --enable-rewrite \
         --enable-suexec \
