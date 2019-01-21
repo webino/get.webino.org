@@ -39,8 +39,8 @@ main() {
     #-----------------------------+
     # resolve latest 2.4 versions |
     #-----------------------------+
-    local apache_version_latest=$(echo $(wget -qO- http://www.apache.org/dist/httpd/Announcement2.4.txt \
-        | grep -a -Eom 1 'Server 2\.4\.[0-9]+ Released' | grep -a -Eom 1 '[0-9\.]+'))
+    local apache_version_latest=$(echo $(wget -qO- http://httpd.apache.org/download.cgi \
+        | grep -a -Eom 1 '2\.4\.[0-9]+.+released' | grep -a -Eom 1 '[0-9\.]+'))
 
     local apache_apr_version_latest=$(echo $(wget -qO- http://apr.apache.org/download.cgi \
         | grep -a -Eom 1 'APR 1\.[0-9]+\.[0-9]+ is the best' | grep -a -Eom 1 '[0-9\.]+'))
@@ -48,7 +48,7 @@ main() {
     local apache_apr_util_version_latest=$(echo $(wget -qO- http://apr.apache.org/download.cgi \
         | grep -a -Eom 1 'APR-util 1\.[0-9]+\.[0-9]+ is the best' | grep -a -Eom 1 '[0-9\.]+'))
 
-    apache_version=${_apache_version-$apache_version_latest}
+    apache_version=${apache_version-$apache_version_latest}
     apache_apr_version=${apache_apr_version-$apache_apr_version_latest}
     apache_apr_util_version=${apache_apr_util_version-$apache_apr_util_version_latest}
 
