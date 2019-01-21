@@ -21,7 +21,6 @@ main() {
     #------+
     # init |
     #------+
-    load apache/arguments "$@"
     load apache/utils
 
     #----------------------+
