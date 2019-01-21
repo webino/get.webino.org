@@ -26,7 +26,11 @@ main() {
     #----------------------+
     # remove pre-installed |
     #----------------------+
-    load apache/purge
+    if test installed apache*; then
+        echo 'Removing pre-installed Apache...'
+        uninstall apache*
+        sudo rm -rf /etc/apache2 /usr/local/apache2 /var/www/html
+    fi
 
     #-------------------------+
     # check already installed |
