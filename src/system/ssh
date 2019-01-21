@@ -28,54 +28,53 @@ main() {
     echo -e "\nSSH setup..."
 
     # add sysadmin sudoer with random name
-    local sysadmin=$(rand_word 8)
     if ! group_exists sysadmin; then
         echo -e "\nAdding sysadmin user..."
+        local sysadmin="s$(rand_word 8)"
+        local sysadmin_pwd=$(rand_word 8)
         sudo groupadd sysadmin
         sudo useradd -ms /bin/bash -G sudo,sysadmin $sysadmin
         local ssh_filepath=$(user_ssh_keygen $sysadmin id_rsa)
-        local msg="Sysadmin username: $sysadmin\nSSH key: \n$(printf -- "$(cat $ssh_filepath)")"
+        local msg="Sysadmin username: $sysadmin\nSysadmin password: $sysadmin_pwd\nSysadmin SSH key: \n$(printf -- "$(cat $ssh_filepath)")"
         setup_log "$msg"
     fi
 
-    #------------------+
-    # add root SSH key |
-    #------------------+
-    # TODO add sysadmin ssh key
-    local file=/root/.ssh/authorized_keys
+    #----------------------+
+    # add sysadmin SSH key |
+    #----------------------+
+    local file='/home/'$sysadmin'/.ssh/authorized_keys'
     if ! sudo test -f $file; then
         if [[ ! $_no_interaction ]]; then
-            echo 'Root SSH authorized key:'
-            read root_ssh_authorized_key </dev/tty
+            echo 'Sysadmin SSH authorized key:'
+            read sysadmin_authorized_key </dev/tty
 
-            [[ -n "$root_ssh_authorized_key" ]] && \
-                sudo mkdir -p ~/.ssh && echo $root_ssh_authorized_key | sudo tee $file > /dev/null
+            [[ -n "$sysadmin_authorized_key" ]] && \
+                sudo su $sysadmin -c "mkdir -p ~/.ssh && printf "$sysadmin_authorized_key" | sudo tee $file > /dev/null"
         fi
     fi
 
-    #-----------------------+
-    # allow root login only |
-    #-----------------------+
-    # TODO disable root login, allow sysadmin only instead
-    local is_ssh_root_only=$(grep 'AllowGroups root' $config)
+    #---------------------------+
+    # allow sysadmin login only |
+    #---------------------------+
+    local is_ssh_root_only=$(grep 'AllowGroups sysadmin' $config)
     if [[ ! $is_ssh_root_only ]]; then
-        echo 'Enabling SSH for root only ...'
-        echo "AllowGroups root" | cat - $config | sudo tee $config > /dev/null
+        echo 'Enabling SSH for sysadmin group only ...'
+        echo "AllowGroups sysadmin" | cat - $config | sudo tee $config > /dev/null
     fi
 
     #------------------------+
     # disable password login |
     #------------------------+
-    # TODO disable root login
     sudo sed -i 's/LogLevel INFO/LogLevel VERBOSE/' $config
-    sudo sed -i 's/PermitRootLogin yes/PermitRootLogin without-password/' $config
-    sudo sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' $config
-
-    #-----------+
-    # configure |
-    #-----------+
-    sudo sed -i 's~Subsystem sftp /usr/lib/openssh/sftp-server~Subsystem sftp internal-sftp~' $config
+    sudo sed -i 's/#?PermitRootLogin yes/PermitRootLogin no/' $config
+    sudo sed -i 's/#?PermitRootLogin without-password/PermitRootLogin no/' $config
+    sudo sed -i 's/#?PasswordAuthentication yes/PasswordAuthentication no/' $config
     sudo sed -i 's/UsePAM yes/UsePAM no/' $config
+
+    #------+
+    # sftp |
+    #------+
+    sudo sed -i 's~Subsystem sftp /usr/lib/openssh/sftp-server~Subsystem sftp internal-sftp~' $config
 
     #---------------------+
     # change default port |
