@@ -26,6 +26,7 @@ main() {
     sudo apachectl stop > /dev/null 2>&1 &
 
     # set www-data user shell
+    # TODO remove?
     sudo chsh -s /bin/bash www-data
 
     # setup directories
@@ -68,16 +69,16 @@ main() {
     echo 'Installing Apache general configs...'
 
     local file=/etc/apache2/conf.d/general.conf
-    sudo wget $data$file -qO $file
+    root_file_wget $data$file $file
 
     local file=/etc/apache2/conf.d/mods.conf
-    sudo wget $data$file -qO $file
+    root_file_wget $data$file $file
 
     local file=/etc/apache2/conf.d/security.conf
-    sudo wget $data$file -qO $file
+    root_file_wget $data$file $file
 
     local file=/etc/apache2/conf.d/ssl.conf
-    sudo wget $data$file -qO $file
+    root_file_wget $data$file $file
 
     #----------------+
     # common configs |
@@ -85,13 +86,13 @@ main() {
     echo 'Installing apache common configs...'
 
     local file=/etc/apache2/common/dir.conf
-    sudo wget $data$file -qO $file
+    root_file_wget $data$file $file
 
     local file=/etc/apache2/common/maintenance.conf
-    sudo wget $data$file -qO $file
+    root_file_wget $data$file $file
 
     local file=/etc/apache2/common/vhost.conf
-    sudo wget $data$file -qO $file
+    root_file_wget $data$file $file
 
     #---------------+
     # local configs |
@@ -99,7 +100,7 @@ main() {
     echo 'Installing Apache local configs...'
 
     local file=/etc/apache2/local.d/local.conf
-    sudo wget $data$file -qO $file
+    root_file_wget $data$file $file
 
     #---------------+
     # vhost configs |
@@ -107,34 +108,34 @@ main() {
     echo 'Installing apache vhost configs...'
 
     local file=/etc/apache2/vhost.d/000-default.conf
-    sudo wget $data$file -qO $file
+    root_file_wget $data$file $file
 
     local file=/etc/apache2/vhost.inc/default.conf
-    sudo wget $data$file -qO $file
+    root_file_wget $data$file $file
 
     # TODO SSL config support
     local file=/etc/apache2/vhost.d/001-default-ssl.conf
-    sudo wget $data$file -qO $file
+    root_file_wget $data$file $file
 
     local file=/etc/apache2/vhost.inc/default-ssl.conf
-    sudo wget $data$file -qO $file
+    root_file_wget $data$file $file
 
     #----------------------------+
     # Webino™ support (optional) |
     #----------------------------+
     if [[ ! $_no_webino ]]; then
         local file=/etc/apache2/conf.d/webino.conf
-        sudo wget $data$file -qO $file
+        root_file_wget $data$file $file
 
         local file=/etc/apache2/common/webino-dir.conf
-        sudo wget $data$file -qO $file
+        root_file_wget $data$file $file
 
         local file=/etc/apache2/common/webino-vhost.conf
-        sudo wget $data$file -qO $file
+        root_file_wget $data$file $file
 
         # vhost (local only)
         local file=/etc/apache2/vhost.d/000-default-local.conf
-        [[ $_env_local ]] && sudo wget $data$file -qO $file
+        [[ $_env_local ]] && root_file_wget $data$file $file
     fi
 
     #-----------------+
@@ -142,7 +143,7 @@ main() {
     #-----------------+
     echo 'Installing common Bad-bot-blocker config...'
     local file=/etc/apache2/common/bad-bot-blocker.conf
-    sudo wget -qO $file https://raw.githubusercontent.com/bluedragonz/bad-bot-blocker/master/.htaccess 2>&1
+    root_file_wget https://raw.githubusercontent.com/bluedragonz/bad-bot-blocker/master/.htaccess $file
 
     echo '<Directory />' | sudo cat - $file > temp
     sudo mv temp $file
@@ -154,13 +155,13 @@ main() {
     echo 'Configuring logrotate...'
     sudo mkdir -p /etc/logrotate.d/httpd-prerotate
     local file=/etc/logrotate.d/apache
-    sudo wget $data$file -qO $file
+    root_file_wget $data$file $file
 
     #---------------------------------+
     # logrotate vhosts (dev|pub only) |
     #---------------------------------+
     local file=/etc/logrotate.d/apache-vhosts
-    [[ $_env_dev || $_env_pub ]] && sudo wget $data$file -qO $file
+    [[ $_env_dev || $_env_pub ]] && root_file_wget $data$file $file
 
 
     #-------------------------------------+
@@ -169,7 +170,7 @@ main() {
     if [[ ! $_no_webino ]]; then
         # webino vhost (dev|pub only)
         local file=/etc/logrotate.d/webino-vhosts
-        [[ $_env_dev || $_env_pub ]] && sudo wget $data$file -qO $file
+        [[ $_env_dev || $_env_pub ]] && root_file_wget $data$file $file
     fi
 }
 
