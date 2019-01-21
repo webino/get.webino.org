@@ -28,7 +28,7 @@ main() {
         local file=/etc/systemd/system/httpd.service
         if [[ ! -f $file ]]; then
             echo 'Installing Apache systemd service...'
-            sudo wget $data$file -qO $file
+            root_file_wget $data$file $file
             sudo systemctl enable httpd.service > /dev/null 2>&1 &
         fi
     else
@@ -38,7 +38,7 @@ main() {
         local file=/etc/init/httpd.conf
         if [[ ! -f $file ]]; then
             echo 'Installing Apache upstart script...'
-            sudo wget $data$file -qO $file
+            root_file_wget $data$file $file
             sudo initctl reload-configuration > /dev/null 2>&1 &
         fi
     fi
