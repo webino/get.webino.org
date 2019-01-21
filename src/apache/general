@@ -49,7 +49,7 @@ main() {
     local apache_apr_util_version_latest=$(echo $(wget -qO- http://apr.apache.org/download.cgi \
         | grep -a -Eom 1 'APR-util 1\.[0-9]+\.[0-9]+ is the best' | grep -a -Eom 1 '[0-9\.]+'))
 
-    apache_version=${apache_version-$apache_version_latest}
+    apache_version=${_apache_version-$apache_version_latest}
     apache_apr_version=${apache_apr_version-$apache_apr_version_latest}
     apache_apr_util_version=${apache_apr_util_version-$apache_apr_util_version_latest}
 
