@@ -17,16 +17,7 @@
 
 main() {
     cd /tmp/httpd
-    local lock=built.lock
-
-    #---------------------+
-    # check already built |
-    #---------------------+
-    if [[ -f $lock ]]; then
-        echo 'Apache already built...'
-        return
-    fi
-
+    
     #-------+
     # build |
     #-------+
@@ -56,11 +47,6 @@ main() {
 
     make
     sudo make install
-
-    #------+
-    # lock |
-    #------+
-    touch $lock
 }
 
 main
