@@ -3,12 +3,13 @@
     <p>
         <label>
             PHP Version:
-            <select name="php_version">
-                <option value="5.6.33">5.6.33</option>
-                <option value="7.0.27">7.0.27</option>
-                <option value="7.1.14" selected>7.1.14</option>
-                <option value="7.2.2">7.2.2</option>
-            </select>
+            <input list="php_versions" name="php_version">
+            <datalist id="php_versions">
+              <option value="7.3.1">
+              <option value="7.2.14">
+              <option value="7.1.26">
+              <option value="7.6.40">
+            </datalist>
         </label>
     </p>
     <p>
