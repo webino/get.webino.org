@@ -54,7 +54,7 @@ install() # <pckg-name> [<pckg-name> ...]
             echo $n' \ installed'
             continue
         fi
-        echo $n' \ installing'
+        echo $n' \ +installing'
         to_install=$to_install' '$n
     done
     
@@ -76,7 +76,7 @@ uninstall() # <pckg-name> [<pckg-name> ...]
 
     for n in $@; do
         if [ "$(echo $installed | grep -o $n 2>/dev/null)" ]; then
-            echo $n' \ uninstalling'
+            echo $n' \ -uninstalling'
             to_uninstall=$to_uninstall' '$n
             continue
         fi
