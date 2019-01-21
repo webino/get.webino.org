@@ -55,9 +55,9 @@ main() {
     # create client credentials |
     #---------------------------+
     echo 'Generating MySQL client username...'
-    local client_username=$(echo $(< /dev/urandom tr -dc a-z0-9 | head -c6))
+    local client_username=$(rand_word 6)
     echo 'Generating MySQL password for username `'$client_username'`...'
-    local client_password=$(echo $(< /dev/urandom tr -dc a-z0-9 | head -c12))
+    local client_password=$(rand_word 8)
 
     #----------------------+
     # create client config |
