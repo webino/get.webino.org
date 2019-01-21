@@ -22,6 +22,7 @@ apache_restart()
 {
     echo 'Restarting web server...'
     $(sleep 3 && sudo apachectl restart > /dev/null 2>&1) &
+    return
 }
 
 #-------------------+
@@ -31,4 +32,5 @@ apache_reload()
 {
     echo 'Reloading web server...'
     $(sleep 3 && sudo apachectl graceful > /dev/null 2>&1) &
+    return
 }
