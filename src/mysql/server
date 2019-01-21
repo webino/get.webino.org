@@ -34,20 +34,20 @@ main() {
     # create root credentials |
     #-------------------------+
     echo 'Generating MySQL password for user `root`...'
-    local root_password=$(echo $(< /dev/urandom tr -dc a-z0-9 | head -c12))
+    local root_password=$(rand_word 8)
 
     #-------------------------+
     # install non-interactive |
     #-------------------------+
     sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password '$root_password
     sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password '$root_password
-    sudo apt-get install -y mysql-server
+    install mysql-server
 
     #---------------------------------+
     # config background compatibility |
     #---------------------------------+
     local file=/etc/mysql/conf.d/sql-mode.cnf
-    sudo wget $data$file -qO $file
+    root_file_wget $data$file $file
 
     #----------------------------------+
     # check root config already exists |
