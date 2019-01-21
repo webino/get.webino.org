@@ -35,10 +35,10 @@ main() {
     #-------+
     local data='@@host@@/apache/~data'
     echo 'Installing Logwatch for Apache...'
-    sudo wget $data$file -qO $file
+    root_file_wget $data$file $file
 
     local file=/usr/share/logwatch/dist.conf/logfiles/http-error.conf
-    sudo wget $data$file -qO $file
+    root_file_wget $data$file $file
 }
 
 main
