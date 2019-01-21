@@ -17,7 +17,7 @@
 #-----------------+
 setup_log() # <message>
 {
-    printf -- "$*" | sudo tee -a /root/.webino.log
+    printf -- "$*\n" | sudo tee -a /root/.webino.log
 }
 
 #----------------+
