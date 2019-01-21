@@ -54,19 +54,19 @@ main() {
     # CLI config |
     #------------+
     local file=/php-cli.ini
-    [[ -f $etc$file ]] || sudo wget $data$file -qO $etc$file
+    [[ -f $etc$file ]] || root_file_wget $data$file $etc$file
 
     #---------------+
     # custom config |
     #---------------+
     local file=/conf.d/custom.ini
-    [[ -f $etc$file ]] || sudo wget $data$file -qO $etc$file
+    [[ -f $etc$file ]] || root_file_wget $data$file $etc$file
 
     #--------------+
     # local config |
     #--------------+
     local file=/local.d/local.ini
-    [[ -f $etc$file ]] || sudo wget $data$file -qO $etc$file
+    [[ -f $etc$file ]] || root_file_wget $data$file $etc$file
 
     #-----------------------------+
     # dev config (local|dev only) |
@@ -76,7 +76,7 @@ main() {
         # dev config |
         #------------+
         local file=/conf.d/dev.ini
-        [[ -f $etc$file ]] || sudo wget $data$file -qO $etc$file
+        [[ -f $etc$file ]] || root_file_wget $data$file $etc$file
     fi
 
     #----------------+
@@ -89,7 +89,7 @@ main() {
 
         if [[ ! -f $file ]]; then
             echo 'Configuring PHP for Apache...'
-            sudo wget $data$file -qO $file
+            root_file_wget $data$file $etc$file
         fi
     fi
 }
