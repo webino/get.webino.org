@@ -44,7 +44,7 @@ main() {
         local file=/etc/systemd/system/php-fpm.service
         if [[ ! -f $file ]]; then
             echo 'Installing PHP-FPM Systemd service...'
-            sudo wget $data$file -qO $file
+            root_file_wget $data$file $etc$file
             sudo systemctl enable php-fpm.service > /dev/null 2>&1 &
         fi
     else
@@ -54,7 +54,7 @@ main() {
         local file=/etc/init/php-fpm.conf
         if [[ ! -f $file ]]; then
             echo 'Installing PHP-FPM Upstart daemon...'
-            sudo wget $data$file -qO $file
+            root_file_wget $data$file $etc$file
             sudo initctl reload-configuration > /dev/null 2>&1 &
         fi
     fi
@@ -63,7 +63,7 @@ main() {
     # Apache support |
     #----------------+
     local file=/etc/apache2/conf.d/php-fpm.conf
-    sudo wget $data$file -qO $file
+    root_file_wget $data$file $etc$file
 
     #-----------+
     # configure |
