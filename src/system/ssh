@@ -40,19 +40,17 @@ main() {
         local ssh_filepath=$(user_ssh_keygen $sysadmin id_rsa)
         local msg="Sysadmin\nUsername: $sysadmin\nPassword: $sysadmin_pwd\nSSH key: \n$(printf -- "$(cat $ssh_filepath)")"
         setup_log "$msg"
-    fi
 
-    #----------------------+
-    # add sysadmin SSH key |
-    #----------------------+
-    local file='/home/'$sysadmin'/.ssh/authorized_keys'
-    if ! sudo test -f $file; then
-        if [[ ! $_no_interaction ]]; then
-            echo 'Sysadmin SSH authorized key:'
-            read sysadmin_authorized_key </dev/tty
+        # add sysadmin SSH key
+        local file='/home/'$sysadmin'/.ssh/authorized_keys'
+        if ! sudo test -f $file; then
+            if [[ ! $_no_interaction ]]; then
+                echo 'Sysadmin SSH authorized key:'
+                read sysadmin_authorized_key </dev/tty
 
-            [[ -n "$sysadmin_authorized_key" ]] && \
-                sudo su $sysadmin -c "mkdir -p ~/.ssh && printf "$sysadmin_authorized_key" | sudo tee $file > /dev/null"
+                [[ -n "$sysadmin_authorized_key" ]] && \
+                    sudo su $sysadmin -c "mkdir -p ~/.ssh && printf "$sysadmin_authorized_key" | sudo tee $file > /dev/null"
+            fi
         fi
     fi
 
