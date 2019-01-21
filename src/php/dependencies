@@ -26,21 +26,12 @@ bison_install() {
 
 main() {
     cd /tmp
-    local lock=webino.php.dependencies.lock
-
-    #------------+
-    # check lock |
-    #------------+
-    if [[ -f $lock ]]; then
-        echo 'Dependencies for PHP build already installed...'
-    fi
-
+    
     #----------------------+
     # dependencies install |
     #----------------------+
     echo "Installing dependencies for PHP build..."
-
-    sudo apt-get install -y \
+    install \
         libcurl4-openssl-dev \
         libpspell-dev \
         libicu-dev \
@@ -64,11 +55,6 @@ main() {
     # TODO PHP 5.3.29 legacy support
     # TODO apt-get install autoconf2.13
     # TODO export PHP_AUTOCONF=autoconf2.13
-
-    #------+
-    # lock |
-    #------+
-    touch $lock
 }
 
 main
