@@ -36,6 +36,7 @@ main() {
         --sbindir=/usr/sbin \
         --sysconfdir=/etc/apache2 \
         --with-included-apr \
+        --with-crypto \
         --with-perl \
         --with-ssl \
         --enable-so \
