@@ -34,7 +34,7 @@ main() {
         sudo groupadd sysadmin
         sudo useradd -ms /bin/bash -G sudo,sysadmin $sysadmin
         local ssh_filepath=$(user_ssh_keygen $sysadmin id_rsa)
-        local msg="Sysadmin username: $sysadmin\nSSH key: \n$(printf -- "$(cat $ssh_filepath)")\n"
+        local msg="Sysadmin username: $sysadmin\nSSH key: \n$(printf -- "$(cat $ssh_filepath)")"
         setup_log "$msg"
     fi
 
