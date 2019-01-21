@@ -89,7 +89,7 @@ main() {
     #--------------------+
     # web server restart |
     #--------------------+
-    apache_restart || true
+    apache_restart
 
     #--------------------------------+
     # system settings (dev|pub only) |
