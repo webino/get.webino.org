@@ -35,7 +35,7 @@ main() {
         echo 'Apache already built...'
         return
     fi
-
+    
     #-----------------------------+
     # resolve latest 2.4 versions |
     #-----------------------------+
@@ -61,14 +61,20 @@ main() {
     #---------------------------+
     # chown /srv (dev|pub only) |
     #---------------------------+
-    [[ $_env_dev || $_env_pub ]] && sudo chown www-data:www-data /srv -R
+    # TODO remove?
+    #[[ $_env_dev || $_env_pub ]] && sudo chown www-data:www-data /srv -R
 
     #----------------+
     # create www dir |
     #----------------+
-    echo 'Creating public www directory...'
-    sudo mkdir -p /var/www/public
-    sudo chown www-data:www-data /var/www -R
+    local dir=/var/www/public
+    if [[ -d $dir ]]; then
+        echo 'Public www directory already exists...'
+    else
+        echo 'Creating public www directory...'
+        sudo mkdir -p $dir
+        sudo chown www-data:www-data /var/www -R
+    fi
 
     #---------+
     # install |
