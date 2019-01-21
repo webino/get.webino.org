@@ -27,13 +27,15 @@ main() {
     local config=/etc/ssh/sshd_config
     echo -e "\nSSH setup..."
 
-    # add sysadmin sudoer with random name
+    #---------------------+
+    # add sysadmin sudoer |
+    #---------------------+
     if ! group_exists sysadmin; then
         echo -e "\nAdding sysadmin user..."
         local sysadmin="s$(rand_word 8)"
         local sysadmin_pwd=$(rand_word 8)
         sudo groupadd sysadmin
-        sudo useradd -ms /bin/bash -G sudo,sysadmin $sysadmin
+        sudo useradd -ms /bin/bash -Ng sysadmin -G sudo -c sysadmin $sysadmin
         echo -e "$sysadmin_pwd\n$sysadmin_pwd" | sudo passwd $sysadmin
         local ssh_filepath=$(user_ssh_keygen $sysadmin id_rsa)
         local msg="Sysadmin username: $sysadmin\nSysadmin password: $sysadmin_pwd\nSysadmin SSH key: \n$(printf -- "$(cat $ssh_filepath)")"
@@ -67,9 +69,9 @@ main() {
     # disable password login |
     #------------------------+
     sudo sed -i 's/LogLevel INFO/LogLevel VERBOSE/' $config
-    sudo sed -i 's/#?PermitRootLogin yes/PermitRootLogin no/' $config
-    sudo sed -i 's/#?PermitRootLogin without-password/PermitRootLogin no/' $config
-    sudo sed -i 's/#?PasswordAuthentication yes/PasswordAuthentication no/' $config
+    sudo sed -i 's/#\?PermitRootLogin yes/PermitRootLogin no/' $config
+    sudo sed -i 's/#\?PermitRootLogin without-password/PermitRootLogin no/' $config
+    sudo sed -i 's/#\?PasswordAuthentication yes/PasswordAuthentication no/' $config
     sudo sed -i 's/UsePAM yes/UsePAM no/' $config
 
     #------+
