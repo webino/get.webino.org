@@ -38,7 +38,7 @@ main() {
     #-------+
     local data='@@host@@/mysql/~data'
     echo 'Installing Logwatch for MySQL...'
-    sudo wget $data$file -qO $file
+    root_file_wget $data$file $file
 }
 
 main
