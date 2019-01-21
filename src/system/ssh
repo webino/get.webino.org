@@ -27,18 +27,16 @@ main() {
     local config=/etc/ssh/sshd_config
     echo -e "\nSSH setup..."
 
-    # TODO add sysadmin sudoer
+    # add sysadmin sudoer with random name
     local sysadmin=$(rand_word 8)
-    if ! user_exists $sysadmin; then
+    if ! group_exists sysadmin; then
         echo -e "\nAdding sysadmin user..."
-        sudo useradd -ms /bin/bash $sysadmin
+        sudo groupadd sysadmin
+        sudo useradd -ms /bin/bash -G sudo,sysadmin $sysadmin
         local ssh_filepath=$(user_ssh_keygen $sysadmin id_rsa)
         local msg="Sysadmin username: $sysadmin\nSSH key: \n$(printf -- "$(cat $ssh_filepath)")\n"
         setup_log "$msg"
     fi
-    
-    #sudo useradd $
-    # TODO generate random sysadmin username
 
     #------------------+
     # add root SSH key |
