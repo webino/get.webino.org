@@ -17,29 +17,16 @@
 
 main() {
     cd /tmp
-    local lock=webino.apache.dependencies.lock
-
-    #------------+
-    # check lock |
-    #------------+
-    if [[ -f $lock ]]; then
-        echo 'Dependencies for Apache build already installed...'
-    fi
-
+    
     #----------------------+
     # dependencies install |
     #----------------------+
-    echo "Installing dependencies for Apache build..."
+    echo 'Installing dependencies for Apache build...'
 
-    sudo apt-get install -y \
+    install \
         libexpat1-dev \
         libpcre3-dev \
         libssl-dev
-
-    #------+
-    # lock |
-    #------+
-    touch $lock
 }
 
 main
