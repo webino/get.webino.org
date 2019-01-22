@@ -18,6 +18,7 @@ main() {
     #----------+
     _php_version=
     _php_prefix=
+    _php_memcached=
     _php_fpm=
 
     #----------+
@@ -35,6 +36,11 @@ main() {
         ;;
         -php-prefix)
             _php_prefix=${argv[$n]}
+            shift
+            shift
+        ;;
+        -php-memcached)
+            _php_memcached=1
             shift
             shift
         ;;
