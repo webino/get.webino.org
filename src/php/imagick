@@ -21,7 +21,7 @@ main() {
     #---------+
     # install |
     #---------+
-    if test ls /usr/local/lib/php/extensions/no-debug-zts-*/imagick.so &>/dev/null; then
+    if ls /usr/local/lib/php/extensions/no-debug-zts-*/imagick.so &>/dev/null; then
         echo 'ImageMagick already installed...'
     else
         echo 'Installing ImageMagick...'
