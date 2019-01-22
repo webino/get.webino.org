@@ -51,7 +51,6 @@ main() {
             --enable-gd-native-ttf \
             --enable-mbstring \
             --with-gd \
-            --with-pear \
             --with-zlib \
             --with-zlib-dir \
             --with-iconv \
@@ -68,6 +67,9 @@ main() {
             --with-jpeg-dir=/usr/lib \
             --with-freetype-dir \
             --without-readline"
+
+    # TODO pear hacked, remove?
+    #--with-pear \
 
     #---------------------------+
     # Intl support for PHP>=5.4 |
