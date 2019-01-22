@@ -29,7 +29,6 @@ main() {
         ./configure
         make
         sudo make install
-        touch $lock
     fi
 
     #-----------+
