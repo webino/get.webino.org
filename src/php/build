@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This is the Webino™ setup script!
-# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Copyright (c) 2015-2019 Webino, s.r.o. (http://webino.sk)
 # Version: @@version@@
 #
 # Are you looking at this in your web browser, and would like to get Webino™?
@@ -20,9 +20,8 @@ main() {
     # IMAP build |
     #------------+
     cd /tmp/imap-2007f
-    local lock=built.lock
-
-    if [[ -f $lock ]]; then
+    
+    if [[ -d /usr/local/imap-2007f ]]; then
         echo 'IMAP already built...'
     else
         echo 'Building IMAP...'
@@ -32,7 +31,11 @@ main() {
         cp c-client/*.h include
         cp c-client/c-client.a lib/libc-client.a
         sudo cp . /usr/local/imap-2007f -R
-        touch $lock
+    fi
+
+    if test php -v &>/dev/null; then
+        echo 'PHP already built...'
+        return
     fi
 
     #------------------+
@@ -69,9 +72,6 @@ main() {
             --without-pear \
             --without-readline"
 
-    # TODO pear hacked, remove?
-    #--with-pear \
-
     #---------------------------+
     # Intl support for PHP>=5.4 |
     #---------------------------+
@@ -84,12 +84,12 @@ main() {
     # For PHP>=7.0 |
     #--------------+
     sudo dpkg --compare-versions "$_php_version" 'lt' '7.0' && {
-
+    
         echo 'Without PHP7 support (legacy)...'
         php_cfg+=" --with-mcrypt \
                    --with-mysqli"
     } || {
-
+    
        echo 'With PHP7 support...'
        php_cfg+=" --enable-ftp \
                   --enable-wddx \
@@ -125,21 +125,15 @@ main() {
     # PHP build |
     #-----------+
     cd /tmp/php
-    local lock=built.lock
-    if [[ -f $lock ]]; then
-        echo 'PHP already built...'
-    else
-        echo 'Building PHP...'
-        echo 'with config:'
-        echo $php_cfg;
-        echo
+    echo 'Building PHP...'
+    echo 'with config:'
+    echo $php_cfg;
+    echo
 
-        ./buildconf --force
-        ./configure $php_cfg
-        make
-        sudo make install
-        touch $lock
-    fi
+    ./buildconf --force
+    ./configure $php_cfg
+    make
+    sudo make install
 }
 
 main
