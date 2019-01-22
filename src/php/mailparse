@@ -16,22 +16,33 @@
 #   - It builds PHP from source
 
 main() {
-    cd /tmp/php
-    local lock=mailparse.lock
-
+    cd /tmp/php/ext
+    
     #---------+
     # install |
     #---------+
-    if [[ -f $lock ]]; then
+    if test ls /usr/local/lib/php/extensions/no-debug-zts-*/mailparse.so &>/dev/null; then
         echo 'Mailparse already installed...'
     else
         echo 'Installing Mailparse...'
+        
         # depends on PHP version
         local mailparse_version=$(php -r "echo (-1 === version_compare('$_php_version', '7.0.0') ? '2.1.6' : '3.0.2');")
         echo 'Version: '$mailparse_version
-        # non-interactive
-        printf '\n' | sudo pecl install -f 'mailparse-'$mailparse_version
-        touch $lock
+        
+        if [ ! -d mailparse  ]; then
+            echo 'Downloading Mailparse...'
+            wget http://pecl.php.net/get/mailparse-$mailparse_version.tgz \
+                -O mailparse.tgz && tar xvf mailparse.tgz & spinner $! && mv mailparse-$mailparse_version mailparse && rm mailparse.tgz 2>&1
+        else
+            echo 'Mailparse already downloaded...'
+        fi
+        
+        cd mailparse
+        phpize
+        ./configure
+        make
+        sudo make install
     fi
 
     #-----------+
