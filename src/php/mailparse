@@ -30,7 +30,7 @@ main() {
         local mailparse_version=$(php -r "echo (-1 === version_compare('$_php_version', '7.0.0') ? '2.1.6' : '3.0.2');")
         echo 'Version: '$mailparse_version
         
-        if [ ! -d mailparse  ]; then
+        if [ ! -d mailparse ]; then
             echo 'Downloading Mailparse...'
             wget http://pecl.php.net/get/mailparse-$mailparse_version.tgz \
                 -O mailparse.tgz && tar xvf mailparse.tgz & spinner $! && mv mailparse-$mailparse_version mailparse && rm mailparse.tgz 2>&1
