@@ -36,7 +36,7 @@ main() {
     # install |
     #---------+
     echo 'Installing Logwatch for PHP...'
-    root_file_wget $data$file $etc$file
+    root_file_wget $data$file $file
 }
 
 main
