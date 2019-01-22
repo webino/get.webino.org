@@ -65,20 +65,19 @@ main() {
         load php/composer
     fi
 
+    #----------------+
+    # install extras |
+    #----------------+
+    load php/opcache
+    load php/apcu
+    load php/imagick
+    #load php/memcached #TODO memcached optional
+
     #-----------------+
     # PHP-FPM support |
     #-----------------+
     if [[ $_php_fpm ]]; then
         load php/php-fpm
-
-    #-------------------------------+
-    # install extra on empty prefix |
-    #-------------------------------+
-    else
-        load php/opcache
-        load php/apcu
-        load php/imagick
-        #load php/memcached #TODO memcached optional
     fi
 
     #--------------------------------+
