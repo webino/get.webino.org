@@ -66,6 +66,7 @@ main() {
             --with-curl=/usr \
             --with-jpeg-dir=/usr/lib \
             --with-freetype-dir \
+            --without-pear \
             --without-readline"
 
     # TODO pear hacked, remove?
