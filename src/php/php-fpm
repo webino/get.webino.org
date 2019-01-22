@@ -17,16 +17,7 @@
 
 main() {
     cd /tmp/php
-    local lock=php-fpm.lock
-
-    #-------------------------+
-    # check already installed |
-    #-------------------------+
-    if [[ -f $lock ]]; then
-        echo 'PHP-FPM support already installed...'
-        return
-    fi
-
+    
     #---------+
     # install |
     #---------+
@@ -34,8 +25,15 @@ main() {
     local data='@@host@@/php/~data'
     local file=/usr/sbin/php-fpm
 
-    echo 'Installing PHP-FPM support...'
-    echo "$(wget $data$file -qO-)" | sed s/'%PREFIX%'/$_php_prefix/g | sudo tee $file > /dev/null
+    #-------------------------+
+    # check already installed |
+    #-------------------------+
+    if [[ -f $file ]]; then
+        echo 'PHP-FPM support already installed...'
+    else
+        echo 'Installing PHP-FPM support...'
+        echo "$(wget $data$file -qO-)" | sed s/'%PREFIX%'/$_php_prefix/g | sudo tee $file > /dev/null
+    fi
 
     if [[ $(systemctl --version 2> /dev/null) ]]; then
         #-----------------+
@@ -63,7 +61,7 @@ main() {
     # Apache support |
     #----------------+
     local file=/etc/apache2/conf.d/php-fpm.conf
-    root_file_wget $data$file $file
+    [[ -f $file ]] || root_file_wget $data$file $file
 
     #-----------+
     # configure |
@@ -77,7 +75,6 @@ main() {
     #---------------+
     echo 'Starting PHP-FPM...'
     php_fpm_restart
-    touch $lock
 }
 
 main
