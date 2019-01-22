@@ -61,7 +61,6 @@ main() {
     if [[ $_env_local || $_env_dev ]]; then
         load php/xdebug
         load php/mailparse
-        #load php/profiler #TODO profiler
         load php/composer
     fi
 
