@@ -90,7 +90,7 @@ main() {
 
         if [[ ! -f $file ]]; then
             echo 'Configuring PHP for Apache...'
-            root_file_wget $data$file $etc$file
+            root_file_wget $data$file $file
         fi
     fi
 }
