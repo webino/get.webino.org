@@ -71,14 +71,16 @@ main() {
     load php/opcache
     load php/apcu
     load php/imagick
-    #load php/memcached #TODO memcached optional
+    
+    #-------------------+
+    # Memcached support |
+    #-------------------+
+    [[ $_php_memcached ]] && load php/memcached
 
     #-----------------+
     # PHP-FPM support |
     #-----------------+
-    if [[ $_php_fpm ]]; then
-        load php/php-fpm
-    fi
+    [[ $_php_fpm ]] && load php/php-fpm
 
     #--------------------------------+
     # system settings (dev|pub only) |
