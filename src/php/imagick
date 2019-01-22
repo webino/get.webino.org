@@ -16,7 +16,7 @@
 #   - It builds PHP from source
 
 main() {
-    cd /tmp/php/ext/
+    cd /tmp/php/ext
     
     #---------+
     # install |
