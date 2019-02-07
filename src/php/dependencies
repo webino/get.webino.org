@@ -32,6 +32,7 @@ main() {
     #----------------------+
     echo "Installing dependencies for PHP build..."
     install \
+        libc-client2007e \
         libcurl4-openssl-dev \
         libpspell-dev \
         libicu-dev \
