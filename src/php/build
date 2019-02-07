@@ -24,13 +24,13 @@ main() {
     if [[ -d /usr/local/imap-2007f ]]; then
         echo 'IMAP already built...'
     else
-        echo 'Building IMAP...'
-        make slx SSLINCLUDE=/usr/include/openssl EXTRACFLAGS=-fPIC
-        mkdir lib && mkdir include
-        cp c-client/*.c lib
-        cp c-client/*.h include
-        cp c-client/c-client.a lib/libc-client.a
-        sudo cp . /usr/local/imap-2007f -R
+        echo 'Building IMAP... TODO'
+        #make slx SSLINCLUDE=/usr/include/openssl EXTRACFLAGS=-fPIC
+        #mkdir lib && mkdir include
+        #cp c-client/*.c lib
+        #cp c-client/*.h include
+        #cp c-client/c-client.a lib/libc-client.a
+        #sudo cp . /usr/local/imap-2007f -R
     fi
 
     if php -v &>/dev/null; then
