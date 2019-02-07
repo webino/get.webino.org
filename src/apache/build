@@ -42,6 +42,7 @@ main() {
         --enable-so \
         --enable-ssl \
         --enable-rewrite \
+        --enable-deflate \
         --enable-suexec \
         --enable-info \
         --enable-socache-shmbc \
