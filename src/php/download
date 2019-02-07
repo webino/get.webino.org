@@ -21,13 +21,13 @@ main() {
     #---------------+
     # IMAP download |
     #---------------+
-    if [[ ! -d imap-2007f ]]; then
-        echo 'Downloading IMAP...'
-        wget https://media.webino.sk/support/imap/imap-2007f.tar.gz \
-            -O imap-2007f.tar.gz && tar xvf imap-2007f.tar.gz & spinner $! && rm imap-2007f.tar.gz 2>&1
-    else
-        echo 'IMAP already downloaded...'
-    fi
+    #if [[ ! -d imap-2007f ]]; then
+    #    echo 'Downloading IMAP...'
+    #    wget https://media.webino.sk/support/imap/imap-2007f.tar.gz \
+    #        -O imap-2007f.tar.gz && tar xvf imap-2007f.tar.gz & spinner $! && rm imap-2007f.tar.gz 2>&1
+    #else
+    #    echo 'IMAP already downloaded...'
+    #fi
 
     #--------------+
     # PHP download |
