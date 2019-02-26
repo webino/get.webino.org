@@ -19,19 +19,18 @@ main() {
     #------------+
     # IMAP build |
     #------------+
-    cd /tmp/imap-2007f
-    
-    if [[ -d /usr/local/imap-2007f ]]; then
-        echo 'IMAP already built...'
-    else
-        echo 'Building IMAP... TODO'
+    #cd /tmp/imap-2007f
+    #if [[ -d /usr/local/imap-2007f ]]; then
+    #    echo 'IMAP already built...'
+    #else
+    #    echo 'Building IMAP... TODO'
         #make slx SSLINCLUDE=/usr/include/openssl EXTRACFLAGS=-fPIC
         #mkdir lib && mkdir include
         #cp c-client/*.c lib
         #cp c-client/*.h include
         #cp c-client/c-client.a lib/libc-client.a
         #sudo cp . /usr/local/imap-2007f -R
-    fi
+    #fi
 
     if php -v &>/dev/null; then
         echo 'PHP already built...'
