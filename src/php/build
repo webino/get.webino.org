@@ -60,6 +60,7 @@ main() {
             --with-gettext \
             --with-mhash \
             --with-pspell \
+            --with-libzip \
             --with-libedit \
             --with-kerberos \
             --with-imap \
