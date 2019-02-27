@@ -35,6 +35,7 @@ main() {
         libc-client2007e \
         libcurl4-openssl-dev \
         libpspell-dev \
+        libzip-dev \
         libicu-dev \
         libedit-dev \
         libmagickwand-dev \
