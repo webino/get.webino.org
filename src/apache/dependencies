@@ -26,7 +26,6 @@ main() {
     install \
         libexpat1-dev \
         libpcre3-dev \
-        libzip-dev \
         libssl-dev
 }
 
