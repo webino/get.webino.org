@@ -15,6 +15,9 @@
 # Original source
 # http://stackoverflow.com/questions/64786/error-handling-in-bash#13099228
 
+# TODO trap temporary disabled
+return 0
+
 lib_name='trap'
 lib_version=20121026
 
