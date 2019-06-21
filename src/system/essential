@@ -46,6 +46,7 @@ main() {
         automake \
         libtool \
         re2c \
+        htop \
         curl \
         git
         
