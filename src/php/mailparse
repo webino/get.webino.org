@@ -27,7 +27,7 @@ main() {
         echo 'Installing Mailparse...'
         
         # depends on PHP version
-        local mailparse_version=$(php -r "echo (-1 === version_compare('$_php_version', '7.0.0') ? '2.1.6' : '3.0.2');")
+        local mailparse_version=$(php -r "echo (-1 === version_compare('$_php_version', '7.0.0') ? '2.1.6' : '3.0.3');")
         echo 'Version: '$mailparse_version
         
         if [ ! -d mailparse ]; then
