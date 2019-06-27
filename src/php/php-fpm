@@ -33,6 +33,7 @@ main() {
     else
         echo 'Installing PHP-FPM support...'
         echo "$(wget $data$file -qO-)" | sed s/'%PREFIX%'/$_php_prefix/g | sudo tee $file > /dev/null
+        sudo chmod +x $file
     fi
 
     if [[ $(systemctl --version 2> /dev/null) ]]; then
