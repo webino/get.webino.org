@@ -2,10 +2,9 @@ dist: xenial
 language: bash
 matrix:
   allow_failures:
-    - env: TEST=system
-    - env: TEST=system-pub
-    - env: TEST=apache-pub
     - env: TEST=php-latest
+    - env: TEST=php-latest-dev
+    - env: TEST=php-latest-pub
 before_install:
   - sudo chmod o+w /home/travis -R
 script:
@@ -13,14 +12,26 @@ script:
 env:
   matrix:
     - TEST=system
+    - TEST=system-dev
     - TEST=system-pub
     - TEST=apache
+    - TEST=apache-dev
     - TEST=apache-pub
     - TEST=mysql
+    - TEST=mysql-dev
+    - TEST=mysql-pub
     - TEST=php-7.1
+    - TEST=php-7.1-dev
+    - TEST=php-7.1-pub
     - TEST=php-7.2
+    - TEST=php-7.2-dev
+    - TEST=php-7.2-pub
     - TEST=php-7.3
+    - TEST=php-7.3-dev
+    - TEST=php-7.3-pub
     - TEST=php-latest
+    - TEST=php-latest-dev
+    - TEST=php-latest-pub
   global:
     - GH_REF=github.com/webino/get.webino.org
     - secure: O2T13SnWVLTvmIWRxmWPh8VB7j1VOk2qjxXUfvLTZOVFInoJz0cy/Vo5K82Hug+qdz4ncH3bDjUOKiyFinkZr3uoxBOVlam9Z61XiHeHBluWbcKhSW2IW2chc5F8RVHDxCYa79q9vLoIwDNWDVe42E9BY+jCx32zSXhWlgTetaM=
