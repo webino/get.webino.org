@@ -1,6 +1,6 @@
 # Webino™ setup scripts
 
-[![Build Status](https://travis-ci.org/webino/get.webino.org.svg?branch=develop)](https://travis-ci.org/webino/get.webino.org) 
+[![Build Status](https://img.shields.io/travis/webino/request/get.webino.org.svg?style=for-the-badge)](http://travis-ci.org/webino/get.webino.org "Develop Build Status")
 
 
 ## Requirements
@@ -12,11 +12,11 @@
 ## Features
 
 - Easy server setup
-- Apache build from source
 - MySQL database install
-- PHP build from source
-- Webino Devkit install
-- Travis CI support
+- Apache build from source
+- PHP build from source [WIP]
+- Webino Devkit install [DEPRECATED]
+- Travis CI support [DEPRECATED]
 
 
 ## How To
@@ -83,14 +83,10 @@
 `wget https://get.webino.org/php  -qO- | sh -s -- --pub --php 7.0.0RC5`
 
 
-**Installing Webino Devkit**
-
-`wget https://get.webino.org/devkit -qO- | sh`
-
-
 ## Addendum
 
 Please, if you are interested in these scripts report any issues and don't hesitate to contribute.
 We will appreciate any contributions on development of these scripts.
 
-[Issue](https://github.com/webino/get.webino.org/issues) | [Fork](https://github.com/webino/get.webino.org) | [Develop](https://github.com/webino/Webino/wiki)
+[![GitHub issues](https://img.shields.io/github/issues/webino/get.webino.org.svg?style=for-the-badge)](https://github.com/webino/request/get.webino.org)
+[![GitHub forks](https://img.shields.io/github/forks/webino/get.webino.org.svg?label=Fork&style=for-the-badge)](https://github.com/webino/get.webino.org)
