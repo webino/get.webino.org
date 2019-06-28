@@ -20,6 +20,8 @@ env:
     - TEST=apache-pub
     - TEST=mysql
     - TEST=php-7.1
+    - TEST=php-7.2
+    - TEST=php-7.3
     - TEST=php-latest
     - TEST=devkit-php-7.1
     - TEST=devkit-php-latest
