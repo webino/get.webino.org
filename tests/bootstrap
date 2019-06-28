@@ -13,8 +13,8 @@ url='https://get.webino.org/~dev'
 [ "$TEST" = 'system-pub' ] && wget $url/system -qO- | sh -s -- -n --pub && exit $?
 
 # apache
-#[ "$TEST" = 'apache' ]     && wget $url/apache -qO- | sh -s -- -n && exit $?
-#[ "$TEST" = 'apache-pub' ] && wget $url/apache -qO- | sh -s -- -n --pub && exit $?
+[ "$TEST" = 'apache' ]     && wget $url/apache -qO- | sh -s -- -n && exit $?
+[ "$TEST" = 'apache-pub' ] && wget $url/apache -qO- | sh -s -- -n --pub && exit $?
 
 # mysql
 [ "$TEST" = 'mysql' ] && wget $url/mysql -qO- | sh -s -- -n && exit $?
