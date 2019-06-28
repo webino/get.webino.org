@@ -10,38 +10,34 @@ url='https://get.webino.org/~dev'
 
 # system
 [ "$TEST" = 'system' ]     && wget $url/system -qO- | sh -s -- -n && exit $?
-[ "$TEST" = 'system-pub' ] && wget $url/system -qO- | sh -s -- -n --pub && exit $?
+[ "$TEST" = 'system-dev' ] && wget $url/system -qO- | sh -s -- -n -dev && exit $?
+[ "$TEST" = 'system-pub' ] && wget $url/system -qO- | sh -s -- -n -pub && exit $?
 
 # apache
 [ "$TEST" = 'apache' ]     && wget $url/apache -qO- | sh -s -- -n && exit $?
-[ "$TEST" = 'apache-pub' ] && wget $url/apache -qO- | sh -s -- -n --pub && exit $?
+[ "$TEST" = 'apache-dev' ] && wget $url/apache -qO- | sh -s -- -n -dev && exit $?
+[ "$TEST" = 'apache-pub' ] && wget $url/apache -qO- | sh -s -- -n -pub && exit $?
 
 # mysql
-[ "$TEST" = 'mysql' ] && wget $url/mysql -qO- | sh -s -- -n && exit $?
+[ "$TEST" = 'mysql' ]     && wget $url/mysql -qO- | sh -s -- -n && exit $?
+[ "$TEST" = 'mysql-dev' ] && wget $url/mysql -qO- | sh -s -- -n -dev && exit $?
+[ "$TEST" = 'mysql-pub' ] && wget $url/mysql -qO- | sh -s -- -n -pub && exit $?
 
-[ "$TEST" = 'php-7.1' ] && wget $url/php -qO- | sh -s -- -n --php 7.1.30 && exit $?
-[ "$TEST" = 'php-7.2' ] && wget $url/php -qO- | sh -s -- -n --php 7.2.19 && exit $?
-[ "$TEST" = 'php-7.3' ] && wget $url/php -qO- | sh -s -- -n --php 7.3.6 && exit $?
-[ "$TEST" = 'php-latest' ] && wget $url/php -qO- | sh -s -- -n && exit $?
+# php
+[ "$TEST" = 'php-7.1' ]     && wget $url/php -qO- | sh -s -- -n -php 7.1.30 && exit $?
+[ "$TEST" = 'php-7.1-dev' ] && wget $url/php -qO- | sh -s -- -n -dev -php 7.1.30 && exit $?
+[ "$TEST" = 'php-7.1-pub' ] && wget $url/php -qO- | sh -s -- -n -pub -php 7.1.30 && exit $?
 
-# TODO!!!
-#[ "$TEST" = 'devkit-php-7.1' ] && wget $url/devkit -qO- | sh -s -- -n --php 7.1.12 && exit 0
-#[ "$TEST" = 'devkit-php-latest' ] && wget $url/devkit -qO- | sh && exit 0
+[ "$TEST" = 'php-7.2' ]     && wget $url/php -qO- | sh -s -- -n -php 7.2.19 && exit $?
+[ "$TEST" = 'php-7.2-dev' ] && wget $url/php -qO- | sh -s -- -n -dev -php 7.2.19 && exit $?
+[ "$TEST" = 'php-7.2-pub' ] && wget $url/php -qO- | sh -s -- -n -pub -php 7.2.19 && exit $?
 
-#if [ "$TEST" = 'dev-module-php-7.1' ]; then
-#  wget $url/devkit -qO- | sh -s -- -n --php 7.1.12
-  # TODO use WebinoSkeletonModule instead
-#  module=WebinoDev
-#  git clone https://github.com/webino/${module}.git
-#  cd $module && webino update && webino test && webino analyze && webino api && exit 0
-#fi
+[ "$TEST" = 'php-7.3' ]     && wget $url/php -qO- | sh -s -- -n -php 7.3.6 && exit $?
+[ "$TEST" = 'php-7.3-dev' ] && wget $url/php -qO- | sh -s -- -n -dev -php 7.3.6 && exit $?
+[ "$TEST" = 'php-7.3-pub' ] && wget $url/php -qO- | sh -s -- -n -pub -php 7.3.6 && exit $?
 
-#if [ "$TEST" = 'dev-module-php-latest' ]; then
-#  wget $url/devkit -qO- | sh
-  # TODO use WebinoSkeletonModule instead
-#  module=WebinoDev
-#  git clone https://github.com/webino/${module}.git
-#  cd $module && webino update && webino test && webino analyze && webino api && exit 0
-#fi
+[ "$TEST" = 'php-latest' ]     && wget $url/php -qO- | sh -s -- -n && exit $?
+[ "$TEST" = 'php-latest-dev' ] && wget $url/php -qO- | sh -s -- -n -dev && exit $?
+[ "$TEST" = 'php-latest-pub' ] && wget $url/php -qO- | sh -s -- -n -pub && exit $?
 
 exit 1
