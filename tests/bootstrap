@@ -19,7 +19,9 @@ url='https://get.webino.org/~dev'
 # mysql
 [ "$TEST" = 'mysql' ] && wget $url/mysql -qO- | sh -s -- -n && exit $?
 
-[ "$TEST" = 'php-7.1' ] && wget $url/php -qO- | sh -s -- -n --php 7.1.14 && exit $?
+[ "$TEST" = 'php-7.1' ] && wget $url/php -qO- | sh -s -- -n --php 7.1.30 && exit $?
+[ "$TEST" = 'php-7.2' ] && wget $url/php -qO- | sh -s -- -n --php 7.2.19 && exit $?
+[ "$TEST" = 'php-7.3' ] && wget $url/php -qO- | sh -s -- -n --php 7.3.6 && exit $?
 [ "$TEST" = 'php-latest' ] && wget $url/php -qO- | sh -s -- -n && exit $?
 
 # TODO!!!
