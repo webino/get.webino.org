@@ -6,8 +6,6 @@ matrix:
     - env: TEST=system-pub
     - env: TEST=apache-pub
     - env: TEST=php-latest
-    - env: TEST=devkit-php-latest
-    - env: TEST=dev-module-php-latest
 before_install:
   - sudo chmod o+w /home/travis -R
 script:
@@ -23,10 +21,6 @@ env:
     - TEST=php-7.2
     - TEST=php-7.3
     - TEST=php-latest
-    - TEST=devkit-php-7.1
-    - TEST=devkit-php-latest
-    - TEST=dev-module-php-7.1
-    - TEST=dev-module-php-latest
   global:
     - GH_REF=github.com/webino/get.webino.org
     - secure: O2T13SnWVLTvmIWRxmWPh8VB7j1VOk2qjxXUfvLTZOVFInoJz0cy/Vo5K82Hug+qdz4ncH3bDjUOKiyFinkZr3uoxBOVlam9Z61XiHeHBluWbcKhSW2IW2chc5F8RVHDxCYa79q9vLoIwDNWDVe42E9BY+jCx32zSXhWlgTetaM=
