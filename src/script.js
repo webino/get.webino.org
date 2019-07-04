@@ -4,27 +4,27 @@
     //-----------------------+
     $.fn.valInternal = jQuery.fn.val;
     $.fn.val = function (val) {
-        if (!this.length) {
-            return;
-        }
-
-        var type = this.attr('type');
-        type = type ? type : this.get(0).tagName.toLowerCase();
-        switch (type) {
-            case 'checkbox':
-                if (arguments.length) {
-                    this.prop('checked', !!val);
-                } else {
-                    return this.is(':checked') ? $.fn.valInternal.call(this) : '';
-                }
-                break;
-            default:
-                if (arguments.length) {
-                    return $.fn.valInternal.call(this, val);
-                } else {
-                    return $.fn.valInternal.call(this);
-                }
-        }
+        // if (!this.length) {
+        //     return;
+        // }
+        //
+        // var type = this.attr('type');
+        // type = type ? type : this.get(0).tagName.toLowerCase();
+        // switch (type) {
+        //     case 'checkbox':
+        //         if (arguments.length) {
+        //             this.prop('checked', !!val);
+        //         } else {
+        //             return this.is(':checked') ? $.fn.valInternal.call(this) : '';
+        //         }
+        //         break;
+        //     default:
+        //         if (arguments.length) {
+        //             return $.fn.valInternal.call(this, val);
+        //         } else {
+        //             return $.fn.valInternal.call(this);
+        //         }
+        // }
     };
 
     //-------+
