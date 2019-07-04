@@ -110,12 +110,12 @@
         console.log(support);
         if (support === "wbpo") {
             // support WBPO
-            form.setCommand(true, 'with-wbpo');
+            //form.setCommand(true, 'with-wbpo');
         }
 
         // support Webino
         if (support !== "webino") {
-            form.setCommand(true, 'without-webino');
+            //form.setCommand(true, 'without-webino');
         }
 
         // admin email
