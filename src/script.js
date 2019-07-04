@@ -23,7 +23,8 @@
                         el.prop('checked', false);
                         el = parent.find('[value="' + val + '"]');
                         el.prop('checked', true);
-                        return $.fn.valInternal.call(this);
+                        return 'wbpo';
+                        //return $.fn.valInternal.call(this);
                     }
                     return el.valInternal.call(this);
             }
