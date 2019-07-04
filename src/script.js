@@ -17,11 +17,10 @@
                     return;
 
                 case 'radio':
-                    return 'wbpo';
                     if (arguments.length) {
-                        return $.fn.valInternal.call(this, val);
+                        //return $.fn.valInternal.call(this, val);
                     } else {
-                        return $.fn.valInternal.call(this);
+                        return this.is(':checked') ? $.fn.valInternal.call(this) : '';
                     }
                     return;
             }
