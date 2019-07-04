@@ -20,6 +20,7 @@
                     var el = parent.find(':checked');
                     //console.log(el);
                     if (arguments.length) {
+                        return;
                         console.log(val);
                         el.prop('checked', false);
                         el = parent.find('[value="' + val + '"]');
