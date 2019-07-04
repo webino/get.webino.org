@@ -105,18 +105,18 @@
         form.setCommand(form.env.value, form.env.value);
 
         // switch support
-        var support = $(form.support).val();
+        // var support = $(form.support).val();
         console.log(form.support);
-        console.log(support);
-        if (support === "wbpo") {
-            // support WBPO
-            //form.setCommand(true, 'with-wbpo');
-        }
-
-        // support Webino
-        if (support !== "webino") {
-            //form.setCommand(true, 'without-webino');
-        }
+        console.log(form.support.value);
+        // if (support === "wbpo") {
+        //     // support WBPO
+        //     //form.setCommand(true, 'with-wbpo');
+        // }
+        //
+        // // support Webino
+        // if (support !== "webino") {
+        //     //form.setCommand(true, 'without-webino');
+        // }
 
         // admin email
         form.setCommand(form.admin_email.value, 'admin-email', form.admin_email.value);
