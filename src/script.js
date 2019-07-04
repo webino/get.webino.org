@@ -18,10 +18,7 @@
                 case 'radio':
                     var parent = this.parent();
                     var el = parent.find(':checked');
-                    //console.log(el);
                     if (arguments.length) {
-                        return;
-                        console.log(val);
                         el.prop('checked', false);
                         el = parent.find('[value="' + val + '"]');
                         el.prop('checked', true);
@@ -30,8 +27,6 @@
                     if (!el || !el.get(0)) {
                         return '';
                     }
-                    console.log(el.get(0));
-                    console.log(el.get(0).value);
                     return el.get(0).value;
             }
         }
@@ -123,7 +118,6 @@
         // switch support
         var support = $(form.support).val();
         console.log('----------');
-        console.log(form.support);
         console.log(form.support.value);
         console.log(support);
         // support WBPO
