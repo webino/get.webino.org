@@ -27,6 +27,7 @@
                         return val;
                     }
                     console.log(el.get(0));
+                    console.log(el.get(0).value);
                     return el.get(0).value;
             }
         }
