@@ -17,6 +17,7 @@
 
                 case 'radio':
                     if (arguments.length) {
+                        this.prop('checked', !!val);
                         return $.fn.valInternal.call(this, val);
                     }
                     return this.is(':checked') ? $.fn.valInternal.call(this) : '';
