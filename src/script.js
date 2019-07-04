@@ -18,6 +18,7 @@
                 case 'radio':
                     var el = this.find(':checked');
                     if (arguments.length) {
+                        console.log(val);
                         return $.fn.valInternal.call(this, val);
                     }
                     return el.valInternal.call(this);
