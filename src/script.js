@@ -2,8 +2,8 @@
     //-----------------------+
     // Better val() function |
     //-----------------------+
-    $.fn.valInternal = jQuery.fn.val;
-    $.fn.val = function (val) {
+    // $.fn.valInternal = jQuery.fn.val;
+    // $.fn.val = function (val) {
         // if (this.length) {
         //     var type = this.attr('type');
         //     type = type ? type : this.get(0).tagName.toLowerCase();
@@ -19,11 +19,11 @@
         // }
         //
         // if (arguments.length) {
-            return $.fn.valInternal.call(this, val);
+        //     return $.fn.valInternal.call(this, val);
         // } else {
         //     return $.fn.valInternal.call(this);
         // }
-    };
+    // };
 
     //-------+
     // Setup |
