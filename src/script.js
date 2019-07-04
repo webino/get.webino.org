@@ -104,8 +104,16 @@
         // environment
         form.setCommand(form.env.value, form.env.value);
 
+        // switch support
+        if (form.support[form.support.value] === "wbpo") {
+            // support WBPO
+            form.setCommand(true, 'with-wbpo');
+        }
+
         // support Webino
-        form.setCommand(!form.support_webino.checked, 'without-webino');
+        if (form.support[form.support.value] !== "webino") {
+            form.setCommand(true, 'without-webino');
+        }
 
         // admin email
         form.setCommand(form.admin_email.value, 'admin-email', form.admin_email.value);
