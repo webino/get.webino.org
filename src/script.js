@@ -18,11 +18,13 @@
                 case 'radio':
                     var el = this.find(':checked');
                     return el.valInternal.call(this);
-                    //if (arguments.length) {
-                    //    this.prop('checked', !!val);
-                    // return $.fn.valInternal.call(this, val);
-                    //}
-                    //return this.is(':checked') ? $.fn.valInternal.call(this) : '';
+                    if (arguments.length) {
+                        el.prop('checked', false);
+                        el = this.find('value="' + val + '"');
+                        el.prop('checked', true);
+                        return $.fn.valInternal.call(this, val);
+                    }
+                    return el.valInternal.call(this);
             }
         }
 
