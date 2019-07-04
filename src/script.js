@@ -18,6 +18,7 @@
                 case 'radio':
                     var parent = this.parent();
                     var el = parent.find(':checked');
+                    console.log(el);
                     if (arguments.length) {
                         console.log(val);
                         el.prop('checked', false);
