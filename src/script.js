@@ -4,9 +4,9 @@
     //-----------------------+
     $.fn.valInternal = jQuery.fn.val;
     $.fn.val = function (val) {
-        if (!this.length) {
-            // return;
-        }
+        //if (!this.length) {
+            return;
+        //}
 
         // var type = this.attr('type');
         // type = type ? type : this.get(0).tagName.toLowerCase();
