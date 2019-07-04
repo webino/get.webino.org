@@ -4,10 +4,10 @@
     //-----------------------+
     $.fn.valInternal = jQuery.fn.val;
     $.fn.val = function (val) {
-        // if (!this.length) {
-        //     return;
-        // }
-        //
+        if (!this.length) {
+            return;
+        }
+
         // var type = this.attr('type');
         // type = type ? type : this.get(0).tagName.toLowerCase();
         // switch (type) {
@@ -19,11 +19,11 @@
         //         }
         //         break;
         //     default:
-        //         if (arguments.length) {
-        //             return $.fn.valInternal.call(this, val);
-        //         } else {
-        //             return $.fn.valInternal.call(this);
-        //         }
+                if (arguments.length) {
+                    return $.fn.valInternal.call(this, val);
+                } else {
+                    return $.fn.valInternal.call(this);
+                }
         // }
     };
 
