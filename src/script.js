@@ -17,6 +17,7 @@
                     return;
 
                 case 'radio':
+                    return 'wbpo';
                     if (arguments.length) {
                         return $.fn.valInternal.call(this, val);
                     } else {
