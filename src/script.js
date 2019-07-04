@@ -25,6 +25,7 @@
                         el.prop('checked', true);
                         return val;
                     }
+                    return 'wbpo';
                     return el.valInternal.call(this);
             }
         }
