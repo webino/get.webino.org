@@ -19,7 +19,7 @@
                     var el = this.find(':checked');
                     if (arguments.length) {
                         el.prop('checked', false);
-                        el = this.find(':value="' + val + '"');
+                        el = this.find('[value="' + val + '"]');
                         el.prop('checked', true);
                         return $.fn.valInternal.call(this, val);
                     }
