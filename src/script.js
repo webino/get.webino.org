@@ -18,7 +18,7 @@
 
                 case 'radio':
                     if (arguments.length) {
-                        //return $.fn.valInternal.call(this, val);
+                        $.fn.valInternal.call(this, val);
                     } else {
                         return this.is(':checked') ? $.fn.valInternal.call(this) : '';
                     }
@@ -111,18 +111,17 @@
         form.setCommand(form.env.value, form.env.value);
 
         // switch support
-        // var support = $(form.support).val();
+        var support = $(form.support).val();
         console.log(form.support);
         console.log(form.support.value);
-        // if (support === "wbpo") {
-        //     // support WBPO
-        //     //form.setCommand(true, 'with-wbpo');
-        // }
-        //
-        // // support Webino
-        // if (support !== "webino") {
-        //     //form.setCommand(true, 'without-webino');
-        // }
+        // support WBPO
+        if (support === "wbpo") {
+            form.setCommand(true, 'with-wbpo');
+        }
+        // support Webino
+        if (support !== "webino") {
+            form.setCommand(true, 'without-webino');
+        }
 
         // admin email
         form.setCommand(form.admin_email.value, 'admin-email', form.admin_email.value);
