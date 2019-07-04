@@ -27,7 +27,7 @@
                         el.prop('checked', true);
                         return val;
                     }
-                    if (!el) {
+                    if (typeof el === 'undefined') {
                         return '';
                     }
                     console.log(el.get(0));
