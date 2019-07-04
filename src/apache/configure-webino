@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/apache -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04
+#
+# What this script does?
+#   - It builds Apache from source
+
+main() {
+    if [[ $_no_webino ]]; then
+        return
+    fi
+
+    #-------------------+
+    # configure support |
+    #-------------------+
+    local data='@@host@@/apache/~data'
+    echo 'Configuring Apache to support Webino...'
+
+    #----------------------------+
+    # Webino™ support (optional) |
+    #----------------------------+
+    local file=/etc/apache2/conf.d/webino.conf
+    root_file_wget $data$file $file
+
+    local file=/etc/apache2/common/webino-dir.conf
+    root_file_wget $data$file $file
+
+    local file=/etc/apache2/common/webino-vhost.conf
+    root_file_wget $data$file $file
+
+    # vhost (local only)
+    local file=/etc/apache2/vhost.d/000-default-local.conf
+    [[ $_env_local ]] && root_file_wget $data$file $file
+}
+
+main

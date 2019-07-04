@@ -120,23 +120,11 @@ main() {
     local file=/etc/apache2/vhost.inc/default-ssl.conf
     root_file_wget $data$file $file
 
-    #----------------------------+
-    # Webino™ support (optional) |
-    #----------------------------+
-    if [[ ! $_no_webino ]]; then
-        local file=/etc/apache2/conf.d/webino.conf
-        root_file_wget $data$file $file
-
-        local file=/etc/apache2/common/webino-dir.conf
-        root_file_wget $data$file $file
-
-        local file=/etc/apache2/common/webino-vhost.conf
-        root_file_wget $data$file $file
-
-        # vhost (local only)
-        local file=/etc/apache2/vhost.d/000-default-local.conf
-        [[ $_env_local ]] && root_file_wget $data$file $file
-    fi
+    #---------------------------+
+    # Custom support (optional) |
+    #---------------------------+
+    load apache/configure-webino
+    load apache/configure-wbpo
 
     #-----------------+
     # bad-bots config |
