@@ -116,14 +116,14 @@
         form.setCommand(form.env.value, form.env.value);
 
         // switch support
-        var support = $(form.support).val();
-        if (support === "wbpo") {
-            // support WBPO
-            form.setCommand(true, 'with-wbpo');
-
-        } else if (support !== "webino") {
-            // support Webino
-            form.setCommand(true, 'without-webino');
+        switch (form.support.value) {
+            case 'wbpo':
+                // support WBPO
+                form.setCommand(true, 'with-wbpo');
+                break;
+            case 'none':
+                // support Webino
+                form.setCommand(true, 'without-webino');
         }
 
         // admin email
