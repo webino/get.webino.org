@@ -9,11 +9,18 @@
             type = type ? type : this.get(0).tagName.toLowerCase();
             switch (type) {
                 case 'checkbox':
-                case 'radio':
                     if (arguments.length) {
                         this.prop('checked', !!val);
                     } else {
                         return this.is(':checked') ? $.fn.valInternal.call(this) : '';
+                    }
+                    return;
+
+                case 'radio':
+                    if (arguments.length) {
+                        return $.fn.valInternal.call(this, val);
+                    } else {
+                        return $.fn.valInternal.call(this);
                     }
                     return;
             }
