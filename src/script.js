@@ -11,18 +11,15 @@
                 case 'checkbox':
                     if (arguments.length) {
                         this.prop('checked', !!val);
-                    } else {
-                        return this.is(':checked') ? $.fn.valInternal.call(this) : '';
+                        return $.fn.valInternal.call(this, val);
                     }
-                    return;
+                    return this.is(':checked') ? $.fn.valInternal.call(this) : '';
 
                 case 'radio':
                     if (arguments.length) {
-                        $.fn.valInternal.call(this, val);
-                    } else {
-                        return this.is(':checked') ? $.fn.valInternal.call(this) : '';
+                        return $.fn.valInternal.call(this, val);
                     }
-                    return;
+                    return this.is(':checked') ? $.fn.valInternal.call(this) : '';
             }
         }
 
