@@ -25,7 +25,7 @@
                         el.prop('checked', true);
                         return val;
                     }
-                    return el.valInternal.call(el);
+                    return el.attr('value');
             }
         }
 
