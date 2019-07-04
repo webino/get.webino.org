@@ -12,6 +12,7 @@
         type = type ? type : this.get(0).tagName.toLowerCase();
         switch (type) {
             case 'checkbox':
+            case 'radio':
                 if (arguments.length) {
                     this.prop('checked', !!val);
                 } else {
@@ -105,14 +106,14 @@
         form.setCommand(form.env.value, form.env.value);
 
         // switch support
-        console.log(form.support);
-        if (form.support[form.support.value] === "wbpo") {
+        var support = $(form.support).val();
+        if (support === "wbpo") {
             // support WBPO
             form.setCommand(true, 'with-wbpo');
         }
 
         // support Webino
-        if (form.support[form.support.value] !== "webino") {
+        if (support !== "webino") {
             form.setCommand(true, 'without-webino');
         }
 
