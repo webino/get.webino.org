@@ -2,28 +2,29 @@
     //-----------------------+
     // Better val() function |
     //-----------------------+
-    // $.fn.valInternal = jQuery.fn.val;
-    // $.fn.val = function (val) {
-        // if (this.length) {
-        //     var type = this.attr('type');
-        //     type = type ? type : this.get(0).tagName.toLowerCase();
-        //     switch (type) {
-        //         case 'checkbox':
-        //             if (arguments.length) {
-        //                 this.prop('checked', !!val);
-        //             } else {
-        //                 return this.is(':checked') ? $.fn.valInternal.call(this) : '';
-        //             }
-        //             return;
-        //     }
-        // }
-        //
-        // if (arguments.length) {
-        //     return $.fn.valInternal.call(this, val);
-        // } else {
-        //     return $.fn.valInternal.call(this);
-        // }
-    // };
+    $.fn.valInternal = jQuery.fn.val;
+    $.fn.val = function (val) {
+        if (this.length) {
+            var type = this.attr('type');
+            type = type ? type : this.get(0).tagName.toLowerCase();
+            switch (type) {
+                case 'checkbox':
+                case 'radio':
+                    if (arguments.length) {
+                        this.prop('checked', !!val);
+                    } else {
+                        return this.is(':checked') ? $.fn.valInternal.call(this) : '';
+                    }
+                    return;
+            }
+        }
+
+        if (arguments.length) {
+            return $.fn.valInternal.call(this, val);
+        } else {
+            return $.fn.valInternal.call(this);
+        }
+    };
 
     //-------+
     // Setup |
@@ -135,7 +136,7 @@
         // store form values
         $(form).find('input,select').each(function (n, node) {
             var el = $(node);
-            //node.name && (form.values[node.name] = el.val());
+            node.name && (form.values[node.name] = el.val());
         });
 
         // load options
