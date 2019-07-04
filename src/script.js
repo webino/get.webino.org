@@ -5,7 +5,7 @@
     $.fn.valInternal = jQuery.fn.val;
     $.fn.val = function (val) {
         if (!this.length) {
-            return;
+            // return;
         }
 
         // var type = this.attr('type');
