@@ -106,6 +106,8 @@
 
         // switch support
         var support = $(form.support).val();
+        console.log(form.support);
+        console.log(support);
         if (support === "wbpo") {
             // support WBPO
             form.setCommand(true, 'with-wbpo');
