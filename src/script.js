@@ -117,12 +117,12 @@
 
         // switch support
         var support = $(form.support).val();
-        // support WBPO
         if (support === "wbpo") {
+            // support WBPO
             form.setCommand(true, 'with-wbpo');
-        }
-        // support Webino
-        if (support !== "webino") {
+
+        } else if (support !== "webino") {
+            // support Webino
             form.setCommand(true, 'without-webino');
         }
 

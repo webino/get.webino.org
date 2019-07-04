@@ -18,6 +18,7 @@ main() {
     #----------+
     _no_interaction=
     _no_webino=
+    _wbpo=
     _env_local=1
     _env_dev=
     _env_pub=
@@ -41,6 +42,11 @@ main() {
         ;;
         -without-webino)
             _no_webino=1
+            shift
+        ;;
+        -with-wbpo)
+            _no_webino=1
+            _wbpo=1
             shift
         ;;
         -admin-email)
