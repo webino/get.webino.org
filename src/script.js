@@ -105,6 +105,7 @@
         form.setCommand(form.env.value, form.env.value);
 
         // switch support
+        console.log(form.support);
         if (form.support[form.support.value] === "wbpo") {
             // support WBPO
             form.setCommand(true, 'with-wbpo');
