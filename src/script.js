@@ -16,13 +16,13 @@
                     return this.is(':checked') ? $.fn.valInternal.call(this) : '';
 
                 case 'radio':
-                    var el = this.parent().find(':checked');
-                    console.log(el);
+                    var parent = this.parent();
+                    var el = parent.find(':checked');
                     if (arguments.length) {
-                        //el.prop('checked', false);
-                        //el = this.find('[value="' + val + '"]');
-                        //el.prop('checked', true);
-                        //return $.fn.valInternal.call(this, val);
+                        el.prop('checked', false);
+                        el = parent.find('[value="' + val + '"]');
+                        el.prop('checked', true);
+                        return $.fn.valInternal.call(this);
                     }
                     return el.valInternal.call(this);
             }
