@@ -18,11 +18,11 @@
         //     }
         // }
         //
-        if (arguments.length) {
+        // if (arguments.length) {
             return $.fn.valInternal.call(this, val);
-        } else {
-            return $.fn.valInternal.call(this);
-        }
+        // } else {
+        //     return $.fn.valInternal.call(this);
+        // }
     };
 
     //-------+
