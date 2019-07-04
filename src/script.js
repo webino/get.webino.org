@@ -26,7 +26,7 @@
                         el.prop('checked', true);
                         return val;
                     }
-                    return el.attr('value');
+                    return el.prop('value');
             }
         }
 
