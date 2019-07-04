@@ -19,6 +19,7 @@
                     var parent = this.parent();
                     var el = parent.find(':checked');
                     if (arguments.length) {
+                        console.log(val);
                         el.prop('checked', false);
                         el = parent.find('[value="' + val + '"]');
                         el.prop('checked', true);
@@ -114,6 +115,7 @@
 
         // switch support
         var support = $(form.support).val();
+        console.log('----------');
         console.log(form.support);
         console.log(form.support.value);
         console.log(support);
