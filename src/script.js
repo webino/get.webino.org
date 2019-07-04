@@ -25,8 +25,7 @@
                         el.prop('checked', true);
                         return val;
                     }
-                    return 'webino';
-                    return el.valInternal.call(this);
+                    return el.valInternal.call(el);
             }
         }
 
