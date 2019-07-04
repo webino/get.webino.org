@@ -135,7 +135,7 @@
         // store form values
         $(form).find('input,select').each(function (n, node) {
             var el = $(node);
-            node.name && (form.values[node.name] = el.val());
+            //node.name && (form.values[node.name] = el.val());
         });
 
         // load options
