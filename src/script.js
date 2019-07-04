@@ -12,7 +12,6 @@
         type = type ? type : this.get(0).tagName.toLowerCase();
         switch (type) {
             case 'checkbox':
-            case 'radio':
                 if (arguments.length) {
                     this.prop('checked', !!val);
                 } else {
