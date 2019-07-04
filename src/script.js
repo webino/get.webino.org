@@ -16,7 +16,7 @@
                     return this.is(':checked') ? $.fn.valInternal.call(this) : '';
 
                 case 'radio':
-                    var el = this.find(':checked');
+                    var el = this.parent().find(':checked');
                     console.log(checked);
                     if (arguments.length) {
                         //el.prop('checked', false);
