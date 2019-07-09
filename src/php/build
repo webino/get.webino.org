@@ -57,6 +57,7 @@ main() {
             --with-zlib-dir \
             --with-iconv \
             --with-pdo-mysql \
+            --with-mysqli \
             --with-gettext \
             --with-mhash \
             --with-pspell \
@@ -86,8 +87,7 @@ main() {
     sudo dpkg --compare-versions "$_php_version" 'lt' '7.0' && {
     
         echo 'Without PHP7 support (legacy)...'
-        php_cfg+=" --with-mcrypt \
-                   --with-mysqli"
+        php_cfg+=" --with-mcrypt"
     } || {
     
        echo 'With PHP7 support...'
