@@ -26,19 +26,19 @@ main() {
     #----------------------+
     # remove pre-installed |
     #----------------------+
-    if test installed apache*; then
-        echo 'Removing pre-installed Apache...'
-        uninstall apache*
-        sudo rm -rf /etc/apache2 /usr/local/apache2 /var/www/html
-    fi
+    #if test installed apache*; then
+    #    echo 'Removing pre-installed Apache...'
+    #    uninstall apache*
+    #    sudo rm -rf /etc/apache2 /usr/local/apache2 /var/www/html
+    #fi
 
     #-------------------------+
     # check already installed |
     #-------------------------+
-    if [[ $(whereis apachectl) == */apachectl* ]]; then
-        echo 'Apache already built...'
-        return
-    fi
+    #if [[ $(whereis apachectl) == */apachectl* ]]; then
+    #    echo 'Apache already built...'
+    #    return
+    #fi
     
     #-----------------------------+
     # resolve latest 2.4 versions |
