@@ -32,10 +32,10 @@ main() {
         #sudo cp . /usr/local/imap-2007f -R
     #fi
 
-    if php -v &>/dev/null; then
-        echo 'PHP already built...'
-        return
-    fi
+    #if php -v &>/dev/null; then
+    #    echo 'PHP already built...'
+    #    return
+    #fi
 
     #------------------+
     # PHP build config |
