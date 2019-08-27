@@ -1,7 +1,7 @@
 /srv/*/public/*/data/log/*.log {
-    weekly
+    daily
     missingok
-    rotate 3
+    rotate 5
     compress
     delaycompress
     notifempty
