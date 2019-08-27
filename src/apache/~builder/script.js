@@ -2,11 +2,10 @@
 
     form.modules.apache = {
         options: [
-            'system',
-            'apache'
+            'system'
         ],
         onUpdate: function () {
-            
+            form.setCommand(form.apache_htaccess.checked, 'apache-htaccess');
         }
     };
 
