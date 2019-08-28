@@ -3,7 +3,6 @@
     form.modules.mysql = {
         options: [
             'system',
-            'apache',
             'mysql'
         ],
         onUpdate: function () {
