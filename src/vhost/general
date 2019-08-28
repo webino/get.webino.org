@@ -29,12 +29,11 @@ main() {
     load vhost/dirs
     load vhost/conf
     load vhost/hello
-    load vhost/done
 
     #------+
     # done |
     #------+
-    echo 'Virtual host setup done...'
+    load vhost/done
 }
 
 main "$@"
