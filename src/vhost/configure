@@ -45,6 +45,11 @@ main() {
     # HTTP enabled toggle support
     # HTTPS setup support
 
+    # HTTPS redirect support
+    [[ ! $_vhost_http && $_vhost_https ]] && \
+        sudo sed -i 's/#Include /etc/apache2/common/https-redirect.conf/'\
+                    'Include /etc/apache2/common/https-redirect.conf/g' $file
+
     #-------------------------+
     # replace vars in configs |
     #-------------------------+

@@ -7,7 +7,7 @@
 # Are you looking at this in your web browser, and would like to get Webino™?
 # Just open up your terminal and type:
 #
-#    wget @@host@@/php -qO- | sh
+#    wget @@host@@/vhost -qO- | sh
 #
 # Webino™ currently supports:
 #   - Ubuntu 16.04
@@ -20,8 +20,9 @@ main() {
     # defaults |
     #----------+
     _vhost_domain=
-    _vhost_www=
     _vhost_name=
+    _vhost_http=
+    _vhost_https=
 
     #----------+
     # get args |
@@ -37,13 +38,21 @@ main() {
             shift
             shift
         ;;
-        -vhost-www)
-            _vhost_www=1
-            shift
-        ;;
         -vhost-name)
             _vhost_name=${argv[$n]}
             shift
+            shift
+        ;;
+        -vhost-http)
+            _vhost_http=1
+            shift
+        ;;
+        -vhost-https)
+            _vhost_https=1
+            shift
+        ;;
+        -vhost-www)
+            _vhost_www=1
             shift
         ;;
         *)

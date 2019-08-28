@@ -27,7 +27,7 @@ main() {
     # setup |
     #-------+
     load vhost/dirs
-    load vhost/conf
+    load vhost/configure
     load vhost/hello
 
     #------+
