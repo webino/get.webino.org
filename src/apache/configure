@@ -91,6 +91,9 @@ main() {
     [[ $_apache_htaccess ]] && \
         sudo sed -i 's/AllowOverride None/AllowOverride All/g' $file
 
+    local file=/etc/apache2/common/https-redirect.conf
+    root_file_wget $data$file $file
+
     local file=/etc/apache2/common/maintenance.conf
     root_file_wget $data$file $file
 
