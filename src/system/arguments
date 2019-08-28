@@ -18,7 +18,7 @@ main() {
     #----------+
     _host_name=
     _host_ip=127.0.0.1
-    _with_ssh=
+    _ssh=
     _smtp_host=
     _smtp_user=
 
@@ -40,8 +40,8 @@ main() {
             shift
             shift
         ;;
-        -with-ssh)
-            _with_ssh=1
+        -ssh)
+            _ssh=1
             shift
         ;;
         -smtp-host)

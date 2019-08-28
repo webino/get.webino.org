@@ -8,8 +8,8 @@
         ],
         onUpdate: function () {
             form.setCommand(form.php_version.value, 'php', form.php_version.value);
-            form.setCommand(form.php_apache.checked, 'with-apache');
-            form.setCommand(form.php_mysql.checked, 'with-mysql');
+            form.setCommand(form.php_apache.checked, 'apache');
+            form.setCommand(form.php_mysql.checked, 'mysql');
             form.setCommand(form.php_memcached.checked, 'php-memcached');
             form.setCommand(form.php_fpm.checked, 'php-fpm');
         }

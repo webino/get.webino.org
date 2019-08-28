@@ -40,11 +40,11 @@ main() {
             _no_interaction=1
             shift
         ;;
-        -without-webino)
+        -no-webino)
             _no_webino=1
             shift
         ;;
-        -with-wbpo)
+        -wbpo)
             _no_webino=1
             _wbpo=1
             shift

@@ -119,11 +119,11 @@
         switch (form.support.value) {
             case 'wbpo':
                 // support WBPO
-                form.setCommand(true, 'with-wbpo');
+                form.setCommand(true, 'wbpo');
                 break;
             case 'none':
                 // support Webino
-                form.setCommand(true, 'without-webino');
+                form.setCommand(true, 'no-webino');
         }
 
         // admin email

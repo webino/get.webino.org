@@ -10,7 +10,7 @@
 
 **With SSH setup**
 
-`wget https://get.webino.org/system -qO- | sh -- -with-ssh`
+`wget https://get.webino.org/system -qO- | sh -- -ssh`
 
 **Providing custom host info**
 

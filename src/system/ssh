@@ -19,7 +19,7 @@ main() {
     #------------------------------------+
     # return early on disabled SSH setup |
     #------------------------------------+
-    [[ ! $_with_ssh ]] && return
+    [[ ! $_ssh ]] && return
 
     #-------+
     # setup |
