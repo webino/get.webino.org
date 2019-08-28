@@ -18,7 +18,7 @@ main() {
     #----------+
     _php_version=
     _php_prefix=
-    _php_short_tag=
+    _php_short_tags=
     _php_memcached=
     _php_fpm=
 
@@ -40,8 +40,8 @@ main() {
             shift
             shift
         ;;
-        -php-short-tag)
-            _php_short_tag=1
+        -php-short-tags)
+            _php_short_tags=1
             shift
             shift
         ;;
