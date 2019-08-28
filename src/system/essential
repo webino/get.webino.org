@@ -83,6 +83,13 @@ main() {
             fi
         fi
     fi
+
+    #-------------------+
+    # rsyslog logrotate |
+    #-------------------+
+    local file=/etc/logrotate.d/rsyslog
+    sudo sed -i 's/rotate 4/rotate 7/g' $file
+    sudo sed -i 's/weekly/daily/g' $file
 }
 
 main
