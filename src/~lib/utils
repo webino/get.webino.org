@@ -114,7 +114,6 @@ root_file_write() # <data> <filepath>
 root_file_wget() # <url> <filepath>
 {
     sudo wget $1 -qO $2
-    sudo chown root:root $2
 }
 
 #-------------+

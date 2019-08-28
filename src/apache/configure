@@ -142,6 +142,7 @@ main() {
     echo '<Directory />' | sudo cat - $file > temp
     sudo mv temp $file
     echo '</Directory>' | sudo tee --append $file > /dev/null
+    sudo chown root: $file
 
     #-----------+
     # logrotate |
