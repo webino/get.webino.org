@@ -60,6 +60,9 @@ main() {
     local file=/conf.d/custom.ini
     [[ -f $etc$file ]] || root_file_wget $data$file $etc$file
 
+    [[ $_php_short_tag ]] && \
+        sudo sed -i 's/short_open_tag=Off/short_open_tag=On/g' $file
+
     #--------------+
     # local config |
     #--------------+
