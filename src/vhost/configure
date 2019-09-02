@@ -23,31 +23,50 @@ main() {
     local dir='/srv/'$_vhost_name
 
     local src=/srv/example/common.conf
-    local dest=$dir'/common.conf'
-    [[ -f $dest ]] || sudo wget $data$src -qO $dest
+    local file=$dir'/common.conf'
+    [[ -f $file ]] || sudo wget $data$src -qO $file
+
+    # www support
+    if [[ $_vhost_www ]]; then
+        sudo sed -i 's/#ServerAlias www./ServerAlias www./g' $file
+    else
+        sudo sed -i -e 's/^ServerAlias www./#ServerAlias www./g' $file
+    fi
 
     local src=/srv/example/http.conf
-    local dest=$dir'/http.conf'
-    [[ -f $dest ]] || sudo wget $data$src -qO $dest
-
-    local src=/srv/example/https.conf
-    local dest=$dir'/https.conf'
-    [[ -f $dest ]] || sudo wget $data$src -qO $dest
-
-    local src=/srv/example/vhost.conf
-    local dest=$dir'/vhost.conf'
-    [[ -f $dest ]] || sudo wget $data$src -qO $dest
-
-    # TODO
-    # with webino support toggle
-    # allow override toggle support
-    # _vhost_www support
-    # HTTP enabled toggle support
-    # HTTPS setup support
+    local file=$dir'/http.conf'
+    [[ -f $file ]] || sudo wget $data$src -qO $file
 
     # HTTPS redirect support
-    [[ ! $_vhost_http && $_vhost_https ]] && \
+    if [[ ! $_vhost_http && $_vhost_https ]];then
         sudo sed -i 's/#Include /etc/apache2/common/https-redirect.conf/Include /etc/apache2/common/https-redirect.conf/g' $file
+    else
+        sudo sed -i 's/^Include /etc/apache2/common/https-redirect.conf/#Include /etc/apache2/common/https-redirect.conf/g' $file
+    fi
+
+    local src=/srv/example/https.conf
+    local file=$dir'/https.conf'
+    [[ -f $file ]] || sudo wget $data$src -qO $file
+
+    # HTTPS support
+    if [[ $_vhost_https ]];then
+        sudo sed -i -e 's/^#SSL/SSL/g' $file
+    else
+        sudo sed -i -e 's/^SSL/#SSL/g' $file
+    fi
+
+    local src=/srv/example/vhost.conf
+    local file=$dir'/vhost.conf'
+    [[ -f $file ]] || sudo wget $data$src -qO $file
+
+    # HTTPS support
+    if [[ $_vhost_https ]];then
+        sudo sed -i 's/#Include /srv/%VHOST_NAME%/https.conf/Include /srv/%VHOST_NAME%/https.conf/g' $file
+    else
+        sudo sed -i 's/ Include /srv/%VHOST_NAME%/https.conf/ #Include /srv/%VHOST_NAME%/https.conf/g' $file
+    fi
+
+    # TODO allow override all option support
 
     #-------------------------+
     # replace vars in configs |

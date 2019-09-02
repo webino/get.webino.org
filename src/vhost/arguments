@@ -23,6 +23,7 @@ main() {
     _vhost_name=
     _vhost_http=
     _vhost_https=
+    _vhost_www=
 
     #----------+
     # get args |
