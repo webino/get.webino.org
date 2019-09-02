@@ -39,9 +39,9 @@ main() {
 
     # HTTPS redirect support
     if [[ ! $_vhost_http && $_vhost_https ]];then
-        sudo sed -i 's/#Include /etc/apache2/common/https-redirect.conf/Include /etc/apache2/common/https-redirect.conf/g' $file
+        sudo sed -i 's~#Include /etc/apache2/common/https-redirect.conf~Include /etc/apache2/common/https-redirect.conf~g' $file
     else
-        sudo sed -i 's/^Include /etc/apache2/common/https-redirect.conf/#Include /etc/apache2/common/https-redirect.conf/g' $file
+        sudo sed -i 's~^Include /etc/apache2/common/https-redirect.conf~#Include /etc/apache2/common/https-redirect.conf~g' $file
     fi
 
     local src=/srv/example/https.conf
@@ -61,9 +61,9 @@ main() {
 
     # HTTPS support
     if [[ $_vhost_https ]];then
-        sudo sed -i 's/#Include /srv/%VHOST_NAME%/https.conf/Include /srv/%VHOST_NAME%/https.conf/g' $file
+        sudo sed -i 's~#Include /srv/%VHOST_NAME%/https.conf~Include /srv/%VHOST_NAME%/https.conf~g' $file
     else
-        sudo sed -i 's/ Include /srv/%VHOST_NAME%/https.conf/ #Include /srv/%VHOST_NAME%/https.conf/g' $file
+        sudo sed -i 's~ Include /srv/%VHOST_NAME%/https.conf~ #Include /srv/%VHOST_NAME%/https.conf~g' $file
     fi
 
     # TODO allow override all option support
