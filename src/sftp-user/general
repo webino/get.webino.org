@@ -29,16 +29,20 @@ main() {
     # TODO
     #load sftp-user/configure
 
-    # TODO add user if
-    sudo groupadd sftp-only
-
-    if [[ $_sftp_user_name ]];then
+    if [[ ! $_sftp_user_name ]];then
+        return
     fi
+
+    # TODO add user if
+    sudo groupadd sftp-only &> /dev/null
 
     # TODO create user account
     sudo useradd -m $_sftp_user_name
     sudo usermod -aG sftp-only $_sftp_user_name
-    [[ $_sftp_user_group ]] && sudo usermod -aG _sftp_user_group _sftp_user_name
+    if [[ $_sftp_user_group ]]; then
+        sudo groupadd $_sftp_user_group &> /dev/null
+        sudo usermod -aG _sftp_user_group _sftp_user_name
+    fi
 
     # TODO add user authorized key
     if [[ ! $_no_interaction ]]; then
