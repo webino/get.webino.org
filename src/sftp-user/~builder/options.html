@@ -1,15 +1,18 @@
-<fieldset id="sftp-user">
+<fieldset id="sftp_user">
     <legend>SFTP User</legend>
     <p>
         <label>
             User name:
-            <input type="text" name="sftp-user-name">
+            <input type="text" name="sftp_user_name">
         </label>
     </p>
     <p>
         <label>
             User group:
-            <input type="text" name="sftp-user-name" placeholder="(optional)">
+            <input list="sftp_user_group" name="sftp_user_group" placeholder="(optional)">
+            <datalist id="sftp">
+                <option value="www-data">
+            </datalist>
         </label>
     </p>
 </fieldset>
