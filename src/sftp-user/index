@@ -15,4 +15,4 @@
 # What this script does?
 #   - It creates a SFTP user account
 
-wget @@host@@/vhost/sftp-user -qO- | bash -s -- "$@"
+wget @@host@@/sftp-user -qO- | bash -s -- "$@"
