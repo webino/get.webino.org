@@ -32,18 +32,22 @@ main() {
     # TODO add user if
     sudo groupadd sftp-only
 
-    local user='martin.krasnan'
+    if [[ $_sftp_user_name ]];then
+    fi
+
     # TODO create user account
-    sudo useradd -m $user
-    sudo usermod -aG sftp-only $user
-    # TODO optional group
-    sudo usermod -aG www-data $user
+    sudo useradd -m $_sftp_user_name
+    sudo usermod -aG sftp-only $_sftp_user_name
+    [[ $_sftp_user_group ]] && sudo usermod -aG _sftp_user_group _sftp_user_name
 
     # TODO add user authorized key
-    sudo mkdir /home/$user/.ssh
-    # TODO if not-non interactive add SSH key
-    echo $ssh_key && sudo tee -a /home/$user/.ssh/authorized_keys
-    chown andrej.hyll: .ssh/ -R
+    if [[ ! $_no_interaction ]]; then
+        echo 'User SSH authorized key:'
+        read sftp_user_authorized_key </dev/tty
+
+        [[ -n "$sftp_user_authorized_key" ]] && \
+            sudo su $_sftp_user_name -c "mkdir -p ~/.ssh && printf "$sftp_user_authorized_key" | sudo tee ~/.ssh/authorized_keys > /dev/null"
+    fi
 
     #------+
     # done |
