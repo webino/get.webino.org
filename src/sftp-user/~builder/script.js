@@ -1,8 +1,8 @@
 (function (form) {
 
-    form.modules.sftp_user = {
+    form.modules['sftp-user'] = {
         options: [
-            'sftp_user'
+            'sftp-user'
         ],
         onUpdate: function () {
             form.setCommand(form.sftp_user_name.value, 'sftp-user-name', form.sftp_user_name.value);
