@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/sftp-user -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04
+#
+# What this script does?
+#   - It creates a SFTP user account
+
+main() {
+    echo -e "\nVirtual host setup...\n"
+
+    #------+
+    # init |
+    #------+
+    load sftp-user/arguments "$@"
+
+    #-------+
+    # setup |
+    #-------+
+    # TODO
+    #load sftp-user/configure
+
+    # TODO add user if
+    sudo groupadd sftp-only
+
+    local user='martin.krasnan'
+    # TODO create user account
+    sudo useradd -m $user
+    sudo usermod -aG sftp-only $user
+    # TODO optional group
+    sudo usermod -aG www-data $user
+
+    # TODO add user authorized key
+    sudo mkdir /home/$user/.ssh
+    # TODO if not-non interactive add SSH key
+    echo $ssh_key && sudo tee -a /home/$user/.ssh/authorized_keys
+    chown andrej.hyll: .ssh/ -R
+
+    #------+
+    # done |
+    #------+
+    load sftp-user/done
+}
+
+main "$@"
