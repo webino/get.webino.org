@@ -41,7 +41,7 @@ main() {
     sudo usermod -aG sftp-only $_sftp_user_name
     if [[ $_sftp_user_group ]]; then
         sudo groupadd $_sftp_user_group &> /dev/null
-        sudo usermod -aG $_sftp_user_group _sftp_user_name
+        sudo usermod -aG $_sftp_user_group $_sftp_user_name
     fi
 
     # TODO add user authorized key
