@@ -19,7 +19,7 @@ main() {
     #------+
     # done |
     #------+
-    echo "\nSFTP user setup done...\n"
+    echo -e "\nSFTP user setup done...\n"
 }
 
 main

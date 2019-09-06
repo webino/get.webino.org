@@ -56,7 +56,7 @@ main() {
         read sftp_user_authorized_key </dev/tty
 
         [[ -n "$sftp_user_authorized_key" ]] && \
-            sudo su $_sftp_user_name -c "mkdir -p ~/.ssh; printf $sftp_user_authorized_key | tee -a ~/.ssh/authorized_keys > /dev/null"
+            sudo su $_sftp_user_name -c "mkdir -p ~/.ssh; printf "$sftp_user_authorized_key" | tee -a ~/.ssh/authorized_keys > /dev/null"
     fi
 
     #------+
