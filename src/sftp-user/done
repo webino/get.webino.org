@@ -19,7 +19,7 @@ main() {
     #------+
     # done |
     #------+
-    echo 'SFTP user setup done...'
+    echo "\nSFTP user setup done...\n"
 }
 
 main
