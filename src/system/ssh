@@ -49,7 +49,7 @@ main() {
                 read sysadmin_authorized_key </dev/tty
 
                 [[ -n "$sysadmin_authorized_key" ]] && \
-                    sudo su $sysadmin -c 'mkdir -p ~/.ssh; printf '$sysadmin_authorized_key' | tee -a $file > /dev/null'
+                    sudo su $sysadmin -c 'mkdir -p ~/.ssh; printf "'$sysadmin_authorized_key'" | tee -a $file > /dev/null'
             fi
         fi
     fi
