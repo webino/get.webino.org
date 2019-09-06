@@ -40,7 +40,7 @@ main() {
     fi
 
     # create user account
-    sudo useradd -m $_sftp_user_name
+    sudo useradd -ms /bin/bash $_sftp_user_name
     sudo usermod -aG sftp-only $_sftp_user_name
 
     # set optional user group
