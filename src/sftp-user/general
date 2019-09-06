@@ -43,6 +43,12 @@ main() {
     sudo useradd -ms /bin/bash $_sftp_user_name
     sudo usermod -aG sftp-only $_sftp_user_name
 
+    # create user SFTP directory
+    local sftp_user_work_dir='/sftp/'$_sftp_user_name
+    echo 'Creating SFTP user work directory "'$sftp_user_work_dir'"...'
+    sudo mkdir -p $sftp_user_work_dir
+    sudo chown $_sftp_user_name':' $sftp_user_work_dir
+
     # set optional user group
     if [[ $_sftp_user_group ]]; then
         echo "Adding user to optional group '$_sftp_user_group'..."
