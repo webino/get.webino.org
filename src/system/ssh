@@ -72,11 +72,6 @@ main() {
     sudo sed -i 's/#\?PasswordAuthentication yes/PasswordAuthentication no/' $config
     sudo sed -i 's/UsePAM yes/UsePAM no/' $config
 
-    #------+
-    # sftp |
-    #------+
-    sudo sed -i 's~Subsystem sftp /usr/lib/openssh/sftp-server~Subsystem sftp internal-sftp~' $config
-
     #---------------------+
     # change default port |
     #---------------------+

@@ -13,21 +13,24 @@
 #   - Ubuntu 16.04
 #
 # What this script does?
-#   - It creates a SFTP user account
+#   - It creates a sFTP user account
 
 main() {
     echo -e "\nAdding sFTP user group...\n"
     local data='@@host@@/dev-srv/~data'
+    local config='/etc/ssh/sshd_config'
 
     sudo groupadd sftp-only 2>/dev/null || true
     sudo mkdir -p /sftp || true
 
     # enable sFTP for sftp-only
-    sudo sed -i -E 's/AllowGroups (.+)/AllowGroups \1 sftp-only/' /etc/ssh/sshd_config
-    local is_ssh_sftp_allowed=$(grep 'Match Group sftp-only' /etc/ssh/sshd_config)
+    sudo sed -i -E 's/AllowGroups (.+)/AllowGroups \1 sftp-only/' $config
+    sudo sed -i 's~Subsystem sftp /usr/lib/openssh/sftp-server~Subsystem sftp internal-sftp~' $config
+
+    local is_ssh_sftp_allowed=$(grep 'Match Group sftp-only' $config)
     if [[ ! $is_ssh_sftp_allowed ]]; then
         echo 'Configuring SSH sftp-only group access...'
-        wget $data'/etc/ssh/sshd_config.sftp-only' -qO- | sudo tee --append /etc/ssh/sshd_config > /dev/null
+        wget $data'/etc/ssh/sshd_config.sftp-only' -qO- | sudo tee --append $config > /dev/null
     else
         echo 'SSH sftp-only group access already configured...'
     fi

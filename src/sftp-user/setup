@@ -13,7 +13,7 @@
 #   - Ubuntu 16.04
 #
 # What this script does?
-#   - It creates a SFTP user account
+#   - It creates a sFTP user account
 
 load() {
     #-------------------------+

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # This is the Webino™ setup script!
 # Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
@@ -7,7 +7,7 @@
 # Are you looking at this in your web browser, and would like to get Webino™?
 # Just open up your terminal and type:
 #
-#    wget @@host@@/sftp-user -qO- | sh
+#    wget @@host@@/dev -qO- | sh
 #
 # Webino™ currently supports:
 #   - Ubuntu 16.04
@@ -15,4 +15,11 @@
 # What this script does?
 #   - It creates a sFTP user account
 
-wget @@host@@/sftp-user/setup -qO- | bash -s -- "$@"
+main() {
+    #------+
+    # done |
+    #------+
+    echo 'sFTP user setup done...'
+}
+
+main
