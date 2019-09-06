@@ -13,6 +13,6 @@
 #   - Ubuntu 16.04
 #
 # What this script does?
-#   - It creates a sFTP user account
+#   - It creates a SFTP user account
 
 wget @@host@@/sftp-user/setup -qO- | bash -s -- "$@"

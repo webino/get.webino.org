@@ -13,7 +13,7 @@
 #   - Ubuntu 16.04
 #
 # What this script does?
-#   - It creates a sFTP user account
+#   - It creates a SFTP user account
 
 main() {
     #------+
@@ -28,14 +28,14 @@ main() {
         return
     fi
 
-    echo -e "\nsFTP `$_sftp_user_name` user setup...\n"
+    echo -e "\nSFTP '$_sftp_user_name' user setup...\n"
 
-    # adding sFTP user group
+    # adding SFTP user group
     load sftp-user/group
 
     # check user exists
     if [[ $(id $_sftp_user_name &> /dev/null) ]]; then
-        echo -e "\nUser already exists...\n"
+        echo 'User already exists...'
         return
     fi
 
@@ -45,6 +45,7 @@ main() {
 
     # set optional user group
     if [[ $_sftp_user_group ]]; then
+        echo "Adding user to optional group '$_sftp_user_group'..."
         sudo groupadd $_sftp_user_group &> /dev/null || true
         sudo usermod -aG $_sftp_user_group $_sftp_user_name
     fi

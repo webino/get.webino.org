@@ -13,13 +13,13 @@
 #   - Ubuntu 16.04
 #
 # What this script does?
-#   - It creates a sFTP user account
+#   - It creates a SFTP user account
 
 main() {
     #------+
     # done |
     #------+
-    echo 'sFTP user setup done...'
+    echo 'SFTP user setup done...'
 }
 
 main

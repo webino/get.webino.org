@@ -60,7 +60,7 @@ main() {
     local file=/etc/php/fpm/pool.d/dev-srv.conf
     [[ -f $file ]] || sudo wget $data$file -qO $file
 
-    # adding sFTP access for dev group
+    # adding SFTP access for dev group
     load sftp-user/group
 
     # TODO setup webino-devkit user
