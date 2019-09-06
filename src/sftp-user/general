@@ -34,7 +34,7 @@ main() {
     load sftp-user/group
 
     # check user exists
-    if [[ $(id $_sftp_user_name &> /dev/null) ]]; then
+    if [[ $(id $_sftp_user_name 2> /dev/null) ]]; then
         echo 'User already exists...'
         return
     fi

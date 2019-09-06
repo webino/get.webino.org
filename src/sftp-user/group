@@ -16,7 +16,7 @@
 #   - It creates a SFTP user account
 
 main() {
-    echo -e "\nAdding SFTP user group...\n"
+    echo 'Adding SFTP user group...'
     local data='@@host@@/dev-srv/~data'
     local config='/etc/ssh/sshd_config'
 
