@@ -16,7 +16,7 @@
 #   - It creates a SFTP user account
 
 main() {
-    echo -e "\nVirtual host setup...\n"
+    echo -e "\nsFTP user setup...\n"
 
     #------+
     # init |
@@ -26,25 +26,30 @@ main() {
     #-------+
     # setup |
     #-------+
-    # TODO
-    #load sftp-user/configure
-
     if [[ ! $_sftp_user_name ]];then
         return
     fi
 
-    # TODO add user if
-    sudo groupadd sftp-only &> /dev/null
+    # adding sFTP user group
+    load sftp-user/group
 
-    # TODO create user account
+    # check user exists
+    if [[ $(id $_sftp_user_name &> /dev/null) ]]; then
+        echo -e "\nUser `$_sftp_user_name` already exists...\n"
+        return
+    fi
+
+    # create user account
     sudo useradd -m $_sftp_user_name
     sudo usermod -aG sftp-only $_sftp_user_name
+
+    # set optional user group
     if [[ $_sftp_user_group ]]; then
-        sudo groupadd $_sftp_user_group &> /dev/null
+        sudo groupadd $_sftp_user_group &> /dev/null || true
         sudo usermod -aG $_sftp_user_group $_sftp_user_name
     fi
 
-    # TODO add user authorized key
+    # add user authorized key
     if [[ ! $_no_interaction ]]; then
         echo 'User SSH authorized key:'
         read sftp_user_authorized_key </dev/tty
