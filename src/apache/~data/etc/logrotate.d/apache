@@ -8,6 +8,7 @@
     create 0640 root adm
     sharedscripts
     prerotate
+        apachectl graceful
         if [ -d /etc/logrotate.d/httpd-prerotate ]; then \
             run-parts /etc/logrotate.d/httpd-prerotate; \
         fi; \
