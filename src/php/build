@@ -106,6 +106,7 @@ main() {
       } || {
 
          echo 'With PHP7.4 support...'
+         install sqlite3
          php_cfg+=" --with-zip \
                     --with-freetype \
                     --with-jpeg=/usr/lib \
