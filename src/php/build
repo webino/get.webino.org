@@ -50,9 +50,7 @@ main() {
             --enable-zip \
             --enable-bcmath \
             --enable-exif \
-            --enable-gd-native-ttf \
             --enable-mbstring \
-            --with-gd \
             --with-zlib \
             --with-zlib-dir \
             --with-iconv \
@@ -61,15 +59,12 @@ main() {
             --with-gettext \
             --with-mhash \
             --with-pspell \
-            --with-libzip \
             --with-libedit \
             --with-kerberos \
             --with-imap \
             --with-imap-ssl \
             --with-xsl=/usr \
             --with-curl=/usr \
-            --with-jpeg-dir=/usr/lib \
-            --with-freetype-dir \
             --without-pear \
             --without-readline"
 
@@ -87,15 +82,36 @@ main() {
     sudo dpkg --compare-versions "$_php_version" 'lt' '7.0' && {
     
         echo 'Without PHP7 support (legacy)...'
-        php_cfg+=" --with-mcrypt"
+        php_cfg+=" --with-mcrypt \
+                   --enable-gd-native-ttf"
     } || {
     
        echo 'With PHP7 support...'
        php_cfg+=" --enable-ftp \
-                  --enable-wddx \
                   --enable-sockets \
                   --with-openssl \
                   --with-openssl-dir=/usr"
+                  
+      #--------------+
+      # For PHP>=7.4 |
+      #--------------+
+      sudo dpkg --compare-versions "$_php_version" 'lt' '7.4' && {
+
+          echo 'Without PHP7.4 support (legacy)...'
+          php_cfg+=" --enable-zip \
+                     --enable-wddx \
+                     --with-libzip \
+                     --with-freetype-dir \
+                     --with-jpeg-dir=/usr/lib \
+                     --with-gd"
+      } || {
+
+         echo 'With PHP7.4 support...'
+         php_cfg+=" --with-zip \
+                    --with-freetype \
+                    --with-jpeg=/usr/lib \
+                    --enable-gd"
+      }
     }
 
     #---------------------+
