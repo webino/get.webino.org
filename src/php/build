@@ -47,7 +47,6 @@ main() {
             --enable-calendar \
             --enable-pcntl \
             --enable-soap \
-            --enable-zip \
             --enable-bcmath \
             --enable-exif \
             --enable-mbstring \
