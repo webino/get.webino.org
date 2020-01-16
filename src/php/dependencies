@@ -42,7 +42,8 @@ main() {
         libmcrypt-dev \
         libxslt1-dev \
         libc-client-dev \
-        libkrb5-dev
+        libkrb5-dev \
+        bison
 
     #-------+
     # bison |
