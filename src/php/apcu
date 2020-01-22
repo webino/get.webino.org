@@ -29,7 +29,7 @@ main() {
         if [ ! -d apcu ]; then
             echo 'Downloading APCu...'
             wget http://pecl.php.net/get/apcu-5.1.17.tgz \
-                -O apcu.tgz && tar xvf apcu.tgz & spinner $! && mv apcu-5.1.16 apcu && rm apcu.tgz 2>&1
+                -O apcu.tgz && tar xvf apcu.tgz & spinner $! && mv apcu-5.1.17 apcu && rm apcu.tgz 2>&1
         else
             echo 'APCu already downloaded...'
         fi
