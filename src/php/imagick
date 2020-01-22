@@ -28,8 +28,8 @@ main() {
         
         if [ ! -d imagick  ]; then
             echo 'Downloading ImageMagick...'
-            wget http://pecl.php.net/get/imagick-3.4.3.tgz \
-                -O imagick.tgz && tar xvf imagick.tgz & spinner $! && mv imagick-3.4.3 imagick && rm imagick.tgz 2>&1
+            wget http://pecl.php.net/get/imagick-3.4.4.tgz \
+                -O imagick.tgz && tar xvf imagick.tgz & spinner $! && mv imagick-3.4.4 imagick && rm imagick.tgz 2>&1
         else
             echo 'ImageMagick already downloaded...'
         fi
