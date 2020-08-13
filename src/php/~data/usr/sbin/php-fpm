@@ -18,7 +18,7 @@ help () {
 case "${1:-''}" in
     'start')
         echo 'Starting php-fpm...'
-        %PREFIX%php-fpm -y %PREFIX%/etc/php/fpm/php-fpm.conf -c %PREFIX%/etc/php/php.ini
+        %BINPREFIX%php-fpm -y /etc/%PREFIX%/fpm/php-fpm.conf -c /etc/%PREFIX%/php.ini
         exit 0
     ;;
     'stop')
