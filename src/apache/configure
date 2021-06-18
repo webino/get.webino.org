@@ -48,7 +48,7 @@ main() {
     local file=/etc/apache2/httpd.conf
 
     # conf.d support
-    if [[ $(grep conf.d $file) ]]; then
+    if [[ $(grep conf\\.d $file) ]]; then
         echo 'Apache "'$file'" conf.d support is already configured...'
     else
         echo 'Configuring "'$file'" conf.d support...'
@@ -56,7 +56,7 @@ main() {
     fi
 
     # local.d support
-    if [[ $(grep local.d $file) ]]; then
+    if [[ $(grep local\\.d $file) ]]; then
         echo 'Apache "'$file'" local.d support is already configured...'
     else
         echo 'Configuring "'$file'" local.d support...'
