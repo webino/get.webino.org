@@ -46,7 +46,7 @@ hr()
 #-------------------------+
 installed() # <pckg-name>
 {
-    dpkg -l | grep -o $1 &>/dev/null
+    dpkg -s | grep -o "Package: $1" &>/dev/null
     return $?
 }
 
@@ -56,10 +56,10 @@ installed() # <pckg-name>
 install() # <pckg-name> [<pckg-name> ...]
 {
     local to_install=''
-    local installed=$(dpkg -l)
+    local installed=$(dpkg -s)
 
     for n in $@; do
-        if [ "$(echo $installed | grep -o $n 2>/dev/null)" ]; then
+        if [ "$(echo $installed | grep -o 'Package: $n' 2>/dev/null)" ]; then
             echo $n' \ installed'
             continue
         fi
@@ -81,10 +81,10 @@ install() # <pckg-name> [<pckg-name> ...]
 uninstall() # <pckg-name> [<pckg-name> ...]
 {
     local to_uninstall=''
-    local installed=$(dpkg -l)
+    local installed=$(dpkg -s)
 
     for n in $@; do
-        if [ "$(echo $installed | grep -o $n 2>/dev/null)" ]; then
+        if [ "$(echo $installed | grep -o 'Package: $n' 2>/dev/null)" ]; then
             echo $n' \ -uninstalling'
             to_uninstall=$to_uninstall' '$n
             continue
