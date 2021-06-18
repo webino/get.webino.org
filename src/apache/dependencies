@@ -26,7 +26,8 @@ main() {
     install \
         libexpat1-dev \
         libpcre3-dev \
-        libssl-dev
+        libssl-dev \
+        zlib1g-dev
 }
 
 main
