@@ -59,7 +59,7 @@ install() # <pckg-name> [<pckg-name> ...]
     local installed=$(dpkg -s)
 
     for n in $@; do
-        if [ "$(echo $installed | grep -o 'Package: $n' 2>/dev/null)" ]; then
+        if [ "$(echo $installed | grep -o 'Package: "$n"' 2>/dev/null)" ]; then
             echo $n' \ installed'
             continue
         fi
@@ -84,7 +84,7 @@ uninstall() # <pckg-name> [<pckg-name> ...]
     local installed=$(dpkg -s)
 
     for n in $@; do
-        if [ "$(echo $installed | grep -o 'Package: $n' 2>/dev/null)" ]; then
+        if [ "$(echo $installed | grep -o 'Package: "$n"' 2>/dev/null)" ]; then
             echo $n' \ -uninstalling'
             to_uninstall=$to_uninstall' '$n
             continue
