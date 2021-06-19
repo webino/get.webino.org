@@ -112,7 +112,7 @@ main() {
     # TODO SSH public key read or generate command option
     # TODO read dev user SSH public key
     # generate dev user SSH key
-    [[ ! -f $dev_user_home'/.ssh/id_rsa' ]]; then
+    if [[ ! -f $dev_user_home'/.ssh/id_rsa' ]]; then
       echo 'Generating SSH client key...'
       $(user_ssh_keygen $_dev_user_name id_rsa)
     fi
