@@ -66,6 +66,6 @@ mysql_create_user() # <linux-user>
         sed s/'%PASSWORD%'/$dev_user_pwd/)" | \
         sudo tee $config > /dev/null
 
-    sudo chown "$dev_user_name":"$dev_user_name" "$config"
+    sudo chown "$1":"$1" "$config"
     sudo chmod 600 "$config"
 }
