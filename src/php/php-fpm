@@ -33,7 +33,7 @@ main() {
     else
         echo 'Installing PHP-FPM support...'
         local bin_prefix=''
-        local php_prefix=${$_php_prefix:-'php'}
+        local php_prefix=${_php_prefix:-'php'}
         [[ $_php_prefix ]] && bin_prefix='/opt/'$_php_prefix'/sbin/'
         echo "$(wget $data$file -qO-)" | sed s/'%BINPREFIX%'/$bin_prefix/g | sed s/'%PREFIX%'/$php_prefix/g | sudo tee $file > /dev/null
         sudo chmod +x $file
