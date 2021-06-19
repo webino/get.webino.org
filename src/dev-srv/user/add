@@ -118,7 +118,7 @@ main() {
       echo 'Client SSH key already generated...'
     fi
 
-    sudo service sshd restart
+    ssh_restart
 
     # restart PHP-FPM & apache
     load php/utils

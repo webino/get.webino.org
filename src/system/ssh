@@ -86,7 +86,7 @@ main() {
     #-----------------+
     # service restart |
     #-----------------+
-    sudo service ssh restart &
+    ssh_restart
 }
 
 main

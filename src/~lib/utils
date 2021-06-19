@@ -131,13 +131,22 @@ user_exists() # <username>
     return $?
 }
 
-#----------------------+
+#-----------------------+
 # Check group existence |
-#----------------------+
+#-----------------------+
 group_exists() # <groupname>
 {
     grep -oP '^'$1':' /etc/group &>/dev/null
     return $?
+}
+
+#-------------+
+# SSH restart |
+#-------------+
+ssh_restart()
+{
+    echo 'Restarting SSH service...'
+    sudo service ssh restart &
 }
 
 #-----------------------+
