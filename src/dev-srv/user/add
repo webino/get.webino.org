@@ -80,21 +80,17 @@ main() {
     #---------------------+
     # create MySQL client |
     #---------------------+
-    load mysql/utils
-    mysql_create_user "$_dev_user_name"
+    load mysql/create/user "$_dev_user_name"
 
     # TODO SSH public key read or generate command option
     # TODO read dev user SSH public key
     # generate dev user SSH key
     user_ssh_keygen "$_dev_user_name" id_rsa
 
+    # restart services
     ssh_restart
-
-    # restart PHP-FPM & apache
-    load php/utils
-    load apache/utils
-    php_fpm_restart
-    apache_reload
+    load php/fpm/restart
+    load apache/reload
 }
 
 main "$@"
