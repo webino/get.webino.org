@@ -24,6 +24,7 @@ main() {
     _env_pub=
     _update=
     _clean=
+    _verbose=
     _admin_email=
 
     #----------+
@@ -78,6 +79,15 @@ main() {
         ;;
         -clean)
             _clean=1
+            shift
+        -v)
+            _verbose=1
+            shift
+        -vv)
+            _verbose=2
+            shift
+        -vvv)
+            _verbose=3
             shift
         ;;
         *)
