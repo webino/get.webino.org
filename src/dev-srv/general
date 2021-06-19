@@ -43,7 +43,7 @@ main() {
 
     # setup vhost
     load vhost/dirs
-    load vhost/conf
+    load vhost/configure
     # TODO setup vhost SSL protection with user certs
 
     # setup vhost.conf
