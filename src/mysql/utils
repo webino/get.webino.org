@@ -48,13 +48,13 @@ mysql_create_user() # <linux-user>
     fi
 
     echo 'Generating MySQL client username...'
-    local dev_user_name;dev_user_name="$(rand_word 6)"
+    local client_name;client_name="$(rand_word 6)"
 
-    echo 'Generating MySQL password for username `'"$dev_user_name"'`...'
-    local dev_user_pwd;dev_user_pwd=$(rand_word 8)
+    echo 'Generating MySQL password for username `'"$client_name"'`...'
+    local client_pwd;client_pwd=$(rand_word 8)
     echo 'Creating MySQL client user...'
-    sudo -i mysql -e "CREATE USER '$dev_user_name'@'localhost' IDENTIFIED BY '$dev_user_pwd';" > /dev/null 2>&1 || true
-    sudo -i mysql -e "$(wget $data/extra/mysql-grant-client.sql -qO- | sed s/'%USER%'/"$dev_user_name"/g)" > /dev/null 2>&1 || true
+    sudo -i mysql -e "CREATE USER '$client_name'@'localhost' IDENTIFIED BY '$client_pwd';" > /dev/null 2>&1 || true
+    sudo -i mysql -e "$(wget $data/extra/mysql-grant-client.sql -qO- | sed s/'%USER%'/"$client_name"/g)" > /dev/null 2>&1 || true
 
     #------------------------+
     # create database config |
@@ -62,8 +62,8 @@ mysql_create_user() # <linux-user>
     echo 'Creating MySQL client config...'
 
     echo "$(wget -qO- $data/home/example/.my.cnf | \
-        sed s/'%USER%'/$dev_user_name/ | \
-        sed s/'%PASSWORD%'/$dev_user_pwd/)" | \
+        sed s/'%USER%'/$client_name/ | \
+        sed s/'%PASSWORD%'/$client_pwd/)" | \
         sudo tee $config > /dev/null
 
     sudo chown "$1":"$1" "$config"
