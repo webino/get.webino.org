@@ -69,7 +69,7 @@ main() {
     #-----------+
     # configure |
     #-----------+
-    mkdir -p $etc/fpm/pool.d
+    sudo mkdir -p $etc/fpm/pool.d
     local file=/fpm/php-fpm.conf
     [[ -f $etc$file ]] || echo "$(wget $data'/etc/php'$file -qO-)" | sed s/'%PREFIX%'/$_php_prefix/g | sudo tee $etc$file > /dev/null
     
