@@ -16,7 +16,7 @@
 #   - It manages dev server users
 
 main() {
-    cd /tmp || return
+    cd /tmp
     local data='@@host@@/dev-srv/user/~data'
 
     # create dev user
