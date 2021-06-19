@@ -1,0 +1,23 @@
+#!/bin/bash
+# $1 user name
+# $2 project name
+
+workdir='/sftp/'$1'/work/'$2
+srcdir='/srv/dev/users/'$1'/work/'$2
+
+[[ -d $workdir && -d $srcdir ]] || exit 1
+
+rm -rf $workdir
+mkdir -p $workdir
+
+# TODO
+[ -d $srcdir'/config' ] && cp -rf $srcdir'/config' $workdir
+[ -d $srcdir'/language' ] && cp -rf $srcdir'/language' $workdir
+[ -d $srcdir'/public' ] && cp -rf $srcdir'/public' $workdir
+[ -d $srcdir'/src' ] && cp -rf $srcdir'/src' $workdir
+[ -d $srcdir'/data' ] && cp -rf $srcdir'/data' $workdir
+[ -d $srcdir'/view' ] && cp -rf $srcdir'/view' $workdir
+[ -d $srcdir'/doc' ] && cp -rf $srcdir'/doc' $workdir
+[ -d $srcdir'/inc' ] && cp -rf $srcdir'/inc' $workdir
+
+exit 0

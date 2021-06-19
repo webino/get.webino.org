@@ -21,19 +21,28 @@ main() {
 
     # create dev user
     echo 'Adding dev server user "'$_dev_user_name'"...'
-    sudo useradd -s /usr/sbin/nologin -d /nonexistent -rUM "$_dev_user_name" > /dev/null 2>&1 || true
-    # add user to the WSFTP group
+    dev_user_home='/srv/dev/users/'$_dev_user_name'/home'
+    sudo mkdir -p $dev_user_home
+    sudo chown "$_dev_user_name:$_dev_user_name" "$dev_user_home"
+    sudo chmod 755 "$dev_user_home"
+    sudo useradd -s /usr/sbin/nologin -d $dev_user_home -rUM "$_dev_user_name" > /dev/null 2>&1 || true
+    # add user to the sFTP group
     sudo usermod -aG sftp-only $_dev_user_name
 
-    # disable password access
-    sudo usermod -p '*' $_dev_user_name
+    # TODO create devuser group
+    # TODO add dev user into the devuser group
+    # TODO allow devuser group to run custom sudo mount- commands (mount-project-www, mount-project-sftp)
 
     # create dev www user
     local dev_www_user_name=$_dev_user_name'-www-data'
     echo 'Adding dev server www user "'$dev_www_user_name'"...'
     sudo useradd -s /usr/sbin/nologin -d /nonexistent -rUM $dev_www_user_name > /dev/null 2>&1 || true
-    # add www user to the www-data group
-    sudo usermod -aG www-data $_dev_user_name
+    # add www-data user to the www user group
+    sudo usermod -aG $dev_www_user_name www-data
+
+    # disable password access
+    sudo usermod -p '*' $_dev_user_name
+    sudo usermod -p '*' $_dev_www_user_name
 
     # create dev user SFTP work directory
     local dev_user_work_dir='/sftp/'$_dev_user_name'/work'

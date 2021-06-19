@@ -1,0 +1,16 @@
+#!/bin/bash
+# $1 user name
+# $2 project name
+
+# copy
+rm -rf '/srv/dev/users/'$1'/work/'$2
+cp '/tmp/devkit/'$1'/'$2 '/srv/dev/users/'$1'/work/' -rf
+
+# link
+rm -f '/srv/dev/public/'$1'/'$2
+ln -s '/srv/dev/users/'$1'/work/'$2'/._test/WebinoSkeletonApplication/public' '/srv/dev/public/'$1'/'$2
+
+# setup
+cd '/srv/dev/users/'$1'/work/'$2
+HOME='/srv/dev/users/'$1 webino link-test-app exec:setup_richtext 'exec:app_config_dev:/srv/dev/users/'$1'/work/'$2'/._test/WebinoSkeletonApplication/' 'app-dev-config:/srv/dev/users/'$1'/work/'$2'/._test/WebinoSkeletonApplication/public/:'$1'_'$2':1'
+php '/srv/dev/users/'$1'/work/'$2'/._test/WebinoSkeletonApplication/public/index.php' assetmanager warmup

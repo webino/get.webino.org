@@ -1,0 +1,2 @@
+#!/bin/bash
+webino mkdir:test setup-test-app update-vendor

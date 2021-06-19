@@ -64,12 +64,16 @@ main() {
     load sftp-user/group
 
     # TODO setup webino-devkit user
-    echo 'Adding webino-devkit user...'
-    sudo useradd -s /bin/bash -rUm webino-devkit > /dev/null 2>&1 || true
+    echo 'Adding devkit user...'
+    sudo useradd -s /bin/bash -rUm devkit > /dev/null 2>&1 || true
+    # TODO allow devkit user to run custom sudo mount-project, cp-project, webino, (php) commands
 
+    # TODO add webino-ca authority
     # TODO setup authorized key for git to webino-devkit user
     # TODO setup webino-devkit
+    # TODO setup webino-devkit .webino.json config
     # TODO setup webino-devkit-pro
+    # TODO add webino-devkit-pro module to the .webino.json config
 
     # setup dev server user
     load dev-srv/user/add
