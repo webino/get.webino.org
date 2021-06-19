@@ -154,6 +154,28 @@ ssh_restart()
 #-----------------------+
 user_ssh_keygen() # <username> <filename>
 {
-    yes y | sudo su $1 -s /bin/bash -c "mkdir -p ~/.ssh; ssh-keygen -t rsa -N '' -f ~/.ssh/$2 &>/dev/null; cat ~/.ssh/$2.pub >> ~/.ssh/authorized_keys; echo ~/.ssh/$2"
-    sudo su $1 -s /bin/bash -c "puttygen ~/.ssh/$2 -o ~/.ssh/$2.ppk"
+    #-------------------+
+    # resolve user home |
+    #-------------------+
+    local user_home=
+    if [[ $(id "$1" 2> /dev/null) ]]; then
+        user_home=$(eval echo ~"$1")
+    fi
+
+    if [[ ! -d $user_home ]]; then
+        echo 'User home directory not found!!!'
+        return
+    fi
+
+    if [[ -f $user_home'/.ssh/id_rsa' ]]; then
+      echo 'Client SSH key already generated...'
+      return
+    fi
+
+    echo 'Generating SSH client key...'
+    yes y | sudo su "$1" -s /bin/bash -c \
+      "mkdir -p ~/.ssh;" \
+      "ssh-keygen -t rsa -N '' -f ~/.ssh/$2 &>/dev/null;" \
+      "puttygen ~/.ssh/$2 -o ~/.ssh/$2.ppk &>/dev/null;" \
+      "cat ~/.ssh/$2.pub >> ~/.ssh/authorized_keys; echo ~/.ssh/$2"
 }
