@@ -82,6 +82,8 @@ main() {
     # TODO setup webino-devkit .webino.json config
     # TODO setup webino-devkit-pro
     # TODO add webino-devkit-pro module to the .webino.json config
+    # TODO setup webino-devkit-server
+    # TODO add webino-devkit-server module to the .webino.json config
 
     # setup dev server user
     load dev-srv/user/add

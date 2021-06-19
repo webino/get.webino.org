@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/mysql -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04
+#
+# What this script does?
+#   - It installs MySQL database
+
+#-------------------+
+# MySQL Create User |
+#-------------------+
+mysql_create_user() # <linux-user>
+{
+    local data='@@host@@/mysql/~data'
+
+    #-----------+
+    # configure |
+    #-----------+
+    echo 'Configuring MySQL client for user '"$1"'...'
+
+    #---------------------+
+    # resolve client home |
+    #---------------------+
+    local client_home=
+    if [[ $(id "$1" 2> /dev/null) ]]; then
+        client_home=$(eval echo ~"$1")
+    fi
+
+    if [[ ! -d $client_home ]]; then
+        echo 'MySQL client home directory not found!!!'
+        return
+    fi
+
+    echo 'Resolved MySQL client home `'"$client_home"'`...'
+    local config=$client_home'/.my.cnf'
+    if [[ -f $config ]]; then
+        echo 'MySQL client already configured...'
+        return
+    fi
+
+    echo 'Generating MySQL client username...'
+    local dev_user_name;dev_user_name="$(rand_word 6)"
+
+    echo 'Generating MySQL password for username `'"$dev_user_name"'`...'
+    local dev_user_pwd;dev_user_pwd=$(rand_word 8)
+    echo 'Creating MySQL client user...'
+    sudo -i mysql -e "CREATE USER '$dev_user_name'@'localhost' IDENTIFIED BY '$dev_user_pwd';" > /dev/null 2>&1 || true
+    sudo -i mysql -e "$(wget $data/extra/mysql-grant-client.sql -qO- | sed s/'%USER%'/"$dev_user_name"/g)" > /dev/null 2>&1 || true
+
+    #------------------------+
+    # create database config |
+    #------------------------+
+    echo 'Creating MySQL client config...'
+
+    echo "$(wget -qO- $data/home/example/.my.cnf | \
+        sed s/'%USER%'/$dev_user_name/ | \
+        sed s/'%PASSWORD%'/$dev_user_pwd/)" | \
+        sudo tee $config > /dev/null
+
+    sudo chown "$dev_user_name":"$dev_user_name" "$config"
+    sudo chmod 600 "$config"
+}

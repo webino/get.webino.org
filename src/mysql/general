@@ -22,6 +22,7 @@ main() {
     # setup |
     #-------+
     load mysql/arguments "$@"
+    load mysql/utils
     load mysql/server
     load mysql/client
 

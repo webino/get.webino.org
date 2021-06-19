@@ -77,36 +77,11 @@ main() {
         sudo tee $dest > /dev/null
     fi
 
-    #------------------------------------+
-    # check client config already exists |
-    #------------------------------------+
-    local config='/srv/dev/users/'$_dev_user_name'/.my.cnf'
-    if [[ ! -f $config ]]; then
-        #------------------------+
-        # setup database account |
-        #------------------------+
-        echo 'Generating MySQL password for username `'$_dev_user_name'`...'
-        local dev_user_pwd=$(echo $(< /dev/urandom tr -dc a-z0-9 | head -c12))
-        echo 'Creating MySQL client user...'
-        sudo -i mysql -e "CREATE USER '$_dev_user_name'@'localhost' IDENTIFIED BY '$dev_user_pwd';" > /dev/null 2>&1 || true
-        sudo -i mysql -e "$(wget $data/extra/mysql-grant-client.sql -qO- | sed s/'%USER%'/$_dev_user_name/g)" > /dev/null 2>&1 || true
-
-        #------------------------+
-        # create database config |
-        #------------------------+
-        local dbData='@@host@@/mysql/~data'
-        echo 'Creating MySQL client config...'
-
-        echo "$(wget -qO- $dbData/home/example/.my.cnf | \
-            sed s/'%USER%'/$_dev_user_name/ | \
-            sed s/'%PASSWORD%'/$dev_user_pwd/)" | \
-            sudo tee $config > /dev/null
-
-        sudo chown $_dev_user_name:$_dev_user_name $config
-        sudo chmod 600 $config
-    else
-        echo 'MySQL client already configured...'
-    fi
+    #---------------------+
+    # create MySQL client |
+    #---------------------+
+    load mysql/utils
+    mysql_create_user "$_dev_user_name"
 
     # TODO SSH public key read or generate command option
     # TODO read dev user SSH public key

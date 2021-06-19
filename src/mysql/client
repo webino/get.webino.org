@@ -22,63 +22,10 @@ main() {
     echo -e "\nMySQL client..."
     install mysql-client
 
-    #-----------+
-    # configure |
-    #-----------+
-    echo 'Configuring MySQL client for user '$_mysql_client_user'...'
-
-    #---------------------+
-    # resolve client home |
-    #---------------------+
-    local client_home=
-    if [[ $(id $_mysql_client_user 2> /dev/null) ]]; then
-        client_home=$(eval echo ~$_mysql_client_user)
-    fi
-
-    if [[ ! -d $client_home ]]; then
-        echo 'MySQL client home directory not found!!!'
-        return
-    fi
-
-    echo 'Resolved MySQL client home `'$client_home'`...'
-
-    #------------------------------------+
-    # check client config already exists |
-    #------------------------------------+
-    local config=$client_home'/.my.cnf'
-    if [[ -f $config ]]; then
-        echo 'MySQL client already configured...'
-        return
-    fi
-
-    #---------------------------+
-    # create client credentials |
-    #---------------------------+
-    echo 'Generating MySQL client username...'
-    local client_username=$(rand_word 6)
-    echo 'Generating MySQL password for username `'$client_username'`...'
-    local client_password=$(rand_word 8)
-
     #----------------------+
     # create client config |
     #----------------------+
-    local data='@@host@@/mysql/~data'
-    echo 'Creating MySQL client config...'
-
-    echo "$(wget -qO- $data/home/example/.my.cnf | \
-        sed s/'%USER%'/$client_username/ | \
-        sed s/'%PASSWORD%'/$client_password/)" | \
-        sudo tee $config > /dev/null
-
-    sudo chown $_mysql_client_user:$_mysql_client_user $config
-    sudo chmod 600 $config
-
-    #--------------------------+
-    # create mysql client user |
-    #--------------------------+
-    echo 'Creating MySQL client user...'
-    sudo -i mysql -e "CREATE USER '$client_username'@'localhost' IDENTIFIED BY '$client_password';"
-    sudo -i mysql -e "$(wget $data/extra/mysql-grant-client.sql -qO- | sed s/'%USER%'/$client_username/g)"
+    mysql_create_user "$_mysql_client_user"
 }
 
 main
