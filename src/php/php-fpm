@@ -24,6 +24,11 @@ main() {
     local etc='/etc/'${_php_prefix:-'php'}
     local data='@@host@@/php/~data'
 
+    local php_prefix=${_php_prefix:-'php'}
+    local bin_prefix=''
+
+    [[ $_php_prefix ]] && bin_prefix='/opt/'$_php_prefix'/sbin/'
+
     #-------------------------+
     # check already installed |
     #-------------------------+
@@ -32,9 +37,6 @@ main() {
         echo 'PHP-FPM support already installed...'
     else
         echo 'Installing PHP-FPM support...'
-        local bin_prefix=''
-        local php_prefix=${_php_prefix:-'php'}
-        [[ $_php_prefix ]] && bin_prefix='/opt/'$_php_prefix'/sbin/'
         echo "$(wget $data$file -qO-)" | sed s/'%BINPREFIX%'/$bin_prefix/g | sed s/'%PREFIX%'/$php_prefix/g | sudo tee $file > /dev/null
         sudo chmod +x $file
     fi
@@ -72,7 +74,7 @@ main() {
     #-----------+
     sudo mkdir -p $etc/fpm/pool.d
     local file=/fpm/php-fpm.conf
-    [[ -f $etc$file ]] || echo "$(wget $data'/etc/php'$file -qO-)" | sed s/'%PREFIX%'/$_php_prefix/g | sudo tee $etc$file > /dev/null
+    [[ -f $etc$file ]] || echo "$(wget $data'/etc/php'$file -qO-)" | sed s/'%PREFIX%'/$php_prefix/g | sudo tee $etc$file > /dev/null
     
     #----------+
     # www pool |
