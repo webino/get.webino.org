@@ -68,7 +68,7 @@ main() {
     # TODO setup webino-devkit user
     echo 'Adding devkit user...'
     sudo useradd -s /bin/bash -rUm devkit > /dev/null 2>&1 || true
-    load mysql/create/user "$_dev_user_name"
+    load mysql/create/user devkit
     # TODO allow devkit user to run custom sudo mount-project, cp-project, webino, (php) commands
 
     # TODO add webino-ca authority
