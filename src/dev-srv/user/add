@@ -114,7 +114,7 @@ main() {
     # generate dev user SSH key
     if [[ ! -f $dev_user_home'/.ssh/id_rsa' ]]; then
       echo 'Generating SSH client key...'
-      $(user_ssh_keygen $_dev_user_name id_rsa)
+      user_ssh_keygen $_dev_user_name id_rsa
     fi
 
     sudo service sshd restart
