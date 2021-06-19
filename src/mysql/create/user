@@ -16,5 +16,5 @@
 #   - It installs MySQL database
 
 load mysql/utils
-echo "${argv[@]}"
-mysql_create_user "${argv[@]}"
+echo "$2"
+mysql_create_user "$2"
