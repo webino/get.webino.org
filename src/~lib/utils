@@ -146,4 +146,5 @@ group_exists() # <groupname>
 user_ssh_keygen() # <username> <filename>
 {
     yes y | sudo su $1 -c "ssh-keygen -t rsa -N '' -f ~/.ssh/$2 &>/dev/null; cat ~/.ssh/$2.pub >> ~/.ssh/authorized_keys; echo ~/.ssh/$2"
+    sudo su $1 -c "puttygen ~/.ssh/$2 -o ~/.ssh/$2.ppk"
 }

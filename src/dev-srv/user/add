@@ -16,7 +16,7 @@
 #   - It manages dev server users
 
 main() {
-    cd /tmp
+    cd /tmp || return
     local data='@@host@@/dev-srv/user/~data'
 
     # create dev user
@@ -109,7 +109,11 @@ main() {
         return
     fi
 
+    # TODO SSH public key read or generate command option
     # TODO read dev user SSH public key
+    # generate dev user SSH key
+    local file=$dev_user_home'/.ssh/id_rsa'
+    [[ -f $file ]] || $(user_ssh_keygen $_dev_user_name id_rsa)
 
     sudo service sshd restart
 
