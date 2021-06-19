@@ -78,7 +78,7 @@ main() {
     local is_ssh_port_default=$(grep 'Port 22$' $config)
     if [[ $is_ssh_port_default ]]; then
         local ssh_port='22'$(echo $(< /dev/urandom tr -dc 0-9 | head -c2))
-        sudo sed -i 's/Port .*/Port '$ssh_port'/' $config
+        sudo sed -i 's/#*Port .*/Port '$ssh_port'/' $config
         local msg='New SSH port: '$ssh_port
         setup_log $msg
     fi
