@@ -16,5 +16,4 @@
 #   - It installs MySQL database
 
 load mysql/utils
-echo "$2"
 mysql_create_user "$2"
