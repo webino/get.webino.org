@@ -15,5 +15,6 @@
 # What this script does?
 #   - It installs MySQL database
 
-load mysql/utils;
+load mysql/utils
+echo "${argv[@]}"
 mysql_create_user "${argv[@]}"
