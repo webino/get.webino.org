@@ -42,11 +42,11 @@ main() {
 
     # disable password access
     sudo usermod -p '*' $_dev_user_name
-    sudo usermod -p '*' $_dev_www_user_name
+    sudo usermod -p '*' $dev_www_user_name
 
-    # create dev user SFTP work directory
+    # create dev user sFTP work directory
     local dev_user_work_dir='/sftp/'$_dev_user_name'/work'
-    echo 'Creating dev user SFTP work directory "'$dev_user_work_dir'"...'
+    echo 'Creating dev user sFTP work directory "'$dev_user_work_dir'"...'
     sudo mkdir -p $dev_user_work_dir
     sudo chown $_dev_user_name':'$_dev_user_name $dev_user_work_dir
 

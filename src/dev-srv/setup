@@ -35,6 +35,7 @@ main() {
     #-------+
     # setup |
     #-------+
+    load dev-srv/dependencies
     load dev-srv/general
 
     #------+
