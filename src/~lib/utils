@@ -46,7 +46,7 @@ hr()
 #-------------------------+
 installed() # <pckg-name>
 {
-    dpkg -l $1 &>/dev/null
+    dpkg -l $1 | grep -o amd64 2>/dev/null
     return $?
 }
 
@@ -58,7 +58,7 @@ install() # <pckg-name> [<pckg-name> ...]
     local to_install=''
     
     for n in $@; do
-        if [[ $(dpkg -l $n 2>/dev/null) ]]; then
+        if [[ $(dpkg -l $n | grep -o amd64 2>/dev/null) ]]; then
             echo $n' \ installed'
             continue
         fi
@@ -82,7 +82,7 @@ uninstall() # <pckg-name> [<pckg-name> ...]
     local to_uninstall=''
 
     for n in $@; do
-        if [[ $(dpkg -l $n 2>/dev/null) ]]; then
+        if [[ $(dpkg -l $n | grep -o amd64 2>/dev/null) ]]; then
             echo $n' \ -uninstalling'
             to_uninstall=$to_uninstall' '$n
             continue
