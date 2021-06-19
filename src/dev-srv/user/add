@@ -16,7 +16,7 @@
 #   - It manages dev server users
 
 main() {
-    cd /tmp
+    cd /tmp || return
     local data='@@host@@/dev-srv/user/~data'
 
     # create dev user
@@ -106,7 +106,6 @@ main() {
         sudo chmod 600 $config
     else
         echo 'MySQL client already configured...'
-        return
     fi
 
     # TODO SSH public key read or generate command option
