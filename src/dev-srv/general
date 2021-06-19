@@ -33,6 +33,14 @@ main() {
     # force PHP-FPM support
     php_fpm=1
 
+    # install general tools
+    # TODO conditions if required in command
+    #load system/general
+    #load apache/general
+    #load mysql/general
+    #load php/general
+    #load devkit/general
+
     # force vhost name
     _vhost_name=dev
     # TODO option
@@ -77,18 +85,6 @@ main() {
 
     # setup dev server user
     load dev-srv/user/add
-
-    #touch $lock
-    #echo -e "\nWebino™ (Dev server) configuration success...\n"
-
-    # install general tools
-    #load system/general
-    #load apache/general
-    #load mysql/general
-    #load php/general
-    #load devkit/general
-
-    #touch $lock
 
     #------+
     # done |

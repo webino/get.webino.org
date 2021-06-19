@@ -22,7 +22,7 @@ main() {
     # dependencies install |
     #----------------------+
     echo "Installing dependencies for Dev Server setup..."
-    install ssh
+    install openssh-server
 }
 
 main
