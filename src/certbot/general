@@ -20,14 +20,16 @@ main() {
     local data='@@host@@/certbot/~data/'
     echo -e "\nWebino Certbot setup...\n"
 
-    if [[ $(certbot-auto --version 2>/dev/null) ]];then
+    if [[ $(certbot --version 2>/dev/null) ]];then
         echo -e "\nWebino Certbot already installed...\n"
         return
     fi
 
-    sudo wget https://dl.eff.org/certbot-auto
-    sudo chmod a+x ./certbot-auto
-    sudo certbot-auto certonly --webroot -w /undefined -d undefined.com -d www.undefined.com || true
+    sudo snap install core
+    sudo snap refresh core
+    sudo snap install --classic certbot
+    sudo ln -s /snap/bin/certbot /usr/bin/certbot
+    sudo certbot certonly --webroot -w /undefined -d undefined.com -d www.undefined.com || true
 
     # TODO
     # renew cron
