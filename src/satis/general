@@ -19,7 +19,12 @@ main() {
     cd /opt || return
     echo -e "\nWebino Satis setup...\n"
 
-    if [[ ! $(whereis php 2>/dev/null) ]]; then
+    if [[ -d /opt/satis ]]; then
+        echo 'Satis already installed...'
+        return
+    fi
+
+    if [[ ! $(php --version 2>/dev/null) ]]; then
         echo 'Satis require PHP...'
         return
     fi

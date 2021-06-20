@@ -35,15 +35,15 @@ main() {
 
     local apt_install=""
     # Check Git
-    [ "$(git --version 2> /dev/null)" = '' ] && apt_install="$apt_install git"
+    [ "$(git --version 2>/dev/null)" = '' ] && apt_install="$apt_install git"
     # Check Gitflow
-    [ "$(git flow 2> /dev/null)" = '' ] && apt_install="$apt_install git-flow"
+    [ "$(git flow 2>/dev/null)" = '' ] && apt_install="$apt_install git-flow"
     # Check Graphviz
-    [ "$(dpkg -s graphviz 2> /dev/null)" = '' ] && apt_install="$apt_install graphviz"
+    [ "$(dpkg -s graphviz 2>/dev/null)" = '' ] && apt_install="$apt_install graphviz"
     # Check Xvfb
-    [ "$(which Xvfb 2> /dev/null)" = '' ] && apt_install="$apt_install xvfb xfonts-cyrillic"
+    [ "$(which Xvfb 2>/dev/null)" = '' ] && apt_install="$apt_install xvfb xfonts-cyrillic"
     # Check Firefox
-    [ "$(firefox -v 2> /dev/null)" = '' ] && apt_install="$apt_install firefox"
+    [ "$(firefox -v 2>/dev/null)" = '' ] && apt_install="$apt_install firefox"
 
     # Install apt-get packages
     if [ "$apt_install" != "" ]
@@ -54,14 +54,14 @@ main() {
 
     # Check PHP
     # TODO check PHP version
-    if [ "$(php -v 2> /dev/null)" = '' ]
+    if [ "$(php -v 2>/dev/null)" = '' ]
     then
         # Building PHP from source
         wget @@host@@/php/general -qO- | sh -s -- "$@"
     fi
 
     # Check npm
-    if [ "$(sudo npm -v 2> /dev/null)" = '' ]
+    if [ "$(sudo npm -v 2>/dev/null)" = '' ]
     then
         echo 'Installing: Node.js'
         wget https://deb.nodesource.com/setup_14.x -qO- | sudo bash
@@ -69,21 +69,21 @@ main() {
     fi
 
     # Check grunt
-    if [ "$(grunt --version 2> /dev/null)" = '' ]
+    if [ "$(grunt --version 2>/dev/null)" = '' ]
     then
         echo 'Installing Grunt.js'
         sudo npm install grunt-cli -g
     fi
 
     # Check Webino devkit Firefox
-    if [ "$(/var/lib/webino/firefox/firefox --version 2> /dev/null)" = '' ]
+    if [ "$(/var/lib/webino/firefox/firefox --version 2>/dev/null)" = '' ]
     then
         echo 'Installing Firefox for Webino™ Devkit'
         wget @@host@@/devkit/firefox/general -qO- | sh
     fi
 
     # Check RecordMyDesktop
-    if [ "$(recordmydesktop --version 2> /dev/null)" = '' ]
+    if [ "$(recordmydesktop --version 2>/dev/null)" = '' ]
     then
         echo 'Installing: RecordMyDesktop'
         sudo apt-get install -y recordmydesktop
@@ -96,7 +96,7 @@ main() {
     sudo rm -rf ~/.composer/cache
 
     # Check instalation
-    if [ "$(webino 2> /dev/null)" = '' ]
+    if [ "$(webino 2>/dev/null)" = '' ]
     then
         exit 1
     fi

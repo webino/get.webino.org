@@ -20,7 +20,7 @@ main() {
     local data='@@host@@/certbot/~data/'
     echo -e "\nWebino Certbot setup...\n"
 
-    if [[ $(whereis certbot-auto 2>/dev/null) ]];then
+    if [[ $(certbot-auto --version 2>/dev/null) ]];then
         echo -e "\nWebino Certbot already installed...\n"
         return
     fi
