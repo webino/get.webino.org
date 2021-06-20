@@ -64,7 +64,7 @@ main() {
     echo 'Creating MySQL root config...'
 
     echo "$(wget -qO- $data/home/example/.my.cnf | \
-        sed s/'%USER%'/root/ | sed s/'%PASSWORD%'/$root_password/)" | \
+        sed s/'%USER%'/root/g | sed s/'%PASSWORD%'/$root_password/g)" | \
         sudo tee $config > /dev/null
 
     sudo chmod 600 $config
