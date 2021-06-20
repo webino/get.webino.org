@@ -28,11 +28,12 @@ main() {
     local satis_version;satis_version=$(php -r "echo (-1 === version_compare(phpversion(), '7.3.0') ? '3c04234b36a6de3c14d4501fcef5d33df5f1e0f2' : 'latest');")
     echo 'Version: '"$satis_version"
 
-    sudo git clone https://github.com/composer/satis.git --depth 1
+    local args=
+    [[ $satis_version == 'latest' ]] && args='--depth 1'
+    sudo git clone https://github.com/composer/satis.git $args
     cd satis || return
 
     [[ $satis_version == 'latest' ]] || git reset --hard "$satis_version"
-
     sudo wget https://getcomposer.org/installer -qO- | php
     sudo php composer.phar install
     sudo mkdir -p /var/satis
