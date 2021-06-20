@@ -28,14 +28,14 @@ main() {
     sudo snap install core
     sudo snap refresh core
     sudo snap install --classic certbot
-    sudo ln -s /snap/bin/certbot /usr/bin/certbot
+    sudo ln -s /snap/bin/certbot /usr/bin/certbot 2>/dev/null
     sudo certbot --version
 
     # renew cron
     local post_hook=
-    [[ $(apachectl -v 2>/dev/null) ]] && post_hook+=$($([[ "$post_hook" ]] && echo "$post_hook & ")'apachectl graceful'; echo "$post_hook")
-    [[ $(postfix status 2>/dev/null) ]] && post_hook+=$($([[ "$post_hook" ]] && echo "$post_hook & ")'service postfix reload'; echo "$post_hook")
-    [[ $(dovecot --version 2>/dev/null) ]] && post_hook+=$($([[ "$post_hook" ]] && echo "$post_hook & ")'service dovecot reload'; echo "$post_hook")
+    [[ $(apachectl -v 2>/dev/null) ]] && post_hook+=${post_hook:+"$post_hook & "}'apachectl graceful'
+    [[ $(postfix status 2>/dev/null) ]] && post_hook+=${post_hook:+"$post_hook & "}'service postfix reload'
+    [[ $(dovecot --version 2>/dev/null) ]] && post_hook+=${post_hook:+"$post_hook & "}'service dovecot reload'
 
     local file=/etc/cron.daily/certbot-renew
     wget -qO- $data$file | \
