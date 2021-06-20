@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# This is the Webino™ setup script!
+# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Version: @@version@@
+#
+# Are you looking at this in your web browser, and would like to get Webino™?
+# Just open up your terminal and type:
+#
+#    wget @@host@@/webino-ca -qO- | sh
+#
+# Webino™ currently supports:
+#   - Ubuntu 16.04
+#
+# What this script does?
+#   - It installs Webino Certificate Authority
+
+main() {
+    echo -e "\nWebino CA setup...\n"
+
+    #-------+
+    # setup |
+    #-------+
+    echo -e '\nInstalling Webino, s.r.o. Certificate Authority\n'
+    sudo wget https://media.webino.sk/ssl/authority/webino-ca.crt -qO /usr/local/share/ca-certificates/webino-ca.crt
+    sudo update-ca-certificates --fresh
+
+    #------+
+    # done |
+    #------+
+    echo -e "\nWebino CA setup done...\n"
+}
+
+main "$@"
