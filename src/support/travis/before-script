@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This is the Webino™ Travis support script!
-# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Copyright (c) 2015-@@year@@ Webino, s.r.o. (http://webino.sk)
 # Version: @@version@@
 
 webino exec:server

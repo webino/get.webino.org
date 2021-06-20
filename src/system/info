@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This is the Webino™ setup script!
-# Copyright (c) 2015-2018 Webino, s.r.o. (http://webino.sk)
+# Copyright (c) 2015-@@year@@ Webino, s.r.o. (http://webino.sk)
 # Version: @@version@@
 #
 # Are you looking at this in your web browser, and would like to get Webino™?
@@ -10,7 +10,7 @@
 #    wget @@host@@/system -qO- | sh
 #
 # Webino™ currently supports:
-#   - Ubuntu 16.04
+#   - Ubuntu 16.04 / Ubuntu 18.04
 #
 # What this script does?
 #   - It resolves host operating system info
