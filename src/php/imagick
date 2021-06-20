@@ -16,7 +16,7 @@
 #   - It builds PHP from source
 
 main() {
-    cd /tmp/php/ext
+    cd /tmp/php/ext || return
     
     #---------+
     # install |
@@ -34,7 +34,7 @@ main() {
             echo 'ImageMagick already downloaded...'
         fi
             
-        cd imagick
+        cd imagick || return
         phpize
         ./configure
         make

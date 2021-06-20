@@ -142,7 +142,7 @@ main() {
     #-----------+
     # PHP build |
     #-----------+
-    cd /tmp/php
+    cd /tmp/php || return
     echo 'Building PHP...'
     echo 'with config:'
     echo $php_cfg;

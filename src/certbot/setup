@@ -24,11 +24,21 @@ load() {
 main() {
     echo -e "\nInstalling Let’s Encrypt compatible certificate bot...\n"
 
+    #------+
+    # init |
+    #------+
     load ~lib
     load arguments "$@"
 
-    # Install
-    load sw/certbot
+    #-------+
+    # setup |
+    #-------+
+    load certbot/general
+
+    #------+
+    # done |
+    #------+
+    setup_done
 }
 
 main "$@"
