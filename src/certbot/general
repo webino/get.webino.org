@@ -29,7 +29,7 @@ main() {
     sudo snap refresh core
     sudo snap install --classic certbot
     sudo ln -s /snap/bin/certbot /usr/bin/certbot
-    sudo certbot certonly --webroot -w /undefined -d undefined.com -d www.undefined.com || true
+    sudo certbot certonly --webroot -w /tmp -d undefined.com -d www.undefined.com || true
 
     # TODO
     # renew cron
