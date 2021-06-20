@@ -71,9 +71,12 @@ main() {
     load mysql/create/user devkit
     # TODO allow devkit user to run custom sudo mount-project, cp-project, webino, (php) commands
 
-    # TODO add webino-ca authority
+    # add webino-ca authority
+    load webino-ca/general
+
     # TODO setup authorized key for git to webino-devkit user
-    # TODO setup webino-devkit
+    # webino-devkit setup
+    sudo npm install -g webino-devkit
     # TODO setup webino-devkit .webino.json config
     # TODO setup webino-devkit-pro
     # TODO add webino-devkit-pro module to the .webino.json config

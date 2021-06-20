@@ -15,30 +15,18 @@
 # What this script does?
 #   - It installs Satis the Composer repository generator
 
-load() {
-    # Load remote bash source
-    wget @@host@@/$1 -qO /tmp/webino
-    source /tmp/webino
-}
-
 main() {
-    echo -e "\nInstalling Satis the Composer repository generator...\n"
+    cd /opt || return
+    echo -e "\nWebino Satis setup...\n"
+    sudo git clone https://github.com/composer/satis.git --depth 1
 
-    #------+
-    # init |
-    #------+
-    load ~lib
-    load arguments "$@"
+    cd satis || return
+    sudo wget https://getcomposer.org/installer -qO- | php
+    sudo php composer.phar install
+    sudo mkdir -p /var/satis
+    sudo chown www-data:www-data /var/satis
 
-    #-------+
-    # setup |
-    #-------+
-    load satis/general
-
-    #------+
-    # done |
-    #------+
-    setup_done
+    echo -e "\nWebino Satis setup done...\n"
 }
 
-main "$@"
+main

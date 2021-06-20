@@ -7,7 +7,7 @@
 # Are you looking at this in your web browser, and would like to get Webino™?
 # Just open up your terminal and type:
 #
-#    wget @@host@@/media -qO- | sh
+#    wget @@host@@/media-srv -qO- | sh
 #
 # Webino™ currently supports:
 #   - Ubuntu 16.04
@@ -24,6 +24,9 @@ load() {
 main() {
     echo -e "\nMachine setup for Webino™ (Media server)...\n"
 
+    #------+
+    # init |
+    #------+
     load ~lib
     load arguments "$@"
 
@@ -32,14 +35,19 @@ main() {
     _env_dev=
     _env_pub=1
 
-    # Install
-    load os/general
-    load sw/apache
-    load sw/php
-    load sw/git-srv
-    load sw/satis
+    #-------+
+    # setup |
+    #-------+
+    load system/general
+    load apache/general
+    load php/general
+    load git-srv/fetch
+    load satis/general
 
-    echo -e "\nSuccess...\n"
+    #------+
+    # done |
+    #------+
+    setup_done
 }
 
 main "$@"

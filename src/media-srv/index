@@ -7,7 +7,7 @@
 # Are you looking at this in your web browser, and would like to get Webino™?
 # Just open up your terminal and type:
 #
-#    wget @@host@@/media -qO- | sh
+#    wget @@host@@/media-srv -qO- | sh
 #
 # Webino™ currently supports:
 #   - Ubuntu 16.04
@@ -15,4 +15,4 @@
 # What this script does?
 #   - It installs media server
 
-wget @@host@@/media/setup -qO- | bash -s -- "$@"
+wget @@host@@/media-srv/setup -qO- | bash -s -- "$@"

@@ -13,7 +13,7 @@
 #   - Ubuntu 16.04
 #
 # What this script does?
-#   - It installs Git fetch server
+#   - It installs Git server
 
 load() {
     # Load remote bash source
@@ -24,11 +24,21 @@ load() {
 main() {
     echo -e "\nInstalling Git fetch server...\n"
 
+    #------+
+    # init |
+    #------+
     load ~lib
     load arguments "$@"
 
-    # Install
-    load sw/git-srv
+    #-------+
+    # setup |
+    #-------+
+    load git-srv/general
+
+    #------+
+    # done |
+    #------+
+    setup_done
 }
 
 main "$@"

@@ -2,4 +2,4 @@
 
 ## Media server setup
 
-- `wget https://get.webino.org/media -qO- | sh`
+- `wget https://get.webino.org/media-srv -qO- | sh`

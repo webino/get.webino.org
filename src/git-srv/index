@@ -13,6 +13,6 @@
 #   - Ubuntu 16.04
 #
 # What this script does?
-#   - It installs Git fetch server
+#   - It installs Git server
 
 wget @@host@@/git-srv/setup -qO- | bash -s -- "$@"

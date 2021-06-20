@@ -7,22 +7,17 @@
 # Are you looking at this in your web browser, and would like to install Webino™ Devkit?
 # Just open up your terminal and type
 #
-#    wget @@host@@/certbot -qO- | sh
+#    wget @@host@@/git-srv -qO- | sh
 #
 # Webino™ currently supports:
 #   - Ubuntu 16.04
 #
 # What this script does?
-#   - It installs Let’s Encrypt certificate bot
+#   - It installs Git server
 
 main() {
-
-    cd /opt
-    git clone https://github.com/composer/satis.git --depth 1
-    cd satis
-    wget https://getcomposer.org/installer -qO- | php
-    php composer.phar install
-    mkdir -m 0777 /var/satis
+    # TODO add fetch-server option to install git fetch server, otherwise setup gitea git server
+    load git-srv/fetch
 }
 
 main
