@@ -27,17 +27,16 @@ main() {
     # force PHP-FPM support
     php_fpm=1
 
-    # install general tools
-    # TODO conditions if required in command
-    #load system/general
-    #load apache/general
-    #load mysql/general
-    #load php/general
-    #load devkit/general
+    # install requirements if any
+    load system/general
+    [[ $(apachectl --version 2>/dev/null) ]] || load apache/general
+    [[ $(mysql --version 2>/dev/null) ]] || load mysql/general
+    [[ $(php --version 2>/dev/null) ]] || load php/general
+    [[ $(webino --version 2>/dev/null) ]] || load devkit/general
 
     # force vhost name
+    # TODO options
     _vhost_name=dev
-    # TODO option
     _vhost_domain=dev.webino.sk
 
     # force dev server user name
@@ -48,9 +47,13 @@ main() {
     load vhost/configure
     # TODO setup vhost SSL protection with user certs
 
+    # TODO install sphinx (dev docs)
+    # sudo apt-get install python3-pip python3-sphinx
+    # sudo pip3 install sphinx-better-theme
+
     # setup vhost.conf
     local file=/srv/dev/common.conf
-    local is_vhost_configured=$(grep 'Dev server' $file)
+    local is_vhost_configured;is_vhost_configured=$(grep 'Dev server' $file)
     if [[ ! $is_vhost_configured ]]; then
         echo 'Configuring dev server vhost.conf...'
         wget $data$file -qO- | sudo tee --append $file > /dev/null
