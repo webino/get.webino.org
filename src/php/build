@@ -87,33 +87,40 @@ main() {
     
        echo 'With PHP7 support...'
        php_cfg+=" --enable-ftp \
-                  --enable-sockets \
-                  --with-openssl \
-                  --with-openssl-dir=/usr"
-                  
-      #--------------+
-      # For PHP>=7.4 |
-      #--------------+
-      sudo dpkg --compare-versions "$_php_version" 'lt' '7.4' && {
+                  --enable-sockets"
 
-          echo 'Without PHP7.4 support (legacy)...'
-          php_cfg+=" --enable-zip \
-                     --enable-wddx \
-                     --with-libzip \
-                     --with-freetype-dir \
-                     --with-jpeg-dir=/usr/lib \
-                     --with-gd"
-      } || {
+       #-----------------+
+       # OPENSSL support |
+       #-----------------+
+       if [[ $_php_openssl ]]; then
+           echo 'With OPENSSL support...'
+           php_cfg+=' --with-openssl \
+                      --with-openssl-dir=/usr'
+       fi
 
-         echo 'With PHP7.4 support...'
-         install libsqlite3-dev \
-                 libonig-dev
+       #--------------+
+       # For PHP>=7.4 |
+       #--------------+
+       sudo dpkg --compare-versions "$_php_version" 'lt' '7.4' && {
+
+           echo 'Without PHP7.4 support (legacy)...'
+           php_cfg+=" --enable-zip \
+                      --enable-wddx \
+                      --with-libzip \
+                      --with-freetype-dir \
+                      --with-jpeg-dir=/usr/lib \
+                      --with-gd"
+       } || {
+
+          echo 'With PHP7.4 support...'
+          install libsqlite3-dev \
+                  libonig-dev
                  
-         php_cfg+=" --with-zip \
-                    --with-freetype \
-                    --with-jpeg=/usr/lib \
-                    --enable-gd"
-      }
+          php_cfg+=" --with-zip \
+                     --with-freetype \
+                     --with-jpeg=/usr/lib \
+                     --enable-gd"
+       }
     }
 
     #---------------------+
