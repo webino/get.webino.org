@@ -151,7 +151,8 @@ main() {
     #-----------------+
     if [[ ! $_php_sqlite ]]; then
         echo 'Without SQLite support...'
-        php_cfg+=' --without-sqlite3'
+        php_cfg+=' --without-sqlite3 \
+                   --without-pdo-sqlite'
     fi
 
     #-----------+
