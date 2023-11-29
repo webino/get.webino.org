@@ -67,13 +67,18 @@ main() {
             --without-pear \
             --without-readline"
 
-    #---------------------------+
-    # Intl support for PHP>=5.4 |
-    #---------------------------+
-    sudo dpkg --compare-versions "$_php_version" 'lt' '5.4' || {
-       echo 'With INTL support...'
-       php_cfg+=' --enable-intl'
-    }
+    #--------------+
+    # INTL support |
+    #--------------+
+    if [[ $_php_intl ]]; then
+        #---------------------------+
+        # Intl support for PHP>=5.4 |
+        #---------------------------+
+        sudo dpkg --compare-versions "$_php_version" 'lt' '5.4' || {
+           echo 'With INTL support...'
+           php_cfg+=' --enable-intl'
+        }
+    fi
 
     #--------------+
     # For PHP>=7.0 |
@@ -165,8 +170,8 @@ main() {
     echo
 
     # TODO PHP 7.3 on Ubuntu > 18.04 see: https://bugs.php.net/bug.php?id=80310
-    export CXX="g++ -DTRUE=1 -DFALSE=0"
-    export CC="gcc -DTRUE=1 -DFALSE=0"
+    #export CXX="g++ -DTRUE=1 -DFALSE=0"
+    #export CC="gcc -DTRUE=1 -DFALSE=0"
 
     ./buildconf --force
     ./configure $php_cfg
