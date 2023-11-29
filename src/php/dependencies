@@ -43,6 +43,7 @@ main() {
         libxslt1-dev \
         libc-client-dev \
         libkrb5-dev \
+        php-dev \
         bison
 
     #-------+
