@@ -164,10 +164,6 @@ main() {
     echo $php_cfg;
     echo
 
-    # TODO using INTL ICU fix with 7.3 and Ubuntu > 18.04 see: https://bugs.php.net/bug.php?id=80310
-    export CXX="g++ -DTRUE=1 -DFALSE=0"
-    export CC="gcc -DTRUE=1 -DFALSE=0"
-
     ./buildconf --force
     ./configure $php_cfg
     make
