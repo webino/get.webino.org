@@ -38,6 +38,7 @@ main() {
         libzip-dev \
         libicu-dev \
         libedit-dev \
+        libfreetype6-dev \
         libmagickwand-dev \
         libmcrypt-dev \
         libxslt1-dev \
