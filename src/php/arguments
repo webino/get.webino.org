@@ -20,6 +20,7 @@ main() {
     _php_prefix=
     _php_short_tags=
     _php_memcached=
+    _php_sqlite=
     _php_openssl=
     _php_fpm=
 
@@ -48,6 +49,11 @@ main() {
         ;;
         -php-memcached)
             _php_memcached=1
+            shift
+            shift
+        ;;
+        -php-sqlite)
+            _php_sqlite=1
             shift
             shift
         ;;
