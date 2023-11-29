@@ -94,8 +94,8 @@ main() {
        #-----------------+
        if [[ $_php_openssl ]]; then
            echo 'With OPENSSL support...'
-           php_cfg+=' --with-openssl \
-                      --with-openssl-dir=/usr'
+           php_cfg+=" --with-openssl \
+                      --with-openssl-dir=/usr"
        fi
 
        #--------------+
@@ -151,8 +151,8 @@ main() {
     #-----------------+
     if [[ ! $_php_sqlite ]]; then
         echo 'Without SQLite support...'
-        php_cfg+=' --without-sqlite3 \
-                   --without-pdo-sqlite'
+        php_cfg+=" --without-sqlite3 \
+                   --without-pdo-sqlite"
     fi
 
     #-----------+
