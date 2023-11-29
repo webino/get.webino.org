@@ -7,6 +7,7 @@
 
 - Ubuntu 
   16.04
+  18.04
 
 
 ## Features
