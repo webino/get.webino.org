@@ -22,6 +22,7 @@ main() {
     _php_memcached=
     _php_sqlite=
     _php_openssl=
+    _php_intl=
     _php_fpm=
 
     #----------+
@@ -59,6 +60,11 @@ main() {
         ;;
         -php-openssl)
             _php_openssl=1
+            shift
+            shift
+        ;;
+        -php-intl)
+            _php_intl=1
             shift
             shift
         ;;
