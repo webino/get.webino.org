@@ -146,6 +146,14 @@ main() {
         php_cfg+=' --enable-fpm'
     fi
 
+    #-----------------+
+    # SQLite support |
+    #-----------------+
+    if [[ ! $_php_sqlite ]]; then
+        echo 'Without SQLite support...'
+        php_cfg+=' --without-sqlite3'
+    fi
+
     #-----------+
     # PHP build |
     #-----------+
