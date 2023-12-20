@@ -50,7 +50,12 @@ main() {
         curl \
         unzip \
         git
-        
+
+    #---------------------+
+    # SSH FS (local only) |
+    #---------------------+
+    [[ $_env_local ]] && install sshfs
+
     #-------------------------------+
     # java runtime (local|dev only) |
     #-------------------------------+
