@@ -88,6 +88,8 @@ main() {
         setup_log $msg
     fi
 
+    #TODO change ssh / sftp port in /etc/services
+
     #-----------------+
     # service restart |
     #-----------------+
