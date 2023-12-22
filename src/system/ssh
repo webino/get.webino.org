@@ -63,6 +63,11 @@ main() {
         echo "AllowGroups sysadmin" | cat - $config | sudo tee $config > /dev/null
     fi
 
+    #-----------+
+    # IPv4 only |
+    #-----------+
+    sudo sed -i 's/#\?ListenAddress 0.0.0.0/ListenAddress 0.0.0.0/' $config
+
     #------------------------+
     # disable password login |
     #------------------------+
